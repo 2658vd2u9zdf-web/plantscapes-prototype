@@ -1,0 +1,88 @@
+{
+  "dataset_name": "Plantscapes Netherlands vascular-plant taxonomy and decision-trait scaffold",
+  "version": "0.2.0",
+  "generated_on": "2026-09-10",
+  "record_count": 2443,
+  "storage_design": "Taxon-level compact taxonomy and decision-trait scaffold only; no raw vegetation plots, maps, images or occurrence records are stored.",
+  "geographic_scope": {
+    "national_taxonomy": "Netherlands vascular plants represented by the Verspreidingsatlas vascular-plant taxonomy feed.",
+    "south_holland": "A South Holland field is present but intentionally blank: a national taxonomy entry, national map link or GBIF aggregate count does not demonstrate provincial occurrence."
+  },
+  "primary_source": {
+    "provider": "GBIF / Wageningen Environmental Research",
+    "dataset_key": "740df67d-5663-41a2-9d12-33ec33876c47",
+    "dataset_title": "Dutch Vegetation Database",
+    "dataset_doi": "10.15468/ksqxep",
+    "dataset_license": "http://creativecommons.org/licenses/by/4.0/legalcode",
+    "dataset_pub_date": "2018-06-29T00:00:00.000+00:00",
+    "source_description": "The Dutch Vegetation Database (LVD) hosts information on all plant communities in the Netherlands. This archive consists of over 675.000 recent and historic vegetation descriptions. The data provide information on more than 90 years of vegetation recording in various habitats covering terrestrial and aquatic ecosystems from natural, semi-natural as well as cultural landscapes.",
+    "source_total_occurrences_returned_by_api": 11987804,
+    "species_selection": "Top 3,370 SPECIES_KEY facet values by occurrence count returned by paginated GBIF occurrence API facets.",
+    "important_limitations": [
+      "Occurrence count is a sampling-record count, not abundance, suitability, native status, or local availability.",
+      "The dataset includes vascular plants, stoneworts, mosses and lichens; it is not restricted to vascular planting taxa.",
+      "Some locations for threatened species are obscured in the source metadata.",
+      "The source metadata describes data through 2017 and a GBIF publication date of 2018; it is not a live current-flora inventory."
+    ]
+  },
+  "vascular_taxonomy_source": {
+    "provider": "Verspreidingsatlas / NDFF",
+    "api_url": "https://www.verspreidingsatlas.nl/taxa/vaatplanten",
+    "taxon_count_returned_by_api": 2436,
+    "fields_used": [
+      "taxon number",
+      "scientific name",
+      "scientific authorship",
+      "Dutch vernacular name",
+      "family",
+      "species page URL",
+      "NDFF identity URL"
+    ],
+    "fields_not_copied": [
+      "distribution map image"
+    ],
+    "map_rights_notice": "The source API labels map objects CC BY-NC-SA 3.0; this dataset retains URLs only and does not copy map images."
+  },
+  "heritage_cultivar_module": {
+    "provider": "CGN/WUR Oranje Lijst",
+    "source_urls": [
+      "https://deoerakker.cgn.wur.nl/or/list.asp?gewassearch=appel",
+      "https://deoerakker.cgn.wur.nl/or/list.asp?gewassearch=peer",
+      "https://deoerakker.cgn.wur.nl/or/list.asp?gewassearch=pruim",
+      "https://deoerakker.cgn.wur.nl/or/list.asp?gewassearch=kers"
+    ],
+    "record_count": 1552,
+    "scope": "Historic apple, pear, plum and cherry cultivars recorded as cultivated in the Netherlands from 1850 to the Second World War.",
+    "botanical_handling": "Stored in a separate cultivar module so cultivar records are not misrepresented as wild species. Historic “Kers” rows are retained as Prunus spp. pending cultivar-level botanical review.",
+    "edible_handling": "Fruit is populated at crop level only; food safety, preparation and cultivar identity remain subject to review."
+  },
+  "supplementary_test_taxa": {
+    "source": "GBIF Backbone taxonomy and occurrence search filtered to country=NL",
+    "requested_names": [
+      "fireweed",
+      "Metskastik",
+      "sweet pea",
+      "weeping willow",
+      "blueblossom",
+      "purpletop tridens",
+      "whorled tickseed"
+    ],
+    "added_record_count": 7,
+    "limitation": "This is a bounded gap-repair layer. Its presence in the core table does not establish native status, South Holland occurrence or planting suitability."
+  },
+  "excluded_from_local_copy": [
+    {
+      "source": "TRY Plant Trait Database",
+      "reason": "Data-use policy prohibits redistribution through another website/database without an appropriate data-governance arrangement."
+    },
+    {
+      "source": "Digital Plant Atlas images/metadata",
+      "reason": "CC BY-NC-SA and commercial-use restrictions require a separate permission/licence decision."
+    },
+    {
+      "source": "Flora Incognita",
+      "reason": "No public general-purpose database/API licence was verified for ingestion."
+    }
+  ],
+  "curation_rule": "Only populate a blank decision-trait or South Holland presence field when a specific source record, licence, retrieval date and reviewer can be recorded."
+}

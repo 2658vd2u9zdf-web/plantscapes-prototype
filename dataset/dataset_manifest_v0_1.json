@@ -1,0 +1,39 @@
+{
+  "dataset_name": "Plantscapes Dutch vegetation compact seed",
+  "version": "0.1.0",
+  "generated_on": "2026-09-10",
+  "record_count": 3370,
+  "storage_design": "Taxon-level compact seed only; no raw vegetation plots or occurrence records are stored.",
+  "primary_source": {
+    "provider": "GBIF / Wageningen Environmental Research",
+    "dataset_key": "740df67d-5663-41a2-9d12-33ec33876c47",
+    "dataset_title": "Dutch Vegetation Database",
+    "dataset_doi": "10.15468/ksqxep",
+    "dataset_license": "http://creativecommons.org/licenses/by/4.0/legalcode",
+    "dataset_pub_date": "2018-06-29T00:00:00.000+00:00",
+    "source_description": "The Dutch Vegetation Database (LVD) hosts information on all plant communities in the Netherlands. This archive consists of over 675.000 recent and historic vegetation descriptions. The data provide information on more than 90 years of vegetation recording in various habitats covering terrestrial and aquatic ecosystems from natural, semi-natural as well as cultural landscapes.",
+    "source_total_occurrences_returned_by_api": 11987804,
+    "species_selection": "Top 3,370 SPECIES_KEY facet values by occurrence count returned by paginated GBIF occurrence API facets.",
+    "important_limitations": [
+      "Occurrence count is a sampling-record count, not abundance, suitability, native status, or local availability.",
+      "The dataset includes vascular plants, stoneworts, mosses and lichens; it is not restricted to vascular planting taxa.",
+      "Some locations for threatened species are obscured in the source metadata.",
+      "The source metadata describes data through 2017 and a GBIF publication date of 2018; it is not a live current-flora inventory."
+    ]
+  },
+  "excluded_from_local_copy": [
+    {
+      "source": "TRY Plant Trait Database",
+      "reason": "Data-use policy prohibits redistribution through another website/database without an appropriate data-governance arrangement."
+    },
+    {
+      "source": "Digital Plant Atlas images/metadata",
+      "reason": "CC BY-NC-SA and commercial-use restrictions require a separate permission/licence decision."
+    },
+    {
+      "source": "Flora Incognita",
+      "reason": "No public general-purpose database/API licence was verified for ingestion."
+    }
+  ],
+  "curation_rule": "Only populate a blank decision-trait field when a specific source record, licence, retrieval date and reviewer can be recorded."
+}

@@ -1,0 +1,116 @@
+case_id,printed_page,source_reading,normalized_name,confidence,evidence_basis,notes
+vlinderhof-utrecht,152,Adiantum pedatum,Adiantum pedatum,0.99,plan_legend_readable,Species-level match
+vlinderhof-utrecht,152,Anemone x Wild Swan,Anemone 'Wild Swan' (Macane001),0.98,plan_legend_and_RHS_crosscheck,Hybrid cultivar; RHS lists synonym Anemone rupicola 'Wild Swan'
+vlinderhof-utrecht,152,Aruncus Horatio,Aruncus 'Horatio',0.96,plan_legend_readable,Cultivar
+vlinderhof-utrecht,152,Astrantia Roma,Astrantia 'Roma',0.97,plan_legend_readable,Cultivar; species parentage not asserted
+vlinderhof-utrecht,152,Aster October Skies,Aster 'October Skies',0.95,plan_legend_readable,Retain source genus pending current taxonomic backbone reconciliation
+vlinderhof-utrecht,152,Brunnera macrophylla,Brunnera macrophylla,0.99,plan_legend_readable,Species-level match
+vlinderhof-utrecht,152,Campanula glomerata Caroline,Campanula glomerata 'Caroline',0.95,plan_legend_readable,Cultivar
+vlinderhof-utrecht,152,Campanula poscharskyana,Campanula poscharskyana,0.95,plan_legend_readable,Species-level match
+vlinderhof-utrecht,152,Clematis China Purple,Clematis heracleifolia 'China Purple',0.94,plan_legend_and_ASLA_crosscheck,Source legend shortens species name
+vlinderhof-utrecht,152,Deschampsia Goldtau,Deschampsia cespitosa 'Goldtau',0.97,plan_legend_readable,Species spelling normalized
+vlinderhof-utrecht,152,Epimedium Lilafee,Epimedium 'Lilafee',0.91,plan_legend_readable,Cultivar; parent species not asserted
+vlinderhof-utrecht,152,Epimedium grandiflorum,Epimedium grandiflorum,0.95,plan_legend_readable,Species-level match
+vlinderhof-utrecht,152,Gillenia trifoliata,Gillenia trifoliata,0.96,plan_legend_readable,Species-level match
+vlinderhof-utrecht,152,Hakonechloa macra,Hakonechloa macra,0.99,plan_legend_and_plant_reference_crosscheck,Species-level match
+vlinderhof-utrecht,152,Heuchera villosa,Heuchera villosa,0.99,plan_legend_and_plant_reference_crosscheck,Species-level match
+vlinderhof-utrecht,152,Hosta Blue Angel,Hosta 'Blue Angel',0.96,plan_legend_readable,Cultivar
+vlinderhof-utrecht,152,Kirengeshoma palmata,Kirengeshoma palmata,0.98,plan_legend_readable,Species-level match
+vlinderhof-utrecht,152,Liriope Ingwersen,Liriope muscari 'Ingwersen',0.92,plan_legend_readable,Taxon/cultivar pairing based on established horticultural name
+vlinderhof-utrecht,152,Polystichum setiferum,Polystichum setiferum,0.98,plan_legend_and_plant_reference_crosscheck,Species-level match
+vlinderhof-utrecht,152,Polygonatum Weihenstephan,Polygonatum x hybridum 'Weihenstephan',0.94,plan_legend_and_plant_reference_crosscheck,Hybrid cultivar
+vlinderhof-utrecht,153,Achillea Moonshine,Achillea 'Moonshine',0.99,plan_legend_and_plant_reference_crosscheck,Cultivar
+vlinderhof-utrecht,153,Amsonia hubrichtii,Amsonia hubrichtii,0.99,plan_legend_readable,Species-level match
+vlinderhof-utrecht,153,Asclepias tuberosa,Asclepias tuberosa,0.98,plan_legend_readable,Species-level match
+vlinderhof-utrecht,153,Briza media,Briza media,0.98,plan_legend_readable,Species-level match
+vlinderhof-utrecht,153,Calamagrostis brachytricha,Calamagrostis brachytricha,0.96,plan_legend_readable,Species-level match
+vlinderhof-utrecht,153,Echinacea Fatal Attraction,Echinacea purpurea 'Fatal Attraction',0.93,plan_legend_readable,Cultivar parentage normalized to common horticultural usage
+vlinderhof-utrecht,153,Eryngium bourgatii,Eryngium bourgatii,0.96,plan_legend_readable,Species-level match
+vlinderhof-utrecht,153,Eupatorium maculatum Snowball,Eutrochium maculatum 'Snowball',0.9,plan_legend_and_taxonomic_update,Modern genus commonly used; preserve Eupatorium maculatum 'Snowball' as source synonym
+vlinderhof-utrecht,153,Festuca mairei,Festuca mairei,0.99,plan_legend_readable,Species-level match
+vlinderhof-utrecht,153,Geranium Rozanne,Geranium 'Rozanne',0.99,plan_legend_readable,Cultivar
+vlinderhof-utrecht,153,Geranium psilostemon,Geranium psilostemon,0.97,plan_legend_readable,Species-level match
+vlinderhof-utrecht,153,Helenium Moerheim Beauty,Helenium 'Moerheim Beauty',0.99,plan_legend_and_plant_reference_crosscheck,Cultivar
+vlinderhof-utrecht,153,Helenium Rubinzwerg,Helenium 'Rubinzwerg',0.97,plan_legend_readable,Cultivar
+vlinderhof-utrecht,153,Molinia Transparent,Molinia caerulea subsp. arundinacea 'Transparent',0.9,plan_legend_and_plant_reference_crosscheck,Infraspecific attribution is a probable horticultural normalization
+vlinderhof-utrecht,153,Penstemon Huskers Red,Penstemon digitalis 'Husker Red',0.94,plan_legend_readable,Cultivar
+vlinderhof-utrecht,153,Persicaria Orange Field,Persicaria amplexicaulis 'Orange Field',0.96,plan_legend_readable,Cultivar
+vlinderhof-utrecht,153,Phlomis Little Amazon,Phlomis tuberosa 'Little Amazon',0.91,plan_legend_readable,Probable cultivar parentage
+vlinderhof-utrecht,153,Salvia Purple Rain,Salvia nemorosa 'Purple Rain',0.94,plan_legend_readable,Probable species attribution
+vlinderhof-utrecht,153,Salvia Pine Delight,Salvia x sylvestris 'Pine Delight',0.85,plan_legend_readable,Hybrid attribution probable; name needs nursery-level confirmation before procurement
+vlinderhof-utrecht,153,Scutellaria incana,Scutellaria incana,0.96,plan_legend_readable,Species-level match
+vlinderhof-utrecht,153,Sedum Matrona,Hylotelephium 'Matrona',0.9,plan_legend_and_taxonomic_update,Current genus often Hylotelephium; keep source as Sedum telephium-group cultivar
+vlinderhof-utrecht,153,Sporobolus heterolepis,Sporobolus heterolepis,0.99,plan_legend_readable,Species-level match
+vlinderhof-utrecht,153,Stachys officinalis Rosea,Stachys officinalis 'Rosea',0.94,plan_legend_readable,Cultivar
+vlinderhof-utrecht,153,Stachys officinalis Hummelo,Stachys officinalis 'Hummelo',0.96,plan_legend_readable,Cultivar
+rotterdam-leuvehoofd-matrix,101,Sporobolus heterolepis,Sporobolus heterolepis,0.99,printed_caption_and_legend,Caption identifies this as a frequent matrix grass
+rotterdam-ichtushof-bulbs,105,Leucojum aestivum,Leucojum aestivum,0.98,user_transcription_and_plan_legend,Species-level match; retain original quantity note separately
+rotterdam-ichtushof-bulbs,105,Trillium sessile,Trillium sessile,0.97,user_transcription_and_plan_legend,Species-level match; retain original quantity note separately
+rotterdam-ichtushof-bulbs,105,Liriope muscari Big Blue,Liriope muscari 'Big Blue',0.97,user_transcription_and_plan_legend,Cultivar
+rotterdam-ichtushof-bulbs,105,Allium moly,Allium moly,0.98,user_transcription_and_plan_legend,Species-level match
+rotterdam-ichtushof-bulbs,105,Crocus speciosus,Crocus speciosus,0.98,user_transcription_and_plan_legend,Species-level match
+rotterdam-ichtushof-bulbs,105,Anemone nemorosa,Anemone nemorosa,0.98,user_transcription_and_plan_legend,Species-level match
+rotterdam-leuvehoofd-patch-plan,106,Helenium Moerheim Beauty,Helenium 'Moerheim Beauty',0.99,plan_legend_readable,Cultivar
+rotterdam-leuvehoofd-patch-plan,106,Molinia Moorhexe,Molinia caerulea 'Moorhexe',0.96,plan_legend_readable,Cultivar
+rotterdam-leuvehoofd-patch-plan,106,Festuca mairei,Festuca mairei,0.99,plan_legend_readable,Legend notes 3 plants per square metre
+rotterdam-leuvehoofd-patch-plan,106,Limonium latifolium,Limonium latifolium,0.98,plan_legend_readable,Legend notes 5 plants per square metre
+private-garden-plans-222-223,222,Ceratostigma plumbaginoides,Ceratostigma plumbaginoides,0.95,user_transcription_and_plan_legend,Species-level match
+private-garden-plans-222-223,222,Deschampsia Goldtau,Deschampsia cespitosa 'Goldtau',0.98,plan_legend_readable,Species/cultivar normalized
+private-garden-plans-222-223,222,Euphorbia robbiae,Euphorbia amygdaloides subsp. robbiae,0.88,plan_legend_readable,Commonly treated horticulturally as Euphorbia robbiae; accepted taxonomic rank should be checked against chosen backbone
+private-garden-plans-222-223,222,Amsonia Blue Ice,Amsonia 'Blue Ice',0.94,plan_legend_and_Chicago_Botanic_Garden,Parentage remains uncertain; genus and cultivar are the supported identification
+private-garden-plans-222-223,222,Campanula glomerata Caroline,Campanula glomerata 'Caroline',0.97,plan_legend_readable,Cultivar
+private-garden-plans-222-223,222,Anemone leveillei,Anemone leveillei,0.96,plan_legend_readable,Species-level match
+private-garden-plans-222-223,222,Campanula poscharskyana,Campanula poscharskyana,0.96,plan_legend_readable,Species-level match
+private-garden-plans-222-223,222,Astrantia Roma,Astrantia 'Roma',0.94,plan_legend_readable,Cultivar
+private-garden-plans-222-223,222,Brunnera macrophylla,Brunnera macrophylla,0.98,plan_legend_readable,Paired with Polemonium caeruleum in source; preserve pairing outside this name-level table
+private-garden-plans-222-223,222,Polemonium caeruleum,Polemonium caeruleum,0.91,plan_legend_readable,Paired with Brunnera macrophylla in source; preserve pairing outside this name-level table
+private-garden-plans-222-223,222,Carex pensylvanica,Carex pensylvanica,0.98,plan_legend_readable,Species-level match
+private-garden-plans-222-223,222,Dryopteris erythrosora,Dryopteris erythrosora,0.98,plan_legend_readable,Species-level match
+private-garden-plans-222-223,222,Geranium sanguineum Album,Geranium sanguineum 'Album',0.92,plan_legend_readable,Probable cultivar attribution
+private-garden-plans-222-223,222,Epimedium grandiflorum,Epimedium grandiflorum,0.98,plan_legend_readable,Species-level match
+private-garden-plans-222-223,222,Epimedium Lilafee,Epimedium 'Lilafee',0.9,plan_legend_readable,Parent species not asserted
+private-garden-plans-222-223,222,Geranium Claridge Druce,Geranium 'Claridge Druce',0.95,plan_legend_readable,Cultivar
+private-garden-plans-222-223,222,Geranium phaeum,Geranium phaeum,0.97,plan_legend_readable,Paired with Saruma henryi in source; preserve pairing outside this name-level table
+private-garden-plans-222-223,222,Saruma henryi,Saruma henryi,0.97,plan_legend_readable,Paired with Geranium phaeum in source; preserve pairing outside this name-level table
+private-garden-plans-222-223,222,Geranium wlassovianum,Geranium wlassovianum,0.96,plan_legend_readable,Species-level match
+private-garden-plans-222-223,222,Heuchera villosa,Heuchera villosa,0.98,plan_legend_readable,Species-level match
+private-garden-plans-222-223,222,Kirengeshoma palmata,Kirengeshoma palmata,0.98,plan_legend_readable,Species-level match
+private-garden-plans-222-223,222,Liriope Ingwersen,Liriope muscari 'Ingwersen',0.91,plan_legend_readable,Probable horticultural normalization
+private-garden-plans-222-223,222,Melica altissima,Melica altissima,0.95,plan_legend_readable,Species-level match
+private-garden-plans-222-223,222,Molinia Edith Dudszus,Molinia caerulea 'Edith Dudszus',0.94,plan_legend_and_horticultural_reference,Infraspecific rank omitted; cultivar identity is supported
+private-garden-plans-222-223,222,Polystichum setiferum,Polystichum setiferum,0.99,plan_legend_readable,Species-level match
+private-garden-plans-222-223,222,Polygonatum Weihenstephan,Polygonatum x hybridum 'Weihenstephan',0.93,plan_legend_readable,Hybrid cultivar
+private-garden-plans-222-223,222,Pulmonaria Blue Ensign,Pulmonaria 'Blue Ensign',0.95,plan_legend_readable,Cultivar
+private-garden-plans-222-223,222,Stachys monieri Rosea,Stachys monieri 'Rosea',0.9,plan_legend_readable,Source attribution visible; taxonomy may vary by reference
+private-garden-plans-222-223,222,Tiarella Spring Symphony,Tiarella 'Spring Symphony',0.9,plan_legend_readable,Cultivar
+private-garden-plans-222-223,222,Aruncus Horatio,Aruncus 'Horatio',0.96,plan_legend_readable,Cultivar
+private-garden-plans-222-223,222,Euphorbia characias,Euphorbia characias,0.97,plan_legend_readable,Species-level match
+private-garden-plans-222-223,222,Euphorbia griffithii Dixter,Euphorbia griffithii 'Dixter',0.97,plan_legend_readable,Cultivar
+private-garden-plans-222-223,222,Hosta Blue Angel,Hosta 'Blue Angel',0.97,plan_legend_readable,Cultivar
+private-garden-plans-222-223,223,Deschampsia Goldtau,Deschampsia cespitosa 'Goldtau',0.98,plan_legend_readable,Species/cultivar normalized
+private-garden-plans-222-223,223,Dryopteris erythrosora,Dryopteris erythrosora,0.98,plan_legend_readable,Species-level match
+private-garden-plans-222-223,223,Geranium Claridge Druce,Geranium 'Claridge Druce',0.95,plan_legend_readable,Cultivar
+private-garden-plans-222-223,223,Geranium wlassovianum,Geranium wlassovianum,0.96,plan_legend_readable,Species-level match
+private-garden-plans-222-223,223,Kirengeshoma palmata,Kirengeshoma palmata,0.98,plan_legend_readable,Species-level match
+private-garden-plans-222-223,223,Liriope Ingwersen,Liriope muscari 'Ingwersen',0.9,plan_legend_readable,Probable horticultural normalization
+private-garden-plans-222-223,223,Achillea Moonshine,Achillea 'Moonshine',0.99,plan_legend_readable,Cultivar
+private-garden-plans-222-223,223,Allium Summer Beauty,Allium 'Summer Beauty',0.97,plan_legend_readable,Cultivar
+private-garden-plans-222-223,223,Amsonia hubrichtii,Amsonia hubrichtii,0.98,plan_legend_readable,Species-level match
+private-garden-plans-222-223,223,Calamintha nepeta,Clinopodium nepeta,0.88,plan_legend_and_taxonomic_update,Source uses Calamintha nepeta; botanical databases may use Clinopodium nepeta
+private-garden-plans-222-223,223,Eragrostis spectabilis,Eragrostis spectabilis,0.98,plan_legend_readable,Species-level match
+private-garden-plans-222-223,223,Eryngium bourgatii,Eryngium bourgatii,0.96,plan_legend_readable,Species-level match
+private-garden-plans-222-223,223,Origanum Hopleys,Origanum 'Hopleys',0.9,plan_legend_readable,Cultivar name; exact spelling is likely Hopleys
+private-garden-plans-222-223,223,Salvia Blauhugel,Salvia nemorosa 'Blauhügel',0.95,plan_legend_readable,Cultivar; source also notes a blue-flowering companion in same symbol/group
+private-garden-plans-222-223,223,Schizachyrium Ha Ha Tonka,Schizachyrium scoparium 'Ha Ha Tonka',0.88,plan_legend_readable,Probable cultivar/species attribution
+private-garden-plans-222-223,223,Sedum Matrona,Hylotelephium 'Matrona',0.9,plan_legend_and_taxonomic_update,Commonly treated in current taxonomy as Hylotelephium cultivar
+private-garden-plans-222-223,223,Sesleria autumnalis,Sesleria autumnalis,0.98,plan_legend_readable,Species-level match
+private-garden-plans-222-223,223,Sporobolus heterolepis,Sporobolus heterolepis,0.98,plan_legend_readable,Species-level match
+private-garden-plans-222-223,223,Stachys byzantina Big Ears,Stachys byzantina 'Big Ears',0.97,plan_legend_readable,Cultivar
+private-garden-plans-222-223,223,Teucrium chamaedrys,Teucrium chamaedrys,0.98,plan_legend_readable,Species-level match
+private-garden-plans-222-223,223,Agastache Blue Fortune,Agastache 'Blue Fortune',0.97,plan_legend_readable,Cultivar
+private-garden-plans-222-223,223,Asclepias tuberosa,Asclepias tuberosa,0.98,plan_legend_readable,Species-level match
+private-garden-plans-222-223,223,Festuca mairei,Festuca mairei,0.98,plan_legend_readable,Species-level match
+private-garden-plans-222-223,223,Papaver Matador,Papaver orientale 'Matador',0.91,plan_legend_readable,Probable species attribution
+private-garden-plans-222-223,223,Papaver Perry's White,Papaver orientale 'Perry's White',0.9,plan_legend_readable,Probable species attribution
+private-garden-plans-222-223,223,Perovskia Little Spire,Salvia yangii 'Little Spire',0.88,plan_legend_and_taxonomic_update,Source uses Perovskia; current genus commonly Salvia
+private-garden-plans-222-223,223,Salvia turkestanica,Salvia turkestanica,0.94,plan_legend_readable,Species-level match; source annotation includes a synonym/cultivar note that remains unresolved

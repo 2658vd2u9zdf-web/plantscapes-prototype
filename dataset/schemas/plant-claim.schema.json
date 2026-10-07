@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://plantscapes.local/schemas/plant-claim.schema.json",
+  "title": "Plantscapes plant evidence claim",
+  "description": "One traceable claim about one accepted plant taxon. Keep multiple sources as separate claims.",
+  "type": "object",
+  "required": ["claim_id", "taxon", "trait", "value", "evidence", "review"],
+  "properties": {
+    "claim_id": {"type": "string", "minLength": 1},
+    "taxon": {
+      "type": "object",
+      "required": ["scientific_name"],
+      "properties": {
+        "taxon_id": {"type": ["string", "null"]},
+        "scientific_name": {"type": "string", "minLength": 1},
+        "vernacular_nl": {"type": ["string", "null"]},
+        "synonyms": {"type": "array", "items": {"type": "string"}},
+        "taxonomic_authority": {"type": ["string", "null"]}
+      },
+      "additionalProperties": false
+    },
+    "trait": {"type": "string", "enum": ["native_status", "regional_occurrence", "soil_texture", "soil_ph", "nutrient_level", "moisture", "hydrology", "light", "salinity", "mature_height", "mature_spread", "root_behaviour", "flowering_start", "flowering_end", "flower_colour", "ecological_role", "toxicity", "edible_part", "establishment", "maintenance", "spacing", "other"]},
+    "value": {},
+    "unit": {"type": ["string", "null"]},
+    "qualifier": {"type": ["string", "null"], "description": "Conditions, methods, life stage, cultivar or other scope limiting the claim."},
+    "geographic_scope": {"type": ["string", "null"]},
+    "evidence": {
+      "type": "object",
+      "required": ["source_id", "locator", "rights_status"],
+      "properties": {
+        "source_id": {"type": "string"},
+        "locator": {"type": "string", "description": "URL, page, figure, dataset row or stable record identifier."},
+        "edition_or_version": {"type": ["string", "null"]},
+        "rights_status": {"type": "string", "enum": ["open", "permission_granted", "internal_reference_only", "unknown", "restricted"]},
+        "accessed_on": {"type": ["string", "null"], "format": "date"},
+        "verbatim_note": {"type": ["string", "null"], "description": "Short working note only; do not copy extensive source text."}
+      },
+      "additionalProperties": false
+    },
+    "review": {
+      "type": "object",
+      "required": ["status", "confidence"],
+      "properties": {
+        "status": {"type": "string", "enum": ["unreviewed", "needs_second_review", "reviewed", "rejected"]},
+        "reviewer": {"type": ["string", "null"]},
+        "reviewed_on": {"type": ["string", "null"], "format": "date"},
+        "confidence": {"type": "string", "enum": ["high", "medium", "low", "unknown"]},
+        "notes": {"type": ["string", "null"]}
+      },
+      "additionalProperties": false
+    },
+    "record_status": {"type": "string", "enum": ["verified", "provisional", "synthetic", "deprecated"], "default": "provisional"}
+  },
+  "additionalProperties": false
+}

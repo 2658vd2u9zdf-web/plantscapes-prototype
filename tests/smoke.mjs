@@ -1,0 +1,130 @@
+import assert from 'node:assert/strict';
+import { readFile } from 'node:fs/promises';
+import { dirname, resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
+import vm from 'node:vm';
+
+const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
+const html = await readFile(resolve(root, 'website/index.html'), 'utf8');
+const app = await readFile(resolve(root, 'website/app.js'), 'utf8');
+const data = await readFile(resolve(root, 'website/data/catalogue.js'), 'utf8');
+const demo = await readFile(resolve(root, 'website/data/demo-data.js'), 'utf8');
+const designRules = JSON.parse(await readFile(resolve(root, 'website/data/oudolf-informed-design-rules.v0.1.json'), 'utf8'));
+const designRulesScript = await readFile(resolve(root, 'website/data/oudolf-informed-design-rules.v0.1.js'), 'utf8');
+const crosswalk = await readFile(resolve(root, 'website/data/plant-name-crosswalk.v0.1.csv'), 'utf8');
+const precedentScript = await readFile(resolve(root, 'website/data/oudolf-planting-precedents.v0.1.js'), 'utf8');
+
+for (let stage = 1; stage <= 7; stage++) {
+  assert.match(html, new RegExp('id="stage' + stage + '"'), 'missing stage ' + stage);
+}
+assert.match(html, /id="startProject"/);
+assert.match(html, /id="downloadCsv"/);
+assert.match(html, /id="sketchBoard"/);
+assert.match(html, /id="inNetherlands"/);
+assert.match(html, /id="siteMap"/);
+assert.match(html, /id="plotFinish"/);
+assert.match(html, /id="plotAreaReadout"/);
+assert.match(html, /Map starts in move mode/);
+assert.match(html, /id="plotPan" class="tool active"/);
+assert.doesNotMatch(html, /id="area"/);
+assert.match(html, /id="reviewGroups"/);
+assert.doesNotMatch(html, /id="pointFirst"/);
+assert.match(html, /id="generatePlan"/);
+assert.match(html, /species-coded hatch masses/i);
+assert.match(html, /id="downloadPlanSvg"/);
+assert.match(html, /id="downloadViewSvg"/);
+assert.match(html, /id="visualCanvas"/);
+assert.match(html, /id="viewSeason"/);
+assert.match(html, /data-tool="symbol"/);
+assert.match(html, /id="compositionMode"/);
+assert.match(html, /id="treeExclusionRadius"/);
+assert.match(app, /uncappedTarget=Math\.ceil\(netArea\*2\)/);
+assert.match(html, /oudolf-planting-precedents\.v0\.1\.js/);
+assert.match(html, /data\/plant-name-crosswalk\.v0\.1\.csv/);
+assert.match(html, /oudolf-informed-design-rules\.v0\.1\.js/);
+assert.match(app, /Synthetic Plantscapes test layer/);
+assert.match(app, /function generatePlan/);
+assert.doesNotMatch(app, /field\('area'\)/, 'Step 1 must not validate a deleted area input');
+assert.match(app, /field\('toSite'\)\.addEventListener\('click',\(\)=>advance\(2\)\)/, 'Step 1 continues directly to the site step');
+assert.match(app, /function loadDesignRules/);
+assert.match(app, /compositionRoleFor/);
+assert.match(app, /function plantingAreas/);
+assert.match(app, /function renderPlantingCoverage/);
+assert.match(app, /planting-hatch/);
+assert.match(app, /Species key/);
+assert.match(app, /function planPlantKey/);
+assert.match(app, /at least two plant symbols per square metre|per eligible m²/);
+assert.match(app, /service\.pdok\.nl\/kadaster\/brt-achtergrondkaart/);
+assert.match(app, /L\.control\.scale\(\{position:'bottomright',metric:true,imperial:false/);
+assert.match(app, /function metricToLatLng/);
+assert.match(app, /function chooseBedPlant/);
+assert.match(app, /plotMode:'pan'/);
+assert.match(app, /candidateLimit=50000/);
+assert.match(app, /positions are sampled across the full bed and density may be below 2\/m²/);
+assert.match(app, /oudolf-pattern-rules-v0\.1/);
+assert.match(app, /function renderVisualization/);
+assert.match(app, /function downloadPlanSvg/);
+assert.match(app, /function buildPlantingMasses/);
+assert.match(app, /function applyMassHatch/);
+assert.match(app, /state\.placements\.filter\(item=>item\.tree\|\|item\.accent\)/);
+assert.match(app, /Manually selected by designer/);
+assert.doesNotMatch(app, /curatedTraits|roadStress|isLowRisk|targetForArea/);
+
+const context = {window: {}};
+vm.runInNewContext(data, context);
+const catalogue = context.window.PLANTSCAPES_CATALOGUE;
+assert.ok(catalogue.length >= 2400, 'national name catalogue too small');
+assert.equal(new Set(catalogue.map(record => record.id)).size, catalogue.length, 'duplicate plant IDs');
+assert.deepEqual(Object.keys(catalogue[0]), ['id', 'latin', 'name', 'url'], 'unreviewed decision traits must not enter browser catalogue');
+vm.runInNewContext(demo, context);
+assert.ok(context.window.PLANTSCAPES_DEMO.plants.length >= 50, 'mock decision layer is too small for workflow evaluation');
+assert.ok(Object.keys(context.window.PLANTSCAPES_DEMO.places).length >= 8);
+assert.equal(designRules.schema_version, '0.1.0');
+assert.match(designRulesScript, /window\.PLANTSCAPES_DESIGN_RULES/);
+assert.match(precedentScript, /window\.PLANTSCAPES_OUDOLF_PRECEDENTS/);
+const precedentContext = {window: {}};
+vm.runInNewContext(precedentScript, precedentContext);
+assert.ok(precedentContext.window.PLANTSCAPES_OUDOLF_PRECEDENTS.length >= 100, 'resolved Oudolf precedent layer unexpectedly small');
+assert.equal(designRules.rules.length, 12, 'expected 12 evidence-linked composition rules');
+assert.deepEqual(designRules.composition_modes.map(mode => mode.mode_id), ['matrix_accent', 'repeated_drifts', 'community_patches']);
+const ruleIds = new Set(designRules.rules.map(rule => rule.rule_id));
+for (const mode of designRules.composition_modes) {
+  for (const id of mode.rule_ids) assert.ok(ruleIds.has(id), 'composition mode references missing rule ' + id);
+}
+assert.ok(crosswalk.split(/\r?\n/).length > 100, 'plant-name crosswalk unexpectedly small');
+
+const elements = new Map();
+const document = {getElementById(id) {if(!elements.has(id))elements.set(id,{value:id==='treeExclusionRadius'?'1':id==='compositionMode'?'matrix_accent':'',textContent:'',disabled:false,checked:false});return elements.get(id);},querySelector(){return null;},querySelectorAll(){return [];}};
+let runnable = app.replace(/\nsetup\(\);\s*$/, '\nwindow.__test={state,generatePlan,localMetricPolygon,metricPolygonArea,pointInPolygon};');
+const runtime = {window:{},document,confirm:()=>true,console,URL:{},Blob:function(){},setTimeout(){},Math};
+vm.runInNewContext(runnable, runtime);
+const api = runtime.window.__test;
+const rectangle = [[52,4],[52,4.00025],[52.00018,4.00025],[52.00018,4]];
+const measuredArea = api.metricPolygonArea(rectangle);
+assert.ok(measuredArea > 320 && measuredArea < 360, 'metric map-area projection should measure the drawn polygon');
+api.state.plotBoundary=rectangle;
+api.state.sketches=[{type:'planting',points:rectangle}];
+api.state.selected=[
+  {id:'grass',name:'Test grass',latin:'Testus grassus',group:'Grasses, sedges & rushes',demo:true,score:1},
+  {id:'flower',name:'Test flower',latin:'Testus florus',group:'Flowers & herbs',demo:true,score:1},
+  {id:'tree',name:'Test tree',latin:'Testus arbor',group:'Trees',demo:true,score:1}
+];
+runtime.renderPlantingCoverage=()=>{};runtime.renderPlacements=()=>{};runtime.renderSymbolEditor=()=>{};runtime.renderVisualization=()=>{};
+api.generatePlan();
+const plantSymbols=api.state.placements.filter(item=>!item.tree),treeSymbols=api.state.placements.filter(item=>item.tree);
+assert.ok(treeSymbols.length > 0, 'selected tree should create test tree(s) and buffer');
+const eligibleArea=measuredArea-treeSymbols.length*Math.PI;
+assert.ok(plantSymbols.length >= Math.ceil(eligibleArea*2), 'generated bed must satisfy the two symbols per eligible square metre minimum');
+assert.ok(api.state.placements.every(item=>api.pointInPolygon(item.point,rectangle)), 'all generated symbols should stay inside the plot boundary');
+assert.ok(plantSymbols.every(item=>treeSymbols.every(tree=>Math.hypot(item.xy[0]-tree.xy[0],item.xy[1]-tree.xy[1])>=1)), 'non-tree symbols should respect the approved 1 m tree buffer');
+assert.ok(api.state.planMasses.length > 0, 'dense non-tree planting should be grouped into hatch masses');
+assert.ok(api.state.planMasses.length < plantSymbols.length / 4, 'hatch masses should be substantially fewer than individual plant marks');
+assert.ok(api.state.planMasses.every(mass=>mass.count>0&&mass.polygon.length===4), 'each hatch mass should carry a count and a compact polygon');
+const largeBoundary=[[52,4],[52,4.00146],[52.00063,4.00146],[52.00063,4]];
+api.state.plotBoundary=largeBoundary;api.state.sketches=[{type:'planting',points:largeBoundary}];api.state.generated=false;api.state.placements=[];api.state.planRevision=0;
+api.generatePlan();
+const largeBedPlants=api.state.placements.filter(item=>!item.tree),largeXY=largeBedPlants.map(item=>item.xy);
+const largeMetric=api.localMetricPolygon(largeBoundary);
+const yRange=Math.max(...largeXY.map(p=>p[1]))-Math.min(...largeXY.map(p=>p[1]));
+assert.ok(yRange>(Math.max(...largeMetric.map(p=>p[1]))-Math.min(...largeMetric.map(p=>p[1])))*.9, 'dense symbols must cover the whole planting bed, not stop at a scan-order cutoff');
+console.log('Plantscapes smoke checks passed: seven stages, ' + catalogue.length + ' taxonomy-only records, ' + precedentContext.window.PLANTSCAPES_OUDOLF_PRECEDENTS.length + ' Oudolf precedents, metric boundary and dense planting rules.');

@@ -1,0 +1,12 @@
+# Local development / operating-system files
+node_modules/
+.DS_Store
+Thumbs.db
+Desktop.ini
+.env
+.env.*
+!.env.example
+
+# Downloaded course-platform page and bundled third-party scripts/styles.
+# The project overview and original QA notes remain in this package.
+project-information/Design brief/

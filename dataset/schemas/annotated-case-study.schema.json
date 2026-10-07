@@ -1,0 +1,83 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://plantscapes.local/schemas/annotated-case-study.schema.json",
+  "title": "Plantscapes annotated planting plan case",
+  "description": "A cited precedent and validation case. Do not infer missing quantities or geometry from an unscaled sketch.",
+  "type": "object",
+  "required": ["case_id", "source", "rights_status", "plan", "annotations", "review"],
+  "properties": {
+    "case_id": {"type": "string"},
+    "source": {
+      "type": "object",
+      "required": ["title", "locator", "rights_status"],
+      "properties": {
+        "title": {"type": "string"},
+        "creator": {"type": ["string", "null"]},
+        "publisher": {"type": ["string", "null"]},
+        "edition_or_year": {"type": ["string", "null"]},
+        "locator": {"type": "string", "description": "Page, figure, URL or archive identifier."},
+        "rights_status": {"type": "string", "enum": ["open", "permission_granted", "internal_reference_only", "unknown", "restricted"]}
+      },
+      "additionalProperties": false
+    },
+    "rights_status": {"type": "string", "enum": ["open", "permission_granted", "internal_reference_only", "unknown", "restricted"]},
+    "site": {
+      "type": "object",
+      "properties": {
+        "region": {"type": ["string", "null"]},
+        "area_m2": {"type": ["number", "null"], "minimum": 0},
+        "project_aim": {"type": ["string", "null"]},
+        "conditions": {"type": "array", "items": {"type": "string"}},
+        "conditions_evidence": {"type": ["string", "null"]}
+      },
+      "additionalProperties": false
+    },
+    "plan": {
+      "type": "object",
+      "required": ["scale_status"],
+      "properties": {
+        "geometry_file": {"type": ["string", "null"]},
+        "scale_status": {"type": "string", "enum": ["known", "estimated", "not_shown"]},
+        "scale_note": {"type": ["string", "null"]},
+        "legend_available": {"type": "boolean"},
+        "zones": {"type": "array", "items": {"type": "object"}},
+        "paths_and_sightlines": {"type": ["string", "null"]}
+      },
+      "additionalProperties": false
+    },
+    "annotations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["layer", "role", "annotation_confidence"],
+        "properties": {
+          "zone_id": {"type": ["string", "null"]},
+          "layer": {"type": "string"},
+          "role": {"type": ["string", "null"]},
+          "taxon_id_or_name": {"type": ["string", "null"]},
+          "quantity_or_density": {"type": ["number", "null"]},
+          "unit": {"type": ["string", "null"]},
+          "spacing": {"type": ["string", "null"]},
+          "pattern": {"type": ["string", "null"]},
+          "seasonal_intent": {"type": ["string", "null"]},
+          "maintenance": {"type": ["string", "null"]},
+          "rationale": {"type": ["string", "null"]},
+          "annotation_confidence": {"type": "string", "enum": ["high", "medium", "low", "unknown"]}
+        },
+        "additionalProperties": false
+      }
+    },
+    "review": {
+      "type": "object",
+      "required": ["status"],
+      "properties": {
+        "status": {"type": "string", "enum": ["unreviewed", "reviewed", "needs_correction", "rejected"]},
+        "reviewer": {"type": ["string", "null"]},
+        "reviewed_on": {"type": ["string", "null"], "format": "date"},
+        "notes": {"type": ["string", "null"]}
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

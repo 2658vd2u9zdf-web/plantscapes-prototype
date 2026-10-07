@@ -1,0 +1,556 @@
+{
+  "generated_on": "2026-09-10T20:13:13.125Z",
+  "source": "GBIF species match and occurrence search (country=NL)",
+  "results": [
+    {
+      "input_name": "Bärlauch",
+      "candidates": [
+        "Allium ursinum"
+      ],
+      "status": "queried",
+      "results": [
+        {
+          "queried_name": "Allium ursinum",
+          "gbif_accepted_name": "Allium ursinum L.",
+          "gbif_taxon_key": 2857601,
+          "netherlands_occurrence_count": 40455,
+          "core_exact_scientific_name_match": true,
+          "heritage_botanical_taxon_match": false
+        }
+      ]
+    },
+    {
+      "input_name": "Mirabelle",
+      "candidates": [
+        "Prunus domestica subsp. syriaca",
+        "Prunus domestica"
+      ],
+      "status": "queried",
+      "results": [
+        {
+          "queried_name": "Prunus domestica subsp. syriaca",
+          "gbif_accepted_name": "Prunus domestica subsp. syriaca (Borkh.) Janch.",
+          "gbif_taxon_key": 3023671,
+          "netherlands_occurrence_count": 0,
+          "core_exact_scientific_name_match": false,
+          "heritage_botanical_taxon_match": false
+        },
+        {
+          "queried_name": "Prunus domestica",
+          "gbif_accepted_name": "Prunus domestica L.",
+          "gbif_taxon_key": 7931731,
+          "netherlands_occurrence_count": 668,
+          "core_exact_scientific_name_match": true,
+          "heritage_botanical_taxon_match": true
+        }
+      ]
+    },
+    {
+      "input_name": "Zwetschke",
+      "candidates": [
+        "Prunus domestica subsp. domestica",
+        "Prunus domestica"
+      ],
+      "status": "queried",
+      "results": [
+        {
+          "queried_name": "Prunus domestica subsp. domestica",
+          "gbif_accepted_name": "Prunus domestica subsp. domestica",
+          "gbif_taxon_key": 6369140,
+          "netherlands_occurrence_count": 25,
+          "core_exact_scientific_name_match": false,
+          "heritage_botanical_taxon_match": false
+        },
+        {
+          "queried_name": "Prunus domestica",
+          "gbif_accepted_name": "Prunus domestica L.",
+          "gbif_taxon_key": 7931731,
+          "netherlands_occurrence_count": 668,
+          "core_exact_scientific_name_match": true,
+          "heritage_botanical_taxon_match": true
+        }
+      ]
+    },
+    {
+      "input_name": "Birke",
+      "candidates": [
+        "Betula pendula",
+        "Betula pubescens"
+      ],
+      "status": "queried",
+      "results": [
+        {
+          "queried_name": "Betula pendula",
+          "gbif_accepted_name": "Betula pendula Roth",
+          "gbif_taxon_key": 5331916,
+          "netherlands_occurrence_count": 74636,
+          "core_exact_scientific_name_match": true,
+          "heritage_botanical_taxon_match": false
+        },
+        {
+          "queried_name": "Betula pubescens",
+          "gbif_accepted_name": "Betula pubescens Ehrh.",
+          "gbif_taxon_key": 9118014,
+          "netherlands_occurrence_count": 59157,
+          "core_exact_scientific_name_match": true,
+          "heritage_botanical_taxon_match": false
+        }
+      ]
+    },
+    {
+      "input_name": "Ulme",
+      "candidates": [
+        "Ulmus glabra",
+        "Ulmus laevis",
+        "Ulmus minor"
+      ],
+      "status": "queried",
+      "results": [
+        {
+          "queried_name": "Ulmus glabra",
+          "gbif_accepted_name": "Ulmus glabra Huds.",
+          "gbif_taxon_key": 5361866,
+          "netherlands_occurrence_count": 2334,
+          "core_exact_scientific_name_match": true,
+          "heritage_botanical_taxon_match": false
+        },
+        {
+          "queried_name": "Ulmus laevis",
+          "gbif_accepted_name": "Ulmus laevis Pall.",
+          "gbif_taxon_key": 7303616,
+          "netherlands_occurrence_count": 1191,
+          "core_exact_scientific_name_match": true,
+          "heritage_botanical_taxon_match": false
+        },
+        {
+          "queried_name": "Ulmus minor",
+          "gbif_accepted_name": "Ulmus minor Mill.",
+          "gbif_taxon_key": 5361865,
+          "netherlands_occurrence_count": 9022,
+          "core_exact_scientific_name_match": true,
+          "heritage_botanical_taxon_match": false
+        }
+      ]
+    },
+    {
+      "input_name": "Platane",
+      "candidates": [
+        "Platanus × hispanica",
+        "Platanus × acerifolia",
+        "Platanus hispanica"
+      ],
+      "status": "queried",
+      "results": [
+        {
+          "queried_name": "Platanus × hispanica",
+          "gbif_accepted_name": "Platanus × hispanica Mill. ex Münchh.",
+          "gbif_taxon_key": 7400250,
+          "netherlands_occurrence_count": 793,
+          "core_exact_scientific_name_match": false,
+          "heritage_botanical_taxon_match": false
+        },
+        {
+          "queried_name": "Platanus × acerifolia",
+          "gbif_accepted_name": "Platanus × acerifolia (Aiton) Willd.",
+          "gbif_taxon_key": 3152815,
+          "netherlands_occurrence_count": 11,
+          "core_exact_scientific_name_match": false,
+          "heritage_botanical_taxon_match": false
+        },
+        {
+          "queried_name": "Platanus hispanica",
+          "gbif_accepted_name": "Platanus × hispanica Mill. ex Münchh.",
+          "gbif_taxon_key": 7400250,
+          "netherlands_occurrence_count": 793,
+          "core_exact_scientific_name_match": false,
+          "heritage_botanical_taxon_match": false
+        }
+      ]
+    },
+    {
+      "input_name": "fireweed",
+      "candidates": [
+        "Chamerion angustifolium",
+        "Epilobium angustifolium"
+      ],
+      "status": "queried",
+      "results": [
+        {
+          "queried_name": "Chamerion angustifolium",
+          "gbif_accepted_name": "Chamerion angustifolium (L.) Holub",
+          "gbif_taxon_key": 3188783,
+          "netherlands_occurrence_count": 19580,
+          "core_exact_scientific_name_match": true,
+          "heritage_botanical_taxon_match": false
+        },
+        {
+          "queried_name": "Epilobium angustifolium",
+          "gbif_accepted_name": "Chamaenerion Seguier",
+          "gbif_taxon_key": 8406741,
+          "netherlands_occurrence_count": 60752,
+          "core_exact_scientific_name_match": false,
+          "heritage_botanical_taxon_match": false
+        }
+      ]
+    },
+    {
+      "input_name": "black poplar",
+      "candidates": [
+        "Populus nigra"
+      ],
+      "status": "queried",
+      "results": [
+        {
+          "queried_name": "Populus nigra",
+          "gbif_accepted_name": "Populus nigra L.",
+          "gbif_taxon_key": 3040227,
+          "netherlands_occurrence_count": 2942,
+          "core_exact_scientific_name_match": true,
+          "heritage_botanical_taxon_match": false
+        }
+      ]
+    },
+    {
+      "input_name": "white melilot",
+      "candidates": [
+        "Melilotus albus"
+      ],
+      "status": "queried",
+      "results": [
+        {
+          "queried_name": "Melilotus albus",
+          "gbif_accepted_name": "Melilotus albus Medik.",
+          "gbif_taxon_key": 2971095,
+          "netherlands_occurrence_count": 25065,
+          "core_exact_scientific_name_match": true,
+          "heritage_botanical_taxon_match": false
+        }
+      ]
+    },
+    {
+      "input_name": "common tansy",
+      "candidates": [
+        "Tanacetum vulgare"
+      ],
+      "status": "queried",
+      "results": [
+        {
+          "queried_name": "Tanacetum vulgare",
+          "gbif_accepted_name": "Tanacetum vulgare L.",
+          "gbif_taxon_key": 3118274,
+          "netherlands_occurrence_count": 98708,
+          "core_exact_scientific_name_match": true,
+          "heritage_botanical_taxon_match": false
+        }
+      ]
+    },
+    {
+      "input_name": "field bindweed",
+      "candidates": [
+        "Convolvulus arvensis"
+      ],
+      "status": "queried",
+      "results": [
+        {
+          "queried_name": "Convolvulus arvensis",
+          "gbif_accepted_name": "Convolvulus arvensis L.",
+          "gbif_taxon_key": 2928390,
+          "netherlands_occurrence_count": 58075,
+          "core_exact_scientific_name_match": true,
+          "heritage_botanical_taxon_match": false
+        }
+      ]
+    },
+    {
+      "input_name": "wild carrot",
+      "candidates": [
+        "Daucus carota"
+      ],
+      "status": "queried",
+      "results": [
+        {
+          "queried_name": "Daucus carota",
+          "gbif_accepted_name": "Daucus carota L.",
+          "gbif_taxon_key": 3034742,
+          "netherlands_occurrence_count": 92569,
+          "core_exact_scientific_name_match": true,
+          "heritage_botanical_taxon_match": false
+        }
+      ]
+    },
+    {
+      "input_name": "baby's breath",
+      "candidates": [
+        "Gypsophila paniculata"
+      ],
+      "status": "queried",
+      "results": [
+        {
+          "queried_name": "Gypsophila paniculata",
+          "gbif_accepted_name": "Gypsophila paniculata L.",
+          "gbif_taxon_key": 5384458,
+          "netherlands_occurrence_count": 234,
+          "core_exact_scientific_name_match": true,
+          "heritage_botanical_taxon_match": false
+        }
+      ]
+    },
+    {
+      "input_name": "Metskastik",
+      "candidates": [
+        "Calamagrostis arundinacea"
+      ],
+      "status": "queried",
+      "results": [
+        {
+          "queried_name": "Calamagrostis arundinacea",
+          "gbif_accepted_name": "Calamagrostis arundinacea (L.) Roth",
+          "gbif_taxon_key": 4109084,
+          "netherlands_occurrence_count": 39,
+          "core_exact_scientific_name_match": true,
+          "heritage_botanical_taxon_match": false
+        }
+      ]
+    },
+    {
+      "input_name": "hairy Michaelmas daisy",
+      "candidates": [
+        "Symphyotrichum novae-angliae",
+        "Aster novae-angliae"
+      ],
+      "status": "queried",
+      "results": [
+        {
+          "queried_name": "Symphyotrichum novae-angliae",
+          "gbif_accepted_name": "Symphyotrichum novae-angliae (L.) G.L.Nesom",
+          "gbif_taxon_key": 3151618,
+          "netherlands_occurrence_count": 210,
+          "core_exact_scientific_name_match": true,
+          "heritage_botanical_taxon_match": false
+        },
+        {
+          "queried_name": "Aster novae-angliae",
+          "gbif_accepted_name": "Aster novae-angliae L.",
+          "gbif_taxon_key": 5406425,
+          "netherlands_occurrence_count": 29,
+          "core_exact_scientific_name_match": false,
+          "heritage_botanical_taxon_match": false
+        }
+      ]
+    },
+    {
+      "input_name": "cypress spurge",
+      "candidates": [
+        "Euphorbia cyparissias"
+      ],
+      "status": "queried",
+      "results": [
+        {
+          "queried_name": "Euphorbia cyparissias",
+          "gbif_accepted_name": "Euphorbia cyparissias L.",
+          "gbif_taxon_key": 3070106,
+          "netherlands_occurrence_count": 9872,
+          "core_exact_scientific_name_match": true,
+          "heritage_botanical_taxon_match": false
+        }
+      ]
+    },
+    {
+      "input_name": "lamb's ear",
+      "candidates": [
+        "Stachys byzantina"
+      ],
+      "status": "queried",
+      "results": [
+        {
+          "queried_name": "Stachys byzantina",
+          "gbif_accepted_name": "Stachys byzantina K.Koch",
+          "gbif_taxon_key": 2927230,
+          "netherlands_occurrence_count": 957,
+          "core_exact_scientific_name_match": true,
+          "heritage_botanical_taxon_match": false
+        }
+      ]
+    },
+    {
+      "input_name": "sweet pea",
+      "candidates": [
+        "Lathyrus odoratus"
+      ],
+      "status": "queried",
+      "results": [
+        {
+          "queried_name": "Lathyrus odoratus",
+          "gbif_accepted_name": "Lathyrus odoratus L.",
+          "gbif_taxon_key": 5356514,
+          "netherlands_occurrence_count": 125,
+          "core_exact_scientific_name_match": true,
+          "heritage_botanical_taxon_match": false
+        }
+      ]
+    },
+    {
+      "input_name": "hawthorn",
+      "candidates": [
+        "Crataegus monogyna",
+        "Crataegus laevigata"
+      ],
+      "status": "queried",
+      "results": [
+        {
+          "queried_name": "Crataegus monogyna",
+          "gbif_accepted_name": "Crataegus monogyna Jacq.",
+          "gbif_taxon_key": 9220780,
+          "netherlands_occurrence_count": 116231,
+          "core_exact_scientific_name_match": true,
+          "heritage_botanical_taxon_match": false
+        },
+        {
+          "queried_name": "Crataegus laevigata",
+          "gbif_accepted_name": "Crataegus laevigata (Poir.) DC.",
+          "gbif_taxon_key": 8252683,
+          "netherlands_occurrence_count": 6789,
+          "core_exact_scientific_name_match": true,
+          "heritage_botanical_taxon_match": false
+        }
+      ]
+    },
+    {
+      "input_name": "weeping willow",
+      "candidates": [
+        "Salix × sepulcralis",
+        "Salix babylonica"
+      ],
+      "status": "queried",
+      "results": [
+        {
+          "queried_name": "Salix × sepulcralis",
+          "gbif_accepted_name": "Salix × sepulcralis Simonk.",
+          "gbif_taxon_key": 5373037,
+          "netherlands_occurrence_count": 69,
+          "core_exact_scientific_name_match": true,
+          "heritage_botanical_taxon_match": false
+        },
+        {
+          "queried_name": "Salix babylonica",
+          "gbif_accepted_name": "Salix babylonica L.",
+          "gbif_taxon_key": 5372639,
+          "netherlands_occurrence_count": 557,
+          "core_exact_scientific_name_match": false,
+          "heritage_botanical_taxon_match": false
+        }
+      ]
+    },
+    {
+      "input_name": "bristly oxtongue",
+      "candidates": [
+        "Helminthotheca echioides",
+        "Picris echioides"
+      ],
+      "status": "queried",
+      "results": [
+        {
+          "queried_name": "Helminthotheca echioides",
+          "gbif_accepted_name": "Helminthotheca echioides (L) Holub",
+          "gbif_taxon_key": 3141855,
+          "netherlands_occurrence_count": 18058,
+          "core_exact_scientific_name_match": true,
+          "heritage_botanical_taxon_match": false
+        },
+        {
+          "queried_name": "Picris echioides",
+          "gbif_accepted_name": "Picris echioides L.",
+          "gbif_taxon_key": 3141857,
+          "netherlands_occurrence_count": 714,
+          "core_exact_scientific_name_match": false,
+          "heritage_botanical_taxon_match": false
+        }
+      ]
+    },
+    {
+      "input_name": "blueblossom",
+      "candidates": [
+        "Ceanothus thyrsiflorus"
+      ],
+      "status": "queried",
+      "results": [
+        {
+          "queried_name": "Ceanothus thyrsiflorus",
+          "gbif_accepted_name": "Ceanothus thyrsiflorus Eschw.",
+          "gbif_taxon_key": 3039379,
+          "netherlands_occurrence_count": 5,
+          "core_exact_scientific_name_match": true,
+          "heritage_botanical_taxon_match": false
+        }
+      ]
+    },
+    {
+      "input_name": "purpletop tridens",
+      "candidates": [
+        "Tridens flavus"
+      ],
+      "status": "queried",
+      "results": [
+        {
+          "queried_name": "Tridens flavus",
+          "gbif_accepted_name": "Tridens flavus (L.) Hitchc.",
+          "gbif_taxon_key": 5289648,
+          "netherlands_occurrence_count": 0,
+          "core_exact_scientific_name_match": true,
+          "heritage_botanical_taxon_match": false
+        }
+      ]
+    },
+    {
+      "input_name": "whorled tickseed",
+      "candidates": [
+        "Coreopsis verticillata"
+      ],
+      "status": "queried",
+      "results": [
+        {
+          "queried_name": "Coreopsis verticillata",
+          "gbif_accepted_name": "Coreopsis verticillata L.",
+          "gbif_taxon_key": 3133887,
+          "netherlands_occurrence_count": 164,
+          "core_exact_scientific_name_match": true,
+          "heritage_botanical_taxon_match": false
+        }
+      ]
+    },
+    {
+      "input_name": "garlic mustard",
+      "candidates": [
+        "Alliaria petiolata"
+      ],
+      "status": "queried",
+      "results": [
+        {
+          "queried_name": "Alliaria petiolata",
+          "gbif_accepted_name": "Alliaria petiolata (M.Bieb.) Cavara & Grande",
+          "gbif_taxon_key": 5376075,
+          "netherlands_occurrence_count": 99287,
+          "core_exact_scientific_name_match": true,
+          "heritage_botanical_taxon_match": false
+        }
+      ]
+    },
+    {
+      "input_name": "large-leaved lime",
+      "candidates": [
+        "Tilia platyphyllos"
+      ],
+      "status": "queried",
+      "results": [
+        {
+          "queried_name": "Tilia platyphyllos",
+          "gbif_accepted_name": "Tilia platyphyllos Scop.",
+          "gbif_taxon_key": 3152048,
+          "netherlands_occurrence_count": 1754,
+          "core_exact_scientific_name_match": true,
+          "heritage_botanical_taxon_match": false
+        }
+      ]
+    }
+  ]
+}

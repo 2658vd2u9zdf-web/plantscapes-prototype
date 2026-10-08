@@ -1,0 +1,25 @@
+{
+  "status": "passed",
+  "candidateCount": 44,
+  "aquaticPositions": 509,
+  "checks": [
+    "palette visible",
+    "no aquatic candidates without water",
+    "all candidates pass confirmed-zone gates",
+    "expand/remove/undo",
+    "CSV download",
+    "path gate",
+    "UI-drawn path and bed generate a plan",
+    "top legend",
+    "side and elevated views",
+    "inactive inspector hidden",
+    "plant undo",
+    "SVG download",
+    "stale-plan gate",
+    "mobile width",
+    "wet shoreline placement",
+    "water/open/path geometry in view",
+    "grass tufts in all four seasons"
+  ],
+  "browserErrors": []
+}

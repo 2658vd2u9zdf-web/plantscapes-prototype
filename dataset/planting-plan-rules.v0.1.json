@@ -1,0 +1,281 @@
+{
+  "title": "Plantscapes concept planting-plan rules",
+  "version": "0.1.1-approved-design-policy",
+  "date": "2026-10-08",
+  "language": "en",
+  "review_state": "design_policy_approved_species_validation_pending",
+  "project_owner_decisions_recorded": "2026-10-08",
+  "prototype_parameters": {
+    "status": "synthetic_demo_defaults_pending_field_calibration",
+    "path_edge_depth_m": 1.2,
+    "transition_depth_m": 3,
+    "path_edge_max_height_m": 0.6,
+    "transition_max_height_m": 1.3,
+    "patch_size_m": 3,
+    "preview_plant_limit": 12000,
+    "note": "These are editable experiment defaults for the prototype, not municipal standards or source-derived universal planting rules. Mature spread is simulated separately."
+  },
+  "permitted_use": "Explainable concept-plan experiments with designer review; not construction or ecological specification",
+  "human_readable_companion": "../project-information/PLANTING-PLAN-RULEBOOK-v0.1.md",
+  "source_status_legend": {
+    "source_supported_principle": "A linked primary source supports the general principle, not this implementation in every context.",
+    "plantscapes_hypothesis": "A proposed design/algorithm default requiring expert testing and approval.",
+    "local_authority_required": "Value or permission must come from the responsible municipality, water authority, land manager or project brief."
+  },
+  "priority_order": [
+    "site_geometry_and_law",
+    "existing_ecological_assets",
+    "species_eligibility_and_safety",
+    "zone_fit",
+    "spatial_and_visual_composition",
+    "seasonality",
+    "quantity_and_maintenance"
+  ],
+  "first_release_policy": {
+    "primary_context": ["public_spaces", "parks"],
+    "default_layout_mode": "structured_naturalistic_patches",
+    "alternative_layout_mode": "formal_bands_or_blocks",
+    "layout_mode_evidence": "project implementation choice, not a claim of ecological superiority",
+    "required_designer_drawing_before_generation": ["scaled_boundary", "paths"],
+    "sightline_drawing_required": false,
+    "sightline_handling": "Flag likely visibility-sensitive path junctions, bends, crossings and entrances; use municipality-supplied envelopes when available; do not certify visibility automatically.",
+    "native_policy": "native/local-first in all modes; known invasives excluded in all modes; non-native options explicitly labelled and permitted outside rewilding if otherwise eligible; no automatic non-native recommendations in rewilding"
+  },
+  "input_contract": {
+    "geometry_required": ["boundary_polygon_scaled_m", "path_polygons"],
+    "geometry_optional_or_contextual": ["plantable_zone_polygons", "entrances", "water_polygons", "building_and_service_exclusions", "maintenance_routes", "municipality_visibility_envelopes"],
+    "geometry_derived_review_prompts": ["likely_visibility_sensitive_path_locations"],
+    "project": ["project_type", "rewilding_label", "priorities", "public_access", "harvesting_intent", "desired_character", "layout_mode", "management_capacity", "target_year"],
+    "zone": ["zone_id", "soil_texture", "soil_fertility", "soil_compaction", "moisture_regime", "flood_frequency", "water_level_range", "light_regime", "canopy_now", "disturbance", "hardscape", "condition_evidence"],
+    "existing_plant": ["taxon_id_or_unresolved_name", "mapped_location", "survey_status", "retention_decision", "decision_reason"],
+    "candidate_taxon": ["accepted_taxon_id", "name", "native_status", "provenance", "invasive_status", "soil_tolerance", "moisture_tolerance", "light_tolerance", "mature_height_m", "mature_spread_m", "growth_form", "growth_rate", "flowering_months", "flower_colour", "foliage_and_winter_form", "competition_traits", "safety_traits", "management", "source_claims"],
+    "planting_method_values": ["planted", "seeded", "existing_regeneration"],
+    "evidence_values": ["field_survey", "site_observation", "reviewed_dataset", "map_estimate", "designer_assumption", "synthetic_demo"]
+  },
+  "output_contract": {
+    "plan_elements": ["geometry", "zone_id", "taxon_id_or_community_id", "role", "planting_method", "quantity_or_rate", "target_year", "mature_footprint", "rule_trace", "evidence_status", "designer_approval"],
+    "required_reports": ["unplaced_palette_taxa", "data_gaps", "constraint_conflicts", "competition_warnings", "seasonal_gaps", "management_requirements", "municipal_visibility_review_prompts", "local_authority_checks"],
+    "evidence_status_values": ["reviewed", "designer_assumption", "unresolved", "synthetic_demo"],
+    "never_claim": ["construction_ready", "guaranteed_flowering_date", "guaranteed_mature_height_date", "verified_edibility_without_source", "ecological_suitability_from_image_only"]
+  },
+  "review_workflow": {
+    "landscape_architect": ["review_project_intent", "review_site_assumptions", "review_palette_and_2d_composition", "approve_or_edit_concept"],
+    "municipality": ["review_public_space_access_and_visibility", "review_maintenance_compatibility", "review_local_requirements"],
+    "relevant_specialist_when_unresolved": ["botanical_identity", "species_traits", "ecological_restoration", "toxicity_or_food_safety", "water_authority_requirements"],
+    "interface_requirement": "Explain decisions in accessible planting language with sources and uncertainty; do not assume the architect is a planting specialist."
+  },
+  "rules": [
+    {
+      "id": "G01", "name": "Require scaled, usable geometry", "type": "hard_gate", "status": "source_supported_principle",
+      "applies_to": ["all"],
+      "when": "plan_generation_requested",
+      "then": "Require the designer to draw a scaled boundary and paths before generation. If either is missing, return illustrative_sketch_only. Reserve known buildings, services, existing roots, routes and water before new placement. New tree placement additionally requires mature crown and root-space check. Do not require a sightline drawing.",
+      "needs": ["geometry.boundary_polygon_scaled_m", "geometry.path_polygons", "candidate_taxon.mature_spread_m"],
+      "on_missing": "block_specification_and_explain",
+      "sources": ["S6", "S7"]
+    },
+    {
+      "id": "G02", "name": "Confirm ecological zones", "type": "hard_gate", "status": "source_supported_principle",
+      "applies_to": ["all"],
+      "when": "candidate_assignment_requested",
+      "then": "Require confirmed soil, moisture, light and disturbance per zone; label map estimates and transition bands as uncertain. A missing decisive condition returns zone_data_gap rather than an assumed fit.",
+      "needs": ["zone.soil_texture", "zone.moisture_regime", "zone.light_regime", "zone.condition_evidence"],
+      "on_missing": "block_zone_recommendation",
+      "sources": ["S8", "S13"]
+    },
+    {
+      "id": "G03", "name": "Protect existing vegetation first", "type": "hard_gate", "status": "source_supported_principle",
+      "applies_to": ["all"],
+      "when": "existing_plant_inventory_present",
+      "then": "Use retain, site_verify or removal_proposed_with_reason_and_approval. Never infer removal from an uploaded name alone. Preserve viable existing vegetation and its growth space until surveyed.",
+      "needs": ["existing_plant.survey_status", "existing_plant.mapped_location"],
+      "on_missing": "site_verify",
+      "sources": ["S1"]
+    },
+    {
+      "id": "G04", "name": "Screen candidate species", "type": "hard_gate", "status": "source_supported_principle",
+      "applies_to": ["all"],
+      "when": "candidate_taxon_considered",
+      "then": "Exclude known invasive candidates. Require reviewed identity, native/provenance status when the project demands it, zone tolerances, mature dimensions and relevant hazards. Rare status alone never raises placement priority. Log every exclusion and uncertainty.",
+      "needs": ["candidate_taxon.accepted_taxon_id", "candidate_taxon.invasive_status", "candidate_taxon.source_claims"],
+      "on_missing": "data_gap_no_auto_placement",
+      "sources": ["S1", "S9"]
+    },
+    {
+      "id": "G05", "name": "Apply project-mode policy", "type": "hard_gate", "status": "plantscapes_hypothesis",
+      "applies_to": ["all"],
+      "when": "project_type_confirmed",
+      "then": "If rewilding_label is true, exclude non-native plants from automatic recommendations and prioritise retention, regeneration and reviewed local/native provenance. Otherwise search native/local options first; allow a non-invasive, site-appropriate non-native only if explicitly labelled with a rationale. Ecological restoration without the rewilding label remains native-first and any non-native option requires explicit override pending policy review. Productive gardens additionally require taxon-and-part-specific edible/preparation evidence and site-contamination review before harvest claims.",
+      "needs": ["project.project_type", "project.rewilding_label", "project.harvesting_intent", "candidate_taxon.native_status", "candidate_taxon.invasive_status"],
+      "on_missing": "request_project_mode",
+      "sources": ["S1"]
+    },
+    {
+      "id": "S01", "name": "Reserve voids, paths and views", "type": "hard_gate", "status": "source_supported_principle",
+      "applies_to": ["all"],
+      "when": "spatial_skeleton_generated",
+      "then": "After designer-drawn paths exist, keep paths and known entrance, maintenance and water-flow envelopes unplanted at mature size. Derive likely visibility-sensitive junctions, bends, crossings and entrances as review prompts; apply municipality-provided visibility envelopes if available. Never claim automatic sightline certification or use a universal Dutch safe-height number.",
+      "needs": ["geometry.path_polygons"],
+      "on_missing": "block_generation_until_paths_drawn",
+      "sources": ["S10"]
+    },
+    {
+      "id": "S02", "name": "Use a conditional edge-to-interior gradient", "type": "soft_design", "status": "plantscapes_hypothesis",
+      "applies_to": ["designed_landscape", "productive_garden", "restoration_when_matching_habitat_edge"],
+      "when": "deep_planting_zone_touches_path",
+      "then": "Propose low/open route edge, medium permeable herb-grass layer, then higher/denser structural layer inward where desired character allows. Use multiple viewing edges for island beds. Permit transparent taller foreground plants only if S01 remains satisfied.",
+      "override_allowed": true,
+      "needs": ["geometry.path_polygons", "project.desired_character", "candidate_taxon.mature_height_m", "candidate_taxon.growth_form"],
+      "on_missing": "show_structure_options_not_auto_place",
+      "sources": ["S2", "S11"]
+    },
+    {
+      "id": "S03", "name": "Compose legible patches and repetition", "type": "soft_design", "status": "plantscapes_hypothesis",
+      "applies_to": ["designed_landscape", "productive_garden"],
+      "when": "community_geometry_generated",
+      "then": "For the initial public-park mode, default to structured naturalistic patches or drifts tied to zone shape and views; use limited accents, local variation and deliberate gaps. If the designer chooses formal mode, use bands or geometric blocks but retain identical ecological and safety gates. Do not scatter every individual independently or force all ground into a matrix.",
+      "override_allowed": true,
+      "needs": ["geometry.plantable_zone_polygons", "project.desired_character", "project.layout_mode"],
+      "on_missing": "request_character_or_use_non_prescriptive_patches",
+      "sources": ["S3", "S5"]
+    },
+    {
+      "id": "S04", "name": "Assign functional roles, not layer quotas", "type": "soft_design", "status": "source_supported_principle",
+      "applies_to": ["all"],
+      "when": "community_assembly_requested",
+      "then": "Choose from tree, shrub, structural_forb_or_grass, companion_flower_or_herb, ground_matrix, seasonal_bulb, climber and aquatic_marginal only where justified. Do not impose a universal tree:shrub:flower ratio; zero is valid for any layer.",
+      "override_allowed": true,
+      "needs": ["project.project_type", "zone.zone_id", "candidate_taxon.growth_form"],
+      "on_missing": "leave_layer_empty_and_explain",
+      "sources": ["S2", "S12"]
+    },
+    {
+      "id": "D01", "name": "Estimate perennial spacing from mature spread", "type": "quantity_draft", "status": "plantscapes_hypothesis",
+      "applies_to": ["planted_perennial_patch"],
+      "when": "quantity_draft_requested_and_verified_species_spacing_missing",
+      "then": "Offer initial centre_to_centre_spacing_m = 0.83 * reviewed_mature_spread_m as an editable draft, with explicit competition and division warnings. Prefer a verified species-specific spacing record. Never claim 0.83 is universal.",
+      "parameters": {"draft_spread_multiplier": 0.83, "unit": "dimensionless", "review_required": true},
+      "needs": ["candidate_taxon.mature_spread_m", "plan_elements.target_year"],
+      "on_missing": "quantity_unresolved",
+      "sources": ["S13"]
+    },
+    {
+      "id": "D02", "name": "Keep establishment methods separate", "type": "hard_gate", "status": "source_supported_principle",
+      "applies_to": ["all"],
+      "when": "quantity_or_rate_requested",
+      "then": "Calculate plugs, seed rates, hedge stock and regeneration separately. Never turn a seed mix g/m2 into plugs/m2. For seeded areas require reviewed mix, rate, establishment and mowing data. A published 14-perennials-plus-26-bulbs/m2 German dry-bed recipe is an example for that exact mixture, not a Dutch default.",
+      "needs": ["plan_elements.planting_method", "geometry.plantable_zone_polygons"],
+      "on_missing": "quantity_unresolved",
+      "sources": ["S14", "S17"]
+    },
+    {
+      "id": "D03", "name": "Check competition and future shade", "type": "warning_or_gate", "status": "source_supported_principle",
+      "applies_to": ["all"],
+      "when": "neighbour_pair_or_tree_understorey_created",
+      "then": "Compare mature spread, future shade, moisture/root demand, vigour and self-seeding. Warn or block unresolved high-risk combinations. Do not generate absolute pairwise incompatibilities without reviewed evidence.",
+      "needs": ["candidate_taxon.mature_spread_m", "candidate_taxon.light_tolerance", "candidate_taxon.competition_traits"],
+      "on_missing": "competition_unresolved",
+      "sources": ["S2", "S13", "S14"]
+    },
+    {
+      "id": "D04", "name": "No species-count quota", "type": "hard_gate", "status": "plantscapes_hypothesis",
+      "applies_to": ["all"],
+      "when": "palette_or_plan_richness_evaluated",
+      "then": "Do not add species to reach an arbitrary minimum. Report palette richness separately from species placed per patch, and explain when evidence supports few or no eligible taxa.",
+      "needs": ["project.project_type", "geometry.plantable_zone_polygons"],
+      "on_missing": "report_data_gap",
+      "sources": []
+    },
+    {
+      "id": "T01", "name": "Reviewable colour rhythm", "type": "soft_design", "status": "plantscapes_hypothesis",
+      "applies_to": ["designed_landscape", "productive_garden"],
+      "when": "seasonal_composition_requested",
+      "then": "Offer one or two recurring anchor hues across the route plus zone/season accents, using only site-eligible candidates. Never attribute this numeric palette suggestion to Piet Oudolf or enforce it in restoration.",
+      "parameters": {"suggested_anchor_hues_min": 1, "suggested_anchor_hues_max": 2, "review_required": true},
+      "override_allowed": true,
+      "needs": ["candidate_taxon.flower_colour", "candidate_taxon.flowering_months"],
+      "on_missing": "colour_plan_unresolved",
+      "sources": ["S3", "S5"]
+    },
+    {
+      "id": "T02", "name": "Evaluate four labelled seasonal states", "type": "soft_design", "status": "source_supported_principle",
+      "applies_to": ["all"],
+      "when": "seasonal_review_requested",
+      "then": "Compare spring, summer, autumn and winter flowering, leaf texture, grass movement, stems and seedheads. Present approximate states, not exact future date or height simulations.",
+      "needs": ["candidate_taxon.flowering_months", "candidate_taxon.foliage_and_winter_form"],
+      "on_missing": "label_seasonal_unknown",
+      "sources": ["S3", "S4", "S5"]
+    },
+    {
+      "id": "T03", "name": "Warn about pollinator-period gaps", "type": "soft_warning", "status": "source_supported_principle",
+      "applies_to": ["pollinator_priority"],
+      "when": "flowering_period_review_requested",
+      "then": "Flag known gaps and low diversity of flower forms across the local growing season; do not fill gaps with ineligible species or claim guaranteed monthly bloom.",
+      "needs": ["candidate_taxon.flowering_months", "candidate_taxon.source_claims"],
+      "on_missing": "label_phenology_unknown",
+      "sources": ["S15"]
+    },
+    {
+      "id": "W01", "name": "Differentiate water-edge bands", "type": "hard_gate", "status": "source_supported_principle",
+      "applies_to": ["water_edge"],
+      "when": "aquatic_or_marginal_placement_requested",
+      "then": "Separate submerged, emergent, periodically flooded, moist upper bank and dry top according to observed level range, profile, flow and water quality. Require responsible water authority check before specification.",
+      "needs": ["zone.water_level_range", "zone.moisture_regime", "geometry.water_polygons"],
+      "on_missing": "block_aquatic_auto_placement",
+      "sources": ["S8", "S16"]
+    },
+    {
+      "id": "W02", "name": "Check public contact and sightlines", "type": "hard_gate", "status": "local_authority_required",
+      "applies_to": ["public_access", "harvesting_intent"],
+      "when": "placement_adjacent_to_public_or_harvest_area",
+      "then": "Review verified toxic/irritant parts, thorns, fruit drop, trip/slip hazards, harvest claims and mature visual obstruction. Unknown safety is unresolved, never safe by default. Flag inferred visibility-sensitive locations for municipal review and apply any municipality-supplied requirements; do not require designer-drawn sightlines.",
+      "needs": ["candidate_taxon.safety_traits", "geometry.path_polygons", "project.public_access"],
+      "on_missing": "block_affected_placement_and_request_review",
+      "sources": ["S10"]
+    },
+    {
+      "id": "W03", "name": "Match community to maintenance", "type": "hard_gate", "status": "source_supported_principle",
+      "applies_to": ["all"],
+      "when": "community_approved",
+      "then": "Check establishment watering, weeding, mowing/cutback, biomass removal and long-term capacity. If maintenance cannot sustain the proposed community, request plan revision.",
+      "needs": ["project.management_capacity", "candidate_taxon.management"],
+      "on_missing": "management_unresolved",
+      "sources": ["S1", "S6", "S14"]
+    }
+  ],
+  "algorithm": [
+    "validate_input_contract",
+    "apply_G01_to_G05_and_log_gaps",
+    "apply_S01_and_freeze_exclusions",
+    "apply_S02_to_S04_per_confirmed_zone",
+    "apply_D03_before_D01_and_D02_quantities",
+    "apply_W01_to_W03_where_relevant",
+    "apply_T01_to_T03_and_show_four_season_review",
+    "present_2d_plan_rule_trace_and_unresolved_checks_for_designer_approval",
+    "derive_illustrative_view_only_from_approved_2d_plan"
+  ],
+  "source_registry": {
+    "S1": "https://www.floron.nl/plantadvies",
+    "S2": "https://edepot.wur.nl/390725",
+    "S3": "https://www.vitra.com/en-as/campus/oudolf-garten",
+    "S4": "https://shop.thehighline.org/collections/piet-oudolf",
+    "S5": "https://lola.land/project/de-meelfabriek/",
+    "S6": "https://edepot.wur.nl/656549",
+    "S7": "https://www.rhs.org.uk/plants/types/trees/near-buildings",
+    "S8": "https://www.stowa.nl/publicaties/handreiking-natuurvriendelijke-oevers-een-standplaatsbenadering",
+    "S9": "https://www.floron.nl/publicaties/digitaal",
+    "S10": "https://kennisbank.crow.nl/public/gastgebruiker/WOBU/Ontwerpwijzer_fietsverkeer/Bermen_en_groen/32999",
+    "S11": "https://www.rhs.org.uk/garden-design/how-to-create-a-border",
+    "S12": "https://stauden.de/flyer-staudenmischungen.html",
+    "S13": "https://www.rhs.org.uk/plants/types/perennials/planting",
+    "S14": "https://www.cruydthoeck.nl/openbare-ruimte/aanleg-en-beheer/veelgestelde-vragen-over-bloemenweides/",
+    "S15": "https://www.rhs.org.uk/plants/types/perennials/for-borders",
+    "S16": "https://www.waterschaprivierenland.nl/natuurvriendelijke-oever",
+    "S17": "https://www.stauden.de/files/download/flyer/Broschuere_Trockenflaechen.pdf"
+  },
+  "remaining_implementation_checks": [
+    "Obtain municipality-specific path visibility, accessibility and maintenance requirements for the first public-park tests; do not invent a clearance standard.",
+    "Calibrate spacing, competition, provenance and public-contact safety with relevant planting and ecological specialists before construction use.",
+    "Decide whether ecological restoration without the explicit rewilding label must also exclude non-native plants."
+  ]
+}

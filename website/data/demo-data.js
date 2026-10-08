@@ -11,6 +11,15 @@ window.PLANTSCAPES_DEMO = {
     amsterdam: {label:'Amsterdam', center:[52.369,4.904], soil:'peat', moisture:'fresh', disturbance:'high'},
     groningen: {label:'Groningen', center:[53.219,6.566], soil:'clay', moisture:'fresh', disturbance:'moderate'}
   },
+  /* Optional ornamental fixtures: every ecological and geometry value is simulated. */
+  ornamentals: [
+    ['Echinacea purpurea','Zonnehoed','Flowers & herbs','fresh','sun',.9,7,9,'pink','Verify locality and public-contact safety'],
+    ['Rudbeckia fulgida','Zonnehoed (geel)','Flowers & herbs','fresh','sun',.8,7,10,'yellow','Verify locality and competition'],
+    ['Verbena bonariensis','IJzerhard','Flowers & herbs','dry','sun',1.5,7,10,'purple','Verify self-seeding and hardiness'],
+    ['Nepeta × faassenii','Kattenkruid','Flowers & herbs','dry','sun',.5,5,9,'blue','Verify cultivar and maintenance'],
+    ['Panicum virgatum','Vingergras','Grasses, sedges & rushes','fresh','sun',1.4,8,10,'gold','Verify spread and provenance'],
+    ['Hakonechloa macra','Japans bosgras','Grasses, sedges & rushes','fresh','shade',.4,7,9,'green','Verify shade and moisture tolerance']
+  ],
   /* latin, Dutch, layer, moisture, light, height m, bloom start/end, colour, caution */
   plants: [
     ['Achillea millefolium','Duizendblad','Flowers & herbs','dry','sun',0.7,6,9,'white','Check spread'],

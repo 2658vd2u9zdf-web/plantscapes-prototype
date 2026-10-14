@@ -44,7 +44,7 @@ const field = id => document.getElementById(id);
 const checked = id => field(id).checked;
 const choice = name => (document.querySelector('input[name="'+name+'"]:checked') || {}).value || '';
 const project = () => ({
-  type: choice('projectType'), typeDescription:field('projectTypeOther').value.trim(), area: geographicPolygonAreaM2(state.plotBoundary)||0, audience:field('audience').value,
+  type: choice('projectType'), area: geographicPolygonAreaM2(state.plotBoundary)||0, audience:field('audience').value,
   maintenance:field('maintenance').value, priorities:$$('#priorityOptions input:checked').map(x=>x.value),
   character:field('spatialCharacter').value, notes:field('projectNotes').value.trim(),
   publicAccess:checked('publicAccess'), publicHarvest:checked('foodHarvest'), sightlines:checked('clearSightlines'),
@@ -81,31 +81,6 @@ function showStage(number, updateHistory=true){
   window.scrollTo({top:0,behavior:'instant'});
 }
 function advance(number){ state.unlocked=Math.max(state.unlocked,number); showStage(number); }
-function updatePriorityControls(){
-  const inputs=$$('#priorityOptions input'),chosen=inputs.filter(input=>input.checked);
-  const atLimit=chosen.length>=3;
-  inputs.forEach(input=>input.disabled=atLimit&&!input.checked);
-  field('priorityCount').textContent=chosen.length+' of 3 chosen';
-  field('priorityGuidance').textContent=atLimit?'Three priorities selected. Remove one to choose another.':'Choose the three outcomes that matter most.';
-}
-function updateAimPreview(){
-  let p=project();if(!p.publicAccess)field('foodHarvest').checked=false;p=project();
-  const typeNames={restoration:'Ecological restoration',landscape:'Designed landscape',productive:'Productive garden',other:p.typeDescription||'Custom project'};
-  const audienceNames={public:'public',residents:'resident',private:'private',students:'student / child',growers:'grower / volunteer',habitat:'limited-access habitat'};
-  const items=[];
-  if(p.type==='restoration')items.push('Native-first palette');
-  if(p.character==='open')items.push('Lower, open structure');
-  if(p.maintenance==='low')items.push('Avoid vigorous test plants');
-  if(p.priorities.includes('pollinators'))items.push('Review flowering gaps');
-  if(p.publicAccess)items.push('Safety & visibility review');
-  if(p.publicHarvest)items.push('Harvest safety review');
-  if(p.sightlines)items.push('Protect key views');
-  field('aimImpactTitle').textContent=typeNames[p.type]+' for '+audienceNames[p.audience]+' users';
-  field('aimImpactSummary').textContent='* Later concept checks will use these choices. Site conditions, plant safety and local evidence still need confirmation.';
-  field('aimImpactList').innerHTML=items.length?items.map(item=>'<li>'+esc(item)+'</li>').join(''):'Your chosen priorities will be recorded for the later review.';
-  field('otherProjectField').classList.toggle('hidden',p.type!=='other');
-  field('foodHarvestOption').classList.toggle('hidden',!p.publicAccess);
-}
 function invalidateFrom(stage){
   state.approved=false;state.unlocked=Math.min(state.unlocked,stage);if(stage<=3)state.paletteBuilt=false;
   if(stage<=4&&state.generated){state.generated=false;state.planAudit=null;state.planDirty=false;state.planUndo=[];state.placements=[];state.planMasses=[];state.selectedPlacement=null;state.placementLayers.forEach(layer=>state.map&&state.map.removeLayer(layer));state.placementLayers=[];field('generatePlan').textContent='Generate demo plan';field('downloadPlanSvg').disabled=true;field('downloadViewSvg').disabled=true;field('generationStatus').textContent='The project or palette changed. Generate a new demo arrangement.';renderSymbolEditor();renderPlacementList();renderVisualization();}
@@ -377,7 +352,7 @@ function downloadCsv(){
     ['PLANTSCAPES SYNTHETIC CANDIDATE REVIEW — NOT A PLANTING SPECIFICATION'],
     ['Name catalogue version',DATASET_VERSION],['Synthetic trait version',demo.version],['Rule version',RULE_VERSION],['Exported on',new Date().toISOString()],
     ['Map area (nearest demo location)',s.location],['Area m2',p.area],
-    ['Project type',p.type],['Project type detail',p.typeDescription],['Audience',p.audience],['Maintenance capacity',p.maintenance],['Priorities',p.priorities.join('; ')],
+    ['Project type',p.type],['Audience',p.audience],['Maintenance capacity',p.maintenance],['Priorities',p.priorities.join('; ')],
     ['Spatial character',p.character],['Composition mode',compositionModeRecord().label],['Composition rule version',RULE_VERSION],['Public access',p.publicAccess],['Public harvesting',p.publicHarvest],['Preserve open views',p.sightlines],['Rewilding native-only policy',p.rewilding],['Seasonal anchor colours',p.anchorColours.join('; ')],
     ['Project notes',p.notes],['Site description',s.description],
     ['Recommendation status','Simulated recommendations for workflow testing only; no verified site suitability'],
@@ -903,7 +878,7 @@ function setup(){
   field('brand').addEventListener('click',event=>{event.preventDefault();showStage(0);});
   $$('[data-go]').forEach(button=>button.addEventListener('click',()=>showStage(Number(button.dataset.go))));
   $$('.stage').forEach(button=>button.addEventListener('click',()=>showStage(Number(button.dataset.stage))));
-  field('toSite').addEventListener('click',()=>{if(choice('projectType')==='other'&&!field('projectTypeOther').value.trim()){field('projectTypeOther').setCustomValidity('Describe the project type before continuing.');field('projectTypeOther').reportValidity();return;}field('projectTypeOther').setCustomValidity('');advance(2);});
+  field('toSite').addEventListener('click',()=>advance(2));
   field('toConfirm').addEventListener('click',()=>{if(state.plotBoundary.length<3){field('siteError').textContent='Outline the plot on the map, or choose Use example plot, before continuing.';field('siteError').classList.remove('hidden');return;}field('siteError').classList.add('hidden');advance(3);});
   field('toPalette').addEventListener('click',()=>{if(validateConditions()){if(!state.paletteBuilt)buildDemoPalette();advance(4);}});
   field('toReview').addEventListener('click',()=>advance(5));
@@ -919,12 +894,15 @@ function setup(){
   field('plotClear').addEventListener('click',()=>{clearPlotPreview();state.plotDraft=[];state.plotBoundary=[];state.zones.forEach(z=>z.conditions=null);invalidateFrom(2);drawPlot();});
   field('siteBoard').addEventListener('click',event=>{if(state.siteMap||state.plotMode!=='draw')return;const rect=field('siteBoard').getBoundingClientRect();state.plotDraft.push([Math.round((event.clientX-rect.left)/rect.width*1000),Math.round((event.clientY-rect.top)/rect.height*1000)]);drawPlot();});
   field('addZone').addEventListener('click',()=>{state.zones.push({id:state.nextZoneId++,name:'New zone',conditions:null});invalidateFrom(2);renderZoneList();});
-  $$('#priorityOptions input').forEach(input=>input.addEventListener('change',()=>{updatePriorityControls();updateAimPreview();invalidateFrom(1);}));
-  $$('#stage1 input, #stage1 select').forEach(input=>{if(!input.closest('#priorityOptions'))input.addEventListener('change',()=>{updateAimPreview();invalidateFrom(1);});});
-  field('projectTypeOther').addEventListener('input',()=>{field('projectTypeOther').setCustomValidity('');updateAimPreview();});
+  $$('#priorityOptions input').forEach(input=>input.addEventListener('change',()=>{
+    const chosen=$$('#priorityOptions input:checked');if(chosen.length>3)input.checked=false;
+    field('priorityCount').textContent=$$('#priorityOptions input:checked').length+' of 3 chosen';
+    invalidateFrom(1);
+  }));
+  $$('#stage1 input, #stage1 select').forEach(input=>{if(!input.closest('#priorityOptions'))input.addEventListener('change',()=>invalidateFrom(1));});
   $$('#stage2 input:not([type=file]), #stage2 textarea').forEach(input=>input.addEventListener('change',()=>invalidateFrom(2)));
   $$('[id^="feature"]').forEach(input=>input.addEventListener('change',()=>{state.zones.forEach(z=>z.conditions=null);invalidateFrom(2);}));
-  updatePriorityControls();updateAimPreview();
+  field('priorityCount').textContent='3 of 3 chosen';
   field('inventoryFile').addEventListener('change',async event=>{
     const file=event.target.files[0];if(!file)return;
     field('inventoryFileName').textContent=file.name;

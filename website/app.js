@@ -9,11 +9,11 @@ const $ = selector => document.querySelector(selector);
 const $$ = selector => Array.from(document.querySelectorAll(selector));
 const state = {
   stage: 0, unlocked: 1, nextZoneId: 2,
-  zones: [{id: 1, name: 'Main site', conditions: null}],
+  zones: [{id: 1, name: 'Whole site', conditions: null}],
   inventory: [], catalogue: [], catalogueSource: 'starter names',
   selected: [], removed: [], approved: false, log: [], paletteBuilt:false,
   designRules:null, compositionMode:'auto', planAudit:null, planDirty:false, planUndo:[],
-  siteMap:null, siteMapReady:false, plotMode:'pan', plotDraft:[], plotBoundary:[], plotDraftLayer:null, plotLayer:null,
+  siteMap:null, siteMapReady:false, plotMode:'pan', plotDraft:[], plotBoundary:[], plotDraftLayer:null, plotPreviewLayer:null, plotLayer:null,
   map: null, mapReady: false, tool: 'pan', draft: [], draftLayer: null,
   sketches: [], planOverlay: null, planObjectUrl: null, siteBoundaryLayer:null,
   placements:[], planMasses:[], massGrid:null, placementLayers:[], coverageLayers:[], selectedPlacement:null, generated:false, planRevision:0
@@ -44,14 +44,14 @@ const field = id => document.getElementById(id);
 const checked = id => field(id).checked;
 const choice = name => (document.querySelector('input[name="'+name+'"]:checked') || {}).value || '';
 const project = () => ({
-  type: choice('projectType'), area: geographicPolygonAreaM2(state.plotBoundary)||0, audience:field('audience').value,
+  type: choice('projectType'), typeDescription:field('projectTypeOther').value.trim(), area: geographicPolygonAreaM2(state.plotBoundary)||0, audience:field('audience').value,
   maintenance:field('maintenance').value, priorities:$$('#priorityOptions input:checked').map(x=>x.value),
   character:field('spatialCharacter').value, notes:field('projectNotes').value.trim(),
   publicAccess:checked('publicAccess'), publicHarvest:checked('foodHarvest'), sightlines:checked('clearSightlines'),
   rewilding:$$('#priorityOptions input:checked').some(x=>x.value==='rewilding'), restorationOrnamentals:checked('restorationOrnamentals'),
   anchorColours:[field('anchorColour1').value,field('anchorColour2').value].filter(Boolean)
 });
-const site = () => ({location:field('location').value.trim(), reference:field('siteReference').value.trim(), description:field('siteDescription').value.trim()});
+const site = () => ({location:(nearestDemoPlace()?.label || 'Selected map area')+', Netherlands', description:field('siteDescription').value.trim()});
 
 function stageFromUrl(){
   const match = location.hash.match(/^#stage-(\d)$/);
@@ -81,6 +81,31 @@ function showStage(number, updateHistory=true){
   window.scrollTo({top:0,behavior:'instant'});
 }
 function advance(number){ state.unlocked=Math.max(state.unlocked,number); showStage(number); }
+function updatePriorityControls(){
+  const inputs=$$('#priorityOptions input'),chosen=inputs.filter(input=>input.checked);
+  const atLimit=chosen.length>=3;
+  inputs.forEach(input=>input.disabled=atLimit&&!input.checked);
+  field('priorityCount').textContent=chosen.length+' of 3 chosen';
+  field('priorityGuidance').textContent=atLimit?'Three priorities selected. Remove one to choose another.':'Choose the three outcomes that matter most.';
+}
+function updateAimPreview(){
+  let p=project();if(!p.publicAccess)field('foodHarvest').checked=false;p=project();
+  const typeNames={restoration:'Ecological restoration',landscape:'Designed landscape',productive:'Productive garden',other:p.typeDescription||'Custom project'};
+  const audienceNames={public:'public',residents:'resident',private:'private',students:'student / child',growers:'grower / volunteer',habitat:'limited-access habitat'};
+  const items=[];
+  if(p.type==='restoration')items.push('Native-first palette');
+  if(p.character==='open')items.push('Lower, open structure');
+  if(p.maintenance==='low')items.push('Avoid vigorous test plants');
+  if(p.priorities.includes('pollinators'))items.push('Review flowering gaps');
+  if(p.publicAccess)items.push('Safety & visibility review');
+  if(p.publicHarvest)items.push('Harvest safety review');
+  if(p.sightlines)items.push('Protect key views');
+  field('aimImpactTitle').textContent=typeNames[p.type]+' for '+audienceNames[p.audience]+' users';
+  field('aimImpactSummary').textContent='* Later concept checks will use these choices. Site conditions, plant safety and local evidence still need confirmation.';
+  field('aimImpactList').innerHTML=items.length?items.map(item=>'<li>'+esc(item)+'</li>').join(''):'Your chosen priorities will be recorded for the later review.';
+  field('otherProjectField').classList.toggle('hidden',p.type!=='other');
+  field('foodHarvestOption').classList.toggle('hidden',!p.publicAccess);
+}
 function invalidateFrom(stage){
   state.approved=false;state.unlocked=Math.min(state.unlocked,stage);if(stage<=3)state.paletteBuilt=false;
   if(stage<=4&&state.generated){state.generated=false;state.planAudit=null;state.planDirty=false;state.planUndo=[];state.placements=[];state.planMasses=[];state.selectedPlacement=null;state.placementLayers.forEach(layer=>state.map&&state.map.removeLayer(layer));state.placementLayers=[];field('generatePlan').textContent='Generate demo plan';field('downloadPlanSvg').disabled=true;field('downloadViewSvg').disabled=true;field('generationStatus').textContent='The project or palette changed. Generate a new demo arrangement.';renderSymbolEditor();renderPlacementList();renderVisualization();}
@@ -351,8 +376,8 @@ function downloadCsv(){
   const rows=[
     ['PLANTSCAPES SYNTHETIC CANDIDATE REVIEW — NOT A PLANTING SPECIFICATION'],
     ['Name catalogue version',DATASET_VERSION],['Synthetic trait version',demo.version],['Rule version',RULE_VERSION],['Exported on',new Date().toISOString()],
-    ['Location (user-entered)',s.location],['Site reference',s.reference],['Area m2',p.area],
-    ['Project type',p.type],['Audience',p.audience],['Maintenance capacity',p.maintenance],['Priorities',p.priorities.join('; ')],
+    ['Map area (nearest demo location)',s.location],['Area m2',p.area],
+    ['Project type',p.type],['Project type detail',p.typeDescription],['Audience',p.audience],['Maintenance capacity',p.maintenance],['Priorities',p.priorities.join('; ')],
     ['Spatial character',p.character],['Composition mode',compositionModeRecord().label],['Composition rule version',RULE_VERSION],['Public access',p.publicAccess],['Public harvesting',p.publicHarvest],['Preserve open views',p.sightlines],['Rewilding native-only policy',p.rewilding],['Seasonal anchor colours',p.anchorColours.join('; ')],
     ['Project notes',p.notes],['Site description',s.description],
     ['Recommendation status','Simulated recommendations for workflow testing only; no verified site suitability'],
@@ -686,13 +711,36 @@ function initSiteMap(){
   state.siteMapReady=true;
   if(!window.L){field('siteMap').classList.add('hidden');field('siteBoard').classList.remove('hidden');return;}
   const place=demo.places[field('mapPreset').value]||demo.places.pijnacker;
-  state.siteMap=L.map('siteMap',{doubleClickZoom:false,zoomAnimation:false,fadeAnimation:false}).setView(place.center,15);demoBasemap(state.siteMap);
+  const netherlandsBounds=L.latLngBounds([[50.75,3.2],[53.65,7.3]]);
+  state.siteMap=L.map('siteMap',{doubleClickZoom:false,scrollWheelZoom:false,touchZoom:true,zoomControl:true,zoomAnimation:false,fadeAnimation:false,maxBounds:netherlandsBounds,maxBoundsViscosity:1}).setView(place.center,15);
+  state.siteMap.setMinZoom(state.siteMap.getBoundsZoom(netherlandsBounds,false));
+  demoBasemap(state.siteMap);
   L.control.scale({position:'bottomright',metric:true,imperial:false,maxWidth:120}).addTo(state.siteMap);
   state.siteMap.dragging[state.plotMode==='draw'?'disable':'enable']();
+  field('siteMap').classList.toggle('draw-mode',state.plotMode==='draw');
   field('plotPan').classList.toggle('active',state.plotMode==='pan');field('plotDraw').classList.toggle('active',state.plotMode==='draw');
   state.siteMap.on('click',event=>{if(state.plotMode!=='draw')return;state.plotDraft.push([event.latlng.lat,event.latlng.lng]);drawPlot();});
+  state.siteMap.on('mousemove',event=>updatePlotPreview(event.latlng));
+  state.siteMap.on('mouseout',clearPlotPreview);
+  state.siteMap.getContainer().addEventListener('wheel',event=>{
+    if(!event.ctrlKey)return;
+    event.preventDefault();
+    const direction=event.deltaY<0?1:-1;
+    const next=Math.max(state.siteMap.getMinZoom(),Math.min(state.siteMap.getMaxZoom(),state.siteMap.getZoom()+direction));
+    state.siteMap.setZoomAround(state.siteMap.mouseEventToContainerPoint(event),next,{animate:false});
+  },{passive:false});
   if(state.plotBoundary.length)drawPlot();
   setTimeout(()=>state.siteMap.invalidateSize(),100);
+}
+function clearPlotPreview(){
+  if(state.plotPreviewLayer&&state.siteMap)state.siteMap.removeLayer(state.plotPreviewLayer);
+  state.plotPreviewLayer=null;
+}
+function updatePlotPreview(point){
+  if(!state.siteMap||state.plotMode!=='draw'||!state.plotDraft.length){clearPlotPreview();return;}
+  const segment=[state.plotDraft[state.plotDraft.length-1],point];
+  if(state.plotPreviewLayer)state.plotPreviewLayer.setLatLngs(segment);
+  else state.plotPreviewLayer=L.polyline(segment,{color:'#db7b46',weight:2,dashArray:'4 6',opacity:.72,interactive:false}).addTo(state.siteMap);
 }
 function drawPlot(){
   const map=state.siteMap;
@@ -711,16 +759,16 @@ function drawPlot(){
     if(points.length){const shape=document.createElementNS('http://www.w3.org/2000/svg',state.plotDraft.length?'polyline':'polygon');shape.setAttribute('points',points.map(p=>p.join(',')).join(' '));shape.setAttribute('stroke','#26443a');shape.setAttribute('stroke-width','5');shape.setAttribute('fill',state.plotDraft.length?'none':'#b8d79f');shape.setAttribute('fill-opacity','.5');svg.append(shape);points.forEach(p=>{const dot=document.createElementNS('http://www.w3.org/2000/svg','circle');dot.setAttribute('cx',p[0]);dot.setAttribute('cy',p[1]);dot.setAttribute('r','10');dot.setAttribute('fill','#d87543');svg.append(dot);});}board.append(svg);
   }
   const count=state.plotDraft.length;
-  field('plotStatus').textContent=state.plotMode==='draw'?(count?count+' corner'+(count===1?'':'s')+' placed · '+(count>=3?'finish the boundary':'add '+(3-count)+' more'):'Draw mode: click at least three corners; map panning is paused.'):state.plotBoundary.length?'Move mode: drag to navigate · boundary saved with '+state.plotBoundary.length+' corners':'Move mode: drag to navigate · choose Draw boundary when ready.';
+  field('plotStatus').textContent=state.plotMode==='draw'?(count?count+' corner'+(count===1?'':'s')+' placed · '+(count>=3?'finish the boundary':'add '+(3-count)+' more'):'Draw mode: click at least three corners; map panning is paused.'):state.plotBoundary.length?'Move mode: drag to navigate · use + or − to zoom · boundary saved with '+state.plotBoundary.length+' corners':'Move mode: drag to navigate · use + or − to zoom · choose Draw boundary when ready.';
   const area=metricPolygonArea(count>=3?state.plotDraft:state.plotBoundary);
   field('plotAreaReadout').textContent=area?((count>=3?'Draft area':'Measured site area')+': '+Math.round(area).toLocaleString()+' m² · calculated from the drawn boundary'):count>=3?'Finish the boundary to calculate area.':'Draw the boundary on the geographic map to calculate area.';
   field('plotFinish').disabled=count<3;field('plotUndo').disabled=!count;field('plotClear').disabled=!count&&!state.plotBoundary.length;
 }
-function finishPlot(){if(state.plotDraft.length<3)return;state.plotBoundary=state.plotDraft.map(p=>p.slice());state.plotDraft=[];state.zones.forEach(z=>z.conditions=null);invalidateFrom(2);state.plotMode='pan';if(state.siteMap)state.siteMap.dragging.enable();field('plotPan').classList.add('active');field('plotDraw').classList.remove('active');drawPlot();}
+function finishPlot(){if(state.plotDraft.length<3)return;clearPlotPreview();state.plotBoundary=state.plotDraft.map(p=>p.slice());state.plotDraft=[];state.zones.forEach(z=>z.conditions=null);invalidateFrom(2);state.plotMode='pan';if(state.siteMap)state.siteMap.dragging.enable();field('siteMap').classList.remove('draw-mode');field('plotPan').classList.add('active');field('plotDraw').classList.remove('active');drawPlot();}
 function examplePlot(){
   const center=state.siteMap?state.siteMap.getCenter():{lat:500,lng:500};
   state.plotBoundary=state.siteMap?[[center.lat-.000045,center.lng-.00013],[center.lat-.000045,center.lng+.00013],[center.lat+.000045,center.lng+.00013],[center.lat+.000045,center.lng-.00013]]:[[430,430],[570,430],[570,570],[430,570]];
-  state.plotDraft=[];state.zones.forEach(z=>z.conditions=null);invalidateFrom(2);state.plotMode='pan';if(state.siteMap)state.siteMap.dragging.enable();field('plotPan').classList.add('active');field('plotDraw').classList.remove('active');drawPlot();if(state.siteMap)state.siteMap.fitBounds(state.plotBoundary,{padding:[55,55],animate:false});
+  clearPlotPreview();state.plotDraft=[];state.zones.forEach(z=>z.conditions=null);invalidateFrom(2);state.plotMode='pan';if(state.siteMap)state.siteMap.dragging.enable();field('siteMap').classList.remove('draw-mode');field('plotPan').classList.add('active');field('plotDraw').classList.remove('active');drawPlot();if(state.siteMap)state.siteMap.fitBounds(state.plotBoundary,{padding:[55,55],animate:false});
 }
 const sketchStyles={
   boundary:{color:'#26443a',fillColor:'#d4e7bf',fillOpacity:.06,weight:3,dashArray:'7 5'},
@@ -855,32 +903,28 @@ function setup(){
   field('brand').addEventListener('click',event=>{event.preventDefault();showStage(0);});
   $$('[data-go]').forEach(button=>button.addEventListener('click',()=>showStage(Number(button.dataset.go))));
   $$('.stage').forEach(button=>button.addEventListener('click',()=>showStage(Number(button.dataset.stage))));
-  field('toSite').addEventListener('click',()=>advance(2));
-  field('toConfirm').addEventListener('click',()=>{if(!site().location){field('location').setCustomValidity('Enter a town or site name.');field('location').reportValidity();return;}field('location').setCustomValidity('');if(!checked('inNetherlands')){field('siteError').textContent='This workflow is limited to sites in the Netherlands. Confirm the location to continue.';field('siteError').classList.remove('hidden');return;}if(state.plotBoundary.length<3){field('siteError').textContent='Outline the plot on the map, or choose Use example plot, before continuing.';field('siteError').classList.remove('hidden');return;}field('siteError').classList.add('hidden');advance(3);});
-  field('location').addEventListener('input',()=>field('location').setCustomValidity(''));
+  field('toSite').addEventListener('click',()=>{if(choice('projectType')==='other'&&!field('projectTypeOther').value.trim()){field('projectTypeOther').setCustomValidity('Describe the project type before continuing.');field('projectTypeOther').reportValidity();return;}field('projectTypeOther').setCustomValidity('');advance(2);});
+  field('toConfirm').addEventListener('click',()=>{if(state.plotBoundary.length<3){field('siteError').textContent='Outline the plot on the map, or choose Use example plot, before continuing.';field('siteError').classList.remove('hidden');return;}field('siteError').classList.add('hidden');advance(3);});
   field('toPalette').addEventListener('click',()=>{if(validateConditions()){if(!state.paletteBuilt)buildDemoPalette();advance(4);}});
   field('toReview').addEventListener('click',()=>advance(5));
   field('approvePalette').addEventListener('click',()=>{state.approved=true;advance(6);});
   field('downloadCsv').addEventListener('click',downloadCsv);
   field('toPlan').addEventListener('click',()=>advance(7));
-  field('mapPreset').addEventListener('change',()=>{const p=demo.places[field('mapPreset').value];if(p){field('location').value=p.label+', Netherlands';if(state.siteMap)state.siteMap.setView(p.center,15);state.plotBoundary=[];state.plotDraft=[];state.zones.forEach(z=>z.conditions=null);invalidateFrom(2);drawPlot();}});
-  field('plotPan').addEventListener('click',()=>{state.plotMode='pan';field('plotPan').classList.add('active');field('plotDraw').classList.remove('active');if(state.siteMap)state.siteMap.dragging.enable();drawPlot();});
-  field('plotDraw').addEventListener('click',()=>{state.plotMode='draw';field('plotDraw').classList.add('active');field('plotPan').classList.remove('active');if(state.siteMap)state.siteMap.dragging.disable();drawPlot();});
+  field('mapPreset').addEventListener('change',()=>{const p=demo.places[field('mapPreset').value];if(p){clearPlotPreview();if(state.siteMap)state.siteMap.setView(p.center,15);state.plotBoundary=[];state.plotDraft=[];state.zones.forEach(z=>z.conditions=null);invalidateFrom(2);drawPlot();}});
+  field('plotPan').addEventListener('click',()=>{clearPlotPreview();state.plotMode='pan';field('plotPan').classList.add('active');field('plotDraw').classList.remove('active');if(state.siteMap)state.siteMap.dragging.enable();field('siteMap').classList.remove('draw-mode');drawPlot();});
+  field('plotDraw').addEventListener('click',()=>{state.plotMode='draw';field('plotDraw').classList.add('active');field('plotPan').classList.remove('active');if(state.siteMap)state.siteMap.dragging.disable();field('siteMap').classList.add('draw-mode');drawPlot();});
   field('plotExample').addEventListener('click',examplePlot);
   field('plotUndo').addEventListener('click',()=>{state.plotDraft.pop();drawPlot();});
   field('plotFinish').addEventListener('click',finishPlot);
-  field('plotClear').addEventListener('click',()=>{state.plotDraft=[];state.plotBoundary=[];state.zones.forEach(z=>z.conditions=null);invalidateFrom(2);drawPlot();});
+  field('plotClear').addEventListener('click',()=>{clearPlotPreview();state.plotDraft=[];state.plotBoundary=[];state.zones.forEach(z=>z.conditions=null);invalidateFrom(2);drawPlot();});
   field('siteBoard').addEventListener('click',event=>{if(state.siteMap||state.plotMode!=='draw')return;const rect=field('siteBoard').getBoundingClientRect();state.plotDraft.push([Math.round((event.clientX-rect.left)/rect.width*1000),Math.round((event.clientY-rect.top)/rect.height*1000)]);drawPlot();});
   field('addZone').addEventListener('click',()=>{state.zones.push({id:state.nextZoneId++,name:'New zone',conditions:null});invalidateFrom(2);renderZoneList();});
-  $$('#priorityOptions input').forEach(input=>input.addEventListener('change',()=>{
-    const chosen=$$('#priorityOptions input:checked');if(chosen.length>3)input.checked=false;
-    field('priorityCount').textContent=$$('#priorityOptions input:checked').length+' of 3 chosen';
-    invalidateFrom(1);
-  }));
-  $$('#stage1 input, #stage1 select').forEach(input=>{if(!input.closest('#priorityOptions'))input.addEventListener('change',()=>invalidateFrom(1));});
+  $$('#priorityOptions input').forEach(input=>input.addEventListener('change',()=>{updatePriorityControls();updateAimPreview();invalidateFrom(1);}));
+  $$('#stage1 input, #stage1 select').forEach(input=>{if(!input.closest('#priorityOptions'))input.addEventListener('change',()=>{updateAimPreview();invalidateFrom(1);});});
+  field('projectTypeOther').addEventListener('input',()=>{field('projectTypeOther').setCustomValidity('');updateAimPreview();});
   $$('#stage2 input:not([type=file]), #stage2 textarea').forEach(input=>input.addEventListener('change',()=>invalidateFrom(2)));
   $$('[id^="feature"]').forEach(input=>input.addEventListener('change',()=>{state.zones.forEach(z=>z.conditions=null);invalidateFrom(2);}));
-  field('priorityCount').textContent='3 of 3 chosen';
+  updatePriorityControls();updateAimPreview();
   field('inventoryFile').addEventListener('change',async event=>{
     const file=event.target.files[0];if(!file)return;
     field('inventoryFileName').textContent=file.name;

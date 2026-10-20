@@ -7,7 +7,7 @@ const browser=await chromium.launch({headless:true,channel:'msedge'});
 try{
   const page=await browser.newPage({viewport:{width:1440,height:1000},acceptDownloads:true});
   const errors=[];page.on('pageerror',error=>errors.push(error.message));
-  await page.goto('http://127.0.0.1:4181/website/index.html?v=workspace-mix-4',{waitUntil:'networkidle'});
+  await page.goto((process.env.PLANTSCAPES_TEST_URL||'http://127.0.0.1:4182')+'/website/index.html?v=path-camera-6',{waitUntil:'networkidle'});
   await page.locator('#startProject').click();await page.locator('#toSite').click();
   await page.locator('#location').fill('Delft public park, Netherlands');
   await page.locator('#mapPreset').selectOption('delft');
@@ -38,7 +38,7 @@ try{
   await page.locator('[data-tool="planting"]').click();
   for(const position of drawing.bed)await page.locator('#map').click({position});
   await page.locator('#finishShape').click();await page.locator('#generatePlan').click();
-  assert.match(await page.locator('#generationStatus').textContent(),/draft plants/);
+  assert.match(await page.locator('#generationStatus').textContent(),/estimated plants/);
   assert.ok(await page.locator('#visualCanvas svg').count(),'view must draw');
   assert.match(await page.locator('#planNotation').textContent(),/Tree centre/);
   assert.ok(await page.locator('#placementList svg pattern').count()>5,'legend must use the plan hatch patterns');
@@ -46,11 +46,13 @@ try{
   await page.locator('#viewAngle').selectOption('elevated');
   assert.ok(await page.locator('#map .leaflet-overlay-pane svg path').count()>5,'map must draw plants');
   await page.locator('.species-key summary').click();
-  await page.locator('[data-select-symbol]').first().click();
+  const addition=await page.evaluate(()=>{const sample=state.placements.find(p=>!p.tree),pixel=state.map.latLngToContainerPoint(sample.point);return {plantId:sample.plantId,position:{x:pixel.x,y:pixel.y}};});
+  await page.locator('#symbolSpecies').selectOption(addition.plantId);await page.locator('[data-tool="symbol"]').click();await page.locator('#map').click({position:addition.position});
   assert.ok(await page.locator('#selectedSymbol').isVisible(),'a selected plant must expose a real editor');
   const alternatives=await page.locator('#editSymbolSpecies option').evaluateAll(options=>options.map(o=>o.value));
-  if(alternatives.length>1){const current=await page.locator('#editSymbolSpecies').inputValue();await page.locator('#editSymbolSpecies').selectOption(alternatives.find(id=>id!==current));assert.match(await page.locator('#generationStatus').textContent(),/Species changed/);await page.locator('#undoPlanEdit').click();await page.locator('[data-select-symbol]').first().click();}
+  if(alternatives.length>1){const current=await page.locator('#editSymbolSpecies').inputValue();await page.locator('#editSymbolSpecies').selectOption(alternatives.find(id=>id!==current));assert.match(await page.locator('#generationStatus').textContent(),/Species changed/);await page.locator('#undoPlanEdit').click();await page.evaluate(()=>selectPlacement(state.placements.find(p=>p.manual).id));}
   const before=await page.locator('#placementList').textContent();
+  await page.evaluate(()=>selectPlacement(state.placements.find(p=>p.manual&&!p.preview).id));
   await page.locator('#removeSymbol').click();await page.locator('#undoPlanEdit').click();
   assert.equal(await page.locator('#placementList').textContent(),before,'undo must restore plant quantities');
   const planPromise=page.waitForEvent('download');await page.locator('#downloadPlanSvg').click();const plan=await planPromise;assert.match(plan.suggestedFilename(),/\.svg$/);

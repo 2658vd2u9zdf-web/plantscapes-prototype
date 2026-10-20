@@ -43,7 +43,6 @@
     const {boundary,beds,paths,waterBeds=[],exclusions=[],plants,project,zones,mode='repeated_drifts',pathWidth=1.5,mix={matrix:45,flowers:45,structure:10}}=input;
     const warnings=[],decisions=[],placements=[];
     if(!boundary||boundary.length<3)return {error:'Draw a scaled site boundary first.'};
-    if(!paths?.some(line=>line.length>=2))return {error:'Draw and finish the paths before generating your planting plan.'};
     if(!beds?.length)return {error:'Draw a planting zone and link it to confirmed conditions.'};
     if(!rules)return {error:'The approved rulebook could not load. Reload this page.'};
     const mixWeights={matrix:Math.max(0,Number(mix.matrix)||0),flowers:Math.max(0,Number(mix.flowers)||0),structure:Math.max(0,Number(mix.structure)||0)};
@@ -96,7 +95,7 @@
     const patchPlants=new Map(),minSpacing=Math.min(...pool.filter(p=>p.group!=='Trees').map(p=>p.spacing||.5),.5),step=Math.max(.22,minSpacing);
     const totalCells=((bounds.maxX-bounds.minX)*(bounds.maxY-bounds.minY))/(step*step),sampleStep=totalCells>250000?Math.sqrt((bounds.maxX-bounds.minX)*(bounds.maxY-bounds.minY)/250000):step;
     if(sampleStep>step)warnings.push('Large-site preview samples the area; quantities need subdivision into smaller beds.');
-    for(let y=bounds.minY+sampleStep/2;y<bounds.maxY&&placements.length<config.limit;y+=sampleStep){
+    for(let y=bounds.minY+sampleStep/2;y<bounds.maxY&&placements.length<config.limit&&pool.some(p=>p.group!=='Trees');y+=sampleStep){
       const row=Math.floor((y-bounds.minY)/sampleStep);
       for(let x=bounds.minX+sampleStep/2+(row%2)*sampleStep/2;x<bounds.maxX&&placements.length<config.limit;x+=sampleStep){
         const jitter=mode==='formal_blocks'?0:sampleStep*.7;

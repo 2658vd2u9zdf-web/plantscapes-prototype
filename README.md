@@ -6,13 +6,13 @@ This prototype is for evaluating the workflow, **not for choosing plants for a r
 
 ## Open the prototype
 
-Serve this folder locally and visit `http://127.0.0.1:4181/website/index.html`. From the package directory, run:
+Run the local server and visit `http://127.0.0.1:4182/website/index.html?v=communities-ai-5`. From the package directory, run:
 
 ```powershell
-python -m http.server 4181 --bind 127.0.0.1
+node server.mjs
 ```
 
-The national name catalogue, simulated species layer and case-study/rule data are bundled in `website/data/`; source datasets and documentation are in `dataset/`. No app server or API key is required. Leaflet, the XLSX reader and the Kadaster/PDOK background map are loaded from external services, so map use and XLSX upload need an internet connection. If Leaflet cannot load, drawing falls back to a schematic board. CSV inventory uploads work locally.
+The national name catalogue, simulated species layer and case-study/rule data are bundled in `website/data/`; source datasets and documentation are in `dataset/`. Community plans and image import need no API key. Real AI advice and direct illustration generation need privately configured API access; the default is disabled and the local test allowance is capped at $3. See [setup, cost controls and limitations](project-information/COMMUNITIES-AND-AI-IMPLEMENTATION.md). Leaflet, the XLSX reader and Kadaster/PDOK maps need internet access. CSV inventory uploads work locally.
 
 ## What to test
 
@@ -45,4 +45,4 @@ The annotated case-study template is ready for the project team's Dutch examples
 
 Run the smoke checks from the package directory with `node tests/smoke.mjs`. The real source CSV is `dataset/derived/plantscapes_nl_vascular_plant_decision_traits_v0_2.csv`; its browser export is `website/data/catalogue.js`. The synthetic fixtures are in `website/data/demo-data.js` so they can be replaced without contaminating the real catalogue.
 
-The full browser walkthrough uses Playwright and installed Microsoft Edge: `node tests/browser-walkthrough.mjs` with the local server running on port 4181. Screenshots and its check report are saved under `project-information/implementation-checks/`.
+The full browser walkthrough uses Playwright and installed Microsoft Edge: `node tests/browser-walkthrough.mjs` with the local server running on port 4182. Screenshots and its check report are saved under `project-information/implementation-checks/`. Additional checks: `node tests/communities.mjs`, `node tests/ai-server.mjs` and `node tests/ai-browser.mjs`. AI tests mock the provider and do not make paid requests.

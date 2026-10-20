@@ -1,0 +1,32 @@
+[hidden]{display:none!important}
+.render-refinement{display:flex;align-items:end;gap:12px;margin:16px 0}.render-refinement .field{flex:1}.render-refinement textarea{min-height:72px}#aiImage[hidden]+.render-refinement{display:none}
+@media(max-width:650px){.render-refinement{flex-direction:column;align-items:stretch}}
+.choice-grid-four{grid-template-columns:repeat(2,minmax(0,1fr))}
+.stage-header{margin-bottom:20px}.field-row:empty{display:none}
+.condition-card-head,.condition-card-foot,#stage3 .evidence-banner,.colour-preference small{display:none}
+#stage4 .composition-panel,#stage4 .case-study-note{display:none}
+#stage6{max-width:880px}
+#stage6 .stage-header{margin-bottom:28px}
+#stage6 .output-grid{gap:16px;align-items:stretch}
+#stage6 .output-card{min-height:0;padding:0;border:0;background:none;display:block}
+#stage6 .output-card .button{width:100%;min-height:112px;margin:0;padding:24px;text-align:left;justify-content:space-between;line-height:1.4;border-radius:14px;font-size:1rem}
+#stage6 .output-card:first-child .button{background:#edf3e9;color:#173e34;border:1px solid #acc2aa}
+#stage6 .output-card .button::after{content:'↗';font-size:1.4rem;margin-left:16px}
+#stage6 .stage-actions{margin-top:28px}
+@media(max-width:650px){#stage6 .output-card .button{min-height:88px;padding:20px}}
+.icon-tool{min-width:44px;min-height:44px;display:inline-flex;align-items:center;justify-content:center}
+.site-map-toolbar,.toolrow{flex-wrap:wrap;gap:8px}
+#stage2 .upload-row p,.map-footer,#stage7 .side-note,#stage7 .map-draw-status,.notation-key p,.species-key,#visualCaption,.visual-head .demo-pill,.camera-editor>p:last-child{display:none}
+#generationStatus{font-size:13px;margin:8px 0}#generationStatus:empty{display:none}
+#selectedSymbol>p,#selectedSymbol>small{display:none}
+.plan-generated .tool[data-tool]:not([data-tool="pan"]):not([data-tool="symbol"]),.plan-generated #finishShape,.plan-generated #undoSketch{display:none}
+#stage7 .workspace-details,#communityControls{display:none!important}
+#stage7 .plan-sidebar{max-width:260px}.camera-controls{margin:0}
+#stage8 .visual-panel{border:0;padding:0}#stage8 .visual-head{display:none}
+#stage8 .visual-foot{justify-content:flex-end}.illustration-panel>.compact-note:not([id]){display:none}
+.camera-editor .toolrow button[aria-pressed="true"]{background:#173e34;color:white}
+#stage8 .camera-controls details{margin:8px 0}
+#stage8 #exportScene{display:none}
+#stage8 #cameraPlan{max-height:360px!important}
+.stage-panel .stage-actions{gap:12px}
+@media(max-width:650px){.choice-grid-four{grid-template-columns:1fr}.output-grid{grid-template-columns:1fr}.plan-layout{grid-template-columns:1fr}#stage7 .plan-sidebar{max-width:none}}

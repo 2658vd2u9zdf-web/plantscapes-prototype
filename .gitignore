@@ -1,5 +1,6 @@
 # Local development / operating-system files
 node_modules/
+.plantscapes-local/
 .DS_Store
 Thumbs.db
 Desktop.ini

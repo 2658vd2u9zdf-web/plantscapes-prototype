@@ -1,7 +1,7 @@
 {
   "status": "passed",
   "candidateCount": 44,
-  "aquaticPositions": 509,
+  "aquaticPositions": 174,
   "checks": [
     "palette visible",
     "no aquatic candidates without water",

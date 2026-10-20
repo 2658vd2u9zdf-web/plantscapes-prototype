@@ -44,10 +44,10 @@ const field = id => document.getElementById(id);
 const checked = id => field(id).checked;
 const choice = name => (document.querySelector('input[name="'+name+'"]:checked') || {}).value || '';
 const project = () => ({
-  type: choice('projectType'), area: geographicPolygonAreaM2(state.plotBoundary)||0, audience:field('audience').value,
-  maintenance:field('maintenance').value, priorities:$$('#priorityOptions input:checked').map(x=>x.value),
-  character:field('spatialCharacter').value, notes:field('projectNotes').value.trim(),
-  publicAccess:checked('publicAccess'), publicHarvest:checked('foodHarvest'), sightlines:checked('clearSightlines'),
+  type: choice('projectType'), area: geographicPolygonAreaM2(state.plotBoundary)||0, audience:'unspecified',
+  maintenance:'unknown', priorities:$$('#priorityOptions input:checked').map(x=>x.value),
+  character:field('spatialCharacter').value, notes:'',
+  publicAccess:false, publicHarvest:false, sightlines:field('spatialCharacter').value==='open',
   rewilding:$$('#priorityOptions input:checked').some(x=>x.value==='rewilding'), restorationOrnamentals:checked('restorationOrnamentals'),
   anchorColours:[field('anchorColour1').value,field('anchorColour2').value].filter(Boolean)
 });
@@ -59,18 +59,20 @@ function stageFromUrl(){
   return proposed <= state.unlocked ? proposed : 0;
 }
 function showStage(number, updateHistory=true){
-  if(number > state.unlocked || number < 0 || number > 7) return;
+  if(number===5)number=6;
+  if(number > state.unlocked || number < 0 || number > 8) return;
   state.stage = number;
   field('home').classList.toggle('hidden', number !== 0);
   field('workflow').classList.toggle('hidden', number === 0);
-  for(let n=1;n<=7;n++) field('stage'+n).classList.toggle('hidden',n!==number);
+  for(let n=1;n<=8;n++) field('stage'+n)?.classList.toggle('hidden',n!==number);
   $$('.stage').forEach(button => {
     const n = Number(button.dataset.stage);
     button.disabled = n > state.unlocked;
     button.classList.toggle('active',n===number);
     if(n===number) button.setAttribute('aria-current','step'); else button.removeAttribute('aria-current');
   });
-  field('stageCount').textContent = number+' of 7';
+  field('stageCount').textContent = ([1,2,3,4,6,7,8].indexOf(number)+1)+' of 7';
+  if(number===8)renderVisualization();
   if(number===2){renderZoneList();setTimeout(initSiteMap,40);}
   if(number===3) renderConditionZones();
   if(number===4) renderPalette();
@@ -143,8 +145,7 @@ function renderConditionZones(){
   }));
 }
 function validateConditions(){
-  const invalid=state.zones.filter(z=>!z.conditions||z.conditions.source==='unverified');
-  if(invalid.length){const box=field('conditionError');box.textContent='Choose the basis for confirmation in '+invalid.map(z=>z.name||'unnamed zone').join(', ')+'. You can keep individual conditions as unknown.';box.classList.remove('hidden');return false;}
+  state.zones.forEach(z=>{if(!z.conditions)z.conditions=defaultConditions();z.conditions.source='demo';});
   field('conditionError').classList.add('hidden');return true;
 }
 function parseCsv(text){
@@ -365,7 +366,8 @@ function downloadCsv(){
   state.selected.forEach(item=>rows.push([item.group,item.name,item.latin,item.zone||'',item.height||'',item.from&&item.to?item.from+'–'+item.to:'',item.soil||'',item.moisture||'',item.light||'',compositionRoleFor(item)==='unassessed'?'Not assessed':compositionRoleLabel(compositionRoleFor(item)),item.caution||'',item.demo?'Synthetic test traits':'Name catalogue only',item.demo?'Synthetic site-fit score '+item.score+'; composition role assigned from mock layer/height under '+compositionModeRecord().label:'Manually selected by designer; no traits assessed','Verify local presence, site fit, hazards, spacing, provenance and maintenance',item.nativeStatus||'unknown',item.spread||'',item.spacing||'']));
   rows.push([],['APPLIED RULES AND EVIDENCE'],['Rule ID','Rule','Status','Evidence URLs']);
   window.PLANTSCAPES_RULEBOOK.rules.forEach(rule=>rows.push([rule.id,rule.name,rule.status,rule.sources.map(id=>window.PLANTSCAPES_RULEBOOK.source_registry[id]).join('; ')]));
-  if(state.generated&&!state.planDirty){rows.push([],['DRAFT PLAN DECISIONS — SYNTHETIC'],['Plant','Zone','Quantity','Spacing m','Rules','Reason']);planPlantKey().forEach(entry=>{const placed=state.placements.filter(x=>x.plantId===entry.plant.id),first=placed[0];rows.push([entry.plant.latin,first?.zone||'',placed.length,first?.spacing||'',first?.ruleTrace?.join('; ')||'',first?.reason||'']);});}
+  if(state.generated&&!state.planDirty){rows.push([],['DRAFT PLAN DECISIONS — SYNTHETIC'],['Plant','Zone','Quantity','Spacing m','Rules','Reason']);planPlantKey().forEach(entry=>{const placed=state.placements.filter(x=>x.plantId===entry.plant.id),first=placed[0];rows.push([entry.plant.latin,first?.zone||'',quantityForPlant(entry.plant.id),first?.spacing||'',first?.ruleTrace?.join('; ')||'',first?.reason||'']);});}
+  if(state.planAudit?.communities&&!state.planDirty){rows.push([],['COMMUNITY RECIPES — ESTIMATED, SYNTHETIC'],['Community','Zone','Band','Estimated area m2','Density plants/m2','Species','Percentage of plant counts','Estimated quantity','Area method']);state.planAudit.communities.forEach(c=>c.rows.forEach(r=>rows.push([c.id,c.zone,c.band,c.area,c.density,r.plant.latin,r.percentage,r.count,state.planAudit.areaMethod])));}
   rows.push([],['EXCLUDED DURING REVIEW'],['Dutch name','Latin name','Decision']);state.removed.forEach(item=>rows.push([item.name,item.latin,'Removed by designer']));
   rows.push([],['EXISTING PLANT INVENTORY — VERIFY ON SITE'],['Uploaded name','Advice']);
   state.inventory.forEach(name=>rows.push([name,'Verify identity, condition and local status on site; no removal advice from a name alone']));
@@ -417,13 +419,19 @@ function metricToLatLng(point,origin){const rad=Math.PI/180,R=6371008.8;return [
 function latLngToMetric(point,origin){const rad=Math.PI/180,R=6371008.8;return [(point[1]-origin[1])*rad*R*Math.cos(origin[0]*rad),(point[0]-origin[0])*rad*R];}
 function hatchColour(index){const palette=['#315f49','#71803a','#b05e7e','#4b8290','#8b6b45','#71649a','#aa764b','#4d8059','#a14955','#557ba5','#85863a','#765a78','#39776c','#ae8154','#596d41','#bd6e60','#55736e','#8d7197','#6b8145','#80694c','#427c9b','#a05b66'];return palette[(index-1)%palette.length];}
 function taxonKeyIndex(id){return plantKeyNumber(id);}
+function generationBlocked(message,tool){
+  field('generationStatus').textContent=message;
+  if(tool)setTool(tool);
+  alert(message);
+  field('mapInstruction').scrollIntoView({block:'center',behavior:'instant'});
+}
 function generatePlan(){
+  if(state.draft.length){generationBlocked('Your current '+(toolLabels[state.tool]||'shape').toLowerCase()+' is not saved yet. Choose Finish shape below the map before generating. Your points have been kept.');return;}
   if(state.plotBoundary.length<3){field('generationStatus').textContent='Draw and save the plot boundary in step 2 first.';return;}
   if(state.plotBoundary.some(p=>Math.abs(p[0])>90||Math.abs(p[1])>180)){field('generationStatus').textContent='Use the geographic map for a scaled planting plan. The fallback board has no metre scale.';return;}
   const beds=state.sketches.filter(s=>s.type==='planting'&&s.points.length>=3);
   const paths=state.sketches.filter(s=>s.type==='path'&&s.points.length>=2);
-  if(!paths.length){field('generationStatus').textContent='Draw your paths first: choose Path, click two or more points, then Finish shape. Paths use a 1.5 m width.';setTool('path');return;}
-  if(!beds.length){field('generationStatus').textContent='Draw a planting area: choose its site conditions in the sidebar, then Planting area → click corners → Finish shape.';setTool('planting');return;}
+  if(!beds.length){generationBlocked('No saved planting area yet. Planting area is now selected: click at least three corners on the map, then choose Finish shape. After that, click Generate concept again.','planting');return;}
   if(state.generated&&!confirm('Regenerate the concept? Current individual plant edits will be replaced.'))return;
   const origin=[state.plotBoundary.reduce((s,p)=>s+p[0],0)/state.plotBoundary.length,state.plotBoundary.reduce((s,p)=>s+p[1],0)/state.plotBoundary.length];
   const result=engine.generate({
@@ -434,10 +442,10 @@ function generatePlan(){
     exclusions:state.sketches.filter(s=>['open'].includes(s.type)&&s.points.length>=3).map(s=>localMetricPolygon(s.points,origin)),
     plants:state.selected,project:project(),zones:state.zones,mode:selectedCompositionMode(),
     mix:{matrix:Number(field('mixMatrix').value),flowers:Number(field('mixFlowers').value),structure:Number(field('mixStructure').value)},
-    pathWidth:PATH_WIDTH
+    pathWidth:PATH_WIDTH,recipes:state.recipeOverrides||{}
   });
-  if(result.error){field('generationStatus').textContent=result.error;return;}
-  if(!result.placements.length){field('generationStatus').textContent='The drawn beds have no compatible planting positions. Widen the beds or review the palette and conditions.';return;}
+  if(result.error){generationBlocked(result.error);return;}
+  if(!result.placements.length){generationBlocked('No compatible planting positions were found. Check that planting areas are inside the plot, do not overlap open ground, and match the selected plants and site conditions.');return;}
   state.placements=result.placements.map((p,i)=>({...makePlacement(i,state.selected.find(q=>q.id===p.plantId),p.xy,origin,result.bounds,selectedCompositionMode(),p.tree),...p}));
   state.selectedPlacement=null;state.generated=true;state.planDirty=false;state.planRevision++;state.planUndo=[];
   state.planAudit={...result,origin};
@@ -446,8 +454,8 @@ function generatePlan(){
   field('generatePlan').textContent='Regenerate concept';
   field('downloadPlanSvg').disabled=false;field('downloadViewSvg').disabled=false;
   const count=state.placements.length,used=new Set(state.placements.map(p=>p.plantId));
-  field('generationStatus').textContent=count.toLocaleString()+' draft plants · '+used.size+' taxa · '+state.placements.filter(p=>p.tree).length+' trees · '+compositionModeRecord().label+'. Quantities follow individual spread and spacing fixtures.';
-  renderPlantingCoverage();renderPlacements();renderSymbolEditor();renderVisualization();renderPlanRules();
+  field('generationStatus').textContent=Number(result.totalQuantity||count).toLocaleString()+' estimated plants · '+used.size+' species';
+  renderPlantingCoverage();renderPlacements();renderSymbolEditor();renderVisualization();renderPlanRules();window.PlantscapesAI?.onPlan();
 }
 function markPlanDirty(){
   if(!state.generated)return;
@@ -460,7 +468,7 @@ function renderPlanRules(){
   const panel=field('planRuleReview');if(!panel)return;
   const audit=state.planAudit,p=project();
   const pathCount=state.sketches.filter(x=>x.type==='path').length,bedCount=state.sketches.filter(x=>x.type==='planting').length;
-  const status=state.planDirty?'Spaces changed; regeneration needed':state.generated?'Concept ready for review':'Draw paths, then planting zones';
+  const status=state.planDirty?'Spaces changed; regeneration needed':state.generated?'Concept ready for review':'Draw planting areas; paths are optional';
   const treeTotal=state.placements.filter(x=>x.tree).length,treeTaxa=state.selected.filter(x=>x.group==='Trees').length,aquaticTotal=state.placements.filter(x=>plantForPlacement(x)?.group==='Aquatic & marginal plants').length;
   const structuralNote=state.generated?'<p class="plan-structure-note"><strong>'+treeTotal+' trees · '+aquaticTotal+' marginal plants</strong><br>Trees must fit their full mock mature crown without crossing a path, water or open space. '+(p.character==='open'?'Open spatial character intentionally omits trees.':'The prototype tests at most one tree per selected tree taxon per planting bed ('+treeTaxa+' tree taxa selected); it does not calculate a target canopy cover.')+' Root volume and desired canopy cover still need design review. Marginals need mapped water linked to confirmed wet conditions; the assumed shoreline band is 1.2 m. No deep-water traits are curated yet.</p>':'';
   const issues=audit?.warnings||['Municipality: review route visibility, accessibility and maintenance.','Landscape architect: inspect plant fit, spacing and seasonal structure.'];
@@ -522,15 +530,22 @@ function renderPlantingCoverage(){
       layer.bringToBack();state.coverageLayers.push(layer);
     });
     if(state.siteBoundaryLayer)state.siteBoundaryLayer.bringToFront();
-    state.sketches.forEach(item=>item.layer?.bringToFront());
+    state.sketches.forEach(item=>{if(item.layer?.bringToFront)item.layer.bringToFront();else item.layer?.eachLayer?.(layer=>layer.bringToFront?.());});
     return;
   }
   renderFallbackSketch();
+}
+function quantityForPlant(id){
+  if(!state.planAudit?.communityMode)return state.placements.filter(p=>p.plantId===id).length;
+  const plant=state.selected.find(p=>p.id===id);
+  if(plant?.group==='Trees')return state.placements.filter(p=>p.plantId===id&&p.tree).length;
+  return (state.planAudit.quantities[id]||0)+state.placements.filter(p=>p.plantId===id&&p.manual).length;
 }
 function plantForPlacement(item){return state.selected.find(p=>p.id===item.plantId)||null;}
 function planPlantKey(){
   const seen=new Set(),plants=[];
   state.placements.forEach(item=>{const plant=plantForPlacement(item);if(plant&&!seen.has(plant.id)){seen.add(plant.id);plants.push(plant);}});
+  state.planAudit?.communities?.forEach(c=>c.rows.forEach(r=>{const plant=state.selected.find(p=>p.id===r.plantId);if(plant&&r.count>0&&!seen.has(plant.id)){seen.add(plant.id);plants.push(plant);}}));
   return plants.map((plant,index)=>({plant,index:index+1,colour:hatchColour(index+1)}));
 }
 function plantKeyNumber(plantId){return planPlantKey().find(entry=>entry.plant.id===plantId)?.index||0;}
@@ -547,7 +562,7 @@ function applyMassHatch(layer,colour,index){
 function renderPlacements(){
   if(state.map){state.placementLayers.forEach(layer=>state.map.removeLayer(layer));state.placementLayers=[];
     const key=new Map(planPlantKey().map(entry=>[entry.plant.id,entry]));
-    state.planMasses.forEach(mass=>{const p=state.selected.find(plant=>plant.id===mass.plantId);if(!p)return;const entry=key.get(p.id),colour=entry?.colour||'#536d59';const layer=L.polygon(mass.polygon,{color:colour,weight:.6,fillColor:colour,fillOpacity:.18,interactive:true}).addTo(state.map).bindTooltip(String(entry?.index||0).padStart(2,'0')+' · '+p.name+' · '+mass.count+' plants in this hatch mass');layer.on('click',event=>{L.DomEvent.stopPropagation(event);selectPlacement(mass.first.id);});applyMassHatch(layer,colour,entry?.index||0);state.placementLayers.push(layer);});
+    state.planMasses.forEach(mass=>{const p=state.selected.find(plant=>plant.id===mass.plantId);if(!p)return;const entry=key.get(p.id),colour=entry?.colour||'#536d59';const layer=L.polygon(mass.polygon,{color:colour,weight:.6,fillColor:colour,fillOpacity:.18,interactive:true}).addTo(state.map).bindTooltip(String(entry?.index||0).padStart(2,'0')+' · '+p.name+' · '+mass.count+' preview samples in this hatch');layer.on('click',event=>{L.DomEvent.stopPropagation(event);selectPlacement(mass.first.id);});applyMassHatch(layer,colour,entry?.index||0);state.placementLayers.push(layer);});
     state.placements.filter(item=>item.tree||item.accent).forEach(item=>{const p=plantForPlacement(item);if(!p)return;
       const entry=key.get(p.id),selected=item.id===state.selectedPlacement,colour=entry?.colour||'#536d59';
       const marker=L.circleMarker(item.point,{radius:item.tree?6.2:selected?4.8:p.group==='Shrubs'?3.8:2.8,color:item.tree||p.group==='Shrubs'?'#263b2d':'#fff',weight:item.tree?1.8:1,fillColor:colour,fillOpacity:.92}).addTo(state.map).bindTooltip(String(entry?.index||0).padStart(2,'0')+' · '+p.name+(item.tree?' · illustrative tree':' · illustrative planting position'));
@@ -562,13 +577,14 @@ function renderPlacements(){
 }
 function renderPlacementList(){
   field('symbolCount').textContent=planPlantKey().length;
-  if(state.generated){const nonTrees=state.placements.filter(p=>!p.tree),counts={matrix:0,flowers:0,structure:0};nonTrees.forEach(p=>{const plant=plantForPlacement(p);const role=plant?.group==='Grasses, sedges & rushes'?'matrix':plant?.group==='Shrubs'||plant?.height>=1.3?'structure':'flowers';counts[role]++;});field('mixReport').textContent='Actual non-tree counts: '+Object.entries(counts).map(([k,n])=>k+' '+Math.round(n/Math.max(1,nonTrees.length)*100)+'%').join(' · ')+'. Position, fit and spacing override weights.';}
+  if(state.generated){const counts={matrix:0,flowers:0,structure:0};planPlantKey().filter(k=>k.plant.group!=='Trees').forEach(k=>{const role=k.plant.group==='Grasses, sedges & rushes'?'matrix':k.plant.group==='Shrubs'||k.plant.height>=1.3?'structure':'flowers';counts[role]+=quantityForPlant(k.plant.id);});const total=Object.values(counts).reduce((n,q)=>n+q,0);field('mixReport').textContent='Estimated non-tree quantities: '+Object.entries(counts).map(([k,n])=>k+' '+Math.round(n/Math.max(1,total)*100)+'%').join(' · ')+'. Site fit and community recipes override global weights.';}
   field('planNotation').innerHTML=PlantscapesGraphics.notation;
   const grouped=new Map();state.placements.forEach(item=>{const p=plantForPlacement(item);if(!p)return;const record=grouped.get(p.id)||{plant:p,count:0,first:item};record.count++;grouped.set(p.id,record);});
   const key=new Map(planPlantKey().map(entry=>[entry.plant.id,entry]));
-  field('placementList').innerHTML=grouped.size?Array.from(grouped.values()).map(({plant,count,first})=>{const item=state.placements.find(x=>x.plantId===plant.id&&(x.tree||x.accent)),entry=key.get(plant.id),isSelected=item&&state.selectedPlacement===item.id,massCount=state.planMasses.filter(mass=>mass.plantId===plant.id).length,tag=item?'button':'div',selectAttr=item?' type="button" data-select-symbol="'+esc(item.id)+'"':'';return '<'+tag+selectAttr+' class="placement-item'+(isSelected?' active':'')+'"><span class="taxon-swatch">'+PlantscapesGraphics.swatch(entry)+'<b>'+entry.index+'</b></span><span>'+esc(plant.name)+'<small>'+count.toLocaleString()+' plants · '+massCount+' hatch masses · '+esc(plant.group||'unclassified')+(item?'':' · mass only')+'</small></span></'+tag+'>';}).join(''):'No positions yet.';
+  planPlantKey().forEach(entry=>{const record=grouped.get(entry.plant.id)||{plant:entry.plant,first:null};record.count=quantityForPlant(entry.plant.id);grouped.set(entry.plant.id,record);});
+  field('placementList').innerHTML=grouped.size?Array.from(grouped.values()).map(({plant,count,first})=>{const item=state.placements.find(x=>x.plantId===plant.id),entry=key.get(plant.id),isSelected=item&&state.selectedPlacement===item.id,massCount=state.planMasses.filter(mass=>mass.plantId===plant.id).length,tag=item?'button':'div',selectAttr=item?' type="button" data-select-symbol="'+esc(item.id)+'"':'';return '<'+tag+selectAttr+' class="placement-item'+(isSelected?' active':'')+'"><span class="taxon-swatch">'+PlantscapesGraphics.swatch(entry)+'<b>'+entry.index+'</b></span><span>'+esc(plant.name)+'<small>'+count.toLocaleString()+' plants · '+massCount+' hatch masses · '+esc(plant.group||'unclassified')+(item?'':' · mass only')+'</small></span></'+tag+'>';}).join(''):'No positions yet.';
   $$('[data-select-symbol]').forEach(button=>button.addEventListener('click',()=>selectPlacement(button.dataset.selectSymbol)));
-  const used=new Set(state.placements.map(item=>item.plantId)),unplaced=state.generated?state.selected.filter(p=>!used.has(p.id)):[];
+  const used=new Set(planPlantKey().map(k=>k.plant.id)),unplaced=state.generated?state.selected.filter(p=>!used.has(p.id)):[];
   field('unplacedCount').textContent=unplaced.length;
   field('unplacedList').innerHTML=state.generated?(unplaced.length?unplaced.map(p=>'<div class="unplaced-item">'+esc(p.name)+' <small>'+esc(p.group)+'</small></div>').join(''):'Every selected demo taxon is represented.'):'Generate a plan to compare the palette.';
 }
@@ -587,13 +603,13 @@ function checkPlanEdit(plant,point,ignoreId){
     const r=plant.spread/2;
     if(!Array.from({length:12},(_,n)=>[xy[0]+r*Math.cos(n*Math.PI/6),xy[1]+r*Math.sin(n*Math.PI/6)]).every(q=>state.planAudit.valid(q)&&!state.planAudit.waterFor(q)))return 'The mature tree crown does not fit the available planting space.';
   }
-  if(state.placements.some(q=>q.id!==ignoreId&&Math.hypot(q.xy[0]-xy[0],q.xy[1]-xy[1])<(q.tree?Math.max(.75,q.spread*.12):(q.spacing+plant.spacing)/2)))return 'This position is too close to another plant for the draft spacing. Choose a different position or smaller plant.';
+  if(state.placements.some(q=>!q.preview&&q.id!==ignoreId&&Math.hypot(q.xy[0]-xy[0],q.xy[1]-xy[1])<(q.tree?Math.max(.75,q.spread*.12):(q.spacing+plant.spacing)/2)))return 'This position is too close to another structural plant for the draft spacing. Choose a different position or smaller plant.';
   return '';
 }
 function savePlanUndo(){state.planUndo.push(state.placements.map(p=>({...p,point:p.point.slice(),xy:p.xy.slice()})));if(state.planUndo.length>20)state.planUndo.shift();}
 function refreshAfterPlanEdit(message){
   if(state.planAudit)buildPlantingMasses(state.planAudit.origin,state.planAudit.bounds,state.planAudit.valid);
-  renderPlacements();renderSymbolEditor();renderVisualization();renderPlanRules();
+  renderPlacements();renderSymbolEditor();renderVisualization();renderPlanRules();window.PlantscapesAI?.refresh();
   field('generationStatus').textContent=message;
 }
 function undoPlanEdit(){
@@ -604,6 +620,12 @@ function renderSymbolEditor(){
   const box=field('selectedSymbol'),item=state.placements.find(x=>x.id===state.selectedPlacement);
   if(!item){box.hidden=true;box.innerHTML='';return;}
   box.hidden=false;
+  if(item.preview){
+    const community=state.planAudit.communities.find(c=>c.id===item.communityId);
+    box.innerHTML='<strong>'+esc(plantForPlacement(item)?.name)+'</strong><label class="field"><span>Replace species in this mix</span><select id="replaceMixSpecies">'+(community?.eligible||[]).map(p=>'<option value="'+esc(p.id)+'"'+(p.id===item.plantId?' selected':'')+'>'+esc(p.name)+'</option>').join('')+'</select></label><button id="removeMixSpecies" type="button" class="button button-secondary">Remove species from mix</button>';
+    field('replaceMixSpecies').onchange=e=>PlantscapesAI.changeCommunity(item.communityId,item.plantId,e.target.value);
+    field('removeMixSpecies').onclick=()=>PlantscapesAI.changeCommunity(item.communityId,item.plantId,null);return;
+  }
   const plant=plantForPlacement(item),options=state.selected.filter(p=>p.id===item.plantId||!checkPlanEdit(engine.enrich(p),item.point,item.id)).map(p=>'<option value="'+esc(p.id)+'"'+(p.id===item.plantId?' selected':'')+'>'+esc(p.name)+'</option>').join('');
   box.innerHTML='<strong>'+esc(plant?.name||'Plant')+'</strong><p>'+esc(item.reason||'Individual designer edit; checks applied before placement.')+'</p><small>Rules: '+esc((item.ruleTrace||[]).join(', '))+' · '+esc(item.evidenceStatus||'synthetic_demo')+'</small><label class="field"><span>Change species</span><select id="editSymbolSpecies">'+options+'</select></label><div class="symbol-actions"><button id="moveSymbol" type="button" class="button button-secondary">Move on map</button><button id="removeSymbol" type="button" class="button button-secondary">Remove</button></div>';
   field('editSymbolSpecies').addEventListener('change',event=>{
@@ -624,22 +646,25 @@ function addPlantSymbol(point){
   const plant=engine.enrich(state.selected.find(p=>p.id===field('symbolSpecies').value));if(!plant)return;
   const error=checkPlanEdit(plant,point);if(error){field('generationStatus').textContent=error;return;}
   savePlanUndo();const xy=latLngToMetric(point,state.planAudit.origin),item=makePlacement(Date.now(),plant,xy,state.planAudit.origin,state.planAudit.bounds,selectedCompositionMode(),plant.group==='Trees');
-  Object.assign(item,{xy,spacing:plant.spacing,spread:plant.spread,height:plant.height,accent:true,reason:'Added by designer; eligibility, zone, path edge and spacing checked.',ruleTrace:['G04','G05','S01','S02','D01','D03'],evidenceStatus:plant.demo?'synthetic_demo':'reviewed'});
+  Object.assign(item,{manual:true,xy,spacing:plant.spacing,spread:plant.spread,height:plant.height,accent:true,reason:'Added by designer; eligibility, zone, path edge and spacing checked.',ruleTrace:['G04','G05','S01','S02','D01','D03'],evidenceStatus:plant.demo?'synthetic_demo':'reviewed'});
   state.placements.push(item);state.selectedPlacement=item.id;refreshAfterPlanEdit('Plant added. View updated and undo is available.');
 }
 function renderVisualization(){
+  field('stage7').classList.toggle('plan-generated',state.generated&&!state.planDirty);
   const canvas=field('visualCanvas');
-  if(!state.generated||state.planDirty){canvas.innerHTML='<div class="visual-empty">'+(state.planDirty?'Regenerate the concept after changing the spaces.':'Draw your paths and planting zones, then generate a concept to see the view.')+'</div>';return;}
+  if(!state.generated||state.planDirty){window.PlantscapesAI?.refresh();canvas.innerHTML='<div class="visual-empty">'+(state.planDirty?'Regenerate the concept after changing the spaces.':'Draw your paths and planting zones, then generate a concept to see the view.')+'</div>';return;}
   const season=field('viewSeason').value,age=Number(field('viewAge').value),direction=field('viewDirection').value,origin=state.planAudit.origin;
   const result=PlantscapesGraphics.elevated({
     boundary:localMetricPolygon(state.plotBoundary,origin),
     sketches:state.sketches.map(s=>({...s,points:s.points.map(p=>latLngToMetric(p,origin))})),
-    placements:state.placements,plants:state.selected,
+    placements:window.PlantscapesDenseView?PlantscapesDenseView():state.placements,plants:state.selected,
     masses:state.planMasses.map(m=>({...m,polygon:localMetricPolygon(m.polygon,origin)})),
-    keys:planPlantKey(),season,age,direction,angle:field('viewAngle').value,pathWidth:PATH_WIDTH,colours:colourHex
+    keys:planPlantKey(),season,age,direction,angle:field('viewAngle').value,camera:currentCamera(),pathWidth:PATH_WIDTH,colours:colourHex
   });
   canvas.innerHTML=result.svg;
-  canvas.setAttribute('aria-label','Elevated mock view showing actual paths, open ground, water and relative planting heights.');
+  const viewport=canvas.querySelector('svg');viewport.querySelectorAll('g[font-family]').forEach(el=>el.remove());viewport.setAttribute('viewBox','0 75 900 415');
+  window.PlantscapesAI?.refresh();
+  canvas.setAttribute('aria-label',field('viewAngle').value==='path'?'Eye-level perspective from the selected path position towards the selected highlight.':'Mock view showing actual paths, open ground, water and relative planting heights.');
   field('visualCaption').textContent='Woody plants and '+result.sample+' symbols from '+state.placements.length+' positions. Grass tufts, flowering and seedheads use group-level seasonal fixtures, not botanical predictions.';
 }
 function downloadSvg(markup,name){
@@ -665,9 +690,9 @@ function downloadPlanSvg(){
   const largest=new Map();state.planMasses.forEach(m=>{if(!largest.has(m.plantId)||largest.get(m.plantId).count<m.count)largest.set(m.plantId,m);});
   const labels=[...largest.values()].map(m=>{const x=m.polygon.reduce((s,p)=>s+px(p),0)/4,y=m.polygon.reduce((s,p)=>s+py(p),0)/4;return '<g><rect x="'+(x-9)+'" y="'+(y-8)+'" width="18" height="16" rx="3" fill="#fff" stroke="'+byId.get(m.plantId).colour+'"/><text x="'+x+'" y="'+(y+4)+'" text-anchor="middle" font-size="11">'+byId.get(m.plantId).index+'</text></g>';}).join('');
   const review=(state.planAudit.visibility||[]).map(p=>{const xy=metricToLatLng(p.xy,origin);return '<circle cx="'+px(xy)+'" cy="'+py(xy)+'" r="7" fill="none" stroke="#a45d20" stroke-dasharray="3 3"/>';}).join('');
-  const camera=state.sketches.filter(s=>s.type==='camera').map(s=>'<rect x="'+(px(s.points[0])-5)+'" y="'+(py(s.points[0])-4)+'" width="10" height="8" fill="#183d32"/>').join('');
-  const legend=key.map((k,i)=>{const x=50+(i%2)*410,y=744+Math.floor(i/2)*44,count=state.placements.filter(p=>p.plantId===k.plant.id).length;return '<g><rect x="'+x+'" y="'+(y-15)+'" width="28" height="28" fill="url(#mass-'+k.index+')" stroke="'+k.colour+'"/><text x="'+(x+38)+'" y="'+y+'" font-size="12" font-weight="600">'+String(k.index).padStart(2,'0')+' · '+esc(k.plant.name)+' · '+count.toLocaleString()+'</text><text x="'+(x+38)+'" y="'+(y+16)+'" font-size="11" fill="#536657">'+esc(k.plant.latin)+' · '+esc(k.plant.group)+'</text></g>';}).join('');
-  const svg='<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 '+height+'" width="900" height="'+height+'"><defs>'+patterns+'</defs><rect width="900" height="'+height+'" fill="#fbfcf7"/><g font-family="Segoe UI, Arial, sans-serif" fill="#183d32"><text x="50" y="43" font-size="25" font-weight="700">Plantscapes · concept planting plan</text><text x="50" y="67" font-size="12">MOCK DATA · diagram with consistent plan proportions · not construction documentation</text>'+beds+masses+sketch+symbols+labels+review+camera+'<polygon points="'+points(state.plotBoundary)+'" fill="none" stroke="#234638" stroke-dasharray="8 5" stroke-width="2"/><text x="825" y="100" font-size="14">↑ N</text><text x="50" y="590" font-size="17" font-weight="600">Symbols & spaces</text><circle cx="57" cy="614" r="5" fill="#71803a" stroke="#263b2d" stroke-width="2"/><text x="72" y="618" font-size="12">Tree centre</text><circle cx="230" cy="614" r="3.5" fill="#71803a" stroke="#263b2d"/><text x="244" y="618" font-size="12">Shrub centre</text><circle cx="415" cy="614" r="2.5" fill="#71803a" stroke="#fff"/><text x="428" y="618" font-size="12">Sample perennial</text><circle cx="645" cy="614" r="8" fill="none" stroke="#765c3a" stroke-dasharray="3 3"/><text x="660" y="618" font-size="12">Mature crown envelope</text><path d="M50 642h18" stroke="#9e724b" stroke-width="5"/><text x="76" y="646" font-size="12">Path</text><rect x="225" y="635" width="18" height="12" fill="#efe3ac"/><text x="250" y="646" font-size="12">Open ground</text><rect x="405" y="635" width="18" height="12" fill="#afd7dd"/><text x="430" y="646" font-size="12">Water</text><circle cx="645" cy="642" r="7" fill="none" stroke="#a45d20" stroke-dasharray="3 3"/><text x="660" y="646" font-size="12">Visibility review prompt</text><rect x="50" y="663" width="10" height="8" fill="#183d32"/><text x="76" y="674" font-size="12">Camera marker, if drawn</text><text x="50" y="700" font-size="12">Number + pattern identify taxa. Perennial dots are samples; quantities include every draft position.</text><text x="50" y="723" font-size="17" font-weight="600">Species key · quantities are individual plants</text>'+legend+'<text x="50" y="'+(height-22)+'" font-size="11">Verify species, spacing, soil, water depth, safety, access and root volume before use.</text></g></svg>';
+  const camera=state.sketches.filter(s=>s.type==='camera').map(s=>'<rect x="'+(px(s.points[0])-5)+'" y="'+(py(s.points[0])-4)+'" width="10" height="8" fill="#183d32"/>'+(s.points[1]?'<line x1="'+px(s.points[0])+'" y1="'+py(s.points[0])+'" x2="'+px(s.points[1])+'" y2="'+py(s.points[1])+'" stroke="#183d32" stroke-width="2" stroke-dasharray="5 4"/><circle cx="'+px(s.points[1])+'" cy="'+py(s.points[1])+'" r="5" fill="none" stroke="#183d32"/>':'')).join('');
+  const legend=key.map((k,i)=>{const x=50+(i%2)*410,y=744+Math.floor(i/2)*44,count=quantityForPlant(k.plant.id);return '<g><rect x="'+x+'" y="'+(y-15)+'" width="28" height="28" fill="url(#mass-'+k.index+')" stroke="'+k.colour+'"/><text x="'+(x+38)+'" y="'+y+'" font-size="12" font-weight="600">'+String(k.index).padStart(2,'0')+' · '+esc(k.plant.name)+' · '+count.toLocaleString()+'</text><text x="'+(x+38)+'" y="'+(y+16)+'" font-size="11" fill="#536657">'+esc(k.plant.latin)+' · '+esc(k.plant.group)+'</text></g>';}).join('');
+  const svg='<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 '+height+'" width="900" height="'+height+'"><defs>'+patterns+'</defs><rect width="900" height="'+height+'" fill="#fbfcf7"/><g font-family="Segoe UI, Arial, sans-serif" fill="#183d32"><text x="50" y="43" font-size="25" font-weight="700">Plantscapes · concept planting plan</text><text x="50" y="67" font-size="12">MOCK DATA · diagram with consistent plan proportions · not construction documentation</text>'+beds+masses+sketch+symbols+labels+review+camera+'<polygon points="'+points(state.plotBoundary)+'" fill="none" stroke="#234638" stroke-dasharray="8 5" stroke-width="2"/><text x="825" y="100" font-size="14">↑ N</text><text x="50" y="590" font-size="17" font-weight="600">Symbols & spaces</text><circle cx="57" cy="614" r="5" fill="#71803a" stroke="#263b2d" stroke-width="2"/><text x="72" y="618" font-size="12">Tree centre</text><circle cx="230" cy="614" r="3.5" fill="#71803a" stroke="#263b2d"/><text x="244" y="618" font-size="12">Shrub centre</text><circle cx="415" cy="614" r="2.5" fill="#71803a" stroke="#fff"/><text x="428" y="618" font-size="12">Sample perennial</text><circle cx="645" cy="614" r="8" fill="none" stroke="#765c3a" stroke-dasharray="3 3"/><text x="660" y="618" font-size="12">Mature crown envelope</text><path d="M50 642h18" stroke="#9e724b" stroke-width="5"/><text x="76" y="646" font-size="12">Path</text><rect x="225" y="635" width="18" height="12" fill="#efe3ac"/><text x="250" y="646" font-size="12">Open ground</text><rect x="405" y="635" width="18" height="12" fill="#afd7dd"/><text x="430" y="646" font-size="12">Water</text><circle cx="645" cy="642" r="7" fill="none" stroke="#a45d20" stroke-dasharray="3 3"/><text x="660" y="646" font-size="12">Visibility review prompt</text><rect x="50" y="663" width="10" height="8" fill="#183d32"/><text x="76" y="674" font-size="12">Camera marker, if drawn</text><text x="50" y="700" font-size="12">Number + pattern identify taxa. Perennial dots are samples; quantities are estimated from community area and density.</text><text x="50" y="723" font-size="17" font-weight="600">Species key · quantities are individual plants</text>'+legend+'<text x="50" y="'+(height-22)+'" font-size="11">Verify species, spacing, soil, water depth, safety, access and root volume before use.</text></g></svg>';
   downloadSvg(svg,'plantscapes-MOCK-planting-plan.svg');
 }
 function downloadViewSvg(){
@@ -713,7 +738,7 @@ function drawPlot(){
   const count=state.plotDraft.length;
   field('plotStatus').textContent=state.plotMode==='draw'?(count?count+' corner'+(count===1?'':'s')+' placed · '+(count>=3?'finish the boundary':'add '+(3-count)+' more'):'Draw mode: click at least three corners; map panning is paused.'):state.plotBoundary.length?'Move mode: drag to navigate · boundary saved with '+state.plotBoundary.length+' corners':'Move mode: drag to navigate · choose Draw boundary when ready.';
   const area=metricPolygonArea(count>=3?state.plotDraft:state.plotBoundary);
-  field('plotAreaReadout').textContent=area?((count>=3?'Draft area':'Measured site area')+': '+Math.round(area).toLocaleString()+' m² · calculated from the drawn boundary'):count>=3?'Finish the boundary to calculate area.':'Draw the boundary on the geographic map to calculate area.';
+  field('plotAreaReadout').textContent=Math.round(area||0).toLocaleString()+' m²';
   field('plotFinish').disabled=count<3;field('plotUndo').disabled=!count;field('plotClear').disabled=!count&&!state.plotBoundary.length;
 }
 function finishPlot(){if(state.plotDraft.length<3)return;state.plotBoundary=state.plotDraft.map(p=>p.slice());state.plotDraft=[];state.zones.forEach(z=>z.conditions=null);invalidateFrom(2);state.plotMode='pan';if(state.siteMap)state.siteMap.dragging.enable();field('plotPan').classList.add('active');field('plotDraw').classList.remove('active');drawPlot();}
@@ -748,7 +773,8 @@ function setTool(tool){
   const drawing=tool!=='pan';
   if(state.map){drawing?state.map.dragging.disable():state.map.dragging.enable();field('map').classList.toggle('draw-mode',drawing);}
   field('sketchBoard').classList.toggle('draw-mode',drawing);
-  field('mapInstruction').textContent=tool==='pan'?'Pan and zoom to your site. Switch tools to draw.':tool==='camera'?'Click to place the camera; the schematic view will update.':tool==='symbol'?'Choose a plant in the sidebar, then click inside the plot to add its symbol.':tool==='moveSymbol'?'Click inside the plot to move the selected symbol.':'Click points for '+toolLabels[tool].toLowerCase()+', then choose Finish shape.';
+  if(tool!=='camera')state.cameraDraft=null;
+  field('mapInstruction').textContent=tool==='pan'?'Pan and zoom to your site. Switch tools to draw.':tool==='camera'?'First click near a path to place the viewpoint; then click the highlight to look towards.':tool==='symbol'?'Choose a plant in the sidebar, then click inside the plot to add its symbol.':tool==='moveSymbol'?'Click inside the plot to move the selected symbol.':'Click points for '+toolLabels[tool].toLowerCase()+', then choose Finish shape.';
   updateSketchButtons();
 }
 function drawDraft(){
@@ -778,16 +804,43 @@ function exampleSpaces(){
   if(!state.sketches.some(s=>s.type==='planting')){setTool('planting');state.draft=state.plotBoundary.map(p=>p.slice());drawDraft();finishShape();}
   setTool('pan');field('generationStatus').textContent='Example path and bed added. Edit the spaces or generate a concept.';
 }
+function currentCamera(){
+  const origin=state.planAudit?.origin;if(!origin)return null;
+  const camera=state.sketches.find(s=>s.type==='camera');
+  if(camera?.points.length===2)return {eye:latLngToMetric(camera.points[0],origin),target:latLngToMetric(camera.points[1],origin),eyeHeight:1.6};
+  const path=state.sketches.find(s=>s.type==='path'&&s.points.length>1);
+  if(!path){const eye=latLngToMetric(state.plotBoundary[0],origin),target=[0,0];if(Math.hypot(...eye)<2)target[1]=5;return {eye,target,eyeHeight:1.6};}
+  const a=latLngToMetric(path.points[0],origin),b=latLngToMetric(path.points[1],origin);
+  const eye=a.map((n,i)=>(n+b[i])/2),v={north:[0,-1],south:[0,1],east:[-1,0],west:[1,0]}[field('viewDirection').value];
+  return {eye,target:eye.map((n,i)=>n+v[i]*20),eyeHeight:1.6};
+}
+function nearestPathPoint(point){
+  const origin=state.planAudit?.origin;if(!origin)return null;
+  const q=latLngToMetric(point,origin);let closest=null;
+  state.sketches.filter(s=>s.type==='path').forEach(s=>s.points.slice(1).forEach((p,i)=>{
+    const a=latLngToMetric(s.points[i],origin),b=latLngToMetric(p,origin),dx=b[0]-a[0],dy=b[1]-a[1],t=Math.max(0,Math.min(1,((q[0]-a[0])*dx+(q[1]-a[1])*dy)/(dx*dx+dy*dy||1))),xy=[a[0]+t*dx,a[1]+t*dy],distance=Math.hypot(q[0]-xy[0],q[1]-xy[1]);
+    if(!closest||distance<closest.distance)closest={point:s.points[i].map((n,j)=>n+t*(p[j]-n)),distance};
+  }));return closest;
+}
 function addCamera(point){
+  if(!state.cameraDraft){
+    const path=nearestPathPoint(point);
+    if(path&&path.distance>5){field('mapInstruction').textContent='Click within 5 m of a drawn path. The viewpoint snaps onto the path.';return;}
+    state.cameraDraft=path?path.point:point;field('mapInstruction').textContent='Viewpoint set. Now click a planting highlight to look towards.';
+    field('cameraHelp').textContent='Viewpoint set. Click the highlight on the map.';return;
+  }
+  const eye=state.cameraDraft,origin=state.planAudit.origin;
+  if(Math.hypot(...latLngToMetric(point,origin).map((n,i)=>n-latLngToMetric(eye,origin)[i]))<2){field('mapInstruction').textContent='Choose a highlight at least 2 m from the viewpoint.';return;}
   const previous=state.sketches.filter(x=>x.type==='camera');previous.forEach(x=>{if(state.map&&x.layer)state.map.removeLayer(x.layer);});
   state.sketches=state.sketches.filter(x=>x.type!=='camera');
-  const item={type:'camera',points:[point],layer:null};
+  const item={type:'camera',points:[eye,point],layer:null};
   if(state.map){
     const icon=L.divIcon({className:'camera-icon',html:'<span aria-label="Camera view">▣</span>',iconSize:[30,30],iconAnchor:[15,15]});
-    item.layer=L.marker(point,{icon}).addTo(state.map);
+    item.layer=L.layerGroup([L.marker(eye,{icon}),L.polyline([eye,point],{color:'#173e34',weight:2,dashArray:'6 4',interactive:false}),L.circleMarker(point,{radius:6,color:'#173e34',fillColor:'#fff',fillOpacity:1,interactive:false})]).addTo(state.map);
   }
   state.sketches.push(item);renderSketchList();renderFallbackSketch();updateSketchButtons();
-  if(state.plotBoundary.length){const b=planBounds(),midA=(b.minA+b.maxA)/2,midB=(b.minB+b.maxB)/2;field('viewDirection').value=Math.abs(point[0]-midA)>Math.abs(point[1]-midB)?point[0]<midA?'south':'north':point[1]<midB?'west':'east';renderVisualization();}
+  state.cameraDraft=null;field('viewAngle').value='path';setTool('pan');
+  field('cameraHelp').textContent='Path viewpoint → chosen highlight. Change it anytime; no AI call is made.';renderVisualization();
 }
 function undoSketch(){
   if(state.draft.length){state.draft.pop();drawDraft();return;}
@@ -859,7 +912,7 @@ function setup(){
   field('toConfirm').addEventListener('click',()=>{if(!site().location){field('location').setCustomValidity('Enter a town or site name.');field('location').reportValidity();return;}field('location').setCustomValidity('');if(!checked('inNetherlands')){field('siteError').textContent='This workflow is limited to sites in the Netherlands. Confirm the location to continue.';field('siteError').classList.remove('hidden');return;}if(state.plotBoundary.length<3){field('siteError').textContent='Outline the plot on the map, or choose Use example plot, before continuing.';field('siteError').classList.remove('hidden');return;}field('siteError').classList.add('hidden');advance(3);});
   field('location').addEventListener('input',()=>field('location').setCustomValidity(''));
   field('toPalette').addEventListener('click',()=>{if(validateConditions()){if(!state.paletteBuilt)buildDemoPalette();advance(4);}});
-  field('toReview').addEventListener('click',()=>advance(5));
+  field('toReview').addEventListener('click',()=>{state.approved=true;advance(6);});
   field('approvePalette').addEventListener('click',()=>{state.approved=true;advance(6);});
   field('downloadCsv').addEventListener('click',downloadCsv);
   field('toPlan').addEventListener('click',()=>advance(7));

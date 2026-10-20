@@ -1,0 +1,11 @@
+{
+  "version": "illustration-evaluation-v1",
+  "purpose": "Reference and evaluation set, not model training data",
+  "status": "Template only; no model outputs or expert approval claimed",
+  "sites": [
+    {"id": "sunny-dry", "conditions": "synthetic dry sun", "seasons": ["spring", "summer", "autumn", "winter"], "use": "prompt development"},
+    {"id": "shaded-fresh", "conditions": "synthetic fresh shade", "seasons": ["spring", "summer", "autumn", "winter"], "use": "prompt development"},
+    {"id": "wet-edge", "conditions": "synthetic confirmed wet edge", "seasons": ["spring", "summer", "autumn", "winter"], "use": "held-out evaluation"}
+  ],
+  "record_fields": ["site_id", "plan_revision", "geometry_reference", "recipe_reference", "viewpoint", "season", "age", "trait_evidence_status", "reference_image_rights", "prompt_version", "model", "output_reference", "reviewer", "path_preserved", "water_preserved", "tree_positions_preserved", "height_layers_plausible", "mix_character_plausible", "season_plausible", "accepted", "rejection_reasons"]
+}

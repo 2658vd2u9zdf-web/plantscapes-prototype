@@ -9,9 +9,7 @@ try{
   const errors=[];page.on('pageerror',error=>errors.push(error.message));
   await page.goto((process.env.PLANTSCAPES_TEST_URL||'http://127.0.0.1:4182')+'/website/index.html?v=path-camera-6',{waitUntil:'networkidle'});
   await page.locator('#startProject').click();await page.locator('#toSite').click();
-  await page.locator('#location').fill('Delft public park, Netherlands');
   await page.locator('#mapPreset').selectOption('delft');
-  await page.locator('#inNetherlands').check();
   await page.locator('#plotExample').click();await page.locator('#toConfirm').click();
   await page.locator('[data-condition-key="source"]').selectOption('demo');
   await page.locator('[data-condition-key="hydrology"]').selectOption('seasonal');

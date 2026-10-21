@@ -2,8 +2,12 @@
 const DATASET_VERSION = 'nl-vascular-v0.2';
 const RULE_VERSION = window.PLANTSCAPES_RULEBOOK?.version || 'rulebook unavailable';
 const engine = window.PlantscapesEngine;
+const suitability = window.PlantscapesSuitabilityV03;
+const runtime = window.PlantscapesRuntimeV03;
+const recommender = window.PlantscapesRecommender;
+const candidateCards = window.PlantscapesCandidateCard;
 const PATH_WIDTH = 1.5;
-const demo = window.PLANTSCAPES_DEMO || {places:{},plants:[],version:'missing'};
+const demo = window.PLANTSCAPES_DEMO || {places:{}};
 const oudolfPrecedents = window.PLANTSCAPES_OUDOLF_PRECEDENTS || [];
 const $ = selector => document.querySelector(selector);
 const $$ = selector => Array.from(document.querySelectorAll(selector));
@@ -13,7 +17,7 @@ const state = {
   inventory: [], catalogue: [], catalogueSource: 'starter names',
   selected: [], removed: [], approved: false, log: [], paletteBuilt:false,
   designRules:null, compositionMode:'auto', planAudit:null, planDirty:false, planUndo:[],
-  siteMap:null, siteMapReady:false, plotMode:'pan', plotDraft:[], plotBoundary:[], plotDraftLayer:null, plotPreviewLayer:null, plotLayer:null,
+  siteMap:null, siteMapReady:false, selectedLocation:null, plotMode:'pan', plotDraft:[], plotBoundary:[], plotDraftLayer:null, plotPreviewLayer:null, plotLayer:null,
   map: null, mapReady: false, tool: 'pan', draft: [], draftLayer: null,
   sketches: [], planOverlay: null, planObjectUrl: null, siteBoundaryLayer:null,
   placements:[], planMasses:[], massGrid:null, placementLayers:[], coverageLayers:[], selectedPlacement:null, generated:false, planRevision:0
@@ -44,14 +48,21 @@ const field = id => document.getElementById(id);
 const checked = id => field(id).checked;
 const choice = name => (document.querySelector('input[name="'+name+'"]:checked') || {}).value || '';
 const project = () => ({
-  type: choice('projectType'), area: geographicPolygonAreaM2(state.plotBoundary)||0, audience:'unspecified',
-  maintenance:'unknown', priorities:$$('#priorityOptions input:checked').map(x=>x.value),
+  type: choice('projectType'), area: geographicPolygonAreaM2(state.plotBoundary)??'unknown', audience:field('audience').value,
+  maintenance:field('maintenance').value, priorities:$$('#priorityOptions input:checked').map(x=>x.value),
   character:field('spatialCharacter').value, notes:'',
-  publicAccess:false, publicHarvest:false, sightlines:field('spatialCharacter').value==='open',
+  publicAccess:checked('publicAccess'), publicHarvest:checked('foodHarvest'), sightlines:checked('clearSightlines'),
+  support:checked('mappedSupport'),vigourControl:field('vigourControl').value,
   rewilding:$$('#priorityOptions input:checked').some(x=>x.value==='rewilding'), restorationOrnamentals:checked('restorationOrnamentals'),
-  anchorColours:[field('anchorColour1').value,field('anchorColour2').value].filter(Boolean)
+  anchorColours:[field('anchorColour1').value,field('anchorColour2').value].filter(Boolean),
+  overrideIds:state.selected.filter(p=>p.recordKind==='uncertainty_example').map(p=>p.id)
 });
-const site = () => ({location:(nearestDemoPlace()?.label || 'Selected map area')+', Netherlands', description:field('siteDescription').value.trim()});
+const site = () => {
+  const selected=state.selectedLocation,points=state.plotBoundary;
+  const center=points.length?points.reduce((sum,p)=>[sum[0]+p[0]/points.length,sum[1]+p[1]/points.length],[0,0]):null;
+  const near=selected&&center&&Math.hypot((center[0]-selected.lat)*111195,(center[1]-selected.lng)*111195*Math.cos(selected.lat*Math.PI/180))<3000;
+  return {location:(near?selected.label:nearestDemoPlace()?.label || 'Selected map area')+', Netherlands',description:field('siteDescription').value.trim()};
+};
 
 function stageFromUrl(){
   const match = location.hash.match(/^#stage-(\d)$/);
@@ -110,8 +121,10 @@ function defaultConditions(){
     soil:checked('featureHardscape')?'made':profile.soil, moisture:checked('featureWet')?'wet':checked('featureDry')?'dry':profile.moisture,
     hydrology:checked('featureWater')?'edge':checked('featureWet')||profile.moisture==='wet'?'seasonal':'none',
     light:checked('featureCanopy')?'mixed':'sun', canopy:checked('featureCanopy')?'yes':'no',
-    disturbance:checked('featureRoad')?'high':profile.disturbance, hardscape:checked('featureHardscape')?'yes':'no',
-    waterEdge:checked('featureWater')?'yes':'no', source:'unverified', note:''
+    disturbance:'unknown', hardscape:checked('featureHardscape')?'yes':'no',
+    waterEdge:checked('featureWater')?'yes':'no', source:'demo',path_edge:'unknown',
+    available_width_m:'unknown',available_length_m:'unknown',plantable_area_m2:'unknown',max_plant_height_m:'unknown',support_length_m:'unknown',
+    field_origins:Object.fromEntries(['soil','moisture','hydrology','light','canopy','disturbance','hardscape','waterEdge'].map(f=>[f,f==='disturbance'?'unknown':'synthetic_fallback'])),note:''
   };
 }
 const options = {
@@ -123,29 +136,31 @@ const options = {
   disturbance:[['unknown','Unknown'],['low','Low'],['moderate','Moderate'],['high','High / road stress']],
   hardscape:[['unknown','Unknown'],['yes','Nearby'],['no','No nearby hardscape']],
   waterEdge:[['unknown','Unknown'],['yes','Present'],['no','Absent']],
+  path_edge:[['unknown','Not mapped'],['yes','Path edge'],['no','Away from paths']],
   source:[['unverified','Not confirmed yet'],['demo','Accept synthetic suggestion for test'],['observation','My site observation'],['survey','Site survey / test'],['document','Existing site document']]
 };
-const labels = {soil:'Soil',moisture:'Moisture',hydrology:'Wetness regime',light:'Light',canopy:'Canopy',disturbance:'Disturbance',hardscape:'Hardscape',waterEdge:'Water edge',source:'Basis for confirmation'};
+const labels = {soil:'Soil',moisture:'Moisture',hydrology:'Wetness regime',light:'Light',canopy:'Canopy',disturbance:'Disturbance',hardscape:'Hardscape',waterEdge:'Water edge',path_edge:'Path edge',source:'Basis for confirmation'};
 function selectHtml(z,key){
   const values=options[key]; const current=z.conditions[key];
-  return '<label class="field"><span>'+labels[key]+'</span><select data-zone-condition="'+z.id+'" data-condition-key="'+key+'">'+values.map(pair=>'<option value="'+pair[0]+'"'+(pair[0]===current?' selected':'')+'>'+pair[1]+'</option>').join('')+'</select></label>';
+  return '<label class="field"><span>'+labels[key]+'</span><select data-zone-condition="'+z.id+'" data-condition-key="'+key+'">'+values.map(pair=>'<option value="'+pair[0]+'"'+(pair[0]===current?' selected':'')+'>'+pair[1]+'</option>').join('')+'</select>'+(key==='disturbance'?'<small>A nearby mapped road does not prove high site stress. Choose a level only from site evidence.</small>':'')+'</label>';
 }
 function renderConditionZones(){
   const place=nearestDemoPlace();
   field('conditionBasis').textContent='Approximate profile around '+(place?place.label:'the chosen area')+'; inferred from your boundary and feature checkboxes. It is invented for workflow testing, not derived from a soil map or survey.';
   state.zones.forEach(z=>{if(!z.conditions)z.conditions=defaultConditions();});
-  field('conditionZones').innerHTML=state.zones.map((z,i)=>'<article class="condition-card"><div class="condition-card-head"><h3>'+(i+1)+'. '+esc(z.name||'Unnamed zone')+'</h3><span>Suggested · confirm or correct</span></div><div class="condition-grid">'+['soil','moisture','hydrology','light','canopy','disturbance','hardscape','waterEdge'].map(key=>selectHtml(z,key)).join('')+'</div><div class="condition-card-foot">'+selectHtml(z,'source')+'<label class="field"><span>Evidence note <em>optional</em></span><input data-zone-note="'+z.id+'" value="'+esc(z.conditions.note)+'" placeholder="e.g. surveyed in June"></label></div></article>').join('');
+  field('conditionZones').innerHTML=state.zones.map((z,i)=>'<article class="condition-card"><div class="condition-card-head"><h3>'+(i+1)+'. '+esc(z.name||'Unnamed zone')+'</h3><span>City defaults: synthetic fallback until each field is checked</span></div><div class="condition-grid">'+['soil','moisture','hydrology','light','canopy','disturbance','hardscape','waterEdge','path_edge'].map(key=>selectHtml(z,key)).join('')+'</div><div class="condition-grid">'+[['available_width_m','Clear width (m)'],['available_length_m','Clear length (m)'],['plantable_area_m2','Clear zone area (m²)'],['max_plant_height_m','Visibility limit (m)'],['support_length_m','Mapped support length (m)']].map(([key,label])=>'<label class="field"><span>'+label+' · blank means unknown</span><input type="number" min="0" step="any" data-zone-number="'+z.id+'" data-number-key="'+key+'" value="'+(z.conditions[key]==='unknown'?'':esc(z.conditions[key]))+'"></label>').join('')+'</div><div class="condition-card-foot">'+selectHtml(z,'source')+'<label class="field"><span>Evidence note <em>optional</em></span><input data-zone-note="'+z.id+'" value="'+esc(z.conditions.note)+'" placeholder="e.g. surveyed in June"></label></div></article>').join('');
   $$('[data-zone-condition]').forEach(input=>input.addEventListener('change',()=>{
     const z=state.zones.find(item=>item.id===Number(input.dataset.zoneCondition));
-    z.conditions[input.dataset.conditionKey]=input.value; invalidateFrom(3);
+    z.conditions[input.dataset.conditionKey]=input.value;if(input.dataset.conditionKey!=='source')z.conditions.field_origins[input.dataset.conditionKey]='user_selected'; invalidateFrom(3);
     field('conditionError').classList.add('hidden');
   }));
   $$('[data-zone-note]').forEach(input=>input.addEventListener('input',()=>{
     state.zones.find(item=>item.id===Number(input.dataset.zoneNote)).conditions.note=input.value; invalidateFrom(3);
   }));
+  $$('[data-zone-number]').forEach(input=>input.addEventListener('input',()=>{const z=state.zones.find(item=>item.id===Number(input.dataset.zoneNumber));z.conditions[input.dataset.numberKey]=input.value===''?'unknown':Number(input.value);invalidateFrom(3);}));
 }
 function validateConditions(){
-  state.zones.forEach(z=>{if(!z.conditions)z.conditions=defaultConditions();z.conditions.source='demo';});
+  state.zones.forEach(z=>{if(!z.conditions)z.conditions=defaultConditions();});
   field('conditionError').classList.add('hidden');return true;
 }
 function parseCsv(text){
@@ -238,12 +253,7 @@ function selectedCompositionMode(){
 }
 function compositionModeRecord(){return selectedCompositionMode()==='formal_blocks'?{mode_id:'formal_blocks',label:'Formal bands & blocks',description:'Geometric groups follow your paths, using the same ecology, spacing and safety rules.'}:compositionModes().find(mode=>mode.mode_id===selectedCompositionMode())||fallbackModes[0];}
 function compositionRoleFor(plant){
-  if(!plant?.demo&&!plant?.precedent)return 'unassessed';
-  if(plant.group==='Trees'||plant.group==='Shrubs')return 'woody_framework';
-  if(plant.group==='Grasses, sedges & rushes')return 'matrix';
-  if(plant.group==='Climbers')return 'structural_perennial';
-  if(plant.group==='Aquatic & marginal plants')return 'community_patch';
-  return Number(plant.height)>=1.1?'structural_perennial':'seasonal_accent';
+  return plant?.operational?plant.role:'unassessed';
 }
 function compositionRoleLabel(role){
   return {matrix:'Matrix layer',structural_perennial:'Structural perennial',seasonal_accent:'Seasonal accent',woody_framework:'Woody framework',community_patch:'Site-specific patch'}[role]||'Not assessed';
@@ -260,43 +270,36 @@ function renderInventory(){
   if(state.inventory.length)box.innerHTML='<strong>'+state.inventory.length+' inventory name'+(state.inventory.length===1?'':'s')+' loaded · verify on site</strong><p>'+esc(state.inventory.slice(0,12).join(' · '))+(state.inventory.length>12?' …':'')+'</p>';
 }
 const colourHex={white:'#f8f7e8',purple:'#9b79b9',pink:'#df8fab',yellow:'#ecd46a',blue:'#799bc7',green:'#91a96c',brown:'#a78368',gold:'#d5ba74',cream:'#eee6c0'};
+const screeningZones=()=>state.zones.map(z=>({...z,conditions:z.conditions||defaultConditions()}));
 function demoCandidates(){
-  const p=project(),zones=state.zones.map(z=>z.conditions||defaultConditions());
-  return [...demo.plants,...(demo.ornamentals||[])].map((row,i)=>{
-    const [latin,name,group,moisture,light,height,from,to,colour,caution]=row;
-    const demoSoils=moisture==='dry'?['sand','clay']:moisture==='wet'?['peat','clay']:['clay','peat','sand'];
-    const perZone=zones.map((c,j)=>{
-      let score=3;
-      if(demoSoils.includes(c.soil))score+=1;else if(c.soil==='made')score-=1;
-      if(c.moisture===moisture)score+=3;else if(c.moisture==='variable'||c.moisture==='unknown')score+=1;else if((c.moisture==='wet'&&moisture==='dry')||(c.moisture==='dry'&&moisture==='wet'))score-=4;
-      if(c.light===light||c.light==='mixed'||light==='mixed')score+=2;else score-=2;
-      if(group==='Aquatic & marginal plants')score+=c.waterEdge==='yes'||c.hydrology==='seasonal'?3:-7;
-      if(group==='Trees'&&p.area<180)score-=5;
-      if(p.sightlines&&height>2)score-=2;
-      if(c.hardscape==='yes'&&group==='Trees')score-=2;
-      if(p.type==='restoration'&&['Flowers & herbs','Grasses, sedges & rushes'].includes(group))score+=1;
-      return {score,index:j,zone:state.zones[j]?.name||'Main site'};
-    }).sort((a,b)=>b.score-a.score);
-    const plant=engine.enrich({id:'demo-'+i,latin,name,group,moisture,light,soil:demoSoils.join(' / '),height,from,to,colour,caution,score:perZone[0].score,zone:perZone[0].zone,reviewed:false,demo:true,nativeStatus:i>=demo.plants.length?'non_native_fixture':'native_fixture',url:''});
-    // Preference scores cannot override ecological exclusion checks.
-    const fits=perZone.filter(match=>engine.zoneFit(plant,state.zones[match.index],p).fit);
-    if(!fits.length||!engine.eligibility(plant,p).eligible)return null;
-    plant.score=fits[0].score;plant.zone=fits[0].zone;
-    plant.role=compositionRoleFor(plant);
-    return plant;
-  }).filter(x=>x&&x.score>=4).sort((a,b)=>Number(a.nativeStatus==='non_native_fixture')-Number(b.nativeStatus==='non_native_fixture')||b.score-a.score||a.name.localeCompare(b.name,'nl'));
+  return recommender.candidates(screeningZones(),project());
+}
+/* A missing-information example evaluated as if the user has added it anyway. */
+function overrideItem(id){
+  const p=project();
+  return recommender.showcase(screeningZones(),{...p,overrideIds:[...p.overrideIds,id]}).find(item=>item.id===id);
 }
 function buildDemoPalette(){
-  state.selected=demoCandidates();state.removed=[];state.log=['Built '+state.selected.length+' site-filtered test candidates under '+RULE_VERSION+'. '+(project().rewilding?'Rewilding: native fixtures only.':'Native fixtures first; labelled ornamental alternatives allowed.')];state.paletteBuilt=true;state.approved=false;
+  const kept=project().overrideIds;
+  state.selected=demoCandidates();state.removed=[];state.log=['Built '+state.selected.length+' candidates for this site.'];state.paletteBuilt=true;state.approved=false;
+  // Overrides are the designer's decision, so they survive a rebuild while only information is still missing.
+  for(const id of kept){
+    const item=overrideItem(id);
+    if(item.recommendation.override.active)state.selected.push(item);
+    else state.log.push(item.name+' (added anyway) was dropped: '+(item.recommendation.constraint?.text||item.recommendation.label));
+  }
+}
+function refreshOperationalRanking(){
+  if(!state.paletteBuilt)return;
+  const current=new Set(state.selected.filter(p=>p.operational).map(p=>p.id));
+  const operational=demoCandidates().filter(p=>current.has(p.id));
+  state.selected=[...operational,...state.selected.filter(p=>!p.operational)];
 }
 function cardHtml(p){
-  if(p.demo){
-    const months=['J','F','M','A','M','J','J','A','S','O','N','D'].map((month,i)=>'<span '+(i+1>=p.from&&i+1<=p.to?'class="bloom" style="--bloom:'+colourHex[p.colour]+'"':'')+'>'+month+'</span>').join('');
-    return '<div class="plant-row"><div class="plant-row-inner"><div class="plant-row-name"><strong>'+esc(p.name)+'</strong><em>'+esc(p.latin)+'</em><small>Demo fit · '+esc(p.zone)+' · synthetic score '+p.score+' · <span class="role-tag">'+esc(compositionRoleLabel(compositionRoleFor(p)))+'</span></small></div><button type="button" class="plant-control" data-expand="'+esc(p.id)+'" aria-label="More about '+esc(p.name)+'" aria-expanded="false">⌄</button><button type="button" class="plant-control icon-button" data-remove-plant="'+esc(p.id)+'" aria-label="Remove '+esc(p.name)+'" title="Remove">×</button></div><div class="plant-detail hidden"><div class="trait-preview"><div class="botanical-demo" role="img" aria-label="Generic botanical illustration; not a photograph"><span style="--petal:'+colourHex[p.colour]+'">✿</span><small>Illustration only</small></div><div><strong>Flowering period · simulated</strong><div class="month-strip" aria-label="Simulated flowering from month '+p.from+' to '+p.to+'">'+months+'</div><p>Blossom colour: '+esc(p.colour)+' · verify phenology.</p></div></div><p><strong>Status & spacing:</strong> '+esc(p.nativeStatus==='non_native_fixture'?'Non-native ornamental fixture':'Native fixture')+' · mature spread '+p.spread.toFixed(2)+' m · draft spacing '+p.spacing.toFixed(2)+' m. Verify status and dimensions.</p><p><strong>Composition role:</strong> '+esc(compositionRoleLabel(compositionRoleFor(p)))+' · assigned from the mock layer and height, not reviewed plant traits.</p><p><strong>Suggested zone:</strong> '+esc(p.zone)+' · mock fit based on '+esc(p.soil)+' soil, '+esc(p.moisture)+' moisture and '+esc(p.light)+' light.</p><p><strong>Role & size:</strong> '+esc(p.group)+' · approximate mature height '+p.height+' m. Verify spread and spacing.</p><p><strong>Caution:</strong> '+esc(p.caution)+'. Edible parts and toxicity are unverified. Do not use this record to decide harvesting or public safety.</p><p><strong>Evidence:</strong> Synthetic Plantscapes test layer '+esc(demo.version)+'; style logic uses '+esc(RULE_VERSION)+'. <span class="data-unknown">No verified site suitability or locality</span></p></div></div>';
-  }
+  if(p.recommendation)return candidateCards.cardHtml(p);
   const source=p.precedent?'Oudolf case study '+esc(p.caseId)+' · name-resolution confidence '+Math.round((p.confidence||0)*100)+'% · ornamental precedent only':p.url?'<a href="'+esc(p.url)+'" target="_blank" rel="noreferrer">Open taxonomy record</a>':'No record link in starter subset';
   const months=['J','F','M','A','M','J','J','A','S','O','N','D'].map(month=>'<span>'+month+'</span>').join('');
-  return '<div class="plant-row"><div class="plant-row-inner"><div class="plant-row-name"><strong>'+esc(p.name)+'</strong><em>'+esc(p.latin)+'</em><small>'+(p.precedent?'Oudolf case-study precedent · not a site recommendation':'Manual working selection · not a site recommendation')+'</small></div><button type="button" class="plant-control" data-expand="'+esc(p.id)+'" aria-label="More about '+esc(p.name)+'" aria-expanded="false">⌄</button><button type="button" class="plant-control icon-button" data-remove-plant="'+esc(p.id)+'" aria-label="Remove '+esc(p.name)+'" title="Remove">×</button></div><div class="plant-detail hidden" id="detail-'+esc(p.id.replace(/[^a-z0-9-]/gi,'-'))+'"><div class="trait-preview"><div class="photo-placeholder" role="img" aria-label="Plant photograph not licensed for this record">Photograph<br>not available</div><div><strong>Flowering months and blossom colour</strong><div class="month-strip" aria-label="Flowering months not yet verified">'+months+'</div><p>No reviewed flowering data; no months are highlighted.</p></div></div><p><strong>Potential zone:</strong> Not assessed. Confirmed site zones: '+esc(state.zones.map(z=>z.name).join(', '))+'.</p><p><strong>Ecological role, soil and light fit, mature size:</strong> Not reviewed in this dataset.</p><p><strong>Hazards, edible parts and compatibility:</strong> Unknown. Do not use for public-contact or harvesting decisions without specialist checks.</p><p><strong>Evidence:</strong> Taxonomic identity only. '+source+'. <span class="data-unknown">Case-plan use does not establish Dutch nativeness or site suitability.</span></p></div></div>';
+  return '<div class="plant-row"><div class="plant-row-inner"><div class="plant-row-name"><strong>'+esc(p.name)+'</strong><em>'+esc(p.latin)+'</em><small>'+(p.precedent?'Oudolf case-study precedent · not a site recommendation':'Manual working selection · not a site recommendation')+'</small></div>'+candidateCards.toggleButton(p.id,p.name)+candidateCards.removeButton(p.id,p.name)+'</div><div class="plant-detail hidden" id="detail-'+esc(p.id.replace(/[^a-z0-9-]/gi,'-'))+'"><div class="trait-preview"><div class="photo-placeholder" role="img" aria-label="Plant photograph not licensed for this record">Photograph<br>not available</div><div><strong>Flowering months and blossom colour</strong><div class="month-strip" aria-label="Flowering months not yet verified">'+months+'</div><p>No reviewed flowering data; no months are highlighted.</p></div></div><p><strong>Potential zone:</strong> Not assessed. Confirmed site zones: '+esc(state.zones.map(z=>z.name).join(', '))+'.</p><p><strong>Ecological role, soil and light fit, mature size:</strong> Not reviewed in this dataset.</p><p><strong>Hazards, edible parts and compatibility:</strong> Unknown. Do not use for public-contact or harvesting decisions without specialist checks.</p><p><strong>Evidence:</strong> Taxonomic identity only. '+source+'. <span class="data-unknown">Case-plan use does not establish Dutch nativeness or site suitability.</span></p></div></div>';
 }
 function renderPalette(){
   const p=project(), manual=state.selected.length, composition=compositionNarrative();
@@ -307,20 +310,28 @@ function renderPalette(){
   const modeRuleIds=composition.mode.rule_ids||[],modeRules=(state.designRules?.rules||[]).filter(rule=>modeRuleIds.includes(rule.rule_id));
   const evidenceById=new Map((state.designRules?.evidence_sources||[]).map(source=>[source.id,source]));
   field('compositionEvidence').innerHTML=modeRules.length?'<p>Rule-based guidance; it shapes mock spatial grouping, not ecological eligibility:</p><ul>'+modeRules.map(rule=>'<li>'+esc(rule.rule)+'<small>Evidence: '+esc(rule.evidence_ids.map(id=>evidenceById.get(id)?.pages||evidenceById.get(id)?.type||id).filter(Boolean).join(' · '))+'</small></li>').join('')+'</ul><p class="data-unknown">Rule interpretations are not fixed planting formulas. Source-plan colour marks are legend symbols, not reliable flower-colour data.</p>':'<p>Choose a composition mode. The local rule file provides the evidence-linked guidance when available.</p>';
-  field('paletteGate').innerHTML='<strong>'+esc(p.rewilding?'Rewilding · native plants only':'Public-park design · native plants first')+'</strong><span>Approved design rules guide the concept. Plant fit, spread and safety remain labelled test data. Name-only records can be shortlisted but cannot be automatically placed.</span>';
-  field('paletteSummary').innerHTML='<strong>'+manual+' synthetic candidates in your working palette</strong><br>Project: '+esc(p.type)+' · '+esc(p.area)+' m² · '+esc(state.zones.length)+' confirmed zone'+(state.zones.length===1?'':'s')+'. Mode: '+esc(composition.mode.label)+'. Palette role counts: '+esc(composition.roleText||'not yet assigned')+'. Counts describe taxa, not planting area or quantities.';
+  const zones=screeningZones(),screened=recommender.screen(zones,p),rules=recommender.activePolicies(p);
+  field('paletteGate').innerHTML='<strong>'+esc(rules.length?'Project rules: '+rules.join(' · '):'Native plants first')+'</strong><span>Approved design rules guide the concept. Name-only records can be shortlisted but cannot be automatically placed.</span>';
+  field('paletteSummary').innerHTML='<strong>'+manual+' candidates for this site</strong><br>Project: '+esc(p.type)+' · '+esc(typeof p.area==='number'?Math.round(p.area).toLocaleString('en-GB'):p.area)+' m² · '+esc(state.zones.length)+' profile zone'+(state.zones.length===1?'':'s')+'. Project rules: '+esc(['Native plants first',...rules].join(' · '))+'. Mode: '+esc(composition.mode.label)+'. Palette role counts: '+esc(composition.roleText||'not yet assigned')+'. Counts describe plants, not planting area or quantities.';
   field('paletteGroups').innerHTML=groupOrder.map(group=>{
     const items=state.selected.filter(x=>x.group===group);
-    return '<section class="palette-group"><h3>'+esc(group)+'<span>'+items.length+'</span></h3>'+(items.length?items.map(cardHtml).join(''):'<p class="empty-group">No eligible selection for this layer. Change the conditions or add a plant for review.</p>')+'</section>';
-  }).join('');
+    const emptyReason=group==='Trees'&&state.zones.every(z=>z.conditions?.disturbance==='high')?'All eight operational trees list low disturbance tolerance, while these zones are marked high. Recheck disturbance only if site evidence supports a different level.':'No eligible selection for this layer. Change the conditions or add a plant for review.';
+    return '<section class="palette-group"><h3>'+esc(group)+'<span>'+items.length+'</span></h3>'+(items.length?items.map(cardHtml).join(''):'<p class="empty-group">'+esc(emptyReason)+'</p>')+'</section>';
+  }).join('')+'<section class="palette-extras">'+candidateCards.hiddenHtml(screened.hidden)+
+    '<label class="example-toggle"><input type="checkbox" id="showExamples"'+(state.showExamples?' checked':'')+'> Show missing-information examples</label>'+
+    (state.showExamples?'<p class="example-intro">Ten copies of plants above with information deliberately removed. They show what the system does when data is missing. They stay out of your selection unless you choose Add anyway.</p><section class="palette-group example-group"><h3>Missing-information examples<span>10</span></h3>'+recommender.showcase(zones,p).map(item=>candidateCards.cardHtml(item,{removable:false,selected:p.overrideIds.includes(item.id)})).join('')+'</section>':'')+'</section>';
   $$('[data-remove-plant]').forEach(button=>button.addEventListener('click',()=>{
     const index=state.selected.findIndex(p=>p.id===button.dataset.removePlant);if(index<0)return;
     const p=state.selected.splice(index,1)[0];state.removed.push(p);state.log.push('Removed '+p.name);invalidateFrom(4);renderPalette();
   }));
-  $$('[data-expand]').forEach(button=>button.addEventListener('click',()=>{
-    const detail=button.closest('.plant-row').querySelector('.plant-detail');
-    const open=button.getAttribute('aria-expanded')!=='true';
-    button.setAttribute('aria-expanded',String(open));detail.classList.toggle('hidden',!open);button.textContent=open?'⌃':'⌄';
+  $$('[data-expand]').forEach(button=>button.addEventListener('click',()=>candidateCards.toggle(button)));
+  $$('[data-source-toggle]').forEach(button=>button.addEventListener('click',()=>candidateCards.toggleSource(button)));
+  field('showExamples').addEventListener('change',event=>{state.showExamples=event.target.checked;renderPalette();field('showExamples').focus();});
+  $$('[data-override-plant]').forEach(button=>button.addEventListener('click',()=>{
+    const id=button.dataset.overridePlant;if(state.selected.some(p=>p.id===id))return;
+    const item=overrideItem(id);if(!item?.recommendation.override.active)return;
+    state.selected.push(item);state.log.push('Added '+item.name+' anyway (information missing)');invalidateFrom(4);renderPalette();
+    document.querySelector('.example-group [data-candidate="'+id+'"] [data-expand]')?.focus();
   }));
   field('paletteChangeLog').innerHTML=state.log.length?esc(state.log.slice(-3).join(' · '))+(state.removed.length?' <button type="button" id="undoPlant">Undo removal</button>':''):'No palette edits yet.';
   if(field('undoPlant'))field('undoPlant').addEventListener('click',()=>{
@@ -351,19 +362,19 @@ function downloadCsv(){
   const p=project(),s=site();
   const rows=[
     ['PLANTSCAPES SYNTHETIC CANDIDATE REVIEW — NOT A PLANTING SPECIFICATION'],
-    ['Name catalogue version',DATASET_VERSION],['Synthetic trait version',demo.version],['Rule version',RULE_VERSION],['Exported on',new Date().toISOString()],
+    ['Name catalogue version',DATASET_VERSION],['Operational dataset and scoring version',suitability.version],['Design rule version',RULE_VERSION],['Exported on',new Date().toISOString()],
     ['Map area (nearest demo location)',s.location],['Area m2',p.area],
     ['Project type',p.type],['Audience',p.audience],['Maintenance capacity',p.maintenance],['Priorities',p.priorities.join('; ')],
     ['Spatial character',p.character],['Composition mode',compositionModeRecord().label],['Composition rule version',RULE_VERSION],['Public access',p.publicAccess],['Public harvesting',p.publicHarvest],['Preserve open views',p.sightlines],['Rewilding native-only policy',p.rewilding],['Seasonal anchor colours',p.anchorColours.join('; ')],
     ['Project notes',p.notes],['Site description',s.description],
-    ['Recommendation status','Simulated recommendations for workflow testing only; no verified site suitability'],
+    ['Recommendation status','Project demonstration: complete operational values (sourced, inferred or synthetic, see origin column); all records production_eligible=false'],
     ['Plot boundary','Prototype outline with '+state.plotBoundary.length+' corners; not cadastral'],
     ['Unresolved checks','Local occurrence; native status; site traits; hazards; provenance; density; source licences'],
     [],['ZONE CONTEXT'],['Zone','Soil','Moisture','Hydrology','Light','Canopy','Disturbance','Hardscape','Water edge','Confirmation source','Evidence note']
   ];
   state.zones.forEach(z=>{const c=z.conditions||defaultConditions();rows.push([z.name,c.soil,c.moisture,c.hydrology,c.light,c.canopy,c.disturbance,c.hardscape,c.waterEdge,c.source,c.note]);});
-  rows.push([],['WORKING SELECTION — SIMULATED, NOT SITE RECOMMENDATIONS'],['Category','Dutch name','Latin name','Zone','Approx. height m','Simulated flowering','Demo soil','Demo moisture','Demo light','Composition role','Caution','Evidence status','Inclusion trace','Unresolved checks','Native status fixture','Spread fixture m','Spacing fixture m']);
-  state.selected.forEach(item=>rows.push([item.group,item.name,item.latin,item.zone||'',item.height||'',item.from&&item.to?item.from+'–'+item.to:'',item.soil||'',item.moisture||'',item.light||'',compositionRoleFor(item)==='unassessed'?'Not assessed':compositionRoleLabel(compositionRoleFor(item)),item.caution||'',item.demo?'Synthetic test traits':'Name catalogue only',item.demo?'Synthetic site-fit score '+item.score+'; composition role assigned from mock layer/height under '+compositionModeRecord().label:'Manually selected by designer; no traits assessed','Verify local presence, site fit, hazards, spacing, provenance and maintenance',item.nativeStatus||'unknown',item.spread||'',item.spacing||'']));
+  rows.push([],['WORKING SELECTION — SIMULATED, NOT SITE RECOMMENDATIONS'],['Fixture ID','Plant ID','Category','Dutch name','Latin name','Zone','Fit','Why','Main constraint','Active project rules','Site fit score (internal)','Demo value origins','Demo fill rules','v0.3 reference class','Raw score','Capped score','Evidence confidence','Hard gates requiring review or exclusion','Warnings','Field origins','Production eligible','Height m','Spread m','SPACE-01 pilot spacing m','Role','Native status','Invasive status','Public contact status']);
+  state.selected.forEach(item=>{const e=item.evaluation,r=item.recommendation;rows.push([item.id,item.plant_id||'',item.group,item.name,item.latin,item.zone||'',r?(r.label+(r.override.active?' (added anyway by designer; information missing)':'')):'unassessed',r?.summary.text||'',r?.constraint?r.constraint.label+': '+r.constraint.text:'',r?r.project.policies.map(x=>x.label).join('; '):'',r?.site.score??'',item.demoValueOrigins?JSON.stringify(item.demoValueOrigins):'',item.demoFillRules?JSON.stringify(item.demoFillRules):'',e?.eligibility_state||'unassessed',e?.raw_suitability_score||'',e?.final_suitability_score||'',e?.evidence_confidence_score||'',e?.hard_gate_results.filter(g=>g.state!=='passed').map(g=>g.gate_id+': '+g.state).join('; ')||'',e?.warnings.map(w=>w.message).join('; ')||'',item.fieldOrigins?JSON.stringify(item.fieldOrigins):'',item.productionEligible===false?'false':'unknown',item.height||'',item.spread||'',item.spacing||'',compositionRoleFor(item),item.nativeStatus||'unknown',item.invasiveStatus||'unknown',item.safetyStatus||'unknown']);});
   rows.push([],['APPLIED RULES AND EVIDENCE'],['Rule ID','Rule','Status','Evidence URLs']);
   window.PLANTSCAPES_RULEBOOK.rules.forEach(rule=>rows.push([rule.id,rule.name,rule.status,rule.sources.map(id=>window.PLANTSCAPES_RULEBOOK.source_registry[id]).join('; ')]));
   if(state.generated&&!state.planDirty){rows.push([],['DRAFT PLAN DECISIONS — SYNTHETIC'],['Plant','Zone','Quantity','Spacing m','Rules','Reason']);planPlantKey().forEach(entry=>{const placed=state.placements.filter(x=>x.plantId===entry.plant.id),first=placed[0];rows.push([entry.plant.latin,first?.zone||'',quantityForPlant(entry.plant.id),first?.spacing||'',first?.ruleTrace?.join('; ')||'',first?.reason||'']);});}
@@ -453,7 +464,7 @@ function generatePlan(){
   buildPlantingMasses(origin,result.bounds,result.valid);
   field('generatePlan').textContent='Regenerate concept';
   field('downloadPlanSvg').disabled=false;field('downloadViewSvg').disabled=false;
-  const count=state.placements.length,used=new Set(state.placements.map(p=>p.plantId));
+  const count=state.placements.length,used=new Set(Object.entries(result.quantities||{}).filter(([,quantity])=>quantity>0).map(([id])=>id));
   field('generationStatus').textContent=Number(result.totalQuantity||count).toLocaleString()+' estimated plants · '+used.size+' species';
   renderPlantingCoverage();renderPlacements();renderSymbolEditor();renderVisualization();renderPlanRules();window.PlantscapesAI?.onPlan();
 }
@@ -480,7 +491,7 @@ function renderPlanRules(){
     const structural=state.selected.filter(x=>used.has(x.id)&&(['Trees','Shrubs','Grasses, sedges & rushes'].includes(x.group)||x.height>=1.1)).length;
     return '<div><strong>'+name+'</strong><span>'+species.length+' flowering taxa</span>'+(i===3?'<span>'+structural+' possible structural taxa · verify persistence</span>':'')+'<div class="season-swatches">'+colours.map(c=>'<i title="'+esc(c)+'" style="background:'+(colourHex[c]||'#74856b')+'"></i>').join('')+'</div></div>';
   }).join('');
-  panel.innerHTML='<div class="rule-review-head"><h3>Design review</h3><span>'+esc(status)+'</span></div><p>'+pathCount+' path'+(pathCount===1?'':'s')+' · '+bedCount+' planting zone'+(bedCount===1?'':'s')+' · '+esc(p.rewilding?'Native fixtures only':'Native fixtures first; labelled ornamentals allowed')+'</p>'+structuralNote+(state.generated?'<div class="season-review">'+seasonal+'</div>':'')+'<details><summary>Checks for the architect and municipality</summary><ul>'+issues.map(text=>'<li>'+esc(text)+'</li>').join('')+'</ul></details><details><summary>Why plants were not placed</summary>'+(audit?.decisions?.length?'<ul>'+audit.decisions.map(d=>'<li>'+esc(state.selected.find(x=>x.id===d.plantId)?.name||d.plantId)+': '+esc(d.reason)+' <small>'+esc(d.rules.join(', '))+'</small></li>').join('')+'</ul>':'<p>Generate a concept to see placement decisions.</p>')+'</details><details><summary>Rules and sources</summary><p>Path edge → transition → interior. Mature spread controls spacing. Trees need actual crown space. No species quota.</p><a href="data/planting-plan-rules.v0.1.json" download>Download the applied rulebook</a></details>';
+  panel.innerHTML='<div class="rule-review-head"><h3>Design review</h3><span>'+esc(status)+'</span></div><p>'+pathCount+' path'+(pathCount===1?'':'s')+' · '+bedCount+' planting zone'+(bedCount===1?'':'s')+' · v0.3 demonstration only; all records not production eligible</p>'+structuralNote+(state.generated?'<div class="season-review">'+seasonal+'</div>':'')+'<details><summary>Checks for the architect and municipality</summary><ul>'+issues.map(text=>'<li>'+esc(text)+'</li>').join('')+'</ul></details><details><summary>Why plants were not placed</summary>'+(audit?.decisions?.length?'<ul>'+audit.decisions.map(d=>'<li>'+esc(state.selected.find(x=>x.id===d.plantId)?.name||d.plantId)+': '+esc(d.reason)+' <small>'+esc(d.rules.join(', '))+'</small></li>').join('')+'</ul>':'<p>Generate a concept to see placement decisions.</p>')+'</details><details><summary>Rules and sources</summary><p>Path edge → transition → interior. SPACE-01 pilot spacing is synthetic. Trees need actual crown space. No species quota.</p><a href="data/planting-plan-rules.v0.1.json" download>Download the applied rulebook</a></details>';
   field('undoPlanEdit').disabled=!state.planUndo.length;
 }
 function plantingAreas(){
@@ -586,7 +597,7 @@ function renderPlacementList(){
   $$('[data-select-symbol]').forEach(button=>button.addEventListener('click',()=>selectPlacement(button.dataset.selectSymbol)));
   const used=new Set(planPlantKey().map(k=>k.plant.id)),unplaced=state.generated?state.selected.filter(p=>!used.has(p.id)):[];
   field('unplacedCount').textContent=unplaced.length;
-  field('unplacedList').innerHTML=state.generated?(unplaced.length?unplaced.map(p=>'<div class="unplaced-item">'+esc(p.name)+' <small>'+esc(p.group)+'</small></div>').join(''):'Every selected demo taxon is represented.'):'Generate a plan to compare the palette.';
+  field('unplacedList').innerHTML=state.generated?(unplaced.length?unplaced.map(p=>'<div class="unplaced-item">'+esc(p.name)+' <small>'+esc(p.group)+(p.recommendation?.override.active&&!p.recommendation.placeable?' · added anyway; size unknown, so it cannot be placed':'')+'</small></div>').join(''):'Every selected demo taxon is represented.'):'Generate a plan to compare the palette.';
 }
 function checkPlanEdit(plant,point,ignoreId){
   if(state.planDirty)return 'Regenerate after changing paths or zones.';
@@ -594,11 +605,12 @@ function checkPlanEdit(plant,point,ignoreId){
   const xy=latLngToMetric(point,state.planAudit.origin);
   if(!state.planAudit.valid(xy))return 'Keep the plant in its planting or water zone, outside paths and open ground.';
   const bed=state.planAudit.bedFor(xy),zone=state.zones.find(z=>String(z.id)===String(bed.zoneId));
-  const fit=engine.zoneFit(plant,zone,project());if(!fit.fit)return fit.reason;
+  const xs=bed.polygon.map(q=>q[0]),ys=bed.polygon.map(q=>q[1]),d=state.planAudit.pathDistance(xy);
+  const geometry={available_width_m:Math.max(...xs)-Math.min(...xs),available_length_m:Math.max(...ys)-Math.min(...ys),plantable_area_m2:engine.area(bed.polygon),max_plant_height_m:d<engine.config.edgeDepth?engine.config.edgeHeight:zone.conditions?.max_plant_height_m};
+  const fit=engine.zoneFit(plant,{...zone,conditions:{...zone.conditions,path_edge:d<engine.config.edgeDepth?'yes':'no'},geometry},project());if(!fit.fit)return fit.reason;
   if(!state.planAudit.aquaticFit(plant,xy))return 'Aquatic / marginal plants need the water or shoreline; terrestrial plants cannot go in water.';
   if(plant.group==='Aquatic & marginal plants'&&state.planAudit.waterFor(xy)&&state.planAudit.shoreDistance(xy)>1.2)return 'These marginal fixtures need the assumed 1.2 m shoreline, not deep open water.';
-  const d=state.planAudit.pathDistance(xy);
-  if(d<engine.config.edgeDepth&&(plant.height>engine.config.edgeHeight||plant.thorny))return 'This path edge requires lower planting without thorns.';
+  if(d<engine.config.edgeDepth&&(plant.height>engine.config.edgeHeight||plant.thorns==='unknown'||plant.thorny))return 'This path edge requires lower planting and resolved thorn evidence.';
   if(plant.group==='Trees'){
     const r=plant.spread/2;
     if(!Array.from({length:12},(_,n)=>[xy[0]+r*Math.cos(n*Math.PI/6),xy[1]+r*Math.sin(n*Math.PI/6)]).every(q=>state.planAudit.valid(q)&&!state.planAudit.waterFor(q)))return 'The mature tree crown does not fit the available planting space.';
@@ -938,7 +950,7 @@ function setup(){
   field('approvePalette').addEventListener('click',()=>{state.approved=true;advance(6);});
   field('downloadCsv').addEventListener('click',downloadCsv);
   field('toPlan').addEventListener('click',()=>advance(7));
-  field('mapPreset').addEventListener('change',()=>{const p=demo.places[field('mapPreset').value];if(p){clearPlotPreview();if(state.siteMap)state.siteMap.setView(p.center,15);state.plotBoundary=[];state.plotDraft=[];state.zones.forEach(z=>z.conditions=null);invalidateFrom(2);drawPlot();}});
+  field('mapPreset').addEventListener('change',()=>{const p=demo.places[field('mapPreset').value];if(p){const hadBoundary=state.plotBoundary.length>=3;state.selectedLocation=null;field('location').value='';field('locationStatus').textContent=state.siteMap?'Map moved to '+p.label+'. '+(hadBoundary?'The previous boundary was cleared. ':'')+'Draw your plot boundary.':'Starting city selected. The scaled map is unavailable; reload when the map service is reachable.';clearPlotPreview();if(state.siteMap)state.siteMap.setView(p.center,15);state.plotBoundary=[];state.plotDraft=[];state.zones.forEach(z=>z.conditions=null);invalidateFrom(2);drawPlot();}});
   field('plotPan').addEventListener('click',()=>{clearPlotPreview();state.plotMode='pan';field('plotPan').classList.add('active');field('plotDraw').classList.remove('active');if(state.siteMap)state.siteMap.dragging.enable();field('siteMap').classList.remove('draw-mode');drawPlot();});
   field('plotDraw').addEventListener('click',()=>{state.plotMode='draw';field('plotDraw').classList.add('active');field('plotPan').classList.remove('active');if(state.siteMap)state.siteMap.dragging.disable();field('siteMap').classList.add('draw-mode');drawPlot();});
   field('plotExample').addEventListener('click',examplePlot);
@@ -973,7 +985,7 @@ function setup(){
     invalidateFrom(4);renderPalette();
   });
   field('restorationOrnamentals').addEventListener('change',()=>{buildDemoPalette();state.log.push('Designer changed the restoration ornamental policy; shortlist rebuilt.');invalidateFrom(4);renderPalette();});
-  ['anchorColour1','anchorColour2'].forEach(id=>field(id).addEventListener('change',()=>{state.log.push('Seasonal anchor colours changed.');invalidateFrom(4);renderPalette();}));
+  ['anchorColour1','anchorColour2'].forEach(id=>field(id).addEventListener('change',()=>{refreshOperationalRanking();state.log.push('Seasonal anchor colours changed; ranking refreshed.');invalidateFrom(4);renderPalette();}));
   field('generatePlan').addEventListener('click',generatePlan);
   ['mixMatrix','mixFlowers','mixStructure'].forEach(id=>field(id).addEventListener('change',markPlanDirty));
   field('undoPlanEdit').addEventListener('click',undoPlanEdit);

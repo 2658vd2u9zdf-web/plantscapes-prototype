@@ -1,0 +1,1908 @@
+{
+  "dataset_name": "Plantscapes 60-fixture botanical research and separate demonstration values",
+  "version": "0.2.0",
+  "created_on": "2026-10-13",
+  "record_count": 60,
+  "fixture_counts": {
+    "core": 54,
+    "ornamental": 6
+  },
+  "claim_count": 2811,
+  "data_gap_count": 3780,
+  "source_count": 169,
+  "evidence_trait_field_count": 99,
+  "national_backbone_sha256": "167256ade50af4cf4ce5af9a186ac1867212e237f26311631f7eaaf17e5de739",
+  "national_backbone_record_count": 2443,
+  "protected_input_sha256": {
+    "website/data/demo-data.js": "e57f23fe737827772afb888dae23b1241a81565d5ea76cfda22e64b82ecffb83",
+    "website/planting-engine.js": "6117c09abec587c33d7fa908a5f35d193629a2af7ac65611f7a0a7c0ad0d3481",
+    "dataset/schemas/plant-claim.schema.json": "6f52daab54d2861adc7e97add37ae54034b9b82005f56c044bf3317c47df483a"
+  },
+  "production_eligible_count": 0,
+  "required_production_fields": [
+    "accepted_scientific_name",
+    "allergen_risk",
+    "canonical_name",
+    "contact_irritation_status",
+    "dimension_context",
+    "drainage_tolerance",
+    "edibility_evidence_status",
+    "edible_parts",
+    "establishment_status_nl",
+    "eu_union_concern_status",
+    "family",
+    "food_safety_note",
+    "fruit_drop_risk",
+    "gbif_species_key",
+    "invasive_status",
+    "irritant_sap",
+    "light_regimes",
+    "management_warnings",
+    "mature_height_max_m",
+    "mature_height_min_m",
+    "mature_spread_max_m",
+    "mature_spread_min_m",
+    "moisture_regimes",
+    "native_status_nl",
+    "preparation_required",
+    "protected_status_nl",
+    "provenance_requirement",
+    "public_contact_suitability",
+    "red_list_status_nl",
+    "regional_occurrence_status",
+    "school_or_play_suitability",
+    "scientific_name_authorship",
+    "soil_textures",
+    "suitable_establishment_methods",
+    "synonyms",
+    "taxonomic_authority",
+    "thorns_or_spines",
+    "toxic_parts",
+    "toxicity_status",
+    "vernacular_nl",
+    "verspreidingsatlas_taxon_number"
+  ],
+  "source_summary": {
+    "Plantscapes / NDFF / GBIF": 1,
+    "NVWA": 2,
+    "GBIF Secretariat": 61,
+    "NDFF / FLORON; section-specific contributors": 54,
+    "NC State University / N.C. Cooperative Extension": 40,
+    "Royal Horticultural Society": 9,
+    "Rassenlijst Bomen / Centre for Genetic Resources, the Netherlands (CGN)": 1,
+    "Plantscapes research prototype": 1
+  },
+  "licences": [
+    "CC BY 4.0",
+    "CC0 except expressly excluded materials",
+    "CC0 text; media excluded",
+    "Copyright RHS; no open text/database redistribution licence verified.",
+    "Mixed rights: Wilde-planten/Klaas Dijkstra ecology CC BY-NC-SA 3.0 NL; some René van Moorsel contributions CC BY-SA 3.0; taxonomy, BBR, Red List and hazard compilation reuse rights unresolved.",
+    "Original project demonstration policy; rights ownership not assessed.",
+    "unknown",
+    "unknown; no reuse licence established.",
+    "unknown; per-image licences do not establish text/database reuse rights."
+  ],
+  "field_completeness": {
+    "accepted_scientific_name": {
+      "records": 60,
+      "origin_counts": {
+        "sourced_primary": 0,
+        "sourced_official_database": 60,
+        "sourced_secondary": 0,
+        "expert_inference": 0,
+        "conflicting": 0,
+        "synthetic_fallback": 0,
+        "unknown": 0
+      },
+      "sourced_percentage": 100.0,
+      "provisional_percentage": 100.0,
+      "synthetic_percentage": 0.0,
+      "unknown_percentage": 0.0,
+      "conflicting_percentage": 0.0,
+      "netherlands_evidence_percentage": 0.0
+    },
+    "canonical_name": {
+      "records": 60,
+      "origin_counts": {
+        "sourced_primary": 0,
+        "sourced_official_database": 60,
+        "sourced_secondary": 0,
+        "expert_inference": 0,
+        "conflicting": 0,
+        "synthetic_fallback": 0,
+        "unknown": 0
+      },
+      "sourced_percentage": 100.0,
+      "provisional_percentage": 100.0,
+      "synthetic_percentage": 0.0,
+      "unknown_percentage": 0.0,
+      "conflicting_percentage": 0.0,
+      "netherlands_evidence_percentage": 0.0
+    },
+    "vernacular_nl": {
+      "records": 60,
+      "origin_counts": {
+        "sourced_primary": 0,
+        "sourced_official_database": 54,
+        "sourced_secondary": 0,
+        "expert_inference": 0,
+        "conflicting": 0,
+        "synthetic_fallback": 0,
+        "unknown": 6
+      },
+      "sourced_percentage": 90.0,
+      "provisional_percentage": 90.0,
+      "synthetic_percentage": 0.0,
+      "unknown_percentage": 10.0,
+      "conflicting_percentage": 0.0,
+      "netherlands_evidence_percentage": 90.0
+    },
+    "family": {
+      "records": 60,
+      "origin_counts": {
+        "sourced_primary": 0,
+        "sourced_official_database": 60,
+        "sourced_secondary": 0,
+        "expert_inference": 0,
+        "conflicting": 0,
+        "synthetic_fallback": 0,
+        "unknown": 0
+      },
+      "sourced_percentage": 100.0,
+      "provisional_percentage": 100.0,
+      "synthetic_percentage": 0.0,
+      "unknown_percentage": 0.0,
+      "conflicting_percentage": 0.0,
+      "netherlands_evidence_percentage": 85.0
+    },
+    "scientific_name_authorship": {
+      "records": 60,
+      "origin_counts": {
+        "sourced_primary": 0,
+        "sourced_official_database": 60,
+        "sourced_secondary": 0,
+        "expert_inference": 0,
+        "conflicting": 0,
+        "synthetic_fallback": 0,
+        "unknown": 0
+      },
+      "sourced_percentage": 100.0,
+      "provisional_percentage": 100.0,
+      "synthetic_percentage": 0.0,
+      "unknown_percentage": 0.0,
+      "conflicting_percentage": 0.0,
+      "netherlands_evidence_percentage": 85.0
+    },
+    "synonyms": {
+      "records": 60,
+      "origin_counts": {
+        "sourced_primary": 0,
+        "sourced_official_database": 59,
+        "sourced_secondary": 0,
+        "expert_inference": 0,
+        "conflicting": 0,
+        "synthetic_fallback": 0,
+        "unknown": 1
+      },
+      "sourced_percentage": 98.33,
+      "provisional_percentage": 98.33,
+      "synthetic_percentage": 0.0,
+      "unknown_percentage": 1.67,
+      "conflicting_percentage": 0.0,
+      "netherlands_evidence_percentage": 0.0
+    },
+    "taxonomic_authority": {
+      "records": 60,
+      "origin_counts": {
+        "sourced_primary": 0,
+        "sourced_official_database": 60,
+        "sourced_secondary": 0,
+        "expert_inference": 0,
+        "conflicting": 0,
+        "synthetic_fallback": 0,
+        "unknown": 0
+      },
+      "sourced_percentage": 100.0,
+      "provisional_percentage": 100.0,
+      "synthetic_percentage": 0.0,
+      "unknown_percentage": 0.0,
+      "conflicting_percentage": 0.0,
+      "netherlands_evidence_percentage": 0.0
+    },
+    "gbif_species_key": {
+      "records": 60,
+      "origin_counts": {
+        "sourced_primary": 0,
+        "sourced_official_database": 60,
+        "sourced_secondary": 0,
+        "expert_inference": 0,
+        "conflicting": 0,
+        "synthetic_fallback": 0,
+        "unknown": 0
+      },
+      "sourced_percentage": 100.0,
+      "provisional_percentage": 100.0,
+      "synthetic_percentage": 0.0,
+      "unknown_percentage": 0.0,
+      "conflicting_percentage": 0.0,
+      "netherlands_evidence_percentage": 0.0
+    },
+    "verspreidingsatlas_taxon_number": {
+      "records": 60,
+      "origin_counts": {
+        "sourced_primary": 0,
+        "sourced_official_database": 54,
+        "sourced_secondary": 0,
+        "expert_inference": 0,
+        "conflicting": 0,
+        "synthetic_fallback": 0,
+        "unknown": 6
+      },
+      "sourced_percentage": 90.0,
+      "provisional_percentage": 90.0,
+      "synthetic_percentage": 0.0,
+      "unknown_percentage": 10.0,
+      "conflicting_percentage": 0.0,
+      "netherlands_evidence_percentage": 90.0
+    },
+    "native_status_nl": {
+      "records": 60,
+      "origin_counts": {
+        "sourced_primary": 0,
+        "sourced_official_database": 53,
+        "sourced_secondary": 0,
+        "expert_inference": 0,
+        "conflicting": 0,
+        "synthetic_fallback": 0,
+        "unknown": 7
+      },
+      "sourced_percentage": 88.33,
+      "provisional_percentage": 88.33,
+      "synthetic_percentage": 0.0,
+      "unknown_percentage": 11.67,
+      "conflicting_percentage": 0.0,
+      "netherlands_evidence_percentage": 88.33
+    },
+    "establishment_status_nl": {
+      "records": 60,
+      "origin_counts": {
+        "sourced_primary": 0,
+        "sourced_official_database": 0,
+        "sourced_secondary": 0,
+        "expert_inference": 0,
+        "conflicting": 0,
+        "synthetic_fallback": 0,
+        "unknown": 60
+      },
+      "sourced_percentage": 0.0,
+      "provisional_percentage": 0.0,
+      "synthetic_percentage": 0.0,
+      "unknown_percentage": 100.0,
+      "conflicting_percentage": 0.0,
+      "netherlands_evidence_percentage": 0.0
+    },
+    "regional_occurrence_status": {
+      "records": 60,
+      "origin_counts": {
+        "sourced_primary": 0,
+        "sourced_official_database": 0,
+        "sourced_secondary": 0,
+        "expert_inference": 0,
+        "conflicting": 0,
+        "synthetic_fallback": 0,
+        "unknown": 60
+      },
+      "sourced_percentage": 0.0,
+      "provisional_percentage": 0.0,
+      "synthetic_percentage": 0.0,
+      "unknown_percentage": 100.0,
+      "conflicting_percentage": 0.0,
+      "netherlands_evidence_percentage": 0.0
+    },
+    "invasive_status": {
+      "records": 60,
+      "origin_counts": {
+        "sourced_primary": 0,
+        "sourced_official_database": 0,
+        "sourced_secondary": 0,
+        "expert_inference": 0,
+        "conflicting": 0,
+        "synthetic_fallback": 0,
+        "unknown": 60
+      },
+      "sourced_percentage": 0.0,
+      "provisional_percentage": 0.0,
+      "synthetic_percentage": 0.0,
+      "unknown_percentage": 100.0,
+      "conflicting_percentage": 0.0,
+      "netherlands_evidence_percentage": 0.0
+    },
+    "eu_union_concern_status": {
+      "records": 60,
+      "origin_counts": {
+        "sourced_primary": 0,
+        "sourced_official_database": 60,
+        "sourced_secondary": 0,
+        "expert_inference": 0,
+        "conflicting": 0,
+        "synthetic_fallback": 0,
+        "unknown": 0
+      },
+      "sourced_percentage": 100.0,
+      "provisional_percentage": 100.0,
+      "synthetic_percentage": 0.0,
+      "unknown_percentage": 0.0,
+      "conflicting_percentage": 0.0,
+      "netherlands_evidence_percentage": 0.0
+    },
+    "protected_status_nl": {
+      "records": 60,
+      "origin_counts": {
+        "sourced_primary": 0,
+        "sourced_official_database": 0,
+        "sourced_secondary": 0,
+        "expert_inference": 0,
+        "conflicting": 0,
+        "synthetic_fallback": 0,
+        "unknown": 60
+      },
+      "sourced_percentage": 0.0,
+      "provisional_percentage": 0.0,
+      "synthetic_percentage": 0.0,
+      "unknown_percentage": 100.0,
+      "conflicting_percentage": 0.0,
+      "netherlands_evidence_percentage": 0.0
+    },
+    "red_list_status_nl": {
+      "records": 60,
+      "origin_counts": {
+        "sourced_primary": 0,
+        "sourced_official_database": 50,
+        "sourced_secondary": 0,
+        "expert_inference": 0,
+        "conflicting": 0,
+        "synthetic_fallback": 0,
+        "unknown": 10
+      },
+      "sourced_percentage": 83.33,
+      "provisional_percentage": 83.33,
+      "synthetic_percentage": 0.0,
+      "unknown_percentage": 16.67,
+      "conflicting_percentage": 0.0,
+      "netherlands_evidence_percentage": 83.33
+    },
+    "provenance_requirement": {
+      "records": 60,
+      "origin_counts": {
+        "sourced_primary": 0,
+        "sourced_official_database": 0,
+        "sourced_secondary": 0,
+        "expert_inference": 0,
+        "conflicting": 0,
+        "synthetic_fallback": 0,
+        "unknown": 60
+      },
+      "sourced_percentage": 0.0,
+      "provisional_percentage": 0.0,
+      "synthetic_percentage": 0.0,
+      "unknown_percentage": 100.0,
+      "conflicting_percentage": 0.0,
+      "netherlands_evidence_percentage": 0.0
+    },
+    "soil_textures": {
+      "records": 60,
+      "origin_counts": {
+        "sourced_primary": 0,
+        "sourced_official_database": 0,
+        "sourced_secondary": 57,
+        "expert_inference": 0,
+        "conflicting": 0,
+        "synthetic_fallback": 0,
+        "unknown": 3
+      },
+      "sourced_percentage": 95.0,
+      "provisional_percentage": 95.0,
+      "synthetic_percentage": 0.0,
+      "unknown_percentage": 5.0,
+      "conflicting_percentage": 0.0,
+      "netherlands_evidence_percentage": 76.67
+    },
+    "soil_ph_min": {
+      "records": 60,
+      "origin_counts": {
+        "sourced_primary": 0,
+        "sourced_official_database": 0,
+        "sourced_secondary": 0,
+        "expert_inference": 0,
+        "conflicting": 0,
+        "synthetic_fallback": 0,
+        "unknown": 60
+      },
+      "sourced_percentage": 0.0,
+      "provisional_percentage": 0.0,
+      "synthetic_percentage": 0.0,
+      "unknown_percentage": 100.0,
+      "conflicting_percentage": 0.0,
+      "netherlands_evidence_percentage": 0.0
+    },
+    "soil_ph_max": {
+      "records": 60,
+      "origin_counts": {
+        "sourced_primary": 0,
+        "sourced_official_database": 0,
+        "sourced_secondary": 0,
+        "expert_inference": 0,
+        "conflicting": 0,
+        "synthetic_fallback": 0,
+        "unknown": 60
+      },
+      "sourced_percentage": 0.0,
+      "provisional_percentage": 0.0,
+      "synthetic_percentage": 0.0,
+      "unknown_percentage": 100.0,
+      "conflicting_percentage": 0.0,
+      "netherlands_evidence_percentage": 0.0
+    },
+    "nutrient_tolerance_min": {
+      "records": 60,
+      "origin_counts": {
+        "sourced_primary": 0,
+        "sourced_official_database": 0,
+        "sourced_secondary": 49,
+        "expert_inference": 0,
+        "conflicting": 0,
+        "synthetic_fallback": 0,
+        "unknown": 11
+      },
+      "sourced_percentage": 81.67,
+      "provisional_percentage": 81.67,
+      "synthetic_percentage": 0.0,
+      "unknown_percentage": 18.33,
+      "conflicting_percentage": 0.0,
+      "netherlands_evidence_percentage": 81.67
+    },
+    "nutrient_tolerance_max": {
+      "records": 60,
+      "origin_counts": {
+        "sourced_primary": 0,
+        "sourced_official_database": 0,
+        "sourced_secondary": 49,
+        "expert_inference": 0,
+        "conflicting": 0,
+        "synthetic_fallback": 0,
+        "unknown": 11
+      },
+      "sourced_percentage": 81.67,
+      "provisional_percentage": 81.67,
+      "synthetic_percentage": 0.0,
+      "unknown_percentage": 18.33,
+      "conflicting_percentage": 0.0,
+      "netherlands_evidence_percentage": 81.67
+    },
+    "moisture_regimes": {
+      "records": 60,
+      "origin_counts": {
+        "sourced_primary": 0,
+        "sourced_official_database": 0,
+        "sourced_secondary": 56,
+        "expert_inference": 0,
+        "conflicting": 0,
+        "synthetic_fallback": 0,
+        "unknown": 4
+      },
+      "sourced_percentage": 93.33,
+      "provisional_percentage": 93.33,
+      "synthetic_percentage": 0.0,
+      "unknown_percentage": 6.67,
+      "conflicting_percentage": 0.0,
+      "netherlands_evidence_percentage": 81.67
+    },
+    "drainage_tolerance": {
+      "records": 60,
+      "origin_counts": {
+        "sourced_primary": 0,
+        "sourced_official_database": 0,
+        "sourced_secondary": 45,
+        "expert_inference": 0,
+        "conflicting": 0,
+        "synthetic_fallback": 0,
+        "unknown": 15
+      },
+      "sourced_percentage": 75.0,
+      "provisional_percentage": 75.0,
+      "synthetic_percentage": 0.0,
+      "unknown_percentage": 25.0,
+      "conflicting_percentage": 0.0,
+      "netherlands_evidence_percentage": 3.33
+    },
+    "light_regimes": {
+      "records": 60,
+      "origin_counts": {
+        "sourced_primary": 0,
+        "sourced_official_database": 0,
+        "sourced_secondary": 58,
+        "expert_inference": 0,
+        "conflicting": 0,
+        "synthetic_fallback": 0,
+        "unknown": 2
+      },
+      "sourced_percentage": 96.67,
+      "provisional_percentage": 96.67,
+      "synthetic_percentage": 0.0,
+      "unknown_percentage": 3.33,
+      "conflicting_percentage": 0.0,
+      "netherlands_evidence_percentage": 81.67
+    },
+    "canopy_compatibility": {
+      "records": 60,
+      "origin_counts": {
+        "sourced_primary": 0,
+        "sourced_official_database": 0,
+        "sourced_secondary": 6,
+        "expert_inference": 0,
+        "conflicting": 0,
+        "synthetic_fallback": 0,
+        "unknown": 54
+      },
+      "sourced_percentage": 10.0,
+      "provisional_percentage": 10.0,
+      "synthetic_percentage": 0.0,
+      "unknown_percentage": 90.0,
+      "conflicting_percentage": 0.0,
+      "netherlands_evidence_percentage": 0.0
+    },
+    "inundation_depth_min_cm": {
+      "records": 60,
+      "origin_counts": {
+        "sourced_primary": 0,
+        "sourced_official_database": 0,
+        "sourced_secondary": 0,
+        "expert_inference": 0,
+        "conflicting": 0,
+        "synthetic_fallback": 0,
+        "unknown": 60
+      },
+      "sourced_percentage": 0.0,
+      "provisional_percentage": 0.0,
+      "synthetic_percentage": 0.0,
+      "unknown_percentage": 100.0,
+      "conflicting_percentage": 0.0,
+      "netherlands_evidence_percentage": 0.0
+    },
+    "inundation_depth_max_cm": {
+      "records": 60,
+      "origin_counts": {
+        "sourced_primary": 0,
+        "sourced_official_database": 0,
+        "sourced_secondary": 1,
+        "expert_inference": 0,
+        "conflicting": 0,
+        "synthetic_fallback": 0,
+        "unknown": 59
+      },
+      "sourced_percentage": 1.67,
+      "provisional_percentage": 1.67,
+      "synthetic_percentage": 0.0,
+      "unknown_percentage": 98.33,
+      "conflicting_percentage": 0.0,
+      "netherlands_evidence_percentage": 0.0
+    },
+    "inundation_duration": {
+      "records": 60,
+      "origin_counts": {
+        "sourced_primary": 0,
+        "sourced_official_database": 1,
+        "sourced_secondary": 1,
+        "expert_inference": 0,
+        "conflicting": 0,
+        "synthetic_fallback": 0,
+        "unknown": 58
+      },
+      "sourced_percentage": 3.33,
+      "provisional_percentage": 3.33,
+      "synthetic_percentage": 0.0,
+      "unknown_percentage": 96.67,
+      "conflicting_percentage": 0.0,
+      "netherlands_evidence_percentage": 3.33
+    },
+    "inundation_frequency": {
+      "records": 60,
+      "origin_counts": {
+        "sourced_primary": 0,
+        "sourced_official_database": 0,
+        "sourced_secondary": 6,
+        "expert_inference": 0,
+        "conflicting": 0,
+        "synthetic_fallback": 0,
+        "unknown": 54
+      },
+      "sourced_percentage": 10.0,
+      "provisional_percentage": 10.0,
+      "synthetic_percentage": 0.0,
+      "unknown_percentage": 90.0,
+      "conflicting_percentage": 0.0,
+      "netherlands_evidence_percentage": 0.0
+    },
+    "seasonal_drawdown_tolerance": {
+      "records": 60,
+      "origin_counts": {
+        "sourced_primary": 0,
+        "sourced_official_database": 0,
+        "sourced_secondary": 1,
+        "expert_inference": 0,
+        "conflicting": 0,
+        "synthetic_fallback": 0,
+        "unknown": 59
+      },
+      "sourced_percentage": 1.67,
+      "provisional_percentage": 1.67,
+      "synthetic_percentage": 0.0,
+      "unknown_percentage": 98.33,
+      "conflicting_percentage": 0.0,
+      "netherlands_evidence_percentage": 1.67
+    },
+    "salinity_tolerance": {
+      "records": 60,
+      "origin_counts": {
+        "sourced_primary": 0,
+        "sourced_official_database": 0,
+        "sourced_secondary": 8,
+        "expert_inference": 0,
+        "conflicting": 0,
+        "synthetic_fallback": 0,
+        "unknown": 52
+      },
+      "sourced_percentage": 13.33,
+      "provisional_percentage": 13.33,
+      "synthetic_percentage": 0.0,
+      "unknown_percentage": 86.67,
+      "conflicting_percentage": 0.0,
+      "netherlands_evidence_percentage": 5.0
+    },
+    "drought_tolerance": {
+      "records": 60,
+      "origin_counts": {
+        "sourced_primary": 0,
+        "sourced_official_database": 1,
+        "sourced_secondary": 16,
+        "expert_inference": 0,
+        "conflicting": 0,
+        "synthetic_fallback": 0,
+        "unknown": 43
+      },
+      "sourced_percentage": 28.33,
+      "provisional_percentage": 28.33,
+      "synthetic_percentage": 0.0,
+      "unknown_percentage": 71.67,
+      "conflicting_percentage": 0.0,
+      "netherlands_evidence_percentage": 1.67
+    },
+    "compaction_tolerance": {
+      "records": 60,
+      "origin_counts": {
+        "sourced_primary": 0,
+        "sourced_official_database": 0,
+        "sourced_secondary": 1,
+        "expert_inference": 0,
+        "conflicting": 0,
+        "synthetic_fallback": 0,
+        "unknown": 59
+      },
+      "sourced_percentage": 1.67,
+      "provisional_percentage": 1.67,
+      "synthetic_percentage": 0.0,
+      "unknown_percentage": 98.33,
+      "conflicting_percentage": 0.0,
+      "netherlands_evidence_percentage": 1.67
+    },
+    "road_salt_tolerance": {
+      "records": 60,
+      "origin_counts": {
+        "sourced_primary": 0,
+        "sourced_official_database": 1,
+        "sourced_secondary": 0,
+        "expert_inference": 0,
+        "conflicting": 0,
+        "synthetic_fallback": 0,
+        "unknown": 59
+      },
+      "sourced_percentage": 1.67,
+      "provisional_percentage": 1.67,
+      "synthetic_percentage": 0.0,
+      "unknown_percentage": 98.33,
+      "conflicting_percentage": 0.0,
+      "netherlands_evidence_percentage": 1.67
+    },
+    "pollution_tolerance": {
+      "records": 60,
+      "origin_counts": {
+        "sourced_primary": 0,
+        "sourced_official_database": 0,
+        "sourced_secondary": 7,
+        "expert_inference": 0,
+        "conflicting": 0,
+        "synthetic_fallback": 0,
+        "unknown": 53
+      },
+      "sourced_percentage": 11.67,
+      "provisional_percentage": 11.67,
+      "synthetic_percentage": 0.0,
+      "unknown_percentage": 88.33,
+      "conflicting_percentage": 0.0,
+      "netherlands_evidence_percentage": 0.0
+    },
+    "wind_tolerance": {
+      "records": 60,
+      "origin_counts": {
+        "sourced_primary": 0,
+        "sourced_official_database": 1,
+        "sourced_secondary": 0,
+        "expert_inference": 0,
+        "conflicting": 0,
+        "synthetic_fallback": 0,
+        "unknown": 59
+      },
+      "sourced_percentage": 1.67,
+      "provisional_percentage": 1.67,
+      "synthetic_percentage": 0.0,
+      "unknown_percentage": 98.33,
+      "conflicting_percentage": 0.0,
+      "netherlands_evidence_percentage": 1.67
+    },
+    "heat_tolerance": {
+      "records": 60,
+      "origin_counts": {
+        "sourced_primary": 0,
+        "sourced_official_database": 0,
+        "sourced_secondary": 2,
+        "expert_inference": 0,
+        "conflicting": 0,
+        "synthetic_fallback": 0,
+        "unknown": 58
+      },
+      "sourced_percentage": 3.33,
+      "provisional_percentage": 3.33,
+      "synthetic_percentage": 0.0,
+      "unknown_percentage": 96.67,
+      "conflicting_percentage": 0.0,
+      "netherlands_evidence_percentage": 0.0
+    },
+    "soil_ph_classes": {
+      "records": 60,
+      "origin_counts": {
+        "sourced_primary": 0,
+        "sourced_official_database": 0,
+        "sourced_secondary": 58,
+        "expert_inference": 0,
+        "conflicting": 0,
+        "synthetic_fallback": 0,
+        "unknown": 2
+      },
+      "sourced_percentage": 96.67,
+      "provisional_percentage": 96.67,
+      "synthetic_percentage": 0.0,
+      "unknown_percentage": 3.33,
+      "conflicting_percentage": 0.0,
+      "netherlands_evidence_percentage": 78.33
+    },
+    "growth_form": {
+      "records": 60,
+      "origin_counts": {
+        "sourced_primary": 0,
+        "sourced_official_database": 19,
+        "sourced_secondary": 40,
+        "expert_inference": 0,
+        "conflicting": 0,
+        "synthetic_fallback": 0,
+        "unknown": 1
+      },
+      "sourced_percentage": 98.33,
+      "provisional_percentage": 98.33,
+      "synthetic_percentage": 0.0,
+      "unknown_percentage": 1.67,
+      "conflicting_percentage": 0.0,
+      "netherlands_evidence_percentage": 31.67
+    },
+    "lifecycle": {
+      "records": 60,
+      "origin_counts": {
+        "sourced_primary": 0,
+        "sourced_official_database": 52,
+        "sourced_secondary": 7,
+        "expert_inference": 0,
+        "conflicting": 0,
+        "synthetic_fallback": 0,
+        "unknown": 1
+      },
+      "sourced_percentage": 98.33,
+      "provisional_percentage": 98.33,
+      "synthetic_percentage": 0.0,
+      "unknown_percentage": 1.67,
+      "conflicting_percentage": 0.0,
+      "netherlands_evidence_percentage": 86.67
+    },
+    "mature_height_min_m": {
+      "records": 60,
+      "origin_counts": {
+        "sourced_primary": 0,
+        "sourced_official_database": 52,
+        "sourced_secondary": 7,
+        "expert_inference": 0,
+        "conflicting": 1,
+        "synthetic_fallback": 0,
+        "unknown": 0
+      },
+      "sourced_percentage": 98.33,
+      "provisional_percentage": 98.33,
+      "synthetic_percentage": 0.0,
+      "unknown_percentage": 0.0,
+      "conflicting_percentage": 1.67,
+      "netherlands_evidence_percentage": 86.67
+    },
+    "mature_height_max_m": {
+      "records": 60,
+      "origin_counts": {
+        "sourced_primary": 0,
+        "sourced_official_database": 52,
+        "sourced_secondary": 7,
+        "expert_inference": 0,
+        "conflicting": 1,
+        "synthetic_fallback": 0,
+        "unknown": 0
+      },
+      "sourced_percentage": 98.33,
+      "provisional_percentage": 98.33,
+      "synthetic_percentage": 0.0,
+      "unknown_percentage": 0.0,
+      "conflicting_percentage": 1.67,
+      "netherlands_evidence_percentage": 86.67
+    },
+    "mature_spread_min_m": {
+      "records": 60,
+      "origin_counts": {
+        "sourced_primary": 0,
+        "sourced_official_database": 0,
+        "sourced_secondary": 38,
+        "expert_inference": 0,
+        "conflicting": 0,
+        "synthetic_fallback": 0,
+        "unknown": 22
+      },
+      "sourced_percentage": 63.33,
+      "provisional_percentage": 63.33,
+      "synthetic_percentage": 0.0,
+      "unknown_percentage": 36.67,
+      "conflicting_percentage": 0.0,
+      "netherlands_evidence_percentage": 0.0
+    },
+    "mature_spread_max_m": {
+      "records": 60,
+      "origin_counts": {
+        "sourced_primary": 0,
+        "sourced_official_database": 0,
+        "sourced_secondary": 37,
+        "expert_inference": 0,
+        "conflicting": 0,
+        "synthetic_fallback": 0,
+        "unknown": 23
+      },
+      "sourced_percentage": 61.67,
+      "provisional_percentage": 61.67,
+      "synthetic_percentage": 0.0,
+      "unknown_percentage": 38.33,
+      "conflicting_percentage": 0.0,
+      "netherlands_evidence_percentage": 0.0
+    },
+    "dimension_context": {
+      "records": 60,
+      "origin_counts": {
+        "sourced_primary": 0,
+        "sourced_official_database": 53,
+        "sourced_secondary": 7,
+        "expert_inference": 0,
+        "conflicting": 0,
+        "synthetic_fallback": 0,
+        "unknown": 0
+      },
+      "sourced_percentage": 100.0,
+      "provisional_percentage": 100.0,
+      "synthetic_percentage": 0.0,
+      "unknown_percentage": 0.0,
+      "conflicting_percentage": 0.0,
+      "netherlands_evidence_percentage": 88.33
+    },
+    "dimension_target_year": {
+      "records": 60,
+      "origin_counts": {
+        "sourced_primary": 0,
+        "sourced_official_database": 0,
+        "sourced_secondary": 0,
+        "expert_inference": 0,
+        "conflicting": 0,
+        "synthetic_fallback": 0,
+        "unknown": 60
+      },
+      "sourced_percentage": 0.0,
+      "provisional_percentage": 0.0,
+      "synthetic_percentage": 0.0,
+      "unknown_percentage": 100.0,
+      "conflicting_percentage": 0.0,
+      "netherlands_evidence_percentage": 0.0
+    },
+    "growth_rate": {
+      "records": 60,
+      "origin_counts": {
+        "sourced_primary": 0,
+        "sourced_official_database": 0,
+        "sourced_secondary": 34,
+        "expert_inference": 0,
+        "conflicting": 1,
+        "synthetic_fallback": 0,
+        "unknown": 25
+      },
+      "sourced_percentage": 56.67,
+      "provisional_percentage": 56.67,
+      "synthetic_percentage": 0.0,
+      "unknown_percentage": 41.67,
+      "conflicting_percentage": 1.67,
+      "netherlands_evidence_percentage": 0.0
+    },
+    "root_space_class": {
+      "records": 60,
+      "origin_counts": {
+        "sourced_primary": 0,
+        "sourced_official_database": 0,
+        "sourced_secondary": 0,
+        "expert_inference": 0,
+        "conflicting": 0,
+        "synthetic_fallback": 0,
+        "unknown": 60
+      },
+      "sourced_percentage": 0.0,
+      "provisional_percentage": 0.0,
+      "synthetic_percentage": 0.0,
+      "unknown_percentage": 100.0,
+      "conflicting_percentage": 0.0,
+      "netherlands_evidence_percentage": 0.0
+    },
+    "root_behaviour": {
+      "records": 60,
+      "origin_counts": {
+        "sourced_primary": 0,
+        "sourced_official_database": 0,
+        "sourced_secondary": 0,
+        "expert_inference": 0,
+        "conflicting": 0,
+        "synthetic_fallback": 0,
+        "unknown": 60
+      },
+      "sourced_percentage": 0.0,
+      "provisional_percentage": 0.0,
+      "synthetic_percentage": 0.0,
+      "unknown_percentage": 100.0,
+      "conflicting_percentage": 0.0,
+      "netherlands_evidence_percentage": 0.0
+    },
+    "suckering_or_spreading_method": {
+      "records": 60,
+      "origin_counts": {
+        "sourced_primary": 0,
+        "sourced_official_database": 0,
+        "sourced_secondary": 4,
+        "expert_inference": 0,
+        "conflicting": 0,
+        "synthetic_fallback": 0,
+        "unknown": 56
+      },
+      "sourced_percentage": 6.67,
+      "provisional_percentage": 6.67,
+      "synthetic_percentage": 0.0,
+      "unknown_percentage": 93.33,
+      "conflicting_percentage": 0.0,
+      "netherlands_evidence_percentage": 3.33
+    },
+    "vigour_or_spread_risk": {
+      "records": 60,
+      "origin_counts": {
+        "sourced_primary": 0,
+        "sourced_official_database": 0,
+        "sourced_secondary": 22,
+        "expert_inference": 0,
+        "conflicting": 0,
+        "synthetic_fallback": 0,
+        "unknown": 38
+      },
+      "sourced_percentage": 36.67,
+      "provisional_percentage": 36.67,
+      "synthetic_percentage": 0.0,
+      "unknown_percentage": 63.33,
+      "conflicting_percentage": 0.0,
+      "netherlands_evidence_percentage": 0.0
+    },
+    "competition_strength": {
+      "records": 60,
+      "origin_counts": {
+        "sourced_primary": 0,
+        "sourced_official_database": 0,
+        "sourced_secondary": 0,
+        "expert_inference": 0,
+        "conflicting": 0,
+        "synthetic_fallback": 0,
+        "unknown": 60
+      },
+      "sourced_percentage": 0.0,
+      "provisional_percentage": 0.0,
+      "synthetic_percentage": 0.0,
+      "unknown_percentage": 100.0,
+      "conflicting_percentage": 0.0,
+      "netherlands_evidence_percentage": 0.0
+    },
+    "water_band": {
+      "records": 60,
+      "origin_counts": {
+        "sourced_primary": 0,
+        "sourced_official_database": 0,
+        "sourced_secondary": 0,
+        "expert_inference": 0,
+        "conflicting": 0,
+        "synthetic_fallback": 0,
+        "unknown": 60
+      },
+      "sourced_percentage": 0.0,
+      "provisional_percentage": 0.0,
+      "synthetic_percentage": 0.0,
+      "unknown_percentage": 100.0,
+      "conflicting_percentage": 0.0,
+      "netherlands_evidence_percentage": 0.0
+    },
+    "functional_layer": {
+      "records": 60,
+      "origin_counts": {
+        "sourced_primary": 0,
+        "sourced_official_database": 0,
+        "sourced_secondary": 0,
+        "expert_inference": 0,
+        "conflicting": 0,
+        "synthetic_fallback": 60,
+        "unknown": 0
+      },
+      "sourced_percentage": 0.0,
+      "provisional_percentage": 0.0,
+      "synthetic_percentage": 100.0,
+      "unknown_percentage": 0.0,
+      "conflicting_percentage": 0.0,
+      "netherlands_evidence_percentage": 0.0
+    },
+    "community_roles": {
+      "records": 60,
+      "origin_counts": {
+        "sourced_primary": 0,
+        "sourced_official_database": 0,
+        "sourced_secondary": 0,
+        "expert_inference": 0,
+        "conflicting": 0,
+        "synthetic_fallback": 60,
+        "unknown": 0
+      },
+      "sourced_percentage": 0.0,
+      "provisional_percentage": 0.0,
+      "synthetic_percentage": 100.0,
+      "unknown_percentage": 0.0,
+      "conflicting_percentage": 0.0,
+      "netherlands_evidence_percentage": 0.0
+    },
+    "suitable_habitats": {
+      "records": 60,
+      "origin_counts": {
+        "sourced_primary": 0,
+        "sourced_official_database": 0,
+        "sourced_secondary": 0,
+        "expert_inference": 0,
+        "conflicting": 0,
+        "synthetic_fallback": 0,
+        "unknown": 60
+      },
+      "sourced_percentage": 0.0,
+      "provisional_percentage": 0.0,
+      "synthetic_percentage": 0.0,
+      "unknown_percentage": 100.0,
+      "conflicting_percentage": 0.0,
+      "netherlands_evidence_percentage": 0.0
+    },
+    "incompatible_conditions": {
+      "records": 60,
+      "origin_counts": {
+        "sourced_primary": 0,
+        "sourced_official_database": 0,
+        "sourced_secondary": 0,
+        "expert_inference": 0,
+        "conflicting": 0,
+        "synthetic_fallback": 0,
+        "unknown": 60
+      },
+      "sourced_percentage": 0.0,
+      "provisional_percentage": 0.0,
+      "synthetic_percentage": 0.0,
+      "unknown_percentage": 100.0,
+      "conflicting_percentage": 0.0,
+      "netherlands_evidence_percentage": 0.0
+    },
+    "height_upper_bound_open": {
+      "records": 60,
+      "origin_counts": {
+        "sourced_primary": 0,
+        "sourced_official_database": 53,
+        "sourced_secondary": 5,
+        "expert_inference": 0,
+        "conflicting": 0,
+        "synthetic_fallback": 0,
+        "unknown": 2
+      },
+      "sourced_percentage": 96.67,
+      "provisional_percentage": 96.67,
+      "synthetic_percentage": 0.0,
+      "unknown_percentage": 3.33,
+      "conflicting_percentage": 0.0,
+      "netherlands_evidence_percentage": 88.33
+    },
+    "spread_upper_bound_open": {
+      "records": 60,
+      "origin_counts": {
+        "sourced_primary": 0,
+        "sourced_official_database": 0,
+        "sourced_secondary": 38,
+        "expert_inference": 0,
+        "conflicting": 0,
+        "synthetic_fallback": 0,
+        "unknown": 22
+      },
+      "sourced_percentage": 63.33,
+      "provisional_percentage": 63.33,
+      "synthetic_percentage": 0.0,
+      "unknown_percentage": 36.67,
+      "conflicting_percentage": 0.0,
+      "netherlands_evidence_percentage": 0.0
+    },
+    "toxicity_status": {
+      "records": 60,
+      "origin_counts": {
+        "sourced_primary": 0,
+        "sourced_official_database": 13,
+        "sourced_secondary": 6,
+        "expert_inference": 0,
+        "conflicting": 0,
+        "synthetic_fallback": 0,
+        "unknown": 41
+      },
+      "sourced_percentage": 31.67,
+      "provisional_percentage": 31.67,
+      "synthetic_percentage": 0.0,
+      "unknown_percentage": 68.33,
+      "conflicting_percentage": 0.0,
+      "netherlands_evidence_percentage": 21.67
+    },
+    "toxic_parts": {
+      "records": 60,
+      "origin_counts": {
+        "sourced_primary": 0,
+        "sourced_official_database": 12,
+        "sourced_secondary": 6,
+        "expert_inference": 0,
+        "conflicting": 0,
+        "synthetic_fallback": 0,
+        "unknown": 42
+      },
+      "sourced_percentage": 30.0,
+      "provisional_percentage": 30.0,
+      "synthetic_percentage": 0.0,
+      "unknown_percentage": 70.0,
+      "conflicting_percentage": 0.0,
+      "netherlands_evidence_percentage": 20.0
+    },
+    "irritant_sap": {
+      "records": 60,
+      "origin_counts": {
+        "sourced_primary": 0,
+        "sourced_official_database": 0,
+        "sourced_secondary": 2,
+        "expert_inference": 0,
+        "conflicting": 0,
+        "synthetic_fallback": 0,
+        "unknown": 58
+      },
+      "sourced_percentage": 3.33,
+      "provisional_percentage": 3.33,
+      "synthetic_percentage": 0.0,
+      "unknown_percentage": 96.67,
+      "conflicting_percentage": 0.0,
+      "netherlands_evidence_percentage": 0.0
+    },
+    "thorns_or_spines": {
+      "records": 60,
+      "origin_counts": {
+        "sourced_primary": 0,
+        "sourced_official_database": 0,
+        "sourced_secondary": 3,
+        "expert_inference": 0,
+        "conflicting": 0,
+        "synthetic_fallback": 0,
+        "unknown": 57
+      },
+      "sourced_percentage": 5.0,
+      "provisional_percentage": 5.0,
+      "synthetic_percentage": 0.0,
+      "unknown_percentage": 95.0,
+      "conflicting_percentage": 0.0,
+      "netherlands_evidence_percentage": 5.0
+    },
+    "allergen_risk": {
+      "records": 60,
+      "origin_counts": {
+        "sourced_primary": 0,
+        "sourced_official_database": 0,
+        "sourced_secondary": 1,
+        "expert_inference": 0,
+        "conflicting": 0,
+        "synthetic_fallback": 0,
+        "unknown": 59
+      },
+      "sourced_percentage": 1.67,
+      "provisional_percentage": 1.67,
+      "synthetic_percentage": 0.0,
+      "unknown_percentage": 98.33,
+      "conflicting_percentage": 0.0,
+      "netherlands_evidence_percentage": 0.0
+    },
+    "fruit_drop_risk": {
+      "records": 60,
+      "origin_counts": {
+        "sourced_primary": 0,
+        "sourced_official_database": 0,
+        "sourced_secondary": 0,
+        "expert_inference": 0,
+        "conflicting": 0,
+        "synthetic_fallback": 0,
+        "unknown": 60
+      },
+      "sourced_percentage": 0.0,
+      "provisional_percentage": 0.0,
+      "synthetic_percentage": 0.0,
+      "unknown_percentage": 100.0,
+      "conflicting_percentage": 0.0,
+      "netherlands_evidence_percentage": 0.0
+    },
+    "public_contact_suitability": {
+      "records": 60,
+      "origin_counts": {
+        "sourced_primary": 0,
+        "sourced_official_database": 0,
+        "sourced_secondary": 0,
+        "expert_inference": 0,
+        "conflicting": 0,
+        "synthetic_fallback": 0,
+        "unknown": 60
+      },
+      "sourced_percentage": 0.0,
+      "provisional_percentage": 0.0,
+      "synthetic_percentage": 0.0,
+      "unknown_percentage": 100.0,
+      "conflicting_percentage": 0.0,
+      "netherlands_evidence_percentage": 0.0
+    },
+    "school_or_play_suitability": {
+      "records": 60,
+      "origin_counts": {
+        "sourced_primary": 0,
+        "sourced_official_database": 0,
+        "sourced_secondary": 0,
+        "expert_inference": 0,
+        "conflicting": 0,
+        "synthetic_fallback": 0,
+        "unknown": 60
+      },
+      "sourced_percentage": 0.0,
+      "provisional_percentage": 0.0,
+      "synthetic_percentage": 0.0,
+      "unknown_percentage": 100.0,
+      "conflicting_percentage": 0.0,
+      "netherlands_evidence_percentage": 0.0
+    },
+    "edible_parts": {
+      "records": 60,
+      "origin_counts": {
+        "sourced_primary": 0,
+        "sourced_official_database": 0,
+        "sourced_secondary": 13,
+        "expert_inference": 0,
+        "conflicting": 1,
+        "synthetic_fallback": 0,
+        "unknown": 46
+      },
+      "sourced_percentage": 21.67,
+      "provisional_percentage": 21.67,
+      "synthetic_percentage": 0.0,
+      "unknown_percentage": 76.67,
+      "conflicting_percentage": 1.67,
+      "netherlands_evidence_percentage": 0.0
+    },
+    "edibility_evidence_status": {
+      "records": 60,
+      "origin_counts": {
+        "sourced_primary": 0,
+        "sourced_official_database": 0,
+        "sourced_secondary": 13,
+        "expert_inference": 0,
+        "conflicting": 1,
+        "synthetic_fallback": 0,
+        "unknown": 46
+      },
+      "sourced_percentage": 21.67,
+      "provisional_percentage": 21.67,
+      "synthetic_percentage": 0.0,
+      "unknown_percentage": 76.67,
+      "conflicting_percentage": 1.67,
+      "netherlands_evidence_percentage": 0.0
+    },
+    "preparation_required": {
+      "records": 60,
+      "origin_counts": {
+        "sourced_primary": 0,
+        "sourced_official_database": 0,
+        "sourced_secondary": 2,
+        "expert_inference": 0,
+        "conflicting": 0,
+        "synthetic_fallback": 0,
+        "unknown": 58
+      },
+      "sourced_percentage": 3.33,
+      "provisional_percentage": 3.33,
+      "synthetic_percentage": 0.0,
+      "unknown_percentage": 96.67,
+      "conflicting_percentage": 0.0,
+      "netherlands_evidence_percentage": 0.0
+    },
+    "food_safety_note": {
+      "records": 60,
+      "origin_counts": {
+        "sourced_primary": 0,
+        "sourced_official_database": 0,
+        "sourced_secondary": 14,
+        "expert_inference": 0,
+        "conflicting": 0,
+        "synthetic_fallback": 0,
+        "unknown": 46
+      },
+      "sourced_percentage": 23.33,
+      "provisional_percentage": 23.33,
+      "synthetic_percentage": 0.0,
+      "unknown_percentage": 76.67,
+      "conflicting_percentage": 0.0,
+      "netherlands_evidence_percentage": 0.0
+    },
+    "contact_irritation_status": {
+      "records": 60,
+      "origin_counts": {
+        "sourced_primary": 0,
+        "sourced_official_database": 0,
+        "sourced_secondary": 12,
+        "expert_inference": 0,
+        "conflicting": 0,
+        "synthetic_fallback": 0,
+        "unknown": 48
+      },
+      "sourced_percentage": 20.0,
+      "provisional_percentage": 20.0,
+      "synthetic_percentage": 0.0,
+      "unknown_percentage": 80.0,
+      "conflicting_percentage": 0.0,
+      "netherlands_evidence_percentage": 0.0
+    },
+    "flower_start_month": {
+      "records": 60,
+      "origin_counts": {
+        "sourced_primary": 0,
+        "sourced_official_database": 54,
+        "sourced_secondary": 4,
+        "expert_inference": 0,
+        "conflicting": 0,
+        "synthetic_fallback": 0,
+        "unknown": 2
+      },
+      "sourced_percentage": 96.67,
+      "provisional_percentage": 96.67,
+      "synthetic_percentage": 0.0,
+      "unknown_percentage": 3.33,
+      "conflicting_percentage": 0.0,
+      "netherlands_evidence_percentage": 90.0
+    },
+    "flower_end_month": {
+      "records": 60,
+      "origin_counts": {
+        "sourced_primary": 0,
+        "sourced_official_database": 44,
+        "sourced_secondary": 4,
+        "expert_inference": 0,
+        "conflicting": 0,
+        "synthetic_fallback": 0,
+        "unknown": 12
+      },
+      "sourced_percentage": 80.0,
+      "provisional_percentage": 80.0,
+      "synthetic_percentage": 0.0,
+      "unknown_percentage": 20.0,
+      "conflicting_percentage": 0.0,
+      "netherlands_evidence_percentage": 73.33
+    },
+    "flowering_context": {
+      "records": 60,
+      "origin_counts": {
+        "sourced_primary": 0,
+        "sourced_official_database": 54,
+        "sourced_secondary": 4,
+        "expert_inference": 0,
+        "conflicting": 0,
+        "synthetic_fallback": 0,
+        "unknown": 2
+      },
+      "sourced_percentage": 96.67,
+      "provisional_percentage": 96.67,
+      "synthetic_percentage": 0.0,
+      "unknown_percentage": 3.33,
+      "conflicting_percentage": 0.0,
+      "netherlands_evidence_percentage": 90.0
+    },
+    "flower_colour": {
+      "records": 60,
+      "origin_counts": {
+        "sourced_primary": 0,
+        "sourced_official_database": 39,
+        "sourced_secondary": 3,
+        "expert_inference": 0,
+        "conflicting": 0,
+        "synthetic_fallback": 0,
+        "unknown": 18
+      },
+      "sourced_percentage": 70.0,
+      "provisional_percentage": 70.0,
+      "synthetic_percentage": 0.0,
+      "unknown_percentage": 30.0,
+      "conflicting_percentage": 0.0,
+      "netherlands_evidence_percentage": 65.0
+    },
+    "flower_form": {
+      "records": 60,
+      "origin_counts": {
+        "sourced_primary": 0,
+        "sourced_official_database": 0,
+        "sourced_secondary": 39,
+        "expert_inference": 0,
+        "conflicting": 0,
+        "synthetic_fallback": 0,
+        "unknown": 21
+      },
+      "sourced_percentage": 65.0,
+      "provisional_percentage": 65.0,
+      "synthetic_percentage": 0.0,
+      "unknown_percentage": 35.0,
+      "conflicting_percentage": 0.0,
+      "netherlands_evidence_percentage": 0.0
+    },
+    "evergreen_status": {
+      "records": 60,
+      "origin_counts": {
+        "sourced_primary": 0,
+        "sourced_official_database": 0,
+        "sourced_secondary": 28,
+        "expert_inference": 0,
+        "conflicting": 2,
+        "synthetic_fallback": 0,
+        "unknown": 30
+      },
+      "sourced_percentage": 46.67,
+      "provisional_percentage": 46.67,
+      "synthetic_percentage": 0.0,
+      "unknown_percentage": 50.0,
+      "conflicting_percentage": 3.33,
+      "netherlands_evidence_percentage": 0.0
+    },
+    "autumn_interest": {
+      "records": 60,
+      "origin_counts": {
+        "sourced_primary": 0,
+        "sourced_official_database": 0,
+        "sourced_secondary": 1,
+        "expert_inference": 0,
+        "conflicting": 0,
+        "synthetic_fallback": 0,
+        "unknown": 59
+      },
+      "sourced_percentage": 1.67,
+      "provisional_percentage": 1.67,
+      "synthetic_percentage": 0.0,
+      "unknown_percentage": 98.33,
+      "conflicting_percentage": 0.0,
+      "netherlands_evidence_percentage": 0.0
+    },
+    "winter_structure": {
+      "records": 60,
+      "origin_counts": {
+        "sourced_primary": 0,
+        "sourced_official_database": 0,
+        "sourced_secondary": 2,
+        "expert_inference": 0,
+        "conflicting": 0,
+        "synthetic_fallback": 0,
+        "unknown": 58
+      },
+      "sourced_percentage": 3.33,
+      "provisional_percentage": 3.33,
+      "synthetic_percentage": 0.0,
+      "unknown_percentage": 96.67,
+      "conflicting_percentage": 0.0,
+      "netherlands_evidence_percentage": 0.0
+    },
+    "seedhead_persistence": {
+      "records": 60,
+      "origin_counts": {
+        "sourced_primary": 0,
+        "sourced_official_database": 0,
+        "sourced_secondary": 2,
+        "expert_inference": 0,
+        "conflicting": 0,
+        "synthetic_fallback": 0,
+        "unknown": 58
+      },
+      "sourced_percentage": 3.33,
+      "provisional_percentage": 3.33,
+      "synthetic_percentage": 0.0,
+      "unknown_percentage": 96.67,
+      "conflicting_percentage": 0.0,
+      "netherlands_evidence_percentage": 0.0
+    },
+    "pollinator_value": {
+      "records": 60,
+      "origin_counts": {
+        "sourced_primary": 0,
+        "sourced_official_database": 0,
+        "sourced_secondary": 22,
+        "expert_inference": 0,
+        "conflicting": 0,
+        "synthetic_fallback": 0,
+        "unknown": 38
+      },
+      "sourced_percentage": 36.67,
+      "provisional_percentage": 36.67,
+      "synthetic_percentage": 0.0,
+      "unknown_percentage": 63.33,
+      "conflicting_percentage": 0.0,
+      "netherlands_evidence_percentage": 0.0
+    },
+    "host_species_or_group": {
+      "records": 60,
+      "origin_counts": {
+        "sourced_primary": 0,
+        "sourced_official_database": 0,
+        "sourced_secondary": 8,
+        "expert_inference": 0,
+        "conflicting": 0,
+        "synthetic_fallback": 0,
+        "unknown": 52
+      },
+      "sourced_percentage": 13.33,
+      "provisional_percentage": 13.33,
+      "synthetic_percentage": 0.0,
+      "unknown_percentage": 86.67,
+      "conflicting_percentage": 0.0,
+      "netherlands_evidence_percentage": 0.0
+    },
+    "other_habitat_functions": {
+      "records": 60,
+      "origin_counts": {
+        "sourced_primary": 0,
+        "sourced_official_database": 0,
+        "sourced_secondary": 3,
+        "expert_inference": 0,
+        "conflicting": 0,
+        "synthetic_fallback": 0,
+        "unknown": 57
+      },
+      "sourced_percentage": 5.0,
+      "provisional_percentage": 5.0,
+      "synthetic_percentage": 0.0,
+      "unknown_percentage": 95.0,
+      "conflicting_percentage": 0.0,
+      "netherlands_evidence_percentage": 0.0
+    },
+    "suitable_establishment_methods": {
+      "records": 60,
+      "origin_counts": {
+        "sourced_primary": 0,
+        "sourced_official_database": 0,
+        "sourced_secondary": 41,
+        "expert_inference": 0,
+        "conflicting": 0,
+        "synthetic_fallback": 0,
+        "unknown": 19
+      },
+      "sourced_percentage": 68.33,
+      "provisional_percentage": 68.33,
+      "synthetic_percentage": 0.0,
+      "unknown_percentage": 31.67,
+      "conflicting_percentage": 0.0,
+      "netherlands_evidence_percentage": 0.0
+    },
+    "spacing_min_m": {
+      "records": 60,
+      "origin_counts": {
+        "sourced_primary": 0,
+        "sourced_official_database": 0,
+        "sourced_secondary": 0,
+        "expert_inference": 0,
+        "conflicting": 0,
+        "synthetic_fallback": 0,
+        "unknown": 60
+      },
+      "sourced_percentage": 0.0,
+      "provisional_percentage": 0.0,
+      "synthetic_percentage": 0.0,
+      "unknown_percentage": 100.0,
+      "conflicting_percentage": 0.0,
+      "netherlands_evidence_percentage": 0.0
+    },
+    "spacing_max_m": {
+      "records": 60,
+      "origin_counts": {
+        "sourced_primary": 0,
+        "sourced_official_database": 0,
+        "sourced_secondary": 0,
+        "expert_inference": 0,
+        "conflicting": 0,
+        "synthetic_fallback": 0,
+        "unknown": 60
+      },
+      "sourced_percentage": 0.0,
+      "provisional_percentage": 0.0,
+      "synthetic_percentage": 0.0,
+      "unknown_percentage": 100.0,
+      "conflicting_percentage": 0.0,
+      "netherlands_evidence_percentage": 0.0
+    },
+    "spacing_context": {
+      "records": 60,
+      "origin_counts": {
+        "sourced_primary": 0,
+        "sourced_official_database": 0,
+        "sourced_secondary": 0,
+        "expert_inference": 0,
+        "conflicting": 0,
+        "synthetic_fallback": 0,
+        "unknown": 60
+      },
+      "sourced_percentage": 0.0,
+      "provisional_percentage": 0.0,
+      "synthetic_percentage": 0.0,
+      "unknown_percentage": 100.0,
+      "conflicting_percentage": 0.0,
+      "netherlands_evidence_percentage": 0.0
+    },
+    "density_min_per_m2": {
+      "records": 60,
+      "origin_counts": {
+        "sourced_primary": 0,
+        "sourced_official_database": 0,
+        "sourced_secondary": 0,
+        "expert_inference": 0,
+        "conflicting": 0,
+        "synthetic_fallback": 0,
+        "unknown": 60
+      },
+      "sourced_percentage": 0.0,
+      "provisional_percentage": 0.0,
+      "synthetic_percentage": 0.0,
+      "unknown_percentage": 100.0,
+      "conflicting_percentage": 0.0,
+      "netherlands_evidence_percentage": 0.0
+    },
+    "density_max_per_m2": {
+      "records": 60,
+      "origin_counts": {
+        "sourced_primary": 0,
+        "sourced_official_database": 0,
+        "sourced_secondary": 0,
+        "expert_inference": 0,
+        "conflicting": 0,
+        "synthetic_fallback": 0,
+        "unknown": 60
+      },
+      "sourced_percentage": 0.0,
+      "provisional_percentage": 0.0,
+      "synthetic_percentage": 0.0,
+      "unknown_percentage": 100.0,
+      "conflicting_percentage": 0.0,
+      "netherlands_evidence_percentage": 0.0
+    },
+    "density_context": {
+      "records": 60,
+      "origin_counts": {
+        "sourced_primary": 0,
+        "sourced_official_database": 0,
+        "sourced_secondary": 0,
+        "expert_inference": 0,
+        "conflicting": 0,
+        "synthetic_fallback": 0,
+        "unknown": 60
+      },
+      "sourced_percentage": 0.0,
+      "provisional_percentage": 0.0,
+      "synthetic_percentage": 0.0,
+      "unknown_percentage": 100.0,
+      "conflicting_percentage": 0.0,
+      "netherlands_evidence_percentage": 0.0
+    },
+    "establishment_watering": {
+      "records": 60,
+      "origin_counts": {
+        "sourced_primary": 0,
+        "sourced_official_database": 0,
+        "sourced_secondary": 0,
+        "expert_inference": 0,
+        "conflicting": 0,
+        "synthetic_fallback": 0,
+        "unknown": 60
+      },
+      "sourced_percentage": 0.0,
+      "provisional_percentage": 0.0,
+      "synthetic_percentage": 0.0,
+      "unknown_percentage": 100.0,
+      "conflicting_percentage": 0.0,
+      "netherlands_evidence_percentage": 0.0
+    },
+    "establishment_notes": {
+      "records": 60,
+      "origin_counts": {
+        "sourced_primary": 0,
+        "sourced_official_database": 1,
+        "sourced_secondary": 0,
+        "expert_inference": 0,
+        "conflicting": 0,
+        "synthetic_fallback": 0,
+        "unknown": 59
+      },
+      "sourced_percentage": 1.67,
+      "provisional_percentage": 1.67,
+      "synthetic_percentage": 0.0,
+      "unknown_percentage": 98.33,
+      "conflicting_percentage": 0.0,
+      "netherlands_evidence_percentage": 1.67
+    },
+    "mowing_or_cutback_regime": {
+      "records": 60,
+      "origin_counts": {
+        "sourced_primary": 0,
+        "sourced_official_database": 0,
+        "sourced_secondary": 6,
+        "expert_inference": 0,
+        "conflicting": 0,
+        "synthetic_fallback": 0,
+        "unknown": 54
+      },
+      "sourced_percentage": 10.0,
+      "provisional_percentage": 10.0,
+      "synthetic_percentage": 0.0,
+      "unknown_percentage": 90.0,
+      "conflicting_percentage": 0.0,
+      "netherlands_evidence_percentage": 0.0
+    },
+    "maintenance_demand": {
+      "records": 60,
+      "origin_counts": {
+        "sourced_primary": 0,
+        "sourced_official_database": 0,
+        "sourced_secondary": 39,
+        "expert_inference": 0,
+        "conflicting": 0,
+        "synthetic_fallback": 0,
+        "unknown": 21
+      },
+      "sourced_percentage": 65.0,
+      "provisional_percentage": 65.0,
+      "synthetic_percentage": 0.0,
+      "unknown_percentage": 35.0,
+      "conflicting_percentage": 0.0,
+      "netherlands_evidence_percentage": 0.0
+    },
+    "maintenance_notes": {
+      "records": 60,
+      "origin_counts": {
+        "sourced_primary": 0,
+        "sourced_official_database": 0,
+        "sourced_secondary": 0,
+        "expert_inference": 0,
+        "conflicting": 0,
+        "synthetic_fallback": 0,
+        "unknown": 60
+      },
+      "sourced_percentage": 0.0,
+      "provisional_percentage": 0.0,
+      "synthetic_percentage": 0.0,
+      "unknown_percentage": 100.0,
+      "conflicting_percentage": 0.0,
+      "netherlands_evidence_percentage": 0.0
+    },
+    "management_warnings": {
+      "records": 60,
+      "origin_counts": {
+        "sourced_primary": 0,
+        "sourced_official_database": 1,
+        "sourced_secondary": 21,
+        "expert_inference": 0,
+        "conflicting": 0,
+        "synthetic_fallback": 0,
+        "unknown": 38
+      },
+      "sourced_percentage": 36.67,
+      "provisional_percentage": 36.67,
+      "synthetic_percentage": 0.0,
+      "unknown_percentage": 63.33,
+      "conflicting_percentage": 0.0,
+      "netherlands_evidence_percentage": 1.67
+    },
+    "seed_or_plant_source_notes": {
+      "records": 60,
+      "origin_counts": {
+        "sourced_primary": 0,
+        "sourced_official_database": 1,
+        "sourced_secondary": 0,
+        "expert_inference": 0,
+        "conflicting": 0,
+        "synthetic_fallback": 0,
+        "unknown": 59
+      },
+      "sourced_percentage": 1.67,
+      "provisional_percentage": 1.67,
+      "synthetic_percentage": 0.0,
+      "unknown_percentage": 98.33,
+      "conflicting_percentage": 0.0,
+      "netherlands_evidence_percentage": 1.67
+    }
+  },
+  "synthetic_field_count": 120,
+  "unresolved_field_count": 3780,
+  "unknown_origin_field_count": 3653,
+  "conflicting_field_count": 7,
+  "taxonomy_unresolved_fixtures": [],
+  "catalogue_unmatched_fixtures": [
+    "demo-core-05",
+    "demo-core-23",
+    "demo-ornamental-01",
+    "demo-ornamental-02",
+    "demo-ornamental-04",
+    "demo-ornamental-05",
+    "demo-ornamental-06"
+  ],
+  "limitations": [
+    "No independent expert/rights/legal approval: all sourced values provisional.",
+    "Current provincial occurrence, establishment, provenance and statutory protection remain unknown.",
+    "Historical Red List 2012 values are not current legal statuses.",
+    "Source rights unresolved or restricted except GBIF and NVWA; no combined open redistribution licence asserted.",
+    "National flora heights are not age-standardised; oak height/growth and foliage conflicts withheld.",
+    "UK/US horticultural attributes do not prove NL ecological suitability; source scopes retained.",
+    "Qualitative pH and hydrology never receive invented numeric endpoints.",
+    "Only design roles have synthetic fallbacks; real role fields remain NULL.",
+    "No application integration or recommendation/location engine edits."
+  ],
+  "files": {
+    "dataset/derived/plantscapes_demo_plant_traits_v0_2.csv": "481e3a7de2ea10fb979286b05a432cfa712d71c0d45cbbacb50a873f83135cb5",
+    "dataset/claims/plantscapes_demo_plant_claims_v0_2.jsonl": "79a7880f1ca5d7b3a69f902c18b866fac71b25f192a0f48a2ccc3f6c6261e7f4",
+    "dataset/derived/plantscapes_demo_data_gaps_v0_2.csv": "07fde7e980ac02800d7108f6e0d88452bb200580f003dbaed52d18cda95cc53c",
+    "dataset/source-ledger-demo-v0_2.csv": "01762e04f8ba5c8bebe57480233d82e0f13d4a0576239c09a6fdb983963f9793",
+    "dataset/derived/plantscapes_demo_completeness_v0_2.json": "7747204454cdca66a6ca82913f6f9017f9ba8c3fe5a7f0f1806ad94e494d7cf5",
+    "dataset/schemas/demo-plant-profile-v0_2.schema.json": "6f0529e02fd193a7ca759eb4393ce3f8d20e11f49123d37ccdf80e636ab9717e",
+    "dataset/schemas/demo-plant-claim-value-v0_2.schema.json": "6a623cae2cd886ade209e3429c585e481bbdc1811cef485dc2850a7ddb9339c1",
+    "dataset/research/demo-v0_2/source-observations.json": "1a9a40ef86c3b0513c27d8bfbbd1815c1cbde50a8453a5f660d91ca4819ecf4b",
+    "dataset/research/demo-v0_2/resolution-decisions.json": "08f2e11e3ef962ac94a75a2b607c32b019ff6b284350654e388e3547058379db",
+    "dataset/research/demo-v0_2/fixtures.json": "6efe06bcf32083599b353d8b981316ef3f7c89369e05217c890486200d310f52"
+  },
+  "all_profiles_blocked_by_safety_or_legal_unknowns": true
+}

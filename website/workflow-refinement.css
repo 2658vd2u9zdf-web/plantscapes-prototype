@@ -3,8 +3,10 @@
 @media(max-width:650px){.render-refinement{flex-direction:column;align-items:stretch}}
 .choice-grid-four{grid-template-columns:repeat(2,minmax(0,1fr))}
 .stage-header{margin-bottom:20px}.field-row:empty{display:none}
-.condition-card-head,.condition-card-foot,#stage3 .evidence-banner,.colour-preference small{display:none}
-#stage4 .composition-panel,#stage4 .case-study-note{display:none}
+.location-picker{grid-template-columns:minmax(0,1fr) auto;align-items:end}.location-picker #locationSearch{min-height:44px}.location-picker #locationResults,.location-picker #locationStatus,.location-picker label:has(#mapPreset){grid-column:1/-1}.location-picker #locationResults{width:100%}.location-picker #locationStatus{color:#586d60;font-size:.76rem}.location-picker .search-result{display:block;width:100%;min-height:40px;text-align:left}
+@media(max-width:650px){.location-picker{grid-template-columns:1fr}.location-picker #locationSearch{width:100%}}
+#stage3 .evidence-banner,.colour-preference small{display:none}
+#stage4 .composition-panel{display:none}
 #stage6{max-width:880px}
 #stage6 .stage-header{margin-bottom:28px}
 #stage6 .output-grid{gap:16px;align-items:stretch}
@@ -20,13 +22,11 @@
 #generationStatus{font-size:13px;margin:8px 0}#generationStatus:empty{display:none}
 #selectedSymbol>p,#selectedSymbol>small{display:none}
 .plan-generated .tool[data-tool]:not([data-tool="pan"]):not([data-tool="symbol"]),.plan-generated #finishShape,.plan-generated #undoSketch{display:none}
-#stage7 .workspace-details,#communityControls{display:none!important}
 #stage7 .plan-sidebar{max-width:260px}.camera-controls{margin:0}
 #stage8 .visual-panel{border:0;padding:0}#stage8 .visual-head{display:none}
 #stage8 .visual-foot{justify-content:flex-end}.illustration-panel>.compact-note:not([id]){display:none}
 .camera-editor .toolrow button[aria-pressed="true"]{background:#173e34;color:white}
 #stage8 .camera-controls details{margin:8px 0}
-#stage8 #exportScene{display:none}
 #stage8 #cameraPlan{max-height:360px!important}
 .stage-panel .stage-actions{gap:12px}
 @media(max-width:650px){.choice-grid-four{grid-template-columns:1fr}.output-grid{grid-template-columns:1fr}.plan-layout{grid-template-columns:1fr}#stage7 .plan-sidebar{max-width:none}}

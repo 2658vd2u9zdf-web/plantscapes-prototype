@@ -1,0 +1,2726 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://plantscapes.local/schemas/demo-plant-profile-v0_2.schema.json",
+  "title": "Resolved botanical profile, real values only; demo values are separate",
+  "type": "object",
+  "required": [
+    "fixture_id",
+    "fixture_track",
+    "fixture_scientific_name",
+    "fixture_vernacular_nl",
+    "fixture_group",
+    "plant_id",
+    "taxon_match_type",
+    "identity_status",
+    "catalogue_candidate_ids",
+    "record_status",
+    "production_eligible",
+    "evidence_confidence",
+    "reviewed_by",
+    "reviewed_on",
+    "source_claim_ids",
+    "synthetic_field_names",
+    "unresolved_field_names",
+    "record_notes",
+    "field_origins_json",
+    "field_claim_ids_json",
+    "field_gap_ids_json",
+    "demo_fallback_values_json",
+    "accepted_scientific_name",
+    "canonical_name",
+    "vernacular_nl",
+    "family",
+    "scientific_name_authorship",
+    "synonyms",
+    "taxonomic_authority",
+    "gbif_species_key",
+    "verspreidingsatlas_taxon_number",
+    "native_status_nl",
+    "establishment_status_nl",
+    "regional_occurrence_status",
+    "invasive_status",
+    "eu_union_concern_status",
+    "protected_status_nl",
+    "red_list_status_nl",
+    "provenance_requirement",
+    "soil_textures",
+    "soil_ph_min",
+    "soil_ph_max",
+    "nutrient_tolerance_min",
+    "nutrient_tolerance_max",
+    "moisture_regimes",
+    "drainage_tolerance",
+    "light_regimes",
+    "canopy_compatibility",
+    "inundation_depth_min_cm",
+    "inundation_depth_max_cm",
+    "inundation_duration",
+    "inundation_frequency",
+    "seasonal_drawdown_tolerance",
+    "salinity_tolerance",
+    "drought_tolerance",
+    "compaction_tolerance",
+    "road_salt_tolerance",
+    "pollution_tolerance",
+    "wind_tolerance",
+    "heat_tolerance",
+    "soil_ph_classes",
+    "growth_form",
+    "lifecycle",
+    "mature_height_min_m",
+    "mature_height_max_m",
+    "mature_spread_min_m",
+    "mature_spread_max_m",
+    "dimension_context",
+    "dimension_target_year",
+    "growth_rate",
+    "root_space_class",
+    "root_behaviour",
+    "suckering_or_spreading_method",
+    "vigour_or_spread_risk",
+    "competition_strength",
+    "water_band",
+    "functional_layer",
+    "community_roles",
+    "suitable_habitats",
+    "incompatible_conditions",
+    "height_upper_bound_open",
+    "spread_upper_bound_open",
+    "toxicity_status",
+    "toxic_parts",
+    "irritant_sap",
+    "thorns_or_spines",
+    "allergen_risk",
+    "fruit_drop_risk",
+    "public_contact_suitability",
+    "school_or_play_suitability",
+    "edible_parts",
+    "edibility_evidence_status",
+    "preparation_required",
+    "food_safety_note",
+    "contact_irritation_status",
+    "flower_start_month",
+    "flower_end_month",
+    "flowering_context",
+    "flower_colour",
+    "flower_form",
+    "evergreen_status",
+    "autumn_interest",
+    "winter_structure",
+    "seedhead_persistence",
+    "pollinator_value",
+    "host_species_or_group",
+    "other_habitat_functions",
+    "suitable_establishment_methods",
+    "spacing_min_m",
+    "spacing_max_m",
+    "spacing_context",
+    "density_min_per_m2",
+    "density_max_per_m2",
+    "density_context",
+    "establishment_watering",
+    "establishment_notes",
+    "mowing_or_cutback_regime",
+    "maintenance_demand",
+    "maintenance_notes",
+    "management_warnings",
+    "seed_or_plant_source_notes"
+  ],
+  "properties": {
+    "accepted_scientific_name": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "minLength": 1,
+      "description": "accepted_scientific_name; null means unresolved. Unit: None"
+    },
+    "canonical_name": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "minLength": 1,
+      "description": "canonical_name; null means unresolved. Unit: None"
+    },
+    "vernacular_nl": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "minLength": 1,
+      "description": "vernacular_nl; null means unresolved. Unit: None"
+    },
+    "family": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "minLength": 1,
+      "description": "family; null means unresolved. Unit: None"
+    },
+    "scientific_name_authorship": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "minLength": 1,
+      "description": "scientific_name_authorship; null means unresolved. Unit: None"
+    },
+    "synonyms": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true,
+      "minItems": 1,
+      "description": "synonyms; null means unresolved. Unit: None"
+    },
+    "taxonomic_authority": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "minLength": 1,
+      "description": "taxonomic_authority; null means unresolved. Unit: None"
+    },
+    "gbif_species_key": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "minLength": 1,
+      "description": "gbif_species_key; null means unresolved. Unit: None"
+    },
+    "verspreidingsatlas_taxon_number": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "minLength": 1,
+      "description": "verspreidingsatlas_taxon_number; null means unresolved. Unit: None"
+    },
+    "native_status_nl": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "minLength": 1,
+      "enum": [
+        "native_original",
+        "native_archaeophyte",
+        "introduced",
+        "uncertain",
+        null
+      ],
+      "description": "native_status_nl; null means unresolved. Unit: None"
+    },
+    "establishment_status_nl": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "minLength": 1,
+      "enum": [
+        "established",
+        "casual",
+        "cultivated_only",
+        "uncertain",
+        null
+      ],
+      "description": "establishment_status_nl; null means unresolved. Unit: None"
+    },
+    "regional_occurrence_status": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "minLength": 1,
+      "enum": [
+        "reported_presence",
+        "historical_presence",
+        "uncertain",
+        null
+      ],
+      "description": "regional_occurrence_status; null means unresolved. Unit: None"
+    },
+    "invasive_status": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "minLength": 1,
+      "enum": [
+        "listed_nl",
+        "listed_eu",
+        "invasive_elsewhere",
+        "not_assessed",
+        null
+      ],
+      "description": "invasive_status; null means unresolved. Unit: None"
+    },
+    "eu_union_concern_status": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "minLength": 1,
+      "enum": [
+        "listed_snapshot",
+        "not_listed_snapshot",
+        null
+      ],
+      "description": "eu_union_concern_status; null means unresolved. Unit: None"
+    },
+    "protected_status_nl": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "minLength": 1,
+      "enum": [
+        "protected",
+        "not_protected_snapshot",
+        null
+      ],
+      "description": "protected_status_nl; null means unresolved. Unit: None"
+    },
+    "red_list_status_nl": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "minLength": 1,
+      "enum": [
+        "not_threatened_2012",
+        "sensitive_2012",
+        "vulnerable_2012",
+        "endangered_2012",
+        "critically_endangered_2012",
+        "extinct_nl_2012",
+        null
+      ],
+      "description": "red_list_status_nl; null means unresolved. Unit: None"
+    },
+    "provenance_requirement": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "minLength": 1,
+      "description": "provenance_requirement; null means unresolved. Unit: None"
+    },
+    "soil_textures": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "type": "string",
+        "enum": [
+          "sand",
+          "loam",
+          "clay",
+          "peat",
+          "loess",
+          "sandy_loam",
+          "calcareous_substrate",
+          "rocky",
+          "unspecified_multiple"
+        ]
+      },
+      "uniqueItems": true,
+      "minItems": 1,
+      "description": "soil_textures; null means unresolved. Unit: None"
+    },
+    "soil_ph_min": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "minimum": 0,
+      "maximum": 14,
+      "description": "soil_ph_min; null means unresolved. Unit: pH"
+    },
+    "soil_ph_max": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "minimum": 0,
+      "maximum": 14,
+      "description": "soil_ph_max; null means unresolved. Unit: pH"
+    },
+    "nutrient_tolerance_min": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "minLength": 1,
+      "enum": [
+        "low",
+        "moderately_low",
+        "moderate",
+        "high",
+        "very_high",
+        null
+      ],
+      "description": "nutrient_tolerance_min; null means unresolved. Unit: None"
+    },
+    "nutrient_tolerance_max": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "minLength": 1,
+      "enum": [
+        "low",
+        "moderately_low",
+        "moderate",
+        "high",
+        "very_high",
+        null
+      ],
+      "description": "nutrient_tolerance_max; null means unresolved. Unit: None"
+    },
+    "moisture_regimes": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "type": "string",
+        "enum": [
+          "very_dry",
+          "dry",
+          "moist",
+          "wet",
+          "shallow_water",
+          "standing_water_unspecified_depth"
+        ]
+      },
+      "uniqueItems": true,
+      "minItems": 1,
+      "description": "moisture_regimes; null means unresolved. Unit: None"
+    },
+    "drainage_tolerance": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "type": "string",
+        "enum": [
+          "well_drained",
+          "moist_drained",
+          "poorly_drained",
+          "periodically_wet",
+          "standing_water",
+          "periodic_flooding",
+          "very_dry"
+        ]
+      },
+      "uniqueItems": true,
+      "minItems": 1,
+      "description": "drainage_tolerance; null means unresolved. Unit: None"
+    },
+    "light_regimes": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "type": "string",
+        "enum": [
+          "full_sun",
+          "partial_shade",
+          "shade",
+          "dappled_shade"
+        ]
+      },
+      "uniqueItems": true,
+      "minItems": 1,
+      "description": "light_regimes; null means unresolved. Unit: None"
+    },
+    "canopy_compatibility": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "minLength": 1,
+      "enum": [
+        "dappled_canopy_shade_reported",
+        null
+      ],
+      "description": "canopy_compatibility; null means unresolved. Unit: None"
+    },
+    "inundation_depth_min_cm": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "minimum": 0,
+      "description": "inundation_depth_min_cm; null means unresolved. Unit: cm"
+    },
+    "inundation_depth_max_cm": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "minimum": 0,
+      "description": "inundation_depth_max_cm; null means unresolved. Unit: cm"
+    },
+    "inundation_duration": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "minLength": 1,
+      "enum": [
+        "prolonged_qualitative",
+        "temporary_qualitative",
+        null
+      ],
+      "description": "inundation_duration; null means unresolved. Unit: None"
+    },
+    "inundation_frequency": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "minLength": 1,
+      "enum": [
+        "occasional_qualitative",
+        "frequent_qualitative",
+        null
+      ],
+      "description": "inundation_frequency; null means unresolved. Unit: None"
+    },
+    "seasonal_drawdown_tolerance": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "minLength": 1,
+      "enum": [
+        "tolerates_if_substrate_stays_wet",
+        null
+      ],
+      "description": "seasonal_drawdown_tolerance; null means unresolved. Unit: None"
+    },
+    "salinity_tolerance": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "minLength": 1,
+      "enum": [
+        "brackish_reported",
+        "weak_brackish_reported",
+        "salt_tolerant_unquantified",
+        "freshwater_association_only",
+        null
+      ],
+      "description": "salinity_tolerance; null means unresolved. Unit: None"
+    },
+    "drought_tolerance": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "minLength": 1,
+      "enum": [
+        "tolerant_unquantified",
+        "tolerant_once_established",
+        null
+      ],
+      "description": "drought_tolerance; null means unresolved. Unit: None"
+    },
+    "compaction_tolerance": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "minLength": 1,
+      "enum": [
+        "moderate_trampling_reported",
+        null
+      ],
+      "description": "compaction_tolerance; null means unresolved. Unit: None"
+    },
+    "road_salt_tolerance": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "minLength": 1,
+      "enum": [
+        "low_sensitivity_reported",
+        null
+      ],
+      "description": "road_salt_tolerance; null means unresolved. Unit: None"
+    },
+    "pollution_tolerance": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "minLength": 1,
+      "enum": [
+        "tolerant_unquantified",
+        null
+      ],
+      "description": "pollution_tolerance; null means unresolved. Unit: None"
+    },
+    "wind_tolerance": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "minLength": 1,
+      "enum": [
+        "tolerant_unquantified",
+        null
+      ],
+      "description": "wind_tolerance; null means unresolved. Unit: None"
+    },
+    "heat_tolerance": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "minLength": 1,
+      "enum": [
+        "tolerant_unquantified",
+        null
+      ],
+      "description": "heat_tolerance; null means unresolved. Unit: None"
+    },
+    "soil_ph_classes": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "type": "string",
+        "enum": [
+          "acid",
+          "slightly_acid",
+          "neutral",
+          "alkaline",
+          "calcareous"
+        ]
+      },
+      "uniqueItems": true,
+      "minItems": 1,
+      "description": "soil_ph_classes; null means unresolved. Unit: None"
+    },
+    "growth_form": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "type": "string",
+        "enum": [
+          "tree",
+          "shrub",
+          "climber",
+          "herb",
+          "grass_sedge_rush",
+          "aquatic_herb",
+          "phanerophyte",
+          "hemicryptophyte",
+          "geophyte",
+          "helophyte",
+          "hydrophyte",
+          "woody_chamaephyte"
+        ]
+      },
+      "uniqueItems": true,
+      "minItems": 1,
+      "description": "growth_form; null means unresolved. Unit: None"
+    },
+    "lifecycle": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "type": "string",
+        "enum": [
+          "annual",
+          "biennial",
+          "perennial",
+          "long_lived"
+        ]
+      },
+      "uniqueItems": true,
+      "minItems": 1,
+      "description": "lifecycle; null means unresolved. Unit: None"
+    },
+    "mature_height_min_m": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "minimum": 0,
+      "description": "mature_height_min_m; null means unresolved. Unit: m"
+    },
+    "mature_height_max_m": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "minimum": 0,
+      "description": "mature_height_max_m; null means unresolved. Unit: m"
+    },
+    "mature_spread_min_m": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "minimum": 0,
+      "description": "mature_spread_min_m; null means unresolved. Unit: m"
+    },
+    "mature_spread_max_m": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "minimum": 0,
+      "description": "mature_spread_max_m; null means unresolved. Unit: m"
+    },
+    "dimension_context": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "minLength": 1,
+      "description": "dimension_context; null means unresolved. Unit: None"
+    },
+    "dimension_target_year": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 0,
+      "description": "dimension_target_year; null means unresolved. Unit: year"
+    },
+    "growth_rate": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "type": "string",
+        "enum": [
+          "slow",
+          "moderate",
+          "rapid"
+        ]
+      },
+      "uniqueItems": true,
+      "minItems": 1,
+      "description": "growth_rate; null means unresolved. Unit: None"
+    },
+    "root_space_class": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "minLength": 1,
+      "enum": [
+        "small",
+        "medium",
+        "large",
+        null
+      ],
+      "description": "root_space_class; null means unresolved. Unit: None"
+    },
+    "root_behaviour": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "minLength": 1,
+      "description": "root_behaviour; null means unresolved. Unit: None"
+    },
+    "suckering_or_spreading_method": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "type": "string",
+        "enum": [
+          "rhizomes",
+          "root_suckers",
+          "runners",
+          "self_seeding"
+        ]
+      },
+      "uniqueItems": true,
+      "minItems": 1,
+      "description": "suckering_or_spreading_method; null means unresolved. Unit: None"
+    },
+    "vigour_or_spread_risk": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "minLength": 1,
+      "enum": [
+        "vigorous_reported",
+        "weedy_reported",
+        null
+      ],
+      "description": "vigour_or_spread_risk; null means unresolved. Unit: None"
+    },
+    "competition_strength": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "minLength": 1,
+      "enum": [
+        "low",
+        "moderate",
+        "high",
+        null
+      ],
+      "description": "competition_strength; null means unresolved. Unit: None"
+    },
+    "water_band": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "minLength": 1,
+      "enum": [
+        "margin",
+        "shallow_water",
+        "open_water",
+        null
+      ],
+      "description": "water_band; null means unresolved. Unit: None"
+    },
+    "functional_layer": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "type": "string",
+        "enum": [
+          "canopy",
+          "shrub",
+          "herb",
+          "graminoid",
+          "climber",
+          "water_margin"
+        ]
+      },
+      "uniqueItems": true,
+      "minItems": 1,
+      "description": "functional_layer; null means unresolved. Unit: None"
+    },
+    "community_roles": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "type": "string",
+        "enum": [
+          "structural",
+          "matrix",
+          "flowering",
+          "vertical",
+          "water_edge"
+        ]
+      },
+      "uniqueItems": true,
+      "minItems": 1,
+      "description": "community_roles; null means unresolved. Unit: None"
+    },
+    "suitable_habitats": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true,
+      "minItems": 1,
+      "description": "suitable_habitats; null means unresolved. Unit: None"
+    },
+    "incompatible_conditions": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true,
+      "minItems": 1,
+      "description": "incompatible_conditions; null means unresolved. Unit: None"
+    },
+    "height_upper_bound_open": {
+      "type": [
+        "boolean",
+        "null"
+      ],
+      "description": "height_upper_bound_open; null means unresolved. Unit: None"
+    },
+    "spread_upper_bound_open": {
+      "type": [
+        "boolean",
+        "null"
+      ],
+      "description": "spread_upper_bound_open; null means unresolved. Unit: None"
+    },
+    "toxicity_status": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "minLength": 1,
+      "enum": [
+        "toxic_reported",
+        "weakly_toxic_reported",
+        "strongly_toxic_reported",
+        "harmful_to_dogs_reported",
+        null
+      ],
+      "description": "toxicity_status; null means unresolved. Unit: None"
+    },
+    "toxic_parts": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "type": "string",
+        "enum": [
+          "whole_plant",
+          "berries",
+          "bark",
+          "leaves",
+          "young_leaves",
+          "unripe_acorns",
+          "seeds",
+          "stems",
+          "roots",
+          "flowers",
+          "sap",
+          "fruits",
+          "twigs",
+          "unripe_berries"
+        ]
+      },
+      "uniqueItems": true,
+      "minItems": 1,
+      "description": "toxic_parts; null means unresolved. Unit: None"
+    },
+    "irritant_sap": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "minLength": 1,
+      "enum": [
+        "reported",
+        null
+      ],
+      "description": "irritant_sap; null means unresolved. Unit: None"
+    },
+    "thorns_or_spines": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "minLength": 1,
+      "enum": [
+        "thorns_present",
+        "prickles_present",
+        "absent_reported",
+        null
+      ],
+      "description": "thorns_or_spines; null means unresolved. Unit: None"
+    },
+    "allergen_risk": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "minLength": 1,
+      "enum": [
+        "reported",
+        null
+      ],
+      "description": "allergen_risk; null means unresolved. Unit: None"
+    },
+    "fruit_drop_risk": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "minLength": 1,
+      "enum": [
+        "reported",
+        null
+      ],
+      "description": "fruit_drop_risk; null means unresolved. Unit: None"
+    },
+    "public_contact_suitability": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "minLength": 1,
+      "enum": [
+        "specialist_review_required",
+        "suitable_with_conditions",
+        "unsuitable",
+        null
+      ],
+      "description": "public_contact_suitability; null means unresolved. Unit: None"
+    },
+    "school_or_play_suitability": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "minLength": 1,
+      "enum": [
+        "specialist_review_required",
+        "suitable_with_conditions",
+        "unsuitable",
+        null
+      ],
+      "description": "school_or_play_suitability; null means unresolved. Unit: None"
+    },
+    "edible_parts": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "type": "string",
+        "enum": [
+          "fruit_flesh",
+          "berries",
+          "leaves",
+          "flowers",
+          "root",
+          "seeds",
+          "herbaceous_parts",
+          "whole_plant",
+          "nuts",
+          "fruit",
+          "fruiting_cones",
+          "sap"
+        ]
+      },
+      "uniqueItems": true,
+      "minItems": 1,
+      "description": "edible_parts; null means unresolved. Unit: None"
+    },
+    "edibility_evidence_status": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "minLength": 1,
+      "enum": [
+        "part_specific_provisional",
+        null
+      ],
+      "description": "edibility_evidence_status; null means unresolved. Unit: None"
+    },
+    "preparation_required": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "minLength": 1,
+      "enum": [
+        "remove_seeds",
+        "cook_required",
+        "conditional_preparation",
+        null
+      ],
+      "description": "preparation_required; null means unresolved. Unit: None"
+    },
+    "food_safety_note": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "minLength": 1,
+      "description": "food_safety_note; null means unresolved. Unit: None"
+    },
+    "contact_irritation_status": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "minLength": 1,
+      "enum": [
+        "reported",
+        "not_reported_by_this_source",
+        null
+      ],
+      "description": "contact_irritation_status; null means unresolved. Unit: None"
+    },
+    "flower_start_month": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 1,
+      "maximum": 12,
+      "description": "flower_start_month; null means unresolved. Unit: month"
+    },
+    "flower_end_month": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 1,
+      "maximum": 12,
+      "description": "flower_end_month; null means unresolved. Unit: month"
+    },
+    "flowering_context": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "minLength": 1,
+      "description": "flowering_context; null means unresolved. Unit: None"
+    },
+    "flower_colour": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "type": "string",
+        "enum": [
+          "white",
+          "red",
+          "pink",
+          "purple",
+          "blue",
+          "yellow",
+          "green",
+          "brown",
+          "cream",
+          "transparent",
+          "orange"
+        ]
+      },
+      "uniqueItems": true,
+      "minItems": 1,
+      "description": "flower_colour; null means unresolved. Unit: None"
+    },
+    "flower_form": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "type": "string",
+        "enum": [
+          "head",
+          "umbel",
+          "corymb",
+          "spike",
+          "panicle",
+          "cyme",
+          "raceme",
+          "catkin",
+          "pea",
+          "tubular",
+          "lipped",
+          "insignificant"
+        ]
+      },
+      "uniqueItems": true,
+      "minItems": 1,
+      "description": "flower_form; null means unresolved. Unit: None"
+    },
+    "evergreen_status": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "minLength": 1,
+      "enum": [
+        "deciduous",
+        "evergreen",
+        "semi_evergreen",
+        null
+      ],
+      "description": "evergreen_status; null means unresolved. Unit: None"
+    },
+    "autumn_interest": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "type": "string",
+        "enum": [
+          "foliage_colour_reported"
+        ]
+      },
+      "uniqueItems": true,
+      "minItems": 1,
+      "description": "autumn_interest; null means unresolved. Unit: None"
+    },
+    "winter_structure": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "type": "string",
+        "enum": [
+          "persistent_stems_reported",
+          "persistent_foliage_reported",
+          "persistent_seedheads_reported"
+        ]
+      },
+      "uniqueItems": true,
+      "minItems": 1,
+      "description": "winter_structure; null means unresolved. Unit: None"
+    },
+    "seedhead_persistence": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "minLength": 1,
+      "enum": [
+        "winter_reported",
+        "long_lasting_reported",
+        null
+      ],
+      "description": "seedhead_persistence; null means unresolved. Unit: None"
+    },
+    "pollinator_value": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "type": "string",
+        "enum": [
+          "nectar_reported",
+          "pollinator_visitation_reported"
+        ]
+      },
+      "uniqueItems": true,
+      "minItems": 1,
+      "description": "pollinator_value; null means unresolved. Unit: None"
+    },
+    "host_species_or_group": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true,
+      "minItems": 1,
+      "description": "host_species_or_group; null means unresolved. Unit: None"
+    },
+    "other_habitat_functions": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "type": "string",
+        "enum": [
+          "bird_seed_food_reported",
+          "stem_nesting_bees_reported",
+          "wildlife_shelter_reported"
+        ]
+      },
+      "uniqueItems": true,
+      "minItems": 1,
+      "description": "other_habitat_functions; null means unresolved. Unit: None"
+    },
+    "suitable_establishment_methods": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "type": "string",
+        "enum": [
+          "seed",
+          "division",
+          "stem_cuttings",
+          "root_cuttings",
+          "layering",
+          "grafting"
+        ]
+      },
+      "uniqueItems": true,
+      "minItems": 1,
+      "description": "suitable_establishment_methods; null means unresolved. Unit: None"
+    },
+    "spacing_min_m": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "minimum": 0,
+      "description": "spacing_min_m; null means unresolved. Unit: m"
+    },
+    "spacing_max_m": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "minimum": 0,
+      "description": "spacing_max_m; null means unresolved. Unit: m"
+    },
+    "spacing_context": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "minLength": 1,
+      "description": "spacing_context; null means unresolved. Unit: None"
+    },
+    "density_min_per_m2": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "minimum": 0,
+      "description": "density_min_per_m2; null means unresolved. Unit: plants/m2"
+    },
+    "density_max_per_m2": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "minimum": 0,
+      "description": "density_max_per_m2; null means unresolved. Unit: plants/m2"
+    },
+    "density_context": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "minLength": 1,
+      "description": "density_context; null means unresolved. Unit: None"
+    },
+    "establishment_watering": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "minLength": 1,
+      "description": "establishment_watering; null means unresolved. Unit: None"
+    },
+    "establishment_notes": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "minLength": 1,
+      "description": "establishment_notes; null means unresolved. Unit: None"
+    },
+    "mowing_or_cutback_regime": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "minLength": 1,
+      "enum": [
+        "no_pruning_required",
+        "cut_after_flowering",
+        "late_winter_cutback",
+        "cut_back_faded_stems",
+        "autumn_optional_cutback",
+        "hedge_trim_after_flowering_or_autumn",
+        "remove_flower_stems_to_limit_seeding",
+        null
+      ],
+      "description": "mowing_or_cutback_regime; null means unresolved. Unit: None"
+    },
+    "maintenance_demand": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "type": "string",
+        "enum": [
+          "low",
+          "moderate",
+          "high"
+        ]
+      },
+      "uniqueItems": true,
+      "minItems": 1,
+      "description": "maintenance_demand; null means unresolved. Unit: None"
+    },
+    "maintenance_notes": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "minLength": 1,
+      "description": "maintenance_notes; null means unresolved. Unit: None"
+    },
+    "management_warnings": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "type": "string",
+        "enum": [
+          "weedy_us_scope",
+          "vigorous_growth_reported",
+          "contact_irritation_handling",
+          "oak_processionary_monitoring",
+          "avoid_water_stagnation"
+        ]
+      },
+      "uniqueItems": true,
+      "minItems": 1,
+      "description": "management_warnings; null means unresolved. Unit: None"
+    },
+    "seed_or_plant_source_notes": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "minLength": 1,
+      "description": "seed_or_plant_source_notes; null means unresolved. Unit: None"
+    },
+    "fixture_id": {
+      "type": "string"
+    },
+    "fixture_track": {
+      "enum": [
+        "core",
+        "ornamental"
+      ]
+    },
+    "fixture_scientific_name": {
+      "type": "string"
+    },
+    "fixture_vernacular_nl": {
+      "type": "string"
+    },
+    "fixture_group": {
+      "type": "string"
+    },
+    "plant_id": {
+      "type": "string"
+    },
+    "taxon_match_type": {
+      "enum": [
+        "exact",
+        "accepted-name match",
+        "synonym match",
+        "cultivar or hybrid match",
+        "ambiguous",
+        "unmatched"
+      ]
+    },
+    "identity_status": {
+      "enum": [
+        "resolved_catalogue",
+        "resolved_external",
+        "ambiguous",
+        "unresolved"
+      ]
+    },
+    "catalogue_candidate_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "record_status": {
+      "enum": [
+        "provisional",
+        "conflicting",
+        "unknown",
+        "reviewed"
+      ]
+    },
+    "production_eligible": {
+      "type": "boolean"
+    },
+    "evidence_confidence": {
+      "enum": [
+        "provisional",
+        "conflicting",
+        "unreviewed",
+        "reviewed"
+      ]
+    },
+    "reviewed_by": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "reviewed_on": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date"
+    },
+    "source_claim_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "synthetic_field_names": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "unresolved_field_names": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "record_notes": {
+      "type": "string"
+    },
+    "field_origins_json": {
+      "type": "object",
+      "required": [
+        "accepted_scientific_name",
+        "canonical_name",
+        "vernacular_nl",
+        "family",
+        "scientific_name_authorship",
+        "synonyms",
+        "taxonomic_authority",
+        "gbif_species_key",
+        "verspreidingsatlas_taxon_number",
+        "native_status_nl",
+        "establishment_status_nl",
+        "regional_occurrence_status",
+        "invasive_status",
+        "eu_union_concern_status",
+        "protected_status_nl",
+        "red_list_status_nl",
+        "provenance_requirement",
+        "soil_textures",
+        "soil_ph_min",
+        "soil_ph_max",
+        "nutrient_tolerance_min",
+        "nutrient_tolerance_max",
+        "moisture_regimes",
+        "drainage_tolerance",
+        "light_regimes",
+        "canopy_compatibility",
+        "inundation_depth_min_cm",
+        "inundation_depth_max_cm",
+        "inundation_duration",
+        "inundation_frequency",
+        "seasonal_drawdown_tolerance",
+        "salinity_tolerance",
+        "drought_tolerance",
+        "compaction_tolerance",
+        "road_salt_tolerance",
+        "pollution_tolerance",
+        "wind_tolerance",
+        "heat_tolerance",
+        "soil_ph_classes",
+        "growth_form",
+        "lifecycle",
+        "mature_height_min_m",
+        "mature_height_max_m",
+        "mature_spread_min_m",
+        "mature_spread_max_m",
+        "dimension_context",
+        "dimension_target_year",
+        "growth_rate",
+        "root_space_class",
+        "root_behaviour",
+        "suckering_or_spreading_method",
+        "vigour_or_spread_risk",
+        "competition_strength",
+        "water_band",
+        "functional_layer",
+        "community_roles",
+        "suitable_habitats",
+        "incompatible_conditions",
+        "height_upper_bound_open",
+        "spread_upper_bound_open",
+        "toxicity_status",
+        "toxic_parts",
+        "irritant_sap",
+        "thorns_or_spines",
+        "allergen_risk",
+        "fruit_drop_risk",
+        "public_contact_suitability",
+        "school_or_play_suitability",
+        "edible_parts",
+        "edibility_evidence_status",
+        "preparation_required",
+        "food_safety_note",
+        "contact_irritation_status",
+        "flower_start_month",
+        "flower_end_month",
+        "flowering_context",
+        "flower_colour",
+        "flower_form",
+        "evergreen_status",
+        "autumn_interest",
+        "winter_structure",
+        "seedhead_persistence",
+        "pollinator_value",
+        "host_species_or_group",
+        "other_habitat_functions",
+        "suitable_establishment_methods",
+        "spacing_min_m",
+        "spacing_max_m",
+        "spacing_context",
+        "density_min_per_m2",
+        "density_max_per_m2",
+        "density_context",
+        "establishment_watering",
+        "establishment_notes",
+        "mowing_or_cutback_regime",
+        "maintenance_demand",
+        "maintenance_notes",
+        "management_warnings",
+        "seed_or_plant_source_notes"
+      ],
+      "properties": {
+        "accepted_scientific_name": {
+          "enum": [
+            "sourced_primary",
+            "sourced_official_database",
+            "sourced_secondary",
+            "expert_inference",
+            "conflicting",
+            "synthetic_fallback",
+            "unknown"
+          ]
+        },
+        "canonical_name": {
+          "enum": [
+            "sourced_primary",
+            "sourced_official_database",
+            "sourced_secondary",
+            "expert_inference",
+            "conflicting",
+            "synthetic_fallback",
+            "unknown"
+          ]
+        },
+        "vernacular_nl": {
+          "enum": [
+            "sourced_primary",
+            "sourced_official_database",
+            "sourced_secondary",
+            "expert_inference",
+            "conflicting",
+            "synthetic_fallback",
+            "unknown"
+          ]
+        },
+        "family": {
+          "enum": [
+            "sourced_primary",
+            "sourced_official_database",
+            "sourced_secondary",
+            "expert_inference",
+            "conflicting",
+            "synthetic_fallback",
+            "unknown"
+          ]
+        },
+        "scientific_name_authorship": {
+          "enum": [
+            "sourced_primary",
+            "sourced_official_database",
+            "sourced_secondary",
+            "expert_inference",
+            "conflicting",
+            "synthetic_fallback",
+            "unknown"
+          ]
+        },
+        "synonyms": {
+          "enum": [
+            "sourced_primary",
+            "sourced_official_database",
+            "sourced_secondary",
+            "expert_inference",
+            "conflicting",
+            "synthetic_fallback",
+            "unknown"
+          ]
+        },
+        "taxonomic_authority": {
+          "enum": [
+            "sourced_primary",
+            "sourced_official_database",
+            "sourced_secondary",
+            "expert_inference",
+            "conflicting",
+            "synthetic_fallback",
+            "unknown"
+          ]
+        },
+        "gbif_species_key": {
+          "enum": [
+            "sourced_primary",
+            "sourced_official_database",
+            "sourced_secondary",
+            "expert_inference",
+            "conflicting",
+            "synthetic_fallback",
+            "unknown"
+          ]
+        },
+        "verspreidingsatlas_taxon_number": {
+          "enum": [
+            "sourced_primary",
+            "sourced_official_database",
+            "sourced_secondary",
+            "expert_inference",
+            "conflicting",
+            "synthetic_fallback",
+            "unknown"
+          ]
+        },
+        "native_status_nl": {
+          "enum": [
+            "sourced_primary",
+            "sourced_official_database",
+            "sourced_secondary",
+            "expert_inference",
+            "conflicting",
+            "synthetic_fallback",
+            "unknown"
+          ]
+        },
+        "establishment_status_nl": {
+          "enum": [
+            "sourced_primary",
+            "sourced_official_database",
+            "sourced_secondary",
+            "expert_inference",
+            "conflicting",
+            "synthetic_fallback",
+            "unknown"
+          ]
+        },
+        "regional_occurrence_status": {
+          "enum": [
+            "sourced_primary",
+            "sourced_official_database",
+            "sourced_secondary",
+            "expert_inference",
+            "conflicting",
+            "synthetic_fallback",
+            "unknown"
+          ]
+        },
+        "invasive_status": {
+          "enum": [
+            "sourced_primary",
+            "sourced_official_database",
+            "sourced_secondary",
+            "expert_inference",
+            "conflicting",
+            "synthetic_fallback",
+            "unknown"
+          ]
+        },
+        "eu_union_concern_status": {
+          "enum": [
+            "sourced_primary",
+            "sourced_official_database",
+            "sourced_secondary",
+            "expert_inference",
+            "conflicting",
+            "synthetic_fallback",
+            "unknown"
+          ]
+        },
+        "protected_status_nl": {
+          "enum": [
+            "sourced_primary",
+            "sourced_official_database",
+            "sourced_secondary",
+            "expert_inference",
+            "conflicting",
+            "synthetic_fallback",
+            "unknown"
+          ]
+        },
+        "red_list_status_nl": {
+          "enum": [
+            "sourced_primary",
+            "sourced_official_database",
+            "sourced_secondary",
+            "expert_inference",
+            "conflicting",
+            "synthetic_fallback",
+            "unknown"
+          ]
+        },
+        "provenance_requirement": {
+          "enum": [
+            "sourced_primary",
+            "sourced_official_database",
+            "sourced_secondary",
+            "expert_inference",
+            "conflicting",
+            "synthetic_fallback",
+            "unknown"
+          ]
+        },
+        "soil_textures": {
+          "enum": [
+            "sourced_primary",
+            "sourced_official_database",
+            "sourced_secondary",
+            "expert_inference",
+            "conflicting",
+            "synthetic_fallback",
+            "unknown"
+          ]
+        },
+        "soil_ph_min": {
+          "enum": [
+            "sourced_primary",
+            "sourced_official_database",
+            "sourced_secondary",
+            "expert_inference",
+            "conflicting",
+            "synthetic_fallback",
+            "unknown"
+          ]
+        },
+        "soil_ph_max": {
+          "enum": [
+            "sourced_primary",
+            "sourced_official_database",
+            "sourced_secondary",
+            "expert_inference",
+            "conflicting",
+            "synthetic_fallback",
+            "unknown"
+          ]
+        },
+        "nutrient_tolerance_min": {
+          "enum": [
+            "sourced_primary",
+            "sourced_official_database",
+            "sourced_secondary",
+            "expert_inference",
+            "conflicting",
+            "synthetic_fallback",
+            "unknown"
+          ]
+        },
+        "nutrient_tolerance_max": {
+          "enum": [
+            "sourced_primary",
+            "sourced_official_database",
+            "sourced_secondary",
+            "expert_inference",
+            "conflicting",
+            "synthetic_fallback",
+            "unknown"
+          ]
+        },
+        "moisture_regimes": {
+          "enum": [
+            "sourced_primary",
+            "sourced_official_database",
+            "sourced_secondary",
+            "expert_inference",
+            "conflicting",
+            "synthetic_fallback",
+            "unknown"
+          ]
+        },
+        "drainage_tolerance": {
+          "enum": [
+            "sourced_primary",
+            "sourced_official_database",
+            "sourced_secondary",
+            "expert_inference",
+            "conflicting",
+            "synthetic_fallback",
+            "unknown"
+          ]
+        },
+        "light_regimes": {
+          "enum": [
+            "sourced_primary",
+            "sourced_official_database",
+            "sourced_secondary",
+            "expert_inference",
+            "conflicting",
+            "synthetic_fallback",
+            "unknown"
+          ]
+        },
+        "canopy_compatibility": {
+          "enum": [
+            "sourced_primary",
+            "sourced_official_database",
+            "sourced_secondary",
+            "expert_inference",
+            "conflicting",
+            "synthetic_fallback",
+            "unknown"
+          ]
+        },
+        "inundation_depth_min_cm": {
+          "enum": [
+            "sourced_primary",
+            "sourced_official_database",
+            "sourced_secondary",
+            "expert_inference",
+            "conflicting",
+            "synthetic_fallback",
+            "unknown"
+          ]
+        },
+        "inundation_depth_max_cm": {
+          "enum": [
+            "sourced_primary",
+            "sourced_official_database",
+            "sourced_secondary",
+            "expert_inference",
+            "conflicting",
+            "synthetic_fallback",
+            "unknown"
+          ]
+        },
+        "inundation_duration": {
+          "enum": [
+            "sourced_primary",
+            "sourced_official_database",
+            "sourced_secondary",
+            "expert_inference",
+            "conflicting",
+            "synthetic_fallback",
+            "unknown"
+          ]
+        },
+        "inundation_frequency": {
+          "enum": [
+            "sourced_primary",
+            "sourced_official_database",
+            "sourced_secondary",
+            "expert_inference",
+            "conflicting",
+            "synthetic_fallback",
+            "unknown"
+          ]
+        },
+        "seasonal_drawdown_tolerance": {
+          "enum": [
+            "sourced_primary",
+            "sourced_official_database",
+            "sourced_secondary",
+            "expert_inference",
+            "conflicting",
+            "synthetic_fallback",
+            "unknown"
+          ]
+        },
+        "salinity_tolerance": {
+          "enum": [
+            "sourced_primary",
+            "sourced_official_database",
+            "sourced_secondary",
+            "expert_inference",
+            "conflicting",
+            "synthetic_fallback",
+            "unknown"
+          ]
+        },
+        "drought_tolerance": {
+          "enum": [
+            "sourced_primary",
+            "sourced_official_database",
+            "sourced_secondary",
+            "expert_inference",
+            "conflicting",
+            "synthetic_fallback",
+            "unknown"
+          ]
+        },
+        "compaction_tolerance": {
+          "enum": [
+            "sourced_primary",
+            "sourced_official_database",
+            "sourced_secondary",
+            "expert_inference",
+            "conflicting",
+            "synthetic_fallback",
+            "unknown"
+          ]
+        },
+        "road_salt_tolerance": {
+          "enum": [
+            "sourced_primary",
+            "sourced_official_database",
+            "sourced_secondary",
+            "expert_inference",
+            "conflicting",
+            "synthetic_fallback",
+            "unknown"
+          ]
+        },
+        "pollution_tolerance": {
+          "enum": [
+            "sourced_primary",
+            "sourced_official_database",
+            "sourced_secondary",
+            "expert_inference",
+            "conflicting",
+            "synthetic_fallback",
+            "unknown"
+          ]
+        },
+        "wind_tolerance": {
+          "enum": [
+            "sourced_primary",
+            "sourced_official_database",
+            "sourced_secondary",
+            "expert_inference",
+            "conflicting",
+            "synthetic_fallback",
+            "unknown"
+          ]
+        },
+        "heat_tolerance": {
+          "enum": [
+            "sourced_primary",
+            "sourced_official_database",
+            "sourced_secondary",
+            "expert_inference",
+            "conflicting",
+            "synthetic_fallback",
+            "unknown"
+          ]
+        },
+        "soil_ph_classes": {
+          "enum": [
+            "sourced_primary",
+            "sourced_official_database",
+            "sourced_secondary",
+            "expert_inference",
+            "conflicting",
+            "synthetic_fallback",
+            "unknown"
+          ]
+        },
+        "growth_form": {
+          "enum": [
+            "sourced_primary",
+            "sourced_official_database",
+            "sourced_secondary",
+            "expert_inference",
+            "conflicting",
+            "synthetic_fallback",
+            "unknown"
+          ]
+        },
+        "lifecycle": {
+          "enum": [
+            "sourced_primary",
+            "sourced_official_database",
+            "sourced_secondary",
+            "expert_inference",
+            "conflicting",
+            "synthetic_fallback",
+            "unknown"
+          ]
+        },
+        "mature_height_min_m": {
+          "enum": [
+            "sourced_primary",
+            "sourced_official_database",
+            "sourced_secondary",
+            "expert_inference",
+            "conflicting",
+            "synthetic_fallback",
+            "unknown"
+          ]
+        },
+        "mature_height_max_m": {
+          "enum": [
+            "sourced_primary",
+            "sourced_official_database",
+            "sourced_secondary",
+            "expert_inference",
+            "conflicting",
+            "synthetic_fallback",
+            "unknown"
+          ]
+        },
+        "mature_spread_min_m": {
+          "enum": [
+            "sourced_primary",
+            "sourced_official_database",
+            "sourced_secondary",
+            "expert_inference",
+            "conflicting",
+            "synthetic_fallback",
+            "unknown"
+          ]
+        },
+        "mature_spread_max_m": {
+          "enum": [
+            "sourced_primary",
+            "sourced_official_database",
+            "sourced_secondary",
+            "expert_inference",
+            "conflicting",
+            "synthetic_fallback",
+            "unknown"
+          ]
+        },
+        "dimension_context": {
+          "enum": [
+            "sourced_primary",
+            "sourced_official_database",
+            "sourced_secondary",
+            "expert_inference",
+            "conflicting",
+            "synthetic_fallback",
+            "unknown"
+          ]
+        },
+        "dimension_target_year": {
+          "enum": [
+            "sourced_primary",
+            "sourced_official_database",
+            "sourced_secondary",
+            "expert_inference",
+            "conflicting",
+            "synthetic_fallback",
+            "unknown"
+          ]
+        },
+        "growth_rate": {
+          "enum": [
+            "sourced_primary",
+            "sourced_official_database",
+            "sourced_secondary",
+            "expert_inference",
+            "conflicting",
+            "synthetic_fallback",
+            "unknown"
+          ]
+        },
+        "root_space_class": {
+          "enum": [
+            "sourced_primary",
+            "sourced_official_database",
+            "sourced_secondary",
+            "expert_inference",
+            "conflicting",
+            "synthetic_fallback",
+            "unknown"
+          ]
+        },
+        "root_behaviour": {
+          "enum": [
+            "sourced_primary",
+            "sourced_official_database",
+            "sourced_secondary",
+            "expert_inference",
+            "conflicting",
+            "synthetic_fallback",
+            "unknown"
+          ]
+        },
+        "suckering_or_spreading_method": {
+          "enum": [
+            "sourced_primary",
+            "sourced_official_database",
+            "sourced_secondary",
+            "expert_inference",
+            "conflicting",
+            "synthetic_fallback",
+            "unknown"
+          ]
+        },
+        "vigour_or_spread_risk": {
+          "enum": [
+            "sourced_primary",
+            "sourced_official_database",
+            "sourced_secondary",
+            "expert_inference",
+            "conflicting",
+            "synthetic_fallback",
+            "unknown"
+          ]
+        },
+        "competition_strength": {
+          "enum": [
+            "sourced_primary",
+            "sourced_official_database",
+            "sourced_secondary",
+            "expert_inference",
+            "conflicting",
+            "synthetic_fallback",
+            "unknown"
+          ]
+        },
+        "water_band": {
+          "enum": [
+            "sourced_primary",
+            "sourced_official_database",
+            "sourced_secondary",
+            "expert_inference",
+            "conflicting",
+            "synthetic_fallback",
+            "unknown"
+          ]
+        },
+        "functional_layer": {
+          "enum": [
+            "sourced_primary",
+            "sourced_official_database",
+            "sourced_secondary",
+            "expert_inference",
+            "conflicting",
+            "synthetic_fallback",
+            "unknown"
+          ]
+        },
+        "community_roles": {
+          "enum": [
+            "sourced_primary",
+            "sourced_official_database",
+            "sourced_secondary",
+            "expert_inference",
+            "conflicting",
+            "synthetic_fallback",
+            "unknown"
+          ]
+        },
+        "suitable_habitats": {
+          "enum": [
+            "sourced_primary",
+            "sourced_official_database",
+            "sourced_secondary",
+            "expert_inference",
+            "conflicting",
+            "synthetic_fallback",
+            "unknown"
+          ]
+        },
+        "incompatible_conditions": {
+          "enum": [
+            "sourced_primary",
+            "sourced_official_database",
+            "sourced_secondary",
+            "expert_inference",
+            "conflicting",
+            "synthetic_fallback",
+            "unknown"
+          ]
+        },
+        "height_upper_bound_open": {
+          "enum": [
+            "sourced_primary",
+            "sourced_official_database",
+            "sourced_secondary",
+            "expert_inference",
+            "conflicting",
+            "synthetic_fallback",
+            "unknown"
+          ]
+        },
+        "spread_upper_bound_open": {
+          "enum": [
+            "sourced_primary",
+            "sourced_official_database",
+            "sourced_secondary",
+            "expert_inference",
+            "conflicting",
+            "synthetic_fallback",
+            "unknown"
+          ]
+        },
+        "toxicity_status": {
+          "enum": [
+            "sourced_primary",
+            "sourced_official_database",
+            "sourced_secondary",
+            "expert_inference",
+            "conflicting",
+            "synthetic_fallback",
+            "unknown"
+          ]
+        },
+        "toxic_parts": {
+          "enum": [
+            "sourced_primary",
+            "sourced_official_database",
+            "sourced_secondary",
+            "expert_inference",
+            "conflicting",
+            "synthetic_fallback",
+            "unknown"
+          ]
+        },
+        "irritant_sap": {
+          "enum": [
+            "sourced_primary",
+            "sourced_official_database",
+            "sourced_secondary",
+            "expert_inference",
+            "conflicting",
+            "synthetic_fallback",
+            "unknown"
+          ]
+        },
+        "thorns_or_spines": {
+          "enum": [
+            "sourced_primary",
+            "sourced_official_database",
+            "sourced_secondary",
+            "expert_inference",
+            "conflicting",
+            "synthetic_fallback",
+            "unknown"
+          ]
+        },
+        "allergen_risk": {
+          "enum": [
+            "sourced_primary",
+            "sourced_official_database",
+            "sourced_secondary",
+            "expert_inference",
+            "conflicting",
+            "synthetic_fallback",
+            "unknown"
+          ]
+        },
+        "fruit_drop_risk": {
+          "enum": [
+            "sourced_primary",
+            "sourced_official_database",
+            "sourced_secondary",
+            "expert_inference",
+            "conflicting",
+            "synthetic_fallback",
+            "unknown"
+          ]
+        },
+        "public_contact_suitability": {
+          "enum": [
+            "sourced_primary",
+            "sourced_official_database",
+            "sourced_secondary",
+            "expert_inference",
+            "conflicting",
+            "synthetic_fallback",
+            "unknown"
+          ]
+        },
+        "school_or_play_suitability": {
+          "enum": [
+            "sourced_primary",
+            "sourced_official_database",
+            "sourced_secondary",
+            "expert_inference",
+            "conflicting",
+            "synthetic_fallback",
+            "unknown"
+          ]
+        },
+        "edible_parts": {
+          "enum": [
+            "sourced_primary",
+            "sourced_official_database",
+            "sourced_secondary",
+            "expert_inference",
+            "conflicting",
+            "synthetic_fallback",
+            "unknown"
+          ]
+        },
+        "edibility_evidence_status": {
+          "enum": [
+            "sourced_primary",
+            "sourced_official_database",
+            "sourced_secondary",
+            "expert_inference",
+            "conflicting",
+            "synthetic_fallback",
+            "unknown"
+          ]
+        },
+        "preparation_required": {
+          "enum": [
+            "sourced_primary",
+            "sourced_official_database",
+            "sourced_secondary",
+            "expert_inference",
+            "conflicting",
+            "synthetic_fallback",
+            "unknown"
+          ]
+        },
+        "food_safety_note": {
+          "enum": [
+            "sourced_primary",
+            "sourced_official_database",
+            "sourced_secondary",
+            "expert_inference",
+            "conflicting",
+            "synthetic_fallback",
+            "unknown"
+          ]
+        },
+        "contact_irritation_status": {
+          "enum": [
+            "sourced_primary",
+            "sourced_official_database",
+            "sourced_secondary",
+            "expert_inference",
+            "conflicting",
+            "synthetic_fallback",
+            "unknown"
+          ]
+        },
+        "flower_start_month": {
+          "enum": [
+            "sourced_primary",
+            "sourced_official_database",
+            "sourced_secondary",
+            "expert_inference",
+            "conflicting",
+            "synthetic_fallback",
+            "unknown"
+          ]
+        },
+        "flower_end_month": {
+          "enum": [
+            "sourced_primary",
+            "sourced_official_database",
+            "sourced_secondary",
+            "expert_inference",
+            "conflicting",
+            "synthetic_fallback",
+            "unknown"
+          ]
+        },
+        "flowering_context": {
+          "enum": [
+            "sourced_primary",
+            "sourced_official_database",
+            "sourced_secondary",
+            "expert_inference",
+            "conflicting",
+            "synthetic_fallback",
+            "unknown"
+          ]
+        },
+        "flower_colour": {
+          "enum": [
+            "sourced_primary",
+            "sourced_official_database",
+            "sourced_secondary",
+            "expert_inference",
+            "conflicting",
+            "synthetic_fallback",
+            "unknown"
+          ]
+        },
+        "flower_form": {
+          "enum": [
+            "sourced_primary",
+            "sourced_official_database",
+            "sourced_secondary",
+            "expert_inference",
+            "conflicting",
+            "synthetic_fallback",
+            "unknown"
+          ]
+        },
+        "evergreen_status": {
+          "enum": [
+            "sourced_primary",
+            "sourced_official_database",
+            "sourced_secondary",
+            "expert_inference",
+            "conflicting",
+            "synthetic_fallback",
+            "unknown"
+          ]
+        },
+        "autumn_interest": {
+          "enum": [
+            "sourced_primary",
+            "sourced_official_database",
+            "sourced_secondary",
+            "expert_inference",
+            "conflicting",
+            "synthetic_fallback",
+            "unknown"
+          ]
+        },
+        "winter_structure": {
+          "enum": [
+            "sourced_primary",
+            "sourced_official_database",
+            "sourced_secondary",
+            "expert_inference",
+            "conflicting",
+            "synthetic_fallback",
+            "unknown"
+          ]
+        },
+        "seedhead_persistence": {
+          "enum": [
+            "sourced_primary",
+            "sourced_official_database",
+            "sourced_secondary",
+            "expert_inference",
+            "conflicting",
+            "synthetic_fallback",
+            "unknown"
+          ]
+        },
+        "pollinator_value": {
+          "enum": [
+            "sourced_primary",
+            "sourced_official_database",
+            "sourced_secondary",
+            "expert_inference",
+            "conflicting",
+            "synthetic_fallback",
+            "unknown"
+          ]
+        },
+        "host_species_or_group": {
+          "enum": [
+            "sourced_primary",
+            "sourced_official_database",
+            "sourced_secondary",
+            "expert_inference",
+            "conflicting",
+            "synthetic_fallback",
+            "unknown"
+          ]
+        },
+        "other_habitat_functions": {
+          "enum": [
+            "sourced_primary",
+            "sourced_official_database",
+            "sourced_secondary",
+            "expert_inference",
+            "conflicting",
+            "synthetic_fallback",
+            "unknown"
+          ]
+        },
+        "suitable_establishment_methods": {
+          "enum": [
+            "sourced_primary",
+            "sourced_official_database",
+            "sourced_secondary",
+            "expert_inference",
+            "conflicting",
+            "synthetic_fallback",
+            "unknown"
+          ]
+        },
+        "spacing_min_m": {
+          "enum": [
+            "sourced_primary",
+            "sourced_official_database",
+            "sourced_secondary",
+            "expert_inference",
+            "conflicting",
+            "synthetic_fallback",
+            "unknown"
+          ]
+        },
+        "spacing_max_m": {
+          "enum": [
+            "sourced_primary",
+            "sourced_official_database",
+            "sourced_secondary",
+            "expert_inference",
+            "conflicting",
+            "synthetic_fallback",
+            "unknown"
+          ]
+        },
+        "spacing_context": {
+          "enum": [
+            "sourced_primary",
+            "sourced_official_database",
+            "sourced_secondary",
+            "expert_inference",
+            "conflicting",
+            "synthetic_fallback",
+            "unknown"
+          ]
+        },
+        "density_min_per_m2": {
+          "enum": [
+            "sourced_primary",
+            "sourced_official_database",
+            "sourced_secondary",
+            "expert_inference",
+            "conflicting",
+            "synthetic_fallback",
+            "unknown"
+          ]
+        },
+        "density_max_per_m2": {
+          "enum": [
+            "sourced_primary",
+            "sourced_official_database",
+            "sourced_secondary",
+            "expert_inference",
+            "conflicting",
+            "synthetic_fallback",
+            "unknown"
+          ]
+        },
+        "density_context": {
+          "enum": [
+            "sourced_primary",
+            "sourced_official_database",
+            "sourced_secondary",
+            "expert_inference",
+            "conflicting",
+            "synthetic_fallback",
+            "unknown"
+          ]
+        },
+        "establishment_watering": {
+          "enum": [
+            "sourced_primary",
+            "sourced_official_database",
+            "sourced_secondary",
+            "expert_inference",
+            "conflicting",
+            "synthetic_fallback",
+            "unknown"
+          ]
+        },
+        "establishment_notes": {
+          "enum": [
+            "sourced_primary",
+            "sourced_official_database",
+            "sourced_secondary",
+            "expert_inference",
+            "conflicting",
+            "synthetic_fallback",
+            "unknown"
+          ]
+        },
+        "mowing_or_cutback_regime": {
+          "enum": [
+            "sourced_primary",
+            "sourced_official_database",
+            "sourced_secondary",
+            "expert_inference",
+            "conflicting",
+            "synthetic_fallback",
+            "unknown"
+          ]
+        },
+        "maintenance_demand": {
+          "enum": [
+            "sourced_primary",
+            "sourced_official_database",
+            "sourced_secondary",
+            "expert_inference",
+            "conflicting",
+            "synthetic_fallback",
+            "unknown"
+          ]
+        },
+        "maintenance_notes": {
+          "enum": [
+            "sourced_primary",
+            "sourced_official_database",
+            "sourced_secondary",
+            "expert_inference",
+            "conflicting",
+            "synthetic_fallback",
+            "unknown"
+          ]
+        },
+        "management_warnings": {
+          "enum": [
+            "sourced_primary",
+            "sourced_official_database",
+            "sourced_secondary",
+            "expert_inference",
+            "conflicting",
+            "synthetic_fallback",
+            "unknown"
+          ]
+        },
+        "seed_or_plant_source_notes": {
+          "enum": [
+            "sourced_primary",
+            "sourced_official_database",
+            "sourced_secondary",
+            "expert_inference",
+            "conflicting",
+            "synthetic_fallback",
+            "unknown"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "field_claim_ids_json": {
+      "type": "object"
+    },
+    "field_gap_ids_json": {
+      "type": "object"
+    },
+    "demo_fallback_values_json": {
+      "type": "object"
+    }
+  },
+  "additionalProperties": false
+}

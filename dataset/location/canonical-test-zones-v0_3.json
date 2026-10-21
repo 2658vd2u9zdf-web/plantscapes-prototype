@@ -1,0 +1,1265 @@
+{
+  "version": "0.3.0",
+  "generated": "2026-10-13",
+  "fixture_statement": "All three zones and project contexts are synthetic test fixtures, not real locations.",
+  "zone_count": 3,
+  "zones": [
+    {
+      "site_id": "site_canonical_fixtures",
+      "zone_id": "dry_sunny_sand",
+      "zone_name": "Dry sunny sandy zone",
+      "fixture_kind": "canonical",
+      "boundary_or_polygon_reference": null,
+      "zone_geometry_or_reference": null,
+      "field_evidence": {
+        "soil": {
+          "real_value": null,
+          "operational_value": "sand",
+          "operational_value_origin": "synthetic_fallback",
+          "operational_value_confidence": 0.3,
+          "source_or_derivation_note": "Broad pilot substrate class; requires a zone soil observation, test or intersected soil evidence.",
+          "source_ledger_reference": "DERIVATION-DEMO-001",
+          "spatial_scope": "synthetic canonical test fixture",
+          "temporal_scope": "not observed; fixture generated 2026-10-13",
+          "verification_status": "requires_user_confirmation"
+        },
+        "moisture": {
+          "real_value": null,
+          "operational_value": "dry",
+          "operational_value_origin": "synthetic_fallback",
+          "operational_value_confidence": 0.3,
+          "source_or_derivation_note": "Broad pilot moisture class; not a measurement and requires seasonal site confirmation.",
+          "source_ledger_reference": "DERIVATION-DEMO-001",
+          "spatial_scope": "synthetic canonical test fixture",
+          "temporal_scope": "not observed; fixture generated 2026-10-13",
+          "verification_status": "requires_user_confirmation"
+        },
+        "hydrology": {
+          "real_value": null,
+          "operational_value": "none",
+          "operational_value_origin": "synthetic_fallback",
+          "operational_value_confidence": 0.3,
+          "source_or_derivation_note": "Broad pilot hydroperiod class; no depth, duration or groundwater measurement is claimed.",
+          "source_ledger_reference": "DERIVATION-DEMO-001",
+          "spatial_scope": "synthetic canonical test fixture",
+          "temporal_scope": "not observed; fixture generated 2026-10-13",
+          "verification_status": "requires_user_confirmation"
+        },
+        "light": {
+          "real_value": null,
+          "operational_value": "sun",
+          "operational_value_origin": "synthetic_fallback",
+          "operational_value_confidence": 0.3,
+          "source_or_derivation_note": "Broad pilot exposure class; requires user observation or a geometry/time-specific study.",
+          "source_ledger_reference": "DERIVATION-DEMO-001",
+          "spatial_scope": "synthetic canonical test fixture",
+          "temporal_scope": "not observed; fixture generated 2026-10-13",
+          "verification_status": "requires_user_confirmation"
+        },
+        "canopy": {
+          "real_value": null,
+          "operational_value": "no",
+          "operational_value_origin": "synthetic_fallback",
+          "operational_value_confidence": 0.3,
+          "source_or_derivation_note": "Context only. It explains light and is deliberately not scored a second time.",
+          "source_ledger_reference": "DERIVATION-DEMO-001",
+          "spatial_scope": "synthetic canonical test fixture",
+          "temporal_scope": "not observed; fixture generated 2026-10-13",
+          "verification_status": "requires_user_confirmation"
+        },
+        "disturbance": {
+          "real_value": null,
+          "operational_value": "low",
+          "operational_value_origin": "synthetic_fallback",
+          "operational_value_confidence": 0.3,
+          "source_or_derivation_note": "Broad demonstration disturbance class; traffic proximity alone is not a measured stress response.",
+          "source_ledger_reference": "DERIVATION-DEMO-001",
+          "spatial_scope": "synthetic canonical test fixture",
+          "temporal_scope": "not observed; fixture generated 2026-10-13",
+          "verification_status": "requires_user_confirmation"
+        },
+        "hardscape": {
+          "real_value": null,
+          "operational_value": "no",
+          "operational_value_origin": "synthetic_fallback",
+          "operational_value_confidence": 0.3,
+          "source_or_derivation_note": "Demonstration adjacency flag; requires mapped zone geometry and feature intersection.",
+          "source_ledger_reference": "DERIVATION-DEMO-001",
+          "spatial_scope": "synthetic canonical test fixture",
+          "temporal_scope": "not observed; fixture generated 2026-10-13",
+          "verification_status": "requires_user_confirmation"
+        },
+        "waterEdge": {
+          "real_value": null,
+          "operational_value": "no",
+          "operational_value_origin": "synthetic_fallback",
+          "operational_value_confidence": 0.3,
+          "source_or_derivation_note": "Demonstration edge flag used by the marginal-plant gate; absence is not inferred from map silence.",
+          "source_ledger_reference": "DERIVATION-DEMO-001",
+          "spatial_scope": "synthetic canonical test fixture",
+          "temporal_scope": "not observed; fixture generated 2026-10-13",
+          "verification_status": "requires_user_confirmation"
+        },
+        "source": {
+          "real_value": null,
+          "operational_value": "demo",
+          "operational_value_origin": "synthetic_fallback",
+          "operational_value_confidence": 0.3,
+          "source_or_derivation_note": "The authoritative scorer value is demo because all matching inputs in this fixture are synthetic.",
+          "source_ledger_reference": "DERIVATION-DEMO-001",
+          "spatial_scope": "synthetic canonical test fixture",
+          "temporal_scope": "not observed; fixture generated 2026-10-13",
+          "verification_status": "requires_user_confirmation"
+        },
+        "path_edge": {
+          "real_value": null,
+          "operational_value": "no",
+          "operational_value_origin": "synthetic_fallback",
+          "operational_value_confidence": 0.3,
+          "source_or_derivation_note": "Demonstration placement context; requires mapped path geometry before real use.",
+          "source_ledger_reference": "DERIVATION-DEMO-001",
+          "spatial_scope": "synthetic canonical test fixture",
+          "temporal_scope": "not observed; fixture generated 2026-10-13",
+          "verification_status": "requires_user_confirmation"
+        },
+        "available_width_m": {
+          "real_value": null,
+          "operational_value": 20.0,
+          "operational_value_origin": "synthetic_fallback",
+          "operational_value_confidence": 0.3,
+          "source_or_derivation_note": "Plausible clear-width fixture, not a measurement of the named location.",
+          "source_ledger_reference": "DERIVATION-DEMO-001",
+          "spatial_scope": "synthetic canonical test fixture",
+          "temporal_scope": "not observed; fixture generated 2026-10-13",
+          "verification_status": "requires_user_confirmation"
+        },
+        "available_length_m": {
+          "real_value": null,
+          "operational_value": 15.0,
+          "operational_value_origin": "synthetic_fallback",
+          "operational_value_confidence": 0.3,
+          "source_or_derivation_note": "Plausible clear-length fixture, not a measurement of the named location.",
+          "source_ledger_reference": "DERIVATION-DEMO-001",
+          "spatial_scope": "synthetic canonical test fixture",
+          "temporal_scope": "not observed; fixture generated 2026-10-13",
+          "verification_status": "requires_user_confirmation"
+        },
+        "plantable_area_m2": {
+          "real_value": null,
+          "operational_value": 300.0,
+          "operational_value_origin": "synthetic_fallback",
+          "operational_value_confidence": 0.3,
+          "source_or_derivation_note": "Plausible usable-area fixture, not parcel or city area.",
+          "source_ledger_reference": "DERIVATION-DEMO-001",
+          "spatial_scope": "synthetic canonical test fixture",
+          "temporal_scope": "not observed; fixture generated 2026-10-13",
+          "verification_status": "requires_user_confirmation"
+        },
+        "max_plant_height_m": {
+          "real_value": null,
+          "operational_value": 3.0,
+          "operational_value_origin": "synthetic_fallback",
+          "operational_value_confidence": 0.3,
+          "source_or_derivation_note": "Demonstration visibility envelope; a project decision, not a mapped fact.",
+          "source_ledger_reference": "DERIVATION-DEMO-001",
+          "spatial_scope": "synthetic canonical test fixture",
+          "temporal_scope": "not observed; fixture generated 2026-10-13",
+          "verification_status": "requires_user_confirmation"
+        },
+        "support_length_m": {
+          "real_value": null,
+          "operational_value": 10.0,
+          "operational_value_origin": "synthetic_fallback",
+          "operational_value_confidence": 0.3,
+          "source_or_derivation_note": "Demonstration usable support length; requires mapped support geometry.",
+          "source_ledger_reference": "DERIVATION-DEMO-001",
+          "spatial_scope": "synthetic canonical test fixture",
+          "temporal_scope": "not observed; fixture generated 2026-10-13",
+          "verification_status": "requires_user_confirmation"
+        }
+      },
+      "project_context_evidence": {
+        "type": {
+          "real_value": null,
+          "operational_value": "landscape",
+          "operational_value_origin": "synthetic_fallback",
+          "operational_value_confidence": 0.3,
+          "source_or_derivation_note": "Explicit test-fixture project type; never inferred from maps.",
+          "source_ledger_reference": "DERIVATION-DEMO-001",
+          "spatial_scope": "synthetic canonical test fixture",
+          "temporal_scope": "not observed; fixture generated 2026-10-13",
+          "verification_status": "requires_user_confirmation"
+        },
+        "maintenance": {
+          "real_value": null,
+          "operational_value": "moderate",
+          "operational_value_origin": "synthetic_fallback",
+          "operational_value_confidence": 0.3,
+          "source_or_derivation_note": "Explicit test-fixture maintenance capacity; must be supplied by the project team.",
+          "source_ledger_reference": "DERIVATION-DEMO-001",
+          "spatial_scope": "synthetic canonical test fixture",
+          "temporal_scope": "not observed; fixture generated 2026-10-13",
+          "verification_status": "requires_user_confirmation"
+        },
+        "character": {
+          "real_value": null,
+          "operational_value": "mosaic",
+          "operational_value_origin": "synthetic_fallback",
+          "operational_value_confidence": 0.3,
+          "source_or_derivation_note": "Explicit test-fixture spatial character; a design preference, not site evidence.",
+          "source_ledger_reference": "DERIVATION-DEMO-001",
+          "spatial_scope": "synthetic canonical test fixture",
+          "temporal_scope": "not observed; fixture generated 2026-10-13",
+          "verification_status": "requires_user_confirmation"
+        },
+        "vigourControl": {
+          "real_value": null,
+          "operational_value": "no",
+          "operational_value_origin": "synthetic_fallback",
+          "operational_value_confidence": 0.3,
+          "source_or_derivation_note": "Explicit test-fixture containment commitment; not inferred from maintenance capacity.",
+          "source_ledger_reference": "DERIVATION-DEMO-001",
+          "spatial_scope": "synthetic canonical test fixture",
+          "temporal_scope": "not observed; fixture generated 2026-10-13",
+          "verification_status": "requires_user_confirmation"
+        },
+        "evaluation_stage": {
+          "real_value": null,
+          "operational_value": "placement",
+          "operational_value_origin": "synthetic_fallback",
+          "operational_value_confidence": 0.3,
+          "source_or_derivation_note": "The fixture runs placement-stage hard gates.",
+          "source_ledger_reference": "DERIVATION-DEMO-001",
+          "spatial_scope": "synthetic canonical test fixture",
+          "temporal_scope": "not observed; fixture generated 2026-10-13",
+          "verification_status": "requires_user_confirmation"
+        },
+        "publicAccess": {
+          "real_value": null,
+          "operational_value": true,
+          "operational_value_origin": "synthetic_fallback",
+          "operational_value_confidence": 0.3,
+          "source_or_derivation_note": "Explicit test-fixture policy; never inferred from public-space mapping.",
+          "source_ledger_reference": "DERIVATION-DEMO-001",
+          "spatial_scope": "synthetic canonical test fixture",
+          "temporal_scope": "not observed; fixture generated 2026-10-13",
+          "verification_status": "requires_user_confirmation"
+        },
+        "publicHarvest": {
+          "real_value": null,
+          "operational_value": false,
+          "operational_value_origin": "synthetic_fallback",
+          "operational_value_confidence": 0.3,
+          "source_or_derivation_note": "Explicit test-fixture policy; never inferred from project type.",
+          "source_ledger_reference": "DERIVATION-DEMO-001",
+          "spatial_scope": "synthetic canonical test fixture",
+          "temporal_scope": "not observed; fixture generated 2026-10-13",
+          "verification_status": "requires_user_confirmation"
+        },
+        "sightlines": {
+          "real_value": null,
+          "operational_value": false,
+          "operational_value_origin": "synthetic_fallback",
+          "operational_value_confidence": 0.3,
+          "source_or_derivation_note": "Explicit test-fixture policy; mapped path geometry is still needed for real use.",
+          "source_ledger_reference": "DERIVATION-DEMO-001",
+          "spatial_scope": "synthetic canonical test fixture",
+          "temporal_scope": "not observed; fixture generated 2026-10-13",
+          "verification_status": "requires_user_confirmation"
+        },
+        "rewilding": {
+          "real_value": null,
+          "operational_value": false,
+          "operational_value_origin": "synthetic_fallback",
+          "operational_value_confidence": 0.3,
+          "source_or_derivation_note": "Explicit test-fixture native-only policy; never inferred from ecology or maps.",
+          "source_ledger_reference": "DERIVATION-DEMO-001",
+          "spatial_scope": "synthetic canonical test fixture",
+          "temporal_scope": "not observed; fixture generated 2026-10-13",
+          "verification_status": "requires_user_confirmation"
+        },
+        "support": {
+          "real_value": null,
+          "operational_value": true,
+          "operational_value_origin": "synthetic_fallback",
+          "operational_value_confidence": 0.3,
+          "source_or_derivation_note": "Explicit test-fixture support availability; requires user confirmation and mapped support for real use.",
+          "source_ledger_reference": "DERIVATION-DEMO-001",
+          "spatial_scope": "synthetic canonical test fixture",
+          "temporal_scope": "not observed; fixture generated 2026-10-13",
+          "verification_status": "requires_user_confirmation"
+        },
+        "restorationOrnamentals": {
+          "real_value": null,
+          "operational_value": false,
+          "operational_value_origin": "synthetic_fallback",
+          "operational_value_confidence": 0.3,
+          "source_or_derivation_note": "Explicit test-fixture restoration exception policy.",
+          "source_ledger_reference": "DERIVATION-DEMO-001",
+          "spatial_scope": "synthetic canonical test fixture",
+          "temporal_scope": "not observed; fixture generated 2026-10-13",
+          "verification_status": "requires_user_confirmation"
+        },
+        "area": {
+          "real_value": null,
+          "operational_value": 1000,
+          "operational_value_origin": "synthetic_fallback",
+          "operational_value_confidence": 0.3,
+          "source_or_derivation_note": "Demonstration project-area envelope; not a cadastral or surveyed area.",
+          "source_ledger_reference": "DERIVATION-DEMO-001",
+          "spatial_scope": "synthetic canonical test fixture",
+          "temporal_scope": "not observed; fixture generated 2026-10-13",
+          "verification_status": "requires_user_confirmation"
+        },
+        "anchorColours": {
+          "real_value": null,
+          "operational_value": [
+            "purple",
+            "yellow"
+          ],
+          "operational_value_origin": "synthetic_fallback",
+          "operational_value_confidence": 0.3,
+          "source_or_derivation_note": "Optional demonstration design preference; never overrides a gate.",
+          "source_ledger_reference": "DERIVATION-DEMO-001",
+          "spatial_scope": "synthetic canonical test fixture",
+          "temporal_scope": "not observed; fixture generated 2026-10-13",
+          "verification_status": "requires_user_confirmation"
+        },
+        "desiredFlowerMonths": {
+          "real_value": null,
+          "operational_value": [
+            6,
+            7,
+            8
+          ],
+          "operational_value_origin": "synthetic_fallback",
+          "operational_value_confidence": 0.3,
+          "source_or_derivation_note": "Optional demonstration design preference; never supplies suitability points.",
+          "source_ledger_reference": "DERIVATION-DEMO-001",
+          "spatial_scope": "synthetic canonical test fixture",
+          "temporal_scope": "not observed; fixture generated 2026-10-13",
+          "verification_status": "requires_user_confirmation"
+        },
+        "priorities": {
+          "real_value": null,
+          "operational_value": [
+            "pollinators"
+          ],
+          "operational_value_origin": "synthetic_fallback",
+          "operational_value_confidence": 0.3,
+          "source_or_derivation_note": "Optional demonstration output preference; never overrides a gate.",
+          "source_ledger_reference": "DERIVATION-DEMO-001",
+          "spatial_scope": "synthetic canonical test fixture",
+          "temporal_scope": "not observed; fixture generated 2026-10-13",
+          "verification_status": "requires_user_confirmation"
+        }
+      },
+      "evaluation_payload": {
+        "zone": {
+          "zone_id": "dry_sunny_sand",
+          "soil": "sand",
+          "moisture": "dry",
+          "hydrology": "none",
+          "light": "sun",
+          "canopy": "no",
+          "disturbance": "low",
+          "hardscape": "no",
+          "waterEdge": "no",
+          "source": "demo",
+          "path_edge": "no",
+          "available_width_m": 20.0,
+          "available_length_m": 15.0,
+          "plantable_area_m2": 300.0,
+          "max_plant_height_m": 3.0,
+          "support_length_m": 10.0
+        },
+        "project": {
+          "type": "landscape",
+          "maintenance": "moderate",
+          "character": "mosaic",
+          "vigourControl": "no",
+          "evaluation_stage": "placement",
+          "publicAccess": true,
+          "publicHarvest": false,
+          "sightlines": false,
+          "rewilding": false,
+          "support": true,
+          "restorationOrnamentals": false,
+          "area": 1000,
+          "anchorColours": [
+            "purple",
+            "yellow"
+          ],
+          "desiredFlowerMonths": [
+            6,
+            7,
+            8
+          ],
+          "priorities": [
+            "pollinators"
+          ]
+        }
+      },
+      "confidence": {
+        "zone_evidence_confidence": 0.3,
+        "component_confidence": {
+          "soil": 0.3,
+          "moisture": 0.3,
+          "hydrology": 0.3,
+          "light": 0.3,
+          "disturbance_hardscape": 0.3,
+          "spatial": 0.3,
+          "maintenance_vigour": 0.3
+        },
+        "formula": "weighted mean of location/project field confidence, kept separate from compatibility"
+      },
+      "user_corrections": [],
+      "survey_replacements": [],
+      "date_of_observation": null,
+      "stale_data": true,
+      "warnings": [
+        "TEST FIXTURE — not surveyed site conditions.",
+        "Every matching value requires user confirmation, intersecting map evidence, or survey evidence before real use.",
+        "Complete operational values make the pilot scoreable; they do not make the evidence high-confidence."
+      ]
+    },
+    {
+      "site_id": "site_canonical_fixtures",
+      "zone_id": "fresh_clay_mixed",
+      "zone_name": "Fresh-to-moist clay zone with mixed light",
+      "fixture_kind": "canonical",
+      "boundary_or_polygon_reference": null,
+      "zone_geometry_or_reference": null,
+      "field_evidence": {
+        "soil": {
+          "real_value": null,
+          "operational_value": "clay",
+          "operational_value_origin": "synthetic_fallback",
+          "operational_value_confidence": 0.3,
+          "source_or_derivation_note": "Broad pilot substrate class; requires a zone soil observation, test or intersected soil evidence.",
+          "source_ledger_reference": "DERIVATION-DEMO-001",
+          "spatial_scope": "synthetic canonical test fixture",
+          "temporal_scope": "not observed; fixture generated 2026-10-13",
+          "verification_status": "requires_user_confirmation"
+        },
+        "moisture": {
+          "real_value": null,
+          "operational_value": "fresh",
+          "operational_value_origin": "synthetic_fallback",
+          "operational_value_confidence": 0.3,
+          "source_or_derivation_note": "Broad pilot moisture class; not a measurement and requires seasonal site confirmation.",
+          "source_ledger_reference": "DERIVATION-DEMO-001",
+          "spatial_scope": "synthetic canonical test fixture",
+          "temporal_scope": "not observed; fixture generated 2026-10-13",
+          "verification_status": "requires_user_confirmation"
+        },
+        "hydrology": {
+          "real_value": null,
+          "operational_value": "none",
+          "operational_value_origin": "synthetic_fallback",
+          "operational_value_confidence": 0.3,
+          "source_or_derivation_note": "Broad pilot hydroperiod class; no depth, duration or groundwater measurement is claimed.",
+          "source_ledger_reference": "DERIVATION-DEMO-001",
+          "spatial_scope": "synthetic canonical test fixture",
+          "temporal_scope": "not observed; fixture generated 2026-10-13",
+          "verification_status": "requires_user_confirmation"
+        },
+        "light": {
+          "real_value": null,
+          "operational_value": "mixed",
+          "operational_value_origin": "synthetic_fallback",
+          "operational_value_confidence": 0.3,
+          "source_or_derivation_note": "Broad pilot exposure class; requires user observation or a geometry/time-specific study.",
+          "source_ledger_reference": "DERIVATION-DEMO-001",
+          "spatial_scope": "synthetic canonical test fixture",
+          "temporal_scope": "not observed; fixture generated 2026-10-13",
+          "verification_status": "requires_user_confirmation"
+        },
+        "canopy": {
+          "real_value": null,
+          "operational_value": "yes",
+          "operational_value_origin": "synthetic_fallback",
+          "operational_value_confidence": 0.3,
+          "source_or_derivation_note": "Context only. It explains light and is deliberately not scored a second time.",
+          "source_ledger_reference": "DERIVATION-DEMO-001",
+          "spatial_scope": "synthetic canonical test fixture",
+          "temporal_scope": "not observed; fixture generated 2026-10-13",
+          "verification_status": "requires_user_confirmation"
+        },
+        "disturbance": {
+          "real_value": null,
+          "operational_value": "low",
+          "operational_value_origin": "synthetic_fallback",
+          "operational_value_confidence": 0.3,
+          "source_or_derivation_note": "Broad demonstration disturbance class; traffic proximity alone is not a measured stress response.",
+          "source_ledger_reference": "DERIVATION-DEMO-001",
+          "spatial_scope": "synthetic canonical test fixture",
+          "temporal_scope": "not observed; fixture generated 2026-10-13",
+          "verification_status": "requires_user_confirmation"
+        },
+        "hardscape": {
+          "real_value": null,
+          "operational_value": "no",
+          "operational_value_origin": "synthetic_fallback",
+          "operational_value_confidence": 0.3,
+          "source_or_derivation_note": "Demonstration adjacency flag; requires mapped zone geometry and feature intersection.",
+          "source_ledger_reference": "DERIVATION-DEMO-001",
+          "spatial_scope": "synthetic canonical test fixture",
+          "temporal_scope": "not observed; fixture generated 2026-10-13",
+          "verification_status": "requires_user_confirmation"
+        },
+        "waterEdge": {
+          "real_value": null,
+          "operational_value": "no",
+          "operational_value_origin": "synthetic_fallback",
+          "operational_value_confidence": 0.3,
+          "source_or_derivation_note": "Demonstration edge flag used by the marginal-plant gate; absence is not inferred from map silence.",
+          "source_ledger_reference": "DERIVATION-DEMO-001",
+          "spatial_scope": "synthetic canonical test fixture",
+          "temporal_scope": "not observed; fixture generated 2026-10-13",
+          "verification_status": "requires_user_confirmation"
+        },
+        "source": {
+          "real_value": null,
+          "operational_value": "demo",
+          "operational_value_origin": "synthetic_fallback",
+          "operational_value_confidence": 0.3,
+          "source_or_derivation_note": "The authoritative scorer value is demo because all matching inputs in this fixture are synthetic.",
+          "source_ledger_reference": "DERIVATION-DEMO-001",
+          "spatial_scope": "synthetic canonical test fixture",
+          "temporal_scope": "not observed; fixture generated 2026-10-13",
+          "verification_status": "requires_user_confirmation"
+        },
+        "path_edge": {
+          "real_value": null,
+          "operational_value": "no",
+          "operational_value_origin": "synthetic_fallback",
+          "operational_value_confidence": 0.3,
+          "source_or_derivation_note": "Demonstration placement context; requires mapped path geometry before real use.",
+          "source_ledger_reference": "DERIVATION-DEMO-001",
+          "spatial_scope": "synthetic canonical test fixture",
+          "temporal_scope": "not observed; fixture generated 2026-10-13",
+          "verification_status": "requires_user_confirmation"
+        },
+        "available_width_m": {
+          "real_value": null,
+          "operational_value": 20.0,
+          "operational_value_origin": "synthetic_fallback",
+          "operational_value_confidence": 0.3,
+          "source_or_derivation_note": "Plausible clear-width fixture, not a measurement of the named location.",
+          "source_ledger_reference": "DERIVATION-DEMO-001",
+          "spatial_scope": "synthetic canonical test fixture",
+          "temporal_scope": "not observed; fixture generated 2026-10-13",
+          "verification_status": "requires_user_confirmation"
+        },
+        "available_length_m": {
+          "real_value": null,
+          "operational_value": 20.0,
+          "operational_value_origin": "synthetic_fallback",
+          "operational_value_confidence": 0.3,
+          "source_or_derivation_note": "Plausible clear-length fixture, not a measurement of the named location.",
+          "source_ledger_reference": "DERIVATION-DEMO-001",
+          "spatial_scope": "synthetic canonical test fixture",
+          "temporal_scope": "not observed; fixture generated 2026-10-13",
+          "verification_status": "requires_user_confirmation"
+        },
+        "plantable_area_m2": {
+          "real_value": null,
+          "operational_value": 400.0,
+          "operational_value_origin": "synthetic_fallback",
+          "operational_value_confidence": 0.3,
+          "source_or_derivation_note": "Plausible usable-area fixture, not parcel or city area.",
+          "source_ledger_reference": "DERIVATION-DEMO-001",
+          "spatial_scope": "synthetic canonical test fixture",
+          "temporal_scope": "not observed; fixture generated 2026-10-13",
+          "verification_status": "requires_user_confirmation"
+        },
+        "max_plant_height_m": {
+          "real_value": null,
+          "operational_value": 3.0,
+          "operational_value_origin": "synthetic_fallback",
+          "operational_value_confidence": 0.3,
+          "source_or_derivation_note": "Demonstration visibility envelope; a project decision, not a mapped fact.",
+          "source_ledger_reference": "DERIVATION-DEMO-001",
+          "spatial_scope": "synthetic canonical test fixture",
+          "temporal_scope": "not observed; fixture generated 2026-10-13",
+          "verification_status": "requires_user_confirmation"
+        },
+        "support_length_m": {
+          "real_value": null,
+          "operational_value": 10.0,
+          "operational_value_origin": "synthetic_fallback",
+          "operational_value_confidence": 0.3,
+          "source_or_derivation_note": "Demonstration usable support length; requires mapped support geometry.",
+          "source_ledger_reference": "DERIVATION-DEMO-001",
+          "spatial_scope": "synthetic canonical test fixture",
+          "temporal_scope": "not observed; fixture generated 2026-10-13",
+          "verification_status": "requires_user_confirmation"
+        }
+      },
+      "project_context_evidence": {
+        "type": {
+          "real_value": null,
+          "operational_value": "landscape",
+          "operational_value_origin": "synthetic_fallback",
+          "operational_value_confidence": 0.3,
+          "source_or_derivation_note": "Explicit test-fixture project type; never inferred from maps.",
+          "source_ledger_reference": "DERIVATION-DEMO-001",
+          "spatial_scope": "synthetic canonical test fixture",
+          "temporal_scope": "not observed; fixture generated 2026-10-13",
+          "verification_status": "requires_user_confirmation"
+        },
+        "maintenance": {
+          "real_value": null,
+          "operational_value": "moderate",
+          "operational_value_origin": "synthetic_fallback",
+          "operational_value_confidence": 0.3,
+          "source_or_derivation_note": "Explicit test-fixture maintenance capacity; must be supplied by the project team.",
+          "source_ledger_reference": "DERIVATION-DEMO-001",
+          "spatial_scope": "synthetic canonical test fixture",
+          "temporal_scope": "not observed; fixture generated 2026-10-13",
+          "verification_status": "requires_user_confirmation"
+        },
+        "character": {
+          "real_value": null,
+          "operational_value": "mosaic",
+          "operational_value_origin": "synthetic_fallback",
+          "operational_value_confidence": 0.3,
+          "source_or_derivation_note": "Explicit test-fixture spatial character; a design preference, not site evidence.",
+          "source_ledger_reference": "DERIVATION-DEMO-001",
+          "spatial_scope": "synthetic canonical test fixture",
+          "temporal_scope": "not observed; fixture generated 2026-10-13",
+          "verification_status": "requires_user_confirmation"
+        },
+        "vigourControl": {
+          "real_value": null,
+          "operational_value": "no",
+          "operational_value_origin": "synthetic_fallback",
+          "operational_value_confidence": 0.3,
+          "source_or_derivation_note": "Explicit test-fixture containment commitment; not inferred from maintenance capacity.",
+          "source_ledger_reference": "DERIVATION-DEMO-001",
+          "spatial_scope": "synthetic canonical test fixture",
+          "temporal_scope": "not observed; fixture generated 2026-10-13",
+          "verification_status": "requires_user_confirmation"
+        },
+        "evaluation_stage": {
+          "real_value": null,
+          "operational_value": "placement",
+          "operational_value_origin": "synthetic_fallback",
+          "operational_value_confidence": 0.3,
+          "source_or_derivation_note": "The fixture runs placement-stage hard gates.",
+          "source_ledger_reference": "DERIVATION-DEMO-001",
+          "spatial_scope": "synthetic canonical test fixture",
+          "temporal_scope": "not observed; fixture generated 2026-10-13",
+          "verification_status": "requires_user_confirmation"
+        },
+        "publicAccess": {
+          "real_value": null,
+          "operational_value": true,
+          "operational_value_origin": "synthetic_fallback",
+          "operational_value_confidence": 0.3,
+          "source_or_derivation_note": "Explicit test-fixture policy; never inferred from public-space mapping.",
+          "source_ledger_reference": "DERIVATION-DEMO-001",
+          "spatial_scope": "synthetic canonical test fixture",
+          "temporal_scope": "not observed; fixture generated 2026-10-13",
+          "verification_status": "requires_user_confirmation"
+        },
+        "publicHarvest": {
+          "real_value": null,
+          "operational_value": false,
+          "operational_value_origin": "synthetic_fallback",
+          "operational_value_confidence": 0.3,
+          "source_or_derivation_note": "Explicit test-fixture policy; never inferred from project type.",
+          "source_ledger_reference": "DERIVATION-DEMO-001",
+          "spatial_scope": "synthetic canonical test fixture",
+          "temporal_scope": "not observed; fixture generated 2026-10-13",
+          "verification_status": "requires_user_confirmation"
+        },
+        "sightlines": {
+          "real_value": null,
+          "operational_value": false,
+          "operational_value_origin": "synthetic_fallback",
+          "operational_value_confidence": 0.3,
+          "source_or_derivation_note": "Explicit test-fixture policy; mapped path geometry is still needed for real use.",
+          "source_ledger_reference": "DERIVATION-DEMO-001",
+          "spatial_scope": "synthetic canonical test fixture",
+          "temporal_scope": "not observed; fixture generated 2026-10-13",
+          "verification_status": "requires_user_confirmation"
+        },
+        "rewilding": {
+          "real_value": null,
+          "operational_value": false,
+          "operational_value_origin": "synthetic_fallback",
+          "operational_value_confidence": 0.3,
+          "source_or_derivation_note": "Explicit test-fixture native-only policy; never inferred from ecology or maps.",
+          "source_ledger_reference": "DERIVATION-DEMO-001",
+          "spatial_scope": "synthetic canonical test fixture",
+          "temporal_scope": "not observed; fixture generated 2026-10-13",
+          "verification_status": "requires_user_confirmation"
+        },
+        "support": {
+          "real_value": null,
+          "operational_value": true,
+          "operational_value_origin": "synthetic_fallback",
+          "operational_value_confidence": 0.3,
+          "source_or_derivation_note": "Explicit test-fixture support availability; requires user confirmation and mapped support for real use.",
+          "source_ledger_reference": "DERIVATION-DEMO-001",
+          "spatial_scope": "synthetic canonical test fixture",
+          "temporal_scope": "not observed; fixture generated 2026-10-13",
+          "verification_status": "requires_user_confirmation"
+        },
+        "restorationOrnamentals": {
+          "real_value": null,
+          "operational_value": false,
+          "operational_value_origin": "synthetic_fallback",
+          "operational_value_confidence": 0.3,
+          "source_or_derivation_note": "Explicit test-fixture restoration exception policy.",
+          "source_ledger_reference": "DERIVATION-DEMO-001",
+          "spatial_scope": "synthetic canonical test fixture",
+          "temporal_scope": "not observed; fixture generated 2026-10-13",
+          "verification_status": "requires_user_confirmation"
+        },
+        "area": {
+          "real_value": null,
+          "operational_value": 1000,
+          "operational_value_origin": "synthetic_fallback",
+          "operational_value_confidence": 0.3,
+          "source_or_derivation_note": "Demonstration project-area envelope; not a cadastral or surveyed area.",
+          "source_ledger_reference": "DERIVATION-DEMO-001",
+          "spatial_scope": "synthetic canonical test fixture",
+          "temporal_scope": "not observed; fixture generated 2026-10-13",
+          "verification_status": "requires_user_confirmation"
+        },
+        "anchorColours": {
+          "real_value": null,
+          "operational_value": [
+            "purple",
+            "yellow"
+          ],
+          "operational_value_origin": "synthetic_fallback",
+          "operational_value_confidence": 0.3,
+          "source_or_derivation_note": "Optional demonstration design preference; never overrides a gate.",
+          "source_ledger_reference": "DERIVATION-DEMO-001",
+          "spatial_scope": "synthetic canonical test fixture",
+          "temporal_scope": "not observed; fixture generated 2026-10-13",
+          "verification_status": "requires_user_confirmation"
+        },
+        "desiredFlowerMonths": {
+          "real_value": null,
+          "operational_value": [
+            6,
+            7,
+            8
+          ],
+          "operational_value_origin": "synthetic_fallback",
+          "operational_value_confidence": 0.3,
+          "source_or_derivation_note": "Optional demonstration design preference; never supplies suitability points.",
+          "source_ledger_reference": "DERIVATION-DEMO-001",
+          "spatial_scope": "synthetic canonical test fixture",
+          "temporal_scope": "not observed; fixture generated 2026-10-13",
+          "verification_status": "requires_user_confirmation"
+        },
+        "priorities": {
+          "real_value": null,
+          "operational_value": [
+            "pollinators"
+          ],
+          "operational_value_origin": "synthetic_fallback",
+          "operational_value_confidence": 0.3,
+          "source_or_derivation_note": "Optional demonstration output preference; never overrides a gate.",
+          "source_ledger_reference": "DERIVATION-DEMO-001",
+          "spatial_scope": "synthetic canonical test fixture",
+          "temporal_scope": "not observed; fixture generated 2026-10-13",
+          "verification_status": "requires_user_confirmation"
+        }
+      },
+      "evaluation_payload": {
+        "zone": {
+          "zone_id": "fresh_clay_mixed",
+          "soil": "clay",
+          "moisture": "fresh",
+          "hydrology": "none",
+          "light": "mixed",
+          "canopy": "yes",
+          "disturbance": "low",
+          "hardscape": "no",
+          "waterEdge": "no",
+          "source": "demo",
+          "path_edge": "no",
+          "available_width_m": 20.0,
+          "available_length_m": 20.0,
+          "plantable_area_m2": 400.0,
+          "max_plant_height_m": 3.0,
+          "support_length_m": 10.0
+        },
+        "project": {
+          "type": "landscape",
+          "maintenance": "moderate",
+          "character": "mosaic",
+          "vigourControl": "no",
+          "evaluation_stage": "placement",
+          "publicAccess": true,
+          "publicHarvest": false,
+          "sightlines": false,
+          "rewilding": false,
+          "support": true,
+          "restorationOrnamentals": false,
+          "area": 1000,
+          "anchorColours": [
+            "purple",
+            "yellow"
+          ],
+          "desiredFlowerMonths": [
+            6,
+            7,
+            8
+          ],
+          "priorities": [
+            "pollinators"
+          ]
+        }
+      },
+      "confidence": {
+        "zone_evidence_confidence": 0.3,
+        "component_confidence": {
+          "soil": 0.3,
+          "moisture": 0.3,
+          "hydrology": 0.3,
+          "light": 0.3,
+          "disturbance_hardscape": 0.3,
+          "spatial": 0.3,
+          "maintenance_vigour": 0.3
+        },
+        "formula": "weighted mean of location/project field confidence, kept separate from compatibility"
+      },
+      "user_corrections": [],
+      "survey_replacements": [],
+      "date_of_observation": null,
+      "stale_data": true,
+      "warnings": [
+        "TEST FIXTURE — not surveyed site conditions.",
+        "Every matching value requires user confirmation, intersecting map evidence, or survey evidence before real use.",
+        "Complete operational values make the pilot scoreable; they do not make the evidence high-confidence."
+      ]
+    },
+    {
+      "site_id": "site_canonical_fixtures",
+      "zone_id": "wet_water_edge",
+      "zone_name": "Wet water-edge zone",
+      "fixture_kind": "canonical",
+      "boundary_or_polygon_reference": null,
+      "zone_geometry_or_reference": null,
+      "field_evidence": {
+        "soil": {
+          "real_value": null,
+          "operational_value": "peat",
+          "operational_value_origin": "synthetic_fallback",
+          "operational_value_confidence": 0.3,
+          "source_or_derivation_note": "Broad pilot substrate class; requires a zone soil observation, test or intersected soil evidence.",
+          "source_ledger_reference": "DERIVATION-DEMO-001",
+          "spatial_scope": "synthetic canonical test fixture",
+          "temporal_scope": "not observed; fixture generated 2026-10-13",
+          "verification_status": "requires_user_confirmation"
+        },
+        "moisture": {
+          "real_value": null,
+          "operational_value": "wet",
+          "operational_value_origin": "synthetic_fallback",
+          "operational_value_confidence": 0.3,
+          "source_or_derivation_note": "Broad pilot moisture class; not a measurement and requires seasonal site confirmation.",
+          "source_ledger_reference": "DERIVATION-DEMO-001",
+          "spatial_scope": "synthetic canonical test fixture",
+          "temporal_scope": "not observed; fixture generated 2026-10-13",
+          "verification_status": "requires_user_confirmation"
+        },
+        "hydrology": {
+          "real_value": null,
+          "operational_value": "permanent",
+          "operational_value_origin": "synthetic_fallback",
+          "operational_value_confidence": 0.3,
+          "source_or_derivation_note": "Broad pilot hydroperiod class; no depth, duration or groundwater measurement is claimed.",
+          "source_ledger_reference": "DERIVATION-DEMO-001",
+          "spatial_scope": "synthetic canonical test fixture",
+          "temporal_scope": "not observed; fixture generated 2026-10-13",
+          "verification_status": "requires_user_confirmation"
+        },
+        "light": {
+          "real_value": null,
+          "operational_value": "sun",
+          "operational_value_origin": "synthetic_fallback",
+          "operational_value_confidence": 0.3,
+          "source_or_derivation_note": "Broad pilot exposure class; requires user observation or a geometry/time-specific study.",
+          "source_ledger_reference": "DERIVATION-DEMO-001",
+          "spatial_scope": "synthetic canonical test fixture",
+          "temporal_scope": "not observed; fixture generated 2026-10-13",
+          "verification_status": "requires_user_confirmation"
+        },
+        "canopy": {
+          "real_value": null,
+          "operational_value": "no",
+          "operational_value_origin": "synthetic_fallback",
+          "operational_value_confidence": 0.3,
+          "source_or_derivation_note": "Context only. It explains light and is deliberately not scored a second time.",
+          "source_ledger_reference": "DERIVATION-DEMO-001",
+          "spatial_scope": "synthetic canonical test fixture",
+          "temporal_scope": "not observed; fixture generated 2026-10-13",
+          "verification_status": "requires_user_confirmation"
+        },
+        "disturbance": {
+          "real_value": null,
+          "operational_value": "low",
+          "operational_value_origin": "synthetic_fallback",
+          "operational_value_confidence": 0.3,
+          "source_or_derivation_note": "Broad demonstration disturbance class; traffic proximity alone is not a measured stress response.",
+          "source_ledger_reference": "DERIVATION-DEMO-001",
+          "spatial_scope": "synthetic canonical test fixture",
+          "temporal_scope": "not observed; fixture generated 2026-10-13",
+          "verification_status": "requires_user_confirmation"
+        },
+        "hardscape": {
+          "real_value": null,
+          "operational_value": "no",
+          "operational_value_origin": "synthetic_fallback",
+          "operational_value_confidence": 0.3,
+          "source_or_derivation_note": "Demonstration adjacency flag; requires mapped zone geometry and feature intersection.",
+          "source_ledger_reference": "DERIVATION-DEMO-001",
+          "spatial_scope": "synthetic canonical test fixture",
+          "temporal_scope": "not observed; fixture generated 2026-10-13",
+          "verification_status": "requires_user_confirmation"
+        },
+        "waterEdge": {
+          "real_value": null,
+          "operational_value": "yes",
+          "operational_value_origin": "synthetic_fallback",
+          "operational_value_confidence": 0.3,
+          "source_or_derivation_note": "Demonstration edge flag used by the marginal-plant gate; absence is not inferred from map silence.",
+          "source_ledger_reference": "DERIVATION-DEMO-001",
+          "spatial_scope": "synthetic canonical test fixture",
+          "temporal_scope": "not observed; fixture generated 2026-10-13",
+          "verification_status": "requires_user_confirmation"
+        },
+        "source": {
+          "real_value": null,
+          "operational_value": "demo",
+          "operational_value_origin": "synthetic_fallback",
+          "operational_value_confidence": 0.3,
+          "source_or_derivation_note": "The authoritative scorer value is demo because all matching inputs in this fixture are synthetic.",
+          "source_ledger_reference": "DERIVATION-DEMO-001",
+          "spatial_scope": "synthetic canonical test fixture",
+          "temporal_scope": "not observed; fixture generated 2026-10-13",
+          "verification_status": "requires_user_confirmation"
+        },
+        "path_edge": {
+          "real_value": null,
+          "operational_value": "no",
+          "operational_value_origin": "synthetic_fallback",
+          "operational_value_confidence": 0.3,
+          "source_or_derivation_note": "Demonstration placement context; requires mapped path geometry before real use.",
+          "source_ledger_reference": "DERIVATION-DEMO-001",
+          "spatial_scope": "synthetic canonical test fixture",
+          "temporal_scope": "not observed; fixture generated 2026-10-13",
+          "verification_status": "requires_user_confirmation"
+        },
+        "available_width_m": {
+          "real_value": null,
+          "operational_value": 12.0,
+          "operational_value_origin": "synthetic_fallback",
+          "operational_value_confidence": 0.3,
+          "source_or_derivation_note": "Plausible clear-width fixture, not a measurement of the named location.",
+          "source_ledger_reference": "DERIVATION-DEMO-001",
+          "spatial_scope": "synthetic canonical test fixture",
+          "temporal_scope": "not observed; fixture generated 2026-10-13",
+          "verification_status": "requires_user_confirmation"
+        },
+        "available_length_m": {
+          "real_value": null,
+          "operational_value": 8.0,
+          "operational_value_origin": "synthetic_fallback",
+          "operational_value_confidence": 0.3,
+          "source_or_derivation_note": "Plausible clear-length fixture, not a measurement of the named location.",
+          "source_ledger_reference": "DERIVATION-DEMO-001",
+          "spatial_scope": "synthetic canonical test fixture",
+          "temporal_scope": "not observed; fixture generated 2026-10-13",
+          "verification_status": "requires_user_confirmation"
+        },
+        "plantable_area_m2": {
+          "real_value": null,
+          "operational_value": 96.0,
+          "operational_value_origin": "synthetic_fallback",
+          "operational_value_confidence": 0.3,
+          "source_or_derivation_note": "Plausible usable-area fixture, not parcel or city area.",
+          "source_ledger_reference": "DERIVATION-DEMO-001",
+          "spatial_scope": "synthetic canonical test fixture",
+          "temporal_scope": "not observed; fixture generated 2026-10-13",
+          "verification_status": "requires_user_confirmation"
+        },
+        "max_plant_height_m": {
+          "real_value": null,
+          "operational_value": 3.0,
+          "operational_value_origin": "synthetic_fallback",
+          "operational_value_confidence": 0.3,
+          "source_or_derivation_note": "Demonstration visibility envelope; a project decision, not a mapped fact.",
+          "source_ledger_reference": "DERIVATION-DEMO-001",
+          "spatial_scope": "synthetic canonical test fixture",
+          "temporal_scope": "not observed; fixture generated 2026-10-13",
+          "verification_status": "requires_user_confirmation"
+        },
+        "support_length_m": {
+          "real_value": null,
+          "operational_value": 10.0,
+          "operational_value_origin": "synthetic_fallback",
+          "operational_value_confidence": 0.3,
+          "source_or_derivation_note": "Demonstration usable support length; requires mapped support geometry.",
+          "source_ledger_reference": "DERIVATION-DEMO-001",
+          "spatial_scope": "synthetic canonical test fixture",
+          "temporal_scope": "not observed; fixture generated 2026-10-13",
+          "verification_status": "requires_user_confirmation"
+        }
+      },
+      "project_context_evidence": {
+        "type": {
+          "real_value": null,
+          "operational_value": "landscape",
+          "operational_value_origin": "synthetic_fallback",
+          "operational_value_confidence": 0.3,
+          "source_or_derivation_note": "Explicit test-fixture project type; never inferred from maps.",
+          "source_ledger_reference": "DERIVATION-DEMO-001",
+          "spatial_scope": "synthetic canonical test fixture",
+          "temporal_scope": "not observed; fixture generated 2026-10-13",
+          "verification_status": "requires_user_confirmation"
+        },
+        "maintenance": {
+          "real_value": null,
+          "operational_value": "moderate",
+          "operational_value_origin": "synthetic_fallback",
+          "operational_value_confidence": 0.3,
+          "source_or_derivation_note": "Explicit test-fixture maintenance capacity; must be supplied by the project team.",
+          "source_ledger_reference": "DERIVATION-DEMO-001",
+          "spatial_scope": "synthetic canonical test fixture",
+          "temporal_scope": "not observed; fixture generated 2026-10-13",
+          "verification_status": "requires_user_confirmation"
+        },
+        "character": {
+          "real_value": null,
+          "operational_value": "mosaic",
+          "operational_value_origin": "synthetic_fallback",
+          "operational_value_confidence": 0.3,
+          "source_or_derivation_note": "Explicit test-fixture spatial character; a design preference, not site evidence.",
+          "source_ledger_reference": "DERIVATION-DEMO-001",
+          "spatial_scope": "synthetic canonical test fixture",
+          "temporal_scope": "not observed; fixture generated 2026-10-13",
+          "verification_status": "requires_user_confirmation"
+        },
+        "vigourControl": {
+          "real_value": null,
+          "operational_value": "no",
+          "operational_value_origin": "synthetic_fallback",
+          "operational_value_confidence": 0.3,
+          "source_or_derivation_note": "Explicit test-fixture containment commitment; not inferred from maintenance capacity.",
+          "source_ledger_reference": "DERIVATION-DEMO-001",
+          "spatial_scope": "synthetic canonical test fixture",
+          "temporal_scope": "not observed; fixture generated 2026-10-13",
+          "verification_status": "requires_user_confirmation"
+        },
+        "evaluation_stage": {
+          "real_value": null,
+          "operational_value": "placement",
+          "operational_value_origin": "synthetic_fallback",
+          "operational_value_confidence": 0.3,
+          "source_or_derivation_note": "The fixture runs placement-stage hard gates.",
+          "source_ledger_reference": "DERIVATION-DEMO-001",
+          "spatial_scope": "synthetic canonical test fixture",
+          "temporal_scope": "not observed; fixture generated 2026-10-13",
+          "verification_status": "requires_user_confirmation"
+        },
+        "publicAccess": {
+          "real_value": null,
+          "operational_value": true,
+          "operational_value_origin": "synthetic_fallback",
+          "operational_value_confidence": 0.3,
+          "source_or_derivation_note": "Explicit test-fixture policy; never inferred from public-space mapping.",
+          "source_ledger_reference": "DERIVATION-DEMO-001",
+          "spatial_scope": "synthetic canonical test fixture",
+          "temporal_scope": "not observed; fixture generated 2026-10-13",
+          "verification_status": "requires_user_confirmation"
+        },
+        "publicHarvest": {
+          "real_value": null,
+          "operational_value": false,
+          "operational_value_origin": "synthetic_fallback",
+          "operational_value_confidence": 0.3,
+          "source_or_derivation_note": "Explicit test-fixture policy; never inferred from project type.",
+          "source_ledger_reference": "DERIVATION-DEMO-001",
+          "spatial_scope": "synthetic canonical test fixture",
+          "temporal_scope": "not observed; fixture generated 2026-10-13",
+          "verification_status": "requires_user_confirmation"
+        },
+        "sightlines": {
+          "real_value": null,
+          "operational_value": false,
+          "operational_value_origin": "synthetic_fallback",
+          "operational_value_confidence": 0.3,
+          "source_or_derivation_note": "Explicit test-fixture policy; mapped path geometry is still needed for real use.",
+          "source_ledger_reference": "DERIVATION-DEMO-001",
+          "spatial_scope": "synthetic canonical test fixture",
+          "temporal_scope": "not observed; fixture generated 2026-10-13",
+          "verification_status": "requires_user_confirmation"
+        },
+        "rewilding": {
+          "real_value": null,
+          "operational_value": false,
+          "operational_value_origin": "synthetic_fallback",
+          "operational_value_confidence": 0.3,
+          "source_or_derivation_note": "Explicit test-fixture native-only policy; never inferred from ecology or maps.",
+          "source_ledger_reference": "DERIVATION-DEMO-001",
+          "spatial_scope": "synthetic canonical test fixture",
+          "temporal_scope": "not observed; fixture generated 2026-10-13",
+          "verification_status": "requires_user_confirmation"
+        },
+        "support": {
+          "real_value": null,
+          "operational_value": true,
+          "operational_value_origin": "synthetic_fallback",
+          "operational_value_confidence": 0.3,
+          "source_or_derivation_note": "Explicit test-fixture support availability; requires user confirmation and mapped support for real use.",
+          "source_ledger_reference": "DERIVATION-DEMO-001",
+          "spatial_scope": "synthetic canonical test fixture",
+          "temporal_scope": "not observed; fixture generated 2026-10-13",
+          "verification_status": "requires_user_confirmation"
+        },
+        "restorationOrnamentals": {
+          "real_value": null,
+          "operational_value": false,
+          "operational_value_origin": "synthetic_fallback",
+          "operational_value_confidence": 0.3,
+          "source_or_derivation_note": "Explicit test-fixture restoration exception policy.",
+          "source_ledger_reference": "DERIVATION-DEMO-001",
+          "spatial_scope": "synthetic canonical test fixture",
+          "temporal_scope": "not observed; fixture generated 2026-10-13",
+          "verification_status": "requires_user_confirmation"
+        },
+        "area": {
+          "real_value": null,
+          "operational_value": 1000,
+          "operational_value_origin": "synthetic_fallback",
+          "operational_value_confidence": 0.3,
+          "source_or_derivation_note": "Demonstration project-area envelope; not a cadastral or surveyed area.",
+          "source_ledger_reference": "DERIVATION-DEMO-001",
+          "spatial_scope": "synthetic canonical test fixture",
+          "temporal_scope": "not observed; fixture generated 2026-10-13",
+          "verification_status": "requires_user_confirmation"
+        },
+        "anchorColours": {
+          "real_value": null,
+          "operational_value": [
+            "purple",
+            "yellow"
+          ],
+          "operational_value_origin": "synthetic_fallback",
+          "operational_value_confidence": 0.3,
+          "source_or_derivation_note": "Optional demonstration design preference; never overrides a gate.",
+          "source_ledger_reference": "DERIVATION-DEMO-001",
+          "spatial_scope": "synthetic canonical test fixture",
+          "temporal_scope": "not observed; fixture generated 2026-10-13",
+          "verification_status": "requires_user_confirmation"
+        },
+        "desiredFlowerMonths": {
+          "real_value": null,
+          "operational_value": [
+            6,
+            7,
+            8
+          ],
+          "operational_value_origin": "synthetic_fallback",
+          "operational_value_confidence": 0.3,
+          "source_or_derivation_note": "Optional demonstration design preference; never supplies suitability points.",
+          "source_ledger_reference": "DERIVATION-DEMO-001",
+          "spatial_scope": "synthetic canonical test fixture",
+          "temporal_scope": "not observed; fixture generated 2026-10-13",
+          "verification_status": "requires_user_confirmation"
+        },
+        "priorities": {
+          "real_value": null,
+          "operational_value": [
+            "pollinators"
+          ],
+          "operational_value_origin": "synthetic_fallback",
+          "operational_value_confidence": 0.3,
+          "source_or_derivation_note": "Optional demonstration output preference; never overrides a gate.",
+          "source_ledger_reference": "DERIVATION-DEMO-001",
+          "spatial_scope": "synthetic canonical test fixture",
+          "temporal_scope": "not observed; fixture generated 2026-10-13",
+          "verification_status": "requires_user_confirmation"
+        }
+      },
+      "evaluation_payload": {
+        "zone": {
+          "zone_id": "wet_water_edge",
+          "soil": "peat",
+          "moisture": "wet",
+          "hydrology": "permanent",
+          "light": "sun",
+          "canopy": "no",
+          "disturbance": "low",
+          "hardscape": "no",
+          "waterEdge": "yes",
+          "source": "demo",
+          "path_edge": "no",
+          "available_width_m": 12.0,
+          "available_length_m": 8.0,
+          "plantable_area_m2": 96.0,
+          "max_plant_height_m": 3.0,
+          "support_length_m": 10.0
+        },
+        "project": {
+          "type": "landscape",
+          "maintenance": "moderate",
+          "character": "mosaic",
+          "vigourControl": "no",
+          "evaluation_stage": "placement",
+          "publicAccess": true,
+          "publicHarvest": false,
+          "sightlines": false,
+          "rewilding": false,
+          "support": true,
+          "restorationOrnamentals": false,
+          "area": 1000,
+          "anchorColours": [
+            "purple",
+            "yellow"
+          ],
+          "desiredFlowerMonths": [
+            6,
+            7,
+            8
+          ],
+          "priorities": [
+            "pollinators"
+          ]
+        }
+      },
+      "confidence": {
+        "zone_evidence_confidence": 0.3,
+        "component_confidence": {
+          "soil": 0.3,
+          "moisture": 0.3,
+          "hydrology": 0.3,
+          "light": 0.3,
+          "disturbance_hardscape": 0.3,
+          "spatial": 0.3,
+          "maintenance_vigour": 0.3
+        },
+        "formula": "weighted mean of location/project field confidence, kept separate from compatibility"
+      },
+      "user_corrections": [],
+      "survey_replacements": [],
+      "date_of_observation": null,
+      "stale_data": true,
+      "warnings": [
+        "TEST FIXTURE — not surveyed site conditions.",
+        "Every matching value requires user confirmation, intersecting map evidence, or survey evidence before real use.",
+        "Complete operational values make the pilot scoreable; they do not make the evidence high-confidence."
+      ]
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "national_sha256": "167256ade50af4cf4ce5af9a186ac1867212e237f26311631f7eaaf17e5de739",
+  "national_records": 2443,
+  "protected_files": {
+    "website/data/demo-data.js": "e57f23fe737827772afb888dae23b1241a81565d5ea76cfda22e64b82ecffb83",
+    "website/planting-engine.js": "6117c09abec587c33d7fa908a5f35d193629a2af7ac65611f7a0a7c0ad0d3481",
+    "dataset/schemas/plant-claim.schema.json": "6f52daab54d2861adc7e97add37ae54034b9b82005f56c044bf3317c47df483a"
+  }
+}

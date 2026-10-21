@@ -1,0 +1,4062 @@
+{
+  "dry_sunny_sand": {
+    "record_count": 60,
+    "ranked_eligible": [
+      {
+        "rank": 1,
+        "fixture_id": "demo-core-08",
+        "scientific_name": "Knautia arvensis",
+        "raw_suitability_score": 100.0,
+        "final_suitability_score": 59,
+        "evidence_confidence_score": 17.29,
+        "eligibility_state": "conditional_match"
+      },
+      {
+        "rank": 2,
+        "fixture_id": "demo-core-28",
+        "scientific_name": "Briza media",
+        "raw_suitability_score": 100.0,
+        "final_suitability_score": 59,
+        "evidence_confidence_score": 17.29,
+        "eligibility_state": "conditional_match"
+      },
+      {
+        "rank": 3,
+        "fixture_id": "demo-core-51",
+        "scientific_name": "Lonicera periclymenum",
+        "raw_suitability_score": 100.0,
+        "final_suitability_score": 59,
+        "evidence_confidence_score": 20.2875,
+        "eligibility_state": "conditional_match"
+      },
+      {
+        "rank": 4,
+        "fixture_id": "demo-core-36",
+        "scientific_name": "Corylus avellana",
+        "raw_suitability_score": 100.0,
+        "final_suitability_score": 59,
+        "evidence_confidence_score": 18.6725,
+        "eligibility_state": "conditional_match"
+      },
+      {
+        "rank": 5,
+        "fixture_id": "demo-core-32",
+        "scientific_name": "Anthoxanthum odoratum",
+        "raw_suitability_score": 100.0,
+        "final_suitability_score": 59,
+        "evidence_confidence_score": 20.0063,
+        "eligibility_state": "conditional_match"
+      },
+      {
+        "rank": 6,
+        "fixture_id": "demo-core-02",
+        "scientific_name": "Centaurea jacea",
+        "raw_suitability_score": 100.0,
+        "final_suitability_score": 59,
+        "evidence_confidence_score": 17.29,
+        "eligibility_state": "conditional_match"
+      },
+      {
+        "rank": 7,
+        "fixture_id": "demo-core-09",
+        "scientific_name": "Campanula rotundifolia",
+        "raw_suitability_score": 100.0,
+        "final_suitability_score": 59,
+        "evidence_confidence_score": 17.29,
+        "eligibility_state": "conditional_match"
+      },
+      {
+        "rank": 8,
+        "fixture_id": "demo-core-12",
+        "scientific_name": "Succisa pratensis",
+        "raw_suitability_score": 100.0,
+        "final_suitability_score": 59,
+        "evidence_confidence_score": 17.29,
+        "eligibility_state": "conditional_match"
+      },
+      {
+        "rank": 9,
+        "fixture_id": "demo-core-39",
+        "scientific_name": "Rosa canina",
+        "raw_suitability_score": 100.0,
+        "final_suitability_score": 59,
+        "evidence_confidence_score": 11.8687,
+        "eligibility_state": "conditional_match"
+      },
+      {
+        "rank": 10,
+        "fixture_id": "demo-core-47",
+        "scientific_name": "Sorbus aucuparia",
+        "raw_suitability_score": 100.0,
+        "final_suitability_score": 59,
+        "evidence_confidence_score": 20.175,
+        "eligibility_state": "conditional_match"
+      },
+      {
+        "rank": 11,
+        "fixture_id": "demo-core-37",
+        "scientific_name": "Crataegus monogyna",
+        "raw_suitability_score": 100.0,
+        "final_suitability_score": 59,
+        "evidence_confidence_score": 18.74,
+        "eligibility_state": "conditional_match"
+      },
+      {
+        "rank": 12,
+        "fixture_id": "demo-core-31",
+        "scientific_name": "Carex flacca",
+        "raw_suitability_score": 100.0,
+        "final_suitability_score": 59,
+        "evidence_confidence_score": 17.29,
+        "eligibility_state": "conditional_match"
+      },
+      {
+        "rank": 13,
+        "fixture_id": "demo-core-38",
+        "scientific_name": "Prunus spinosa",
+        "raw_suitability_score": 100.0,
+        "final_suitability_score": 59,
+        "evidence_confidence_score": 19.76,
+        "eligibility_state": "conditional_match"
+      },
+      {
+        "rank": 14,
+        "fixture_id": "demo-core-50",
+        "scientific_name": "Populus tremula",
+        "raw_suitability_score": 100.0,
+        "final_suitability_score": 59,
+        "evidence_confidence_score": 17.29,
+        "eligibility_state": "conditional_match"
+      },
+      {
+        "rank": 15,
+        "fixture_id": "demo-ornamental-05",
+        "scientific_name": "Panicum virgatum",
+        "raw_suitability_score": 100.0,
+        "final_suitability_score": 59,
+        "evidence_confidence_score": 19.3025,
+        "eligibility_state": "conditional_match"
+      },
+      {
+        "rank": 16,
+        "fixture_id": "demo-core-05",
+        "scientific_name": "Lotus corniculatus",
+        "raw_suitability_score": 100.0,
+        "final_suitability_score": 59,
+        "evidence_confidence_score": 15.1725,
+        "eligibility_state": "conditional_match"
+      },
+      {
+        "rank": 17,
+        "fixture_id": "demo-ornamental-02",
+        "scientific_name": "Rudbeckia fulgida",
+        "raw_suitability_score": 100.0,
+        "final_suitability_score": 59,
+        "evidence_confidence_score": 18.6725,
+        "eligibility_state": "conditional_match"
+      },
+      {
+        "rank": 18,
+        "fixture_id": "demo-ornamental-01",
+        "scientific_name": "Echinacea purpurea",
+        "raw_suitability_score": 100.0,
+        "final_suitability_score": 59,
+        "evidence_confidence_score": 18.6725,
+        "eligibility_state": "conditional_match"
+      },
+      {
+        "rank": 19,
+        "fixture_id": "demo-ornamental-04",
+        "scientific_name": "Nepeta × faassenii",
+        "raw_suitability_score": 100.0,
+        "final_suitability_score": 59,
+        "evidence_confidence_score": 15.8725,
+        "eligibility_state": "conditional_match"
+      },
+      {
+        "rank": 20,
+        "fixture_id": "demo-core-49",
+        "scientific_name": "Acer campestre",
+        "raw_suitability_score": 97.5,
+        "final_suitability_score": 59,
+        "evidence_confidence_score": 19.2675,
+        "eligibility_state": "conditional_match"
+      },
+      {
+        "rank": 21,
+        "fixture_id": "demo-core-03",
+        "scientific_name": "Leucanthemum vulgare",
+        "raw_suitability_score": 97.5,
+        "final_suitability_score": 59,
+        "evidence_confidence_score": 20.6437,
+        "eligibility_state": "conditional_match"
+      },
+      {
+        "rank": 22,
+        "fixture_id": "demo-core-42",
+        "scientific_name": "Frangula alnus",
+        "raw_suitability_score": 97.5,
+        "final_suitability_score": 59,
+        "evidence_confidence_score": 20.0063,
+        "eligibility_state": "conditional_match"
+      },
+      {
+        "rank": 23,
+        "fixture_id": "demo-core-01",
+        "scientific_name": "Achillea millefolium",
+        "raw_suitability_score": 97.5,
+        "final_suitability_score": 59,
+        "evidence_confidence_score": 19.4425,
+        "eligibility_state": "conditional_match"
+      },
+      {
+        "rank": 24,
+        "fixture_id": "demo-core-16",
+        "scientific_name": "Trifolium pratense",
+        "raw_suitability_score": 97.5,
+        "final_suitability_score": 59,
+        "evidence_confidence_score": 18.8475,
+        "eligibility_state": "conditional_match"
+      },
+      {
+        "rank": 25,
+        "fixture_id": "demo-core-27",
+        "scientific_name": "Festuca rubra",
+        "raw_suitability_score": 97.5,
+        "final_suitability_score": 59,
+        "evidence_confidence_score": 16.835,
+        "eligibility_state": "conditional_match"
+      },
+      {
+        "rank": 26,
+        "fixture_id": "demo-core-17",
+        "scientific_name": "Plantago lanceolata",
+        "raw_suitability_score": 97.5,
+        "final_suitability_score": 59,
+        "evidence_confidence_score": 16.835,
+        "eligibility_state": "conditional_match"
+      },
+      {
+        "rank": 27,
+        "fixture_id": "demo-core-44",
+        "scientific_name": "Betula pendula",
+        "raw_suitability_score": 97.5,
+        "final_suitability_score": 59,
+        "evidence_confidence_score": 18.83,
+        "eligibility_state": "conditional_match"
+      },
+      {
+        "rank": 28,
+        "fixture_id": "demo-core-40",
+        "scientific_name": "Sambucus nigra",
+        "raw_suitability_score": 95.0,
+        "final_suitability_score": 59,
+        "evidence_confidence_score": 20.475,
+        "eligibility_state": "conditional_match"
+      },
+      {
+        "rank": 29,
+        "fixture_id": "demo-core-54",
+        "scientific_name": "Clematis vitalba",
+        "raw_suitability_score": 95.0,
+        "final_suitability_score": 59,
+        "evidence_confidence_score": 20.4562,
+        "eligibility_state": "conditional_match"
+      },
+      {
+        "rank": 30,
+        "fixture_id": "demo-core-15",
+        "scientific_name": "Daucus carota",
+        "raw_suitability_score": 95.0,
+        "final_suitability_score": 59,
+        "evidence_confidence_score": 19.7437,
+        "eligibility_state": "conditional_match"
+      },
+      {
+        "rank": 31,
+        "fixture_id": "demo-ornamental-03",
+        "scientific_name": "Verbena bonariensis",
+        "raw_suitability_score": 95.0,
+        "final_suitability_score": 59,
+        "evidence_confidence_score": 18.8475,
+        "eligibility_state": "conditional_match"
+      },
+      {
+        "rank": 32,
+        "fixture_id": "demo-core-04",
+        "scientific_name": "Prunella vulgaris",
+        "raw_suitability_score": 90.0,
+        "final_suitability_score": 59,
+        "evidence_confidence_score": 17.29,
+        "eligibility_state": "conditional_match"
+      },
+      {
+        "rank": 33,
+        "fixture_id": "demo-core-29",
+        "scientific_name": "Molinia caerulea",
+        "raw_suitability_score": 90.0,
+        "final_suitability_score": 59,
+        "evidence_confidence_score": 18.83,
+        "eligibility_state": "conditional_match"
+      },
+      {
+        "rank": 34,
+        "fixture_id": "demo-core-33",
+        "scientific_name": "Cornus sanguinea",
+        "raw_suitability_score": 90.0,
+        "final_suitability_score": 59,
+        "evidence_confidence_score": 20.175,
+        "eligibility_state": "conditional_match"
+      },
+      {
+        "rank": 35,
+        "fixture_id": "demo-core-11",
+        "scientific_name": "Silene dioica",
+        "raw_suitability_score": 90.0,
+        "final_suitability_score": 59,
+        "evidence_confidence_score": 17.29,
+        "eligibility_state": "conditional_match"
+      },
+      {
+        "rank": 36,
+        "fixture_id": "demo-core-14",
+        "scientific_name": "Geranium pratense",
+        "raw_suitability_score": 90.0,
+        "final_suitability_score": 59,
+        "evidence_confidence_score": 17.29,
+        "eligibility_state": "conditional_match"
+      },
+      {
+        "rank": 37,
+        "fixture_id": "demo-ornamental-06",
+        "scientific_name": "Hakonechloa macra",
+        "raw_suitability_score": 90.0,
+        "final_suitability_score": 59,
+        "evidence_confidence_score": 18.6725,
+        "eligibility_state": "conditional_match"
+      },
+      {
+        "rank": 38,
+        "fixture_id": "demo-core-53",
+        "scientific_name": "Humulus lupulus",
+        "raw_suitability_score": 87.5,
+        "final_suitability_score": 59,
+        "evidence_confidence_score": 22.1625,
+        "eligibility_state": "conditional_match"
+      },
+      {
+        "rank": 39,
+        "fixture_id": "demo-core-41",
+        "scientific_name": "Rhamnus cathartica",
+        "raw_suitability_score": 85.0,
+        "final_suitability_score": 59,
+        "evidence_confidence_score": 20.1938,
+        "eligibility_state": "conditional_match"
+      },
+      {
+        "rank": 40,
+        "fixture_id": "demo-core-06",
+        "scientific_name": "Filipendula ulmaria",
+        "raw_suitability_score": 85.0,
+        "final_suitability_score": 59,
+        "evidence_confidence_score": 19.2675,
+        "eligibility_state": "conditional_match"
+      },
+      {
+        "rank": 41,
+        "fixture_id": "demo-core-35",
+        "scientific_name": "Viburnum opulus",
+        "raw_suitability_score": 85.0,
+        "final_suitability_score": 59,
+        "evidence_confidence_score": 20.6437,
+        "eligibility_state": "conditional_match"
+      },
+      {
+        "rank": 42,
+        "fixture_id": "demo-core-43",
+        "scientific_name": "Alnus glutinosa",
+        "raw_suitability_score": 85.0,
+        "final_suitability_score": 59,
+        "evidence_confidence_score": 19.2675,
+        "eligibility_state": "conditional_match"
+      },
+      {
+        "rank": 43,
+        "fixture_id": "demo-core-10",
+        "scientific_name": "Alliaria petiolata",
+        "raw_suitability_score": 77.5,
+        "final_suitability_score": 59,
+        "evidence_confidence_score": 18.4275,
+        "eligibility_state": "conditional_match"
+      }
+    ],
+    "excluded_plants": [
+      {
+        "fixture_id": "demo-core-18",
+        "scientific_name": "Lythrum salicaria",
+        "raw_score": 52.5,
+        "reasons": [
+          {
+            "gate_id": "H03_WATER_EDGE",
+            "triggered": true,
+            "state": "excluded",
+            "reason": "Required edge=required; confirmed compatible edge=False. Pilot assumptions: water_edge_requirement=synthetic_fallback, hydrology_tolerance=synthetic_fallback.",
+            "operational_values": {
+              "water_edge_requirement": "required",
+              "hydrology_tolerance": [
+                "seasonal",
+                "long",
+                "permanent",
+                "edge"
+              ]
+            },
+            "value_origins": {
+              "water_edge_requirement": "synthetic_fallback",
+              "hydrology_tolerance": "synthetic_fallback"
+            }
+          }
+        ]
+      },
+      {
+        "fixture_id": "demo-core-19",
+        "scientific_name": "Iris pseudacorus",
+        "raw_score": 52.5,
+        "reasons": [
+          {
+            "gate_id": "H03_WATER_EDGE",
+            "triggered": true,
+            "state": "excluded",
+            "reason": "Required edge=required; confirmed compatible edge=False. Pilot assumptions: water_edge_requirement=synthetic_fallback, hydrology_tolerance=synthetic_fallback.",
+            "operational_values": {
+              "water_edge_requirement": "required",
+              "hydrology_tolerance": [
+                "seasonal",
+                "long",
+                "permanent",
+                "edge"
+              ]
+            },
+            "value_origins": {
+              "water_edge_requirement": "synthetic_fallback",
+              "hydrology_tolerance": "synthetic_fallback"
+            }
+          }
+        ]
+      },
+      {
+        "fixture_id": "demo-core-20",
+        "scientific_name": "Caltha palustris",
+        "raw_score": 82.5,
+        "reasons": [
+          {
+            "gate_id": "H03_WATER_EDGE",
+            "triggered": true,
+            "state": "excluded",
+            "reason": "Required edge=required; confirmed compatible edge=False. Pilot assumptions: water_edge_requirement=synthetic_fallback, hydrology_tolerance=synthetic_fallback.",
+            "operational_values": {
+              "water_edge_requirement": "required",
+              "hydrology_tolerance": [
+                "seasonal",
+                "long",
+                "permanent",
+                "edge"
+              ]
+            },
+            "value_origins": {
+              "water_edge_requirement": "synthetic_fallback",
+              "hydrology_tolerance": "synthetic_fallback"
+            }
+          }
+        ]
+      },
+      {
+        "fixture_id": "demo-core-21",
+        "scientific_name": "Butomus umbellatus",
+        "raw_score": 70.0,
+        "reasons": [
+          {
+            "gate_id": "H03_WATER_EDGE",
+            "triggered": true,
+            "state": "excluded",
+            "reason": "Required edge=required; confirmed compatible edge=False. Pilot assumptions: water_edge_requirement=synthetic_fallback, hydrology_tolerance=synthetic_fallback.",
+            "operational_values": {
+              "water_edge_requirement": "required",
+              "hydrology_tolerance": [
+                "seasonal",
+                "long",
+                "permanent",
+                "edge"
+              ]
+            },
+            "value_origins": {
+              "water_edge_requirement": "synthetic_fallback",
+              "hydrology_tolerance": "synthetic_fallback"
+            }
+          }
+        ]
+      },
+      {
+        "fixture_id": "demo-core-22",
+        "scientific_name": "Alisma plantago-aquatica",
+        "raw_score": 52.5,
+        "reasons": [
+          {
+            "gate_id": "H03_WATER_EDGE",
+            "triggered": true,
+            "state": "excluded",
+            "reason": "Required edge=required; confirmed compatible edge=False. Pilot assumptions: water_edge_requirement=synthetic_fallback, hydrology_tolerance=synthetic_fallback.",
+            "operational_values": {
+              "water_edge_requirement": "required",
+              "hydrology_tolerance": [
+                "seasonal",
+                "long",
+                "permanent",
+                "edge"
+              ]
+            },
+            "value_origins": {
+              "water_edge_requirement": "synthetic_fallback",
+              "hydrology_tolerance": "synthetic_fallback"
+            }
+          }
+        ]
+      },
+      {
+        "fixture_id": "demo-core-23",
+        "scientific_name": "Myosotis scorpioides",
+        "raw_score": 80.0,
+        "reasons": [
+          {
+            "gate_id": "H03_WATER_EDGE",
+            "triggered": true,
+            "state": "excluded",
+            "reason": "Required edge=required; confirmed compatible edge=False. Pilot assumptions: water_edge_requirement=synthetic_fallback, hydrology_tolerance=synthetic_fallback.",
+            "operational_values": {
+              "water_edge_requirement": "required",
+              "hydrology_tolerance": [
+                "seasonal",
+                "long",
+                "permanent",
+                "edge"
+              ]
+            },
+            "value_origins": {
+              "water_edge_requirement": "synthetic_fallback",
+              "hydrology_tolerance": "synthetic_fallback"
+            }
+          }
+        ]
+      },
+      {
+        "fixture_id": "demo-core-45",
+        "scientific_name": "Quercus robur",
+        "raw_score": 88.0,
+        "reasons": [
+          {
+            "gate_id": "H07_WOODY_GEOMETRY",
+            "triggered": true,
+            "state": "excluded",
+            "reason": "Woody spread footprint 21.336m; clear geometry=does_not_fit; stage=placement. Pilot assumptions: mature_spread_m=expert_inference.",
+            "operational_values": {
+              "group": "Trees",
+              "mature_spread_m": 21.336
+            },
+            "value_origins": {
+              "group": "sourced",
+              "mature_spread_m": "expert_inference"
+            }
+          }
+        ]
+      },
+      {
+        "fixture_id": "demo-core-46",
+        "scientific_name": "Tilia cordata",
+        "raw_score": 63.0,
+        "reasons": [
+          {
+            "gate_id": "H07_WOODY_GEOMETRY",
+            "triggered": true,
+            "state": "excluded",
+            "reason": "Woody spread footprint 15.24m; clear geometry=does_not_fit; stage=placement.",
+            "operational_values": {
+              "group": "Trees",
+              "mature_spread_m": 15.24
+            },
+            "value_origins": {
+              "group": "sourced",
+              "mature_spread_m": "sourced"
+            }
+          }
+        ]
+      },
+      {
+        "fixture_id": "demo-core-48",
+        "scientific_name": "Salix alba",
+        "raw_score": 75.5,
+        "reasons": [
+          {
+            "gate_id": "H07_WOODY_GEOMETRY",
+            "triggered": true,
+            "state": "excluded",
+            "reason": "Woody spread footprint 21.336m; clear geometry=does_not_fit; stage=placement.",
+            "operational_values": {
+              "group": "Trees",
+              "mature_spread_m": 21.336
+            },
+            "value_origins": {
+              "group": "sourced",
+              "mature_spread_m": "sourced"
+            }
+          }
+        ]
+      }
+    ],
+    "unsuitable_plants": [
+      {
+        "fixture_id": "demo-core-07",
+        "reasons": [
+          "Environmental conflict: soil=sand versus ['clay', 'peat'].",
+          "Environmental conflict: moisture=dry versus ['wet']."
+        ]
+      },
+      {
+        "fixture_id": "demo-core-13",
+        "reasons": [
+          "Environmental conflict: soil=sand versus ['clay', 'peat']."
+        ]
+      },
+      {
+        "fixture_id": "demo-core-24",
+        "reasons": [
+          "Environmental conflict: soil=sand versus ['clay', 'peat'].",
+          "Environmental conflict: moisture=dry versus ['wet']."
+        ]
+      },
+      {
+        "fixture_id": "demo-core-25",
+        "reasons": [
+          "Environmental conflict: moisture=dry versus ['wet']."
+        ]
+      },
+      {
+        "fixture_id": "demo-core-26",
+        "reasons": [
+          "Environmental conflict: soil=sand versus ['clay']."
+        ]
+      },
+      {
+        "fixture_id": "demo-core-30",
+        "reasons": [
+          "Environmental conflict: soil=sand versus ['clay', 'peat'].",
+          "Environmental conflict: moisture=dry versus ['wet'].",
+          "Environmental conflict: light=sun versus ['shade']."
+        ]
+      },
+      {
+        "fixture_id": "demo-core-34",
+        "reasons": [
+          "Environmental conflict: soil=sand versus ['clay', 'peat'].",
+          "Environmental conflict: moisture=dry versus ['wet']."
+        ]
+      },
+      {
+        "fixture_id": "demo-core-52",
+        "reasons": [
+          "Insufficient clear space for 15.24m pilot footprint."
+        ]
+      }
+    ],
+    "top_demonstration_candidates": [
+      {
+        "scientific_name": "Knautia arvensis",
+        "final_score": 59,
+        "raw_score": 100.0,
+        "confidence": 17.29,
+        "explanation": [
+          "soil=sand matches operational ['sand', 'clay']. Origin: expert_inference.",
+          "moisture=dry matches operational ['dry', 'fresh']. Origin: sourced.",
+          "hydrology=none matches operational ['none', 'seasonal']. Origin: synthetic_fallback.",
+          "light=sun matches operational ['sun']. Origin: sourced.",
+          "disturbance=low matches operational ['low', 'moderate']. Origin: synthetic_fallback.",
+          "hardscape=no matches operational ['conditional']. Origin: synthetic_fallback."
+        ],
+        "warnings": [
+          {
+            "code": "synthetic_site",
+            "message": "Zone values and dimensions are a synthetic example; site-source confidence factor is 0.5."
+          },
+          {
+            "code": "policy_or_safety_review_required",
+            "message": "invasive_status=unknown; demonstration conditional only, no real-world clearance."
+          },
+          {
+            "code": "policy_or_safety_review_required",
+            "message": "protected_or_legal_status=not_reviewed; demonstration conditional only, no real-world clearance."
+          },
+          {
+            "code": "policy_or_safety_review_required",
+            "message": "provenance_status=unknown; demonstration conditional only, no real-world clearance."
+          },
+          {
+            "code": "policy_or_safety_review_required",
+            "message": "toxicity_status=unknown; demonstration conditional only, no real-world clearance."
+          },
+          {
+            "code": "policy_or_safety_review_required",
+            "message": "public_contact_status=not_reviewed; demonstration conditional only, no real-world clearance."
+          },
+          {
+            "code": "policy_or_safety_review_required",
+            "message": "thorns_or_spines=unknown; demonstration conditional only, no real-world clearance."
+          },
+          {
+            "code": "public_contact_hazard_context",
+            "message": "allergen_risk=unknown; no general safety clearance."
+          },
+          {
+            "code": "public_contact_hazard_context",
+            "message": "irritant_sap=unknown; no general safety clearance."
+          },
+          {
+            "code": "public_contact_hazard_context",
+            "message": "contact_irritation_status=unknown; no general safety clearance."
+          },
+          {
+            "code": "simulation_only",
+            "message": "production_eligible=false; this result is a pilot simulation, not planting, procurement or food advice."
+          },
+          {
+            "code": "component_assumptions",
+            "message": "soil relies on soil_tolerance=expert_inference. This is simulated compatibility, not reviewed field evidence."
+          },
+          {
+            "code": "component_assumptions",
+            "message": "hydrology relies on hydrology_tolerance=synthetic_fallback. This is simulated compatibility, not reviewed field evidence."
+          },
+          {
+            "code": "component_assumptions",
+            "message": "disturbance_hardscape relies on disturbance_tolerance=synthetic_fallback, hardscape_tolerance=synthetic_fallback. This is simulated compatibility, not reviewed field evidence."
+          },
+          {
+            "code": "component_assumptions",
+            "message": "spatial relies on mature_spread_m=synthetic_fallback, pilot_spacing_m=synthetic_fallback, group=synthetic_fallback, climbing_support_required=synthetic_fallback. This is simulated compatibility, not reviewed field evidence."
+          },
+          {
+            "code": "component_assumptions",
+            "message": "maintenance_vigour relies on maintenance_demand=synthetic_fallback, vigour_or_spread_risk=synthetic_fallback. This is simulated compatibility, not reviewed field evidence."
+          },
+          {
+            "code": "design_assumptions",
+            "message": "Design output uses flower_end_month=synthetic_fallback, pollinator_value=synthetic_fallback."
+          },
+          {
+            "code": "synthetic_pollinator_output",
+            "message": "Pollinator value is a simulation placeholder; no researched ecological benefit is asserted."
+          }
+        ],
+        "synthetic_components": [
+          "hydrology",
+          "disturbance_hardscape",
+          "spatial",
+          "maintenance_vigour"
+        ]
+      },
+      {
+        "scientific_name": "Briza media",
+        "final_score": 59,
+        "raw_score": 100.0,
+        "confidence": 17.29,
+        "explanation": [
+          "soil=sand matches operational ['sand', 'clay']. Origin: expert_inference.",
+          "moisture=dry matches operational ['dry', 'fresh', 'wet']. Origin: sourced.",
+          "hydrology=none matches operational ['none', 'seasonal', 'edge']. Origin: synthetic_fallback.",
+          "light=sun matches operational ['sun', 'mixed']. Origin: sourced.",
+          "disturbance=low matches operational ['low', 'moderate']. Origin: synthetic_fallback.",
+          "hardscape=no matches operational ['conditional']. Origin: synthetic_fallback."
+        ],
+        "warnings": [
+          {
+            "code": "synthetic_site",
+            "message": "Zone values and dimensions are a synthetic example; site-source confidence factor is 0.5."
+          },
+          {
+            "code": "water_edge_preference",
+            "message": "Operational wet-site preference has no confirmed water edge; not a mandatory aquatic gate."
+          },
+          {
+            "code": "policy_or_safety_review_required",
+            "message": "invasive_status=unknown; demonstration conditional only, no real-world clearance."
+          },
+          {
+            "code": "policy_or_safety_review_required",
+            "message": "protected_or_legal_status=not_reviewed; demonstration conditional only, no real-world clearance."
+          },
+          {
+            "code": "policy_or_safety_review_required",
+            "message": "provenance_status=unknown; demonstration conditional only, no real-world clearance."
+          },
+          {
+            "code": "policy_or_safety_review_required",
+            "message": "toxicity_status=unknown; demonstration conditional only, no real-world clearance."
+          },
+          {
+            "code": "policy_or_safety_review_required",
+            "message": "public_contact_status=not_reviewed; demonstration conditional only, no real-world clearance."
+          },
+          {
+            "code": "policy_or_safety_review_required",
+            "message": "thorns_or_spines=unknown; demonstration conditional only, no real-world clearance."
+          },
+          {
+            "code": "public_contact_hazard_context",
+            "message": "allergen_risk=unknown; no general safety clearance."
+          },
+          {
+            "code": "public_contact_hazard_context",
+            "message": "irritant_sap=unknown; no general safety clearance."
+          },
+          {
+            "code": "public_contact_hazard_context",
+            "message": "contact_irritation_status=unknown; no general safety clearance."
+          },
+          {
+            "code": "simulation_only",
+            "message": "production_eligible=false; this result is a pilot simulation, not planting, procurement or food advice."
+          },
+          {
+            "code": "component_assumptions",
+            "message": "soil relies on soil_tolerance=expert_inference. This is simulated compatibility, not reviewed field evidence."
+          },
+          {
+            "code": "component_assumptions",
+            "message": "hydrology relies on hydrology_tolerance=synthetic_fallback. This is simulated compatibility, not reviewed field evidence."
+          },
+          {
+            "code": "component_assumptions",
+            "message": "disturbance_hardscape relies on disturbance_tolerance=synthetic_fallback, hardscape_tolerance=synthetic_fallback. This is simulated compatibility, not reviewed field evidence."
+          },
+          {
+            "code": "component_assumptions",
+            "message": "spatial relies on mature_spread_m=synthetic_fallback, pilot_spacing_m=synthetic_fallback, group=synthetic_fallback, climbing_support_required=synthetic_fallback. This is simulated compatibility, not reviewed field evidence."
+          },
+          {
+            "code": "component_assumptions",
+            "message": "maintenance_vigour relies on maintenance_demand=synthetic_fallback, vigour_or_spread_risk=synthetic_fallback. This is simulated compatibility, not reviewed field evidence."
+          },
+          {
+            "code": "design_assumptions",
+            "message": "Design output uses flower_colour=synthetic_fallback, pollinator_value=synthetic_fallback."
+          },
+          {
+            "code": "synthetic_pollinator_output",
+            "message": "Pollinator value is a simulation placeholder; no researched ecological benefit is asserted."
+          }
+        ],
+        "synthetic_components": [
+          "hydrology",
+          "disturbance_hardscape",
+          "spatial",
+          "maintenance_vigour"
+        ]
+      },
+      {
+        "scientific_name": "Lonicera periclymenum",
+        "final_score": 59,
+        "raw_score": 100.0,
+        "confidence": 20.2875,
+        "explanation": [
+          "soil=sand matches operational ['sand', 'clay', 'peat']. Origin: expert_inference.",
+          "moisture=dry matches operational ['dry', 'fresh', 'wet']. Origin: sourced.",
+          "hydrology=none matches operational ['none', 'seasonal', 'edge']. Origin: synthetic_fallback.",
+          "light=sun matches operational ['sun', 'mixed', 'shade']. Origin: sourced.",
+          "disturbance=low matches operational ['low']. Origin: synthetic_fallback.",
+          "hardscape=no matches operational ['conditional']. Origin: synthetic_fallback."
+        ],
+        "warnings": [
+          {
+            "code": "synthetic_site",
+            "message": "Zone values and dimensions are a synthetic example; site-source confidence factor is 0.5."
+          },
+          {
+            "code": "water_edge_preference",
+            "message": "Operational wet-site preference has no confirmed water edge; not a mandatory aquatic gate."
+          },
+          {
+            "code": "policy_or_safety_review_required",
+            "message": "invasive_status=unknown; demonstration conditional only, no real-world clearance."
+          },
+          {
+            "code": "policy_or_safety_review_required",
+            "message": "protected_or_legal_status=not_reviewed; demonstration conditional only, no real-world clearance."
+          },
+          {
+            "code": "policy_or_safety_review_required",
+            "message": "provenance_status=unknown; demonstration conditional only, no real-world clearance."
+          },
+          {
+            "code": "policy_or_safety_review_required",
+            "message": "public_contact_status=not_reviewed; demonstration conditional only, no real-world clearance."
+          },
+          {
+            "code": "policy_or_safety_review_required",
+            "message": "thorns_or_spines=unknown; demonstration conditional only, no real-world clearance."
+          },
+          {
+            "code": "documented_toxicity",
+            "message": "Archived toxicity=toxic_reported; parts, exposure and public use require specialist assessment."
+          },
+          {
+            "code": "public_contact_hazard_context",
+            "message": "allergen_risk=unknown; no general safety clearance."
+          },
+          {
+            "code": "public_contact_hazard_context",
+            "message": "irritant_sap=unknown; no general safety clearance."
+          },
+          {
+            "code": "public_contact_hazard_context",
+            "message": "contact_irritation_status=unknown; no general safety clearance."
+          },
+          {
+            "code": "simulation_only",
+            "message": "production_eligible=false; this result is a pilot simulation, not planting, procurement or food advice."
+          },
+          {
+            "code": "component_assumptions",
+            "message": "soil relies on soil_tolerance=expert_inference. This is simulated compatibility, not reviewed field evidence."
+          },
+          {
+            "code": "component_assumptions",
+            "message": "hydrology relies on hydrology_tolerance=synthetic_fallback. This is simulated compatibility, not reviewed field evidence."
+          },
+          {
+            "code": "component_assumptions",
+            "message": "disturbance_hardscape relies on disturbance_tolerance=synthetic_fallback, hardscape_tolerance=synthetic_fallback. This is simulated compatibility, not reviewed field evidence."
+          },
+          {
+            "code": "component_assumptions",
+            "message": "spatial relies on pilot_spacing_m=synthetic_fallback, group=expert_inference, climbing_support_required=expert_inference. This is simulated compatibility, not reviewed field evidence."
+          },
+          {
+            "code": "component_assumptions",
+            "message": "maintenance_vigour relies on vigour_or_spread_risk=synthetic_fallback. This is simulated compatibility, not reviewed field evidence."
+          },
+          {
+            "code": "design_assumptions",
+            "message": "Design output uses flower_colour=expert_inference."
+          }
+        ],
+        "synthetic_components": [
+          "hydrology",
+          "disturbance_hardscape",
+          "spatial",
+          "maintenance_vigour"
+        ]
+      },
+      {
+        "scientific_name": "Corylus avellana",
+        "final_score": 59,
+        "raw_score": 100.0,
+        "confidence": 18.6725,
+        "explanation": [
+          "soil=sand matches operational ['sand', 'clay']. Origin: expert_inference.",
+          "moisture=dry matches operational ['dry', 'fresh']. Origin: sourced.",
+          "hydrology=none matches operational ['none', 'seasonal']. Origin: synthetic_fallback.",
+          "light=sun matches operational ['sun', 'mixed']. Origin: sourced.",
+          "disturbance=low matches operational ['low']. Origin: synthetic_fallback.",
+          "hardscape=no matches operational ['conditional']. Origin: synthetic_fallback."
+        ],
+        "warnings": [
+          {
+            "code": "synthetic_site",
+            "message": "Zone values and dimensions are a synthetic example; site-source confidence factor is 0.5."
+          },
+          {
+            "code": "policy_or_safety_review_required",
+            "message": "invasive_status=unknown; demonstration conditional only, no real-world clearance."
+          },
+          {
+            "code": "policy_or_safety_review_required",
+            "message": "protected_or_legal_status=not_reviewed; demonstration conditional only, no real-world clearance."
+          },
+          {
+            "code": "policy_or_safety_review_required",
+            "message": "provenance_status=unknown; demonstration conditional only, no real-world clearance."
+          },
+          {
+            "code": "policy_or_safety_review_required",
+            "message": "toxicity_status=unknown; demonstration conditional only, no real-world clearance."
+          },
+          {
+            "code": "policy_or_safety_review_required",
+            "message": "public_contact_status=not_reviewed; demonstration conditional only, no real-world clearance."
+          },
+          {
+            "code": "policy_or_safety_review_required",
+            "message": "thorns_or_spines=unknown; demonstration conditional only, no real-world clearance."
+          },
+          {
+            "code": "public_contact_hazard_context",
+            "message": "allergen_risk=unknown; no general safety clearance."
+          },
+          {
+            "code": "public_contact_hazard_context",
+            "message": "irritant_sap=unknown; no general safety clearance."
+          },
+          {
+            "code": "public_contact_hazard_context",
+            "message": "contact_irritation_status=unknown; no general safety clearance."
+          },
+          {
+            "code": "simulation_only",
+            "message": "production_eligible=false; this result is a pilot simulation, not planting, procurement or food advice."
+          },
+          {
+            "code": "component_assumptions",
+            "message": "soil relies on soil_tolerance=expert_inference. This is simulated compatibility, not reviewed field evidence."
+          },
+          {
+            "code": "component_assumptions",
+            "message": "hydrology relies on hydrology_tolerance=synthetic_fallback. This is simulated compatibility, not reviewed field evidence."
+          },
+          {
+            "code": "component_assumptions",
+            "message": "disturbance_hardscape relies on disturbance_tolerance=synthetic_fallback, hardscape_tolerance=synthetic_fallback. This is simulated compatibility, not reviewed field evidence."
+          },
+          {
+            "code": "component_assumptions",
+            "message": "spatial relies on pilot_spacing_m=synthetic_fallback, group=expert_inference, climbing_support_required=synthetic_fallback. This is simulated compatibility, not reviewed field evidence."
+          },
+          {
+            "code": "component_assumptions",
+            "message": "maintenance_vigour relies on vigour_or_spread_risk=synthetic_fallback. This is simulated compatibility, not reviewed field evidence."
+          },
+          {
+            "code": "design_assumptions",
+            "message": "Design output uses flower_colour=synthetic_fallback."
+          }
+        ],
+        "synthetic_components": [
+          "hydrology",
+          "disturbance_hardscape",
+          "spatial",
+          "maintenance_vigour"
+        ]
+      },
+      {
+        "scientific_name": "Anthoxanthum odoratum",
+        "final_score": 59,
+        "raw_score": 100.0,
+        "confidence": 20.0063,
+        "explanation": [
+          "soil=sand matches operational ['sand', 'clay', 'peat']. Origin: expert_inference.",
+          "moisture=dry matches operational ['dry', 'fresh', 'wet']. Origin: sourced.",
+          "hydrology=none matches operational ['none', 'seasonal', 'edge']. Origin: synthetic_fallback.",
+          "light=sun matches operational ['sun', 'mixed']. Origin: sourced.",
+          "disturbance=low matches operational ['low', 'moderate']. Origin: synthetic_fallback.",
+          "hardscape=no matches operational ['conditional']. Origin: synthetic_fallback."
+        ],
+        "warnings": [
+          {
+            "code": "synthetic_site",
+            "message": "Zone values and dimensions are a synthetic example; site-source confidence factor is 0.5."
+          },
+          {
+            "code": "water_edge_preference",
+            "message": "Operational wet-site preference has no confirmed water edge; not a mandatory aquatic gate."
+          },
+          {
+            "code": "policy_or_safety_review_required",
+            "message": "invasive_status=unknown; demonstration conditional only, no real-world clearance."
+          },
+          {
+            "code": "policy_or_safety_review_required",
+            "message": "protected_or_legal_status=not_reviewed; demonstration conditional only, no real-world clearance."
+          },
+          {
+            "code": "policy_or_safety_review_required",
+            "message": "provenance_status=unknown; demonstration conditional only, no real-world clearance."
+          },
+          {
+            "code": "policy_or_safety_review_required",
+            "message": "public_contact_status=not_reviewed; demonstration conditional only, no real-world clearance."
+          },
+          {
+            "code": "policy_or_safety_review_required",
+            "message": "thorns_or_spines=unknown; demonstration conditional only, no real-world clearance."
+          },
+          {
+            "code": "documented_toxicity",
+            "message": "Archived toxicity=toxic_reported; parts, exposure and public use require specialist assessment."
+          },
+          {
+            "code": "public_contact_hazard_context",
+            "message": "allergen_risk=unknown; no general safety clearance."
+          },
+          {
+            "code": "public_contact_hazard_context",
+            "message": "irritant_sap=unknown; no general safety clearance."
+          },
+          {
+            "code": "public_contact_hazard_context",
+            "message": "contact_irritation_status=not_reported_by_this_source; no general safety clearance."
+          },
+          {
+            "code": "simulation_only",
+            "message": "production_eligible=false; this result is a pilot simulation, not planting, procurement or food advice."
+          },
+          {
+            "code": "component_assumptions",
+            "message": "soil relies on soil_tolerance=expert_inference. This is simulated compatibility, not reviewed field evidence."
+          },
+          {
+            "code": "component_assumptions",
+            "message": "hydrology relies on hydrology_tolerance=synthetic_fallback. This is simulated compatibility, not reviewed field evidence."
+          },
+          {
+            "code": "component_assumptions",
+            "message": "disturbance_hardscape relies on disturbance_tolerance=synthetic_fallback, hardscape_tolerance=synthetic_fallback. This is simulated compatibility, not reviewed field evidence."
+          },
+          {
+            "code": "component_assumptions",
+            "message": "spatial relies on pilot_spacing_m=synthetic_fallback, group=expert_inference, climbing_support_required=synthetic_fallback. This is simulated compatibility, not reviewed field evidence."
+          },
+          {
+            "code": "component_assumptions",
+            "message": "maintenance_vigour relies on vigour_or_spread_risk=synthetic_fallback. This is simulated compatibility, not reviewed field evidence."
+          },
+          {
+            "code": "design_assumptions",
+            "message": "Design output uses flower_colour=synthetic_fallback, pollinator_value=synthetic_fallback."
+          },
+          {
+            "code": "synthetic_pollinator_output",
+            "message": "Pollinator value is a simulation placeholder; no researched ecological benefit is asserted."
+          }
+        ],
+        "synthetic_components": [
+          "hydrology",
+          "disturbance_hardscape",
+          "spatial",
+          "maintenance_vigour"
+        ]
+      }
+    ]
+  },
+  "fresh_clay_mixed": {
+    "record_count": 60,
+    "ranked_eligible": [
+      {
+        "rank": 1,
+        "fixture_id": "demo-core-46",
+        "scientific_name": "Tilia cordata",
+        "raw_suitability_score": 100.0,
+        "final_suitability_score": 59,
+        "evidence_confidence_score": 18.6725,
+        "eligibility_state": "conditional_match"
+      },
+      {
+        "rank": 2,
+        "fixture_id": "demo-core-04",
+        "scientific_name": "Prunella vulgaris",
+        "raw_suitability_score": 100.0,
+        "final_suitability_score": 59,
+        "evidence_confidence_score": 17.29,
+        "eligibility_state": "conditional_match"
+      },
+      {
+        "rank": 3,
+        "fixture_id": "demo-core-28",
+        "scientific_name": "Briza media",
+        "raw_suitability_score": 100.0,
+        "final_suitability_score": 59,
+        "evidence_confidence_score": 17.29,
+        "eligibility_state": "conditional_match"
+      },
+      {
+        "rank": 4,
+        "fixture_id": "demo-core-26",
+        "scientific_name": "Deschampsia cespitosa",
+        "raw_suitability_score": 100.0,
+        "final_suitability_score": 59,
+        "evidence_confidence_score": 18.83,
+        "eligibility_state": "conditional_match"
+      },
+      {
+        "rank": 5,
+        "fixture_id": "demo-core-29",
+        "scientific_name": "Molinia caerulea",
+        "raw_suitability_score": 100.0,
+        "final_suitability_score": 59,
+        "evidence_confidence_score": 18.83,
+        "eligibility_state": "conditional_match"
+      },
+      {
+        "rank": 6,
+        "fixture_id": "demo-core-51",
+        "scientific_name": "Lonicera periclymenum",
+        "raw_suitability_score": 100.0,
+        "final_suitability_score": 59,
+        "evidence_confidence_score": 20.2875,
+        "eligibility_state": "conditional_match"
+      },
+      {
+        "rank": 7,
+        "fixture_id": "demo-core-36",
+        "scientific_name": "Corylus avellana",
+        "raw_suitability_score": 100.0,
+        "final_suitability_score": 59,
+        "evidence_confidence_score": 18.6725,
+        "eligibility_state": "conditional_match"
+      },
+      {
+        "rank": 8,
+        "fixture_id": "demo-core-32",
+        "scientific_name": "Anthoxanthum odoratum",
+        "raw_suitability_score": 100.0,
+        "final_suitability_score": 59,
+        "evidence_confidence_score": 20.0063,
+        "eligibility_state": "conditional_match"
+      },
+      {
+        "rank": 9,
+        "fixture_id": "demo-core-02",
+        "scientific_name": "Centaurea jacea",
+        "raw_suitability_score": 100.0,
+        "final_suitability_score": 59,
+        "evidence_confidence_score": 17.29,
+        "eligibility_state": "conditional_match"
+      },
+      {
+        "rank": 10,
+        "fixture_id": "demo-core-33",
+        "scientific_name": "Cornus sanguinea",
+        "raw_suitability_score": 100.0,
+        "final_suitability_score": 59,
+        "evidence_confidence_score": 20.175,
+        "eligibility_state": "conditional_match"
+      },
+      {
+        "rank": 11,
+        "fixture_id": "demo-core-11",
+        "scientific_name": "Silene dioica",
+        "raw_suitability_score": 100.0,
+        "final_suitability_score": 59,
+        "evidence_confidence_score": 17.29,
+        "eligibility_state": "conditional_match"
+      },
+      {
+        "rank": 12,
+        "fixture_id": "demo-core-14",
+        "scientific_name": "Geranium pratense",
+        "raw_suitability_score": 100.0,
+        "final_suitability_score": 59,
+        "evidence_confidence_score": 17.29,
+        "eligibility_state": "conditional_match"
+      },
+      {
+        "rank": 13,
+        "fixture_id": "demo-core-47",
+        "scientific_name": "Sorbus aucuparia",
+        "raw_suitability_score": 100.0,
+        "final_suitability_score": 59,
+        "evidence_confidence_score": 20.175,
+        "eligibility_state": "conditional_match"
+      },
+      {
+        "rank": 14,
+        "fixture_id": "demo-core-31",
+        "scientific_name": "Carex flacca",
+        "raw_suitability_score": 100.0,
+        "final_suitability_score": 59,
+        "evidence_confidence_score": 17.29,
+        "eligibility_state": "conditional_match"
+      },
+      {
+        "rank": 15,
+        "fixture_id": "demo-core-38",
+        "scientific_name": "Prunus spinosa",
+        "raw_suitability_score": 100.0,
+        "final_suitability_score": 59,
+        "evidence_confidence_score": 19.76,
+        "eligibility_state": "conditional_match"
+      },
+      {
+        "rank": 16,
+        "fixture_id": "demo-ornamental-05",
+        "scientific_name": "Panicum virgatum",
+        "raw_suitability_score": 100.0,
+        "final_suitability_score": 59,
+        "evidence_confidence_score": 19.3025,
+        "eligibility_state": "conditional_match"
+      },
+      {
+        "rank": 17,
+        "fixture_id": "demo-ornamental-02",
+        "scientific_name": "Rudbeckia fulgida",
+        "raw_suitability_score": 100.0,
+        "final_suitability_score": 59,
+        "evidence_confidence_score": 18.6725,
+        "eligibility_state": "conditional_match"
+      },
+      {
+        "rank": 18,
+        "fixture_id": "demo-ornamental-01",
+        "scientific_name": "Echinacea purpurea",
+        "raw_suitability_score": 100.0,
+        "final_suitability_score": 59,
+        "evidence_confidence_score": 18.6725,
+        "eligibility_state": "conditional_match"
+      },
+      {
+        "rank": 19,
+        "fixture_id": "demo-ornamental-06",
+        "scientific_name": "Hakonechloa macra",
+        "raw_suitability_score": 100.0,
+        "final_suitability_score": 59,
+        "evidence_confidence_score": 18.6725,
+        "eligibility_state": "conditional_match"
+      },
+      {
+        "rank": 20,
+        "fixture_id": "demo-core-49",
+        "scientific_name": "Acer campestre",
+        "raw_suitability_score": 97.5,
+        "final_suitability_score": 59,
+        "evidence_confidence_score": 19.2675,
+        "eligibility_state": "conditional_match"
+      },
+      {
+        "rank": 21,
+        "fixture_id": "demo-core-42",
+        "scientific_name": "Frangula alnus",
+        "raw_suitability_score": 97.5,
+        "final_suitability_score": 59,
+        "evidence_confidence_score": 20.0063,
+        "eligibility_state": "conditional_match"
+      },
+      {
+        "rank": 22,
+        "fixture_id": "demo-core-01",
+        "scientific_name": "Achillea millefolium",
+        "raw_suitability_score": 97.5,
+        "final_suitability_score": 59,
+        "evidence_confidence_score": 19.4425,
+        "eligibility_state": "conditional_match"
+      },
+      {
+        "rank": 23,
+        "fixture_id": "demo-core-53",
+        "scientific_name": "Humulus lupulus",
+        "raw_suitability_score": 97.5,
+        "final_suitability_score": 59,
+        "evidence_confidence_score": 22.1625,
+        "eligibility_state": "conditional_match"
+      },
+      {
+        "rank": 24,
+        "fixture_id": "demo-core-13",
+        "scientific_name": "Valeriana officinalis",
+        "raw_suitability_score": 97.5,
+        "final_suitability_score": 59,
+        "evidence_confidence_score": 17.955,
+        "eligibility_state": "conditional_match"
+      },
+      {
+        "rank": 25,
+        "fixture_id": "demo-core-44",
+        "scientific_name": "Betula pendula",
+        "raw_suitability_score": 97.5,
+        "final_suitability_score": 59,
+        "evidence_confidence_score": 18.83,
+        "eligibility_state": "conditional_match"
+      },
+      {
+        "rank": 26,
+        "fixture_id": "demo-core-41",
+        "scientific_name": "Rhamnus cathartica",
+        "raw_suitability_score": 95.0,
+        "final_suitability_score": 59,
+        "evidence_confidence_score": 20.1938,
+        "eligibility_state": "conditional_match"
+      },
+      {
+        "rank": 27,
+        "fixture_id": "demo-core-40",
+        "scientific_name": "Sambucus nigra",
+        "raw_suitability_score": 95.0,
+        "final_suitability_score": 59,
+        "evidence_confidence_score": 20.475,
+        "eligibility_state": "conditional_match"
+      },
+      {
+        "rank": 28,
+        "fixture_id": "demo-core-54",
+        "scientific_name": "Clematis vitalba",
+        "raw_suitability_score": 95.0,
+        "final_suitability_score": 59,
+        "evidence_confidence_score": 20.4562,
+        "eligibility_state": "conditional_match"
+      },
+      {
+        "rank": 29,
+        "fixture_id": "demo-core-06",
+        "scientific_name": "Filipendula ulmaria",
+        "raw_suitability_score": 95.0,
+        "final_suitability_score": 59,
+        "evidence_confidence_score": 19.2675,
+        "eligibility_state": "conditional_match"
+      },
+      {
+        "rank": 30,
+        "fixture_id": "demo-core-35",
+        "scientific_name": "Viburnum opulus",
+        "raw_suitability_score": 95.0,
+        "final_suitability_score": 59,
+        "evidence_confidence_score": 20.6437,
+        "eligibility_state": "conditional_match"
+      },
+      {
+        "rank": 31,
+        "fixture_id": "demo-core-10",
+        "scientific_name": "Alliaria petiolata",
+        "raw_suitability_score": 95.0,
+        "final_suitability_score": 59,
+        "evidence_confidence_score": 18.4275,
+        "eligibility_state": "conditional_match"
+      },
+      {
+        "rank": 32,
+        "fixture_id": "demo-core-43",
+        "scientific_name": "Alnus glutinosa",
+        "raw_suitability_score": 95.0,
+        "final_suitability_score": 59,
+        "evidence_confidence_score": 19.2675,
+        "eligibility_state": "conditional_match"
+      },
+      {
+        "rank": 33,
+        "fixture_id": "demo-ornamental-03",
+        "scientific_name": "Verbena bonariensis",
+        "raw_suitability_score": 95.0,
+        "final_suitability_score": 59,
+        "evidence_confidence_score": 18.8475,
+        "eligibility_state": "conditional_match"
+      },
+      {
+        "rank": 34,
+        "fixture_id": "demo-core-08",
+        "scientific_name": "Knautia arvensis",
+        "raw_suitability_score": 92.5,
+        "final_suitability_score": 59,
+        "evidence_confidence_score": 17.29,
+        "eligibility_state": "conditional_match"
+      },
+      {
+        "rank": 35,
+        "fixture_id": "demo-core-12",
+        "scientific_name": "Succisa pratensis",
+        "raw_suitability_score": 92.5,
+        "final_suitability_score": 59,
+        "evidence_confidence_score": 17.29,
+        "eligibility_state": "conditional_match"
+      },
+      {
+        "rank": 36,
+        "fixture_id": "demo-core-50",
+        "scientific_name": "Populus tremula",
+        "raw_suitability_score": 92.5,
+        "final_suitability_score": 59,
+        "evidence_confidence_score": 17.29,
+        "eligibility_state": "conditional_match"
+      },
+      {
+        "rank": 37,
+        "fixture_id": "demo-core-03",
+        "scientific_name": "Leucanthemum vulgare",
+        "raw_suitability_score": 90.0,
+        "final_suitability_score": 59,
+        "evidence_confidence_score": 20.6437,
+        "eligibility_state": "conditional_match"
+      },
+      {
+        "rank": 38,
+        "fixture_id": "demo-core-16",
+        "scientific_name": "Trifolium pratense",
+        "raw_suitability_score": 90.0,
+        "final_suitability_score": 59,
+        "evidence_confidence_score": 18.8475,
+        "eligibility_state": "conditional_match"
+      },
+      {
+        "rank": 39,
+        "fixture_id": "demo-core-25",
+        "scientific_name": "Juncus effusus",
+        "raw_suitability_score": 90.0,
+        "final_suitability_score": 59,
+        "evidence_confidence_score": 17.99,
+        "eligibility_state": "conditional_match"
+      },
+      {
+        "rank": 40,
+        "fixture_id": "demo-core-09",
+        "scientific_name": "Campanula rotundifolia",
+        "raw_suitability_score": 90.0,
+        "final_suitability_score": 59,
+        "evidence_confidence_score": 17.29,
+        "eligibility_state": "conditional_match"
+      },
+      {
+        "rank": 41,
+        "fixture_id": "demo-core-07",
+        "scientific_name": "Mentha aquatica",
+        "raw_suitability_score": 90.0,
+        "final_suitability_score": 59,
+        "evidence_confidence_score": 15.9775,
+        "eligibility_state": "conditional_match"
+      },
+      {
+        "rank": 42,
+        "fixture_id": "demo-core-24",
+        "scientific_name": "Carex riparia",
+        "raw_suitability_score": 90.0,
+        "final_suitability_score": 59,
+        "evidence_confidence_score": 18.0775,
+        "eligibility_state": "conditional_match"
+      },
+      {
+        "rank": 43,
+        "fixture_id": "demo-ornamental-04",
+        "scientific_name": "Nepeta × faassenii",
+        "raw_suitability_score": 90.0,
+        "final_suitability_score": 59,
+        "evidence_confidence_score": 15.8725,
+        "eligibility_state": "conditional_match"
+      },
+      {
+        "rank": 44,
+        "fixture_id": "demo-core-15",
+        "scientific_name": "Daucus carota",
+        "raw_suitability_score": 87.5,
+        "final_suitability_score": 59,
+        "evidence_confidence_score": 19.7437,
+        "eligibility_state": "conditional_match"
+      },
+      {
+        "rank": 45,
+        "fixture_id": "demo-core-34",
+        "scientific_name": "Salix cinerea",
+        "raw_suitability_score": 82.5,
+        "final_suitability_score": 59,
+        "evidence_confidence_score": 11.0775,
+        "eligibility_state": "conditional_match"
+      },
+      {
+        "rank": 46,
+        "fixture_id": "demo-core-05",
+        "scientific_name": "Lotus corniculatus",
+        "raw_suitability_score": 82.5,
+        "final_suitability_score": 59,
+        "evidence_confidence_score": 15.1725,
+        "eligibility_state": "conditional_match"
+      },
+      {
+        "rank": 47,
+        "fixture_id": "demo-core-30",
+        "scientific_name": "Carex pendula",
+        "raw_suitability_score": 80.0,
+        "final_suitability_score": 59,
+        "evidence_confidence_score": 18.83,
+        "eligibility_state": "conditional_match"
+      }
+    ],
+    "excluded_plants": [
+      {
+        "fixture_id": "demo-core-18",
+        "scientific_name": "Lythrum salicaria",
+        "raw_score": 77.5,
+        "reasons": [
+          {
+            "gate_id": "H03_WATER_EDGE",
+            "triggered": true,
+            "state": "excluded",
+            "reason": "Required edge=required; confirmed compatible edge=False. Pilot assumptions: water_edge_requirement=synthetic_fallback, hydrology_tolerance=synthetic_fallback.",
+            "operational_values": {
+              "water_edge_requirement": "required",
+              "hydrology_tolerance": [
+                "seasonal",
+                "long",
+                "permanent",
+                "edge"
+              ]
+            },
+            "value_origins": {
+              "water_edge_requirement": "synthetic_fallback",
+              "hydrology_tolerance": "synthetic_fallback"
+            }
+          }
+        ]
+      },
+      {
+        "fixture_id": "demo-core-19",
+        "scientific_name": "Iris pseudacorus",
+        "raw_score": 77.5,
+        "reasons": [
+          {
+            "gate_id": "H03_WATER_EDGE",
+            "triggered": true,
+            "state": "excluded",
+            "reason": "Required edge=required; confirmed compatible edge=False. Pilot assumptions: water_edge_requirement=synthetic_fallback, hydrology_tolerance=synthetic_fallback.",
+            "operational_values": {
+              "water_edge_requirement": "required",
+              "hydrology_tolerance": [
+                "seasonal",
+                "long",
+                "permanent",
+                "edge"
+              ]
+            },
+            "value_origins": {
+              "water_edge_requirement": "synthetic_fallback",
+              "hydrology_tolerance": "synthetic_fallback"
+            }
+          }
+        ]
+      },
+      {
+        "fixture_id": "demo-core-20",
+        "scientific_name": "Caltha palustris",
+        "raw_score": 92.5,
+        "reasons": [
+          {
+            "gate_id": "H03_WATER_EDGE",
+            "triggered": true,
+            "state": "excluded",
+            "reason": "Required edge=required; confirmed compatible edge=False. Pilot assumptions: water_edge_requirement=synthetic_fallback, hydrology_tolerance=synthetic_fallback.",
+            "operational_values": {
+              "water_edge_requirement": "required",
+              "hydrology_tolerance": [
+                "seasonal",
+                "long",
+                "permanent",
+                "edge"
+              ]
+            },
+            "value_origins": {
+              "water_edge_requirement": "synthetic_fallback",
+              "hydrology_tolerance": "synthetic_fallback"
+            }
+          }
+        ]
+      },
+      {
+        "fixture_id": "demo-core-21",
+        "scientific_name": "Butomus umbellatus",
+        "raw_score": 72.5,
+        "reasons": [
+          {
+            "gate_id": "H03_WATER_EDGE",
+            "triggered": true,
+            "state": "excluded",
+            "reason": "Required edge=required; confirmed compatible edge=False. Pilot assumptions: water_edge_requirement=synthetic_fallback, hydrology_tolerance=synthetic_fallback.",
+            "operational_values": {
+              "water_edge_requirement": "required",
+              "hydrology_tolerance": [
+                "seasonal",
+                "long",
+                "permanent",
+                "edge"
+              ]
+            },
+            "value_origins": {
+              "water_edge_requirement": "synthetic_fallback",
+              "hydrology_tolerance": "synthetic_fallback"
+            }
+          }
+        ]
+      },
+      {
+        "fixture_id": "demo-core-22",
+        "scientific_name": "Alisma plantago-aquatica",
+        "raw_score": 77.5,
+        "reasons": [
+          {
+            "gate_id": "H03_WATER_EDGE",
+            "triggered": true,
+            "state": "excluded",
+            "reason": "Required edge=required; confirmed compatible edge=False. Pilot assumptions: water_edge_requirement=synthetic_fallback, hydrology_tolerance=synthetic_fallback.",
+            "operational_values": {
+              "water_edge_requirement": "required",
+              "hydrology_tolerance": [
+                "seasonal",
+                "long",
+                "permanent",
+                "edge"
+              ]
+            },
+            "value_origins": {
+              "water_edge_requirement": "synthetic_fallback",
+              "hydrology_tolerance": "synthetic_fallback"
+            }
+          }
+        ]
+      },
+      {
+        "fixture_id": "demo-core-23",
+        "scientific_name": "Myosotis scorpioides",
+        "raw_score": 90.0,
+        "reasons": [
+          {
+            "gate_id": "H03_WATER_EDGE",
+            "triggered": true,
+            "state": "excluded",
+            "reason": "Required edge=required; confirmed compatible edge=False. Pilot assumptions: water_edge_requirement=synthetic_fallback, hydrology_tolerance=synthetic_fallback.",
+            "operational_values": {
+              "water_edge_requirement": "required",
+              "hydrology_tolerance": [
+                "seasonal",
+                "long",
+                "permanent",
+                "edge"
+              ]
+            },
+            "value_origins": {
+              "water_edge_requirement": "synthetic_fallback",
+              "hydrology_tolerance": "synthetic_fallback"
+            }
+          }
+        ]
+      },
+      {
+        "fixture_id": "demo-core-45",
+        "scientific_name": "Quercus robur",
+        "raw_score": 88.0,
+        "reasons": [
+          {
+            "gate_id": "H07_WOODY_GEOMETRY",
+            "triggered": true,
+            "state": "excluded",
+            "reason": "Woody spread footprint 21.336m; clear geometry=does_not_fit; stage=placement. Pilot assumptions: mature_spread_m=expert_inference.",
+            "operational_values": {
+              "group": "Trees",
+              "mature_spread_m": 21.336
+            },
+            "value_origins": {
+              "group": "sourced",
+              "mature_spread_m": "expert_inference"
+            }
+          }
+        ]
+      },
+      {
+        "fixture_id": "demo-core-48",
+        "scientific_name": "Salix alba",
+        "raw_score": 85.5,
+        "reasons": [
+          {
+            "gate_id": "H07_WOODY_GEOMETRY",
+            "triggered": true,
+            "state": "excluded",
+            "reason": "Woody spread footprint 21.336m; clear geometry=does_not_fit; stage=placement.",
+            "operational_values": {
+              "group": "Trees",
+              "mature_spread_m": 21.336
+            },
+            "value_origins": {
+              "group": "sourced",
+              "mature_spread_m": "sourced"
+            }
+          }
+        ]
+      }
+    ],
+    "unsuitable_plants": [
+      {
+        "fixture_id": "demo-core-17",
+        "reasons": [
+          "Environmental conflict: soil=clay versus ['sand']."
+        ]
+      },
+      {
+        "fixture_id": "demo-core-27",
+        "reasons": [
+          "Environmental conflict: soil=clay versus ['sand']."
+        ]
+      },
+      {
+        "fixture_id": "demo-core-37",
+        "reasons": [
+          "Environmental conflict: soil=clay versus ['sand']."
+        ]
+      },
+      {
+        "fixture_id": "demo-core-39",
+        "reasons": [
+          "Environmental conflict: soil=clay versus ['sand']."
+        ]
+      },
+      {
+        "fixture_id": "demo-core-52",
+        "reasons": [
+          "Insufficient clear space for 15.24m pilot footprint."
+        ]
+      }
+    ],
+    "top_demonstration_candidates": [
+      {
+        "scientific_name": "Tilia cordata",
+        "final_score": 59,
+        "raw_score": 100.0,
+        "confidence": 18.6725,
+        "explanation": [
+          "soil=clay matches operational ['clay']. Origin: expert_inference.",
+          "moisture=fresh matches operational ['fresh']. Origin: sourced.",
+          "hydrology=none matches operational ['none', 'seasonal']. Origin: synthetic_fallback.",
+          "light=mixed matches operational ['sun', 'mixed']. Origin: sourced.",
+          "disturbance=low matches operational ['low']. Origin: synthetic_fallback.",
+          "hardscape=no matches operational ['avoid']. Origin: synthetic_fallback."
+        ],
+        "warnings": [
+          {
+            "code": "synthetic_site",
+            "message": "Zone values and dimensions are a synthetic example; site-source confidence factor is 0.5."
+          },
+          {
+            "code": "policy_or_safety_review_required",
+            "message": "invasive_status=unknown; demonstration conditional only, no real-world clearance."
+          },
+          {
+            "code": "policy_or_safety_review_required",
+            "message": "protected_or_legal_status=not_reviewed; demonstration conditional only, no real-world clearance."
+          },
+          {
+            "code": "policy_or_safety_review_required",
+            "message": "provenance_status=unknown; demonstration conditional only, no real-world clearance."
+          },
+          {
+            "code": "policy_or_safety_review_required",
+            "message": "toxicity_status=unknown; demonstration conditional only, no real-world clearance."
+          },
+          {
+            "code": "policy_or_safety_review_required",
+            "message": "public_contact_status=not_reviewed; demonstration conditional only, no real-world clearance."
+          },
+          {
+            "code": "policy_or_safety_review_required",
+            "message": "thorns_or_spines=unknown; demonstration conditional only, no real-world clearance."
+          },
+          {
+            "code": "public_contact_hazard_context",
+            "message": "allergen_risk=unknown; no general safety clearance."
+          },
+          {
+            "code": "public_contact_hazard_context",
+            "message": "irritant_sap=unknown; no general safety clearance."
+          },
+          {
+            "code": "public_contact_hazard_context",
+            "message": "contact_irritation_status=unknown; no general safety clearance."
+          },
+          {
+            "code": "simulation_only",
+            "message": "production_eligible=false; this result is a pilot simulation, not planting, procurement or food advice."
+          },
+          {
+            "code": "canopy_context",
+            "message": "Canopy present: use observed light; no additional canopy score or assumed future shade."
+          },
+          {
+            "code": "component_assumptions",
+            "message": "soil relies on soil_tolerance=expert_inference. This is simulated compatibility, not reviewed field evidence."
+          },
+          {
+            "code": "component_assumptions",
+            "message": "hydrology relies on hydrology_tolerance=synthetic_fallback. This is simulated compatibility, not reviewed field evidence."
+          },
+          {
+            "code": "component_assumptions",
+            "message": "disturbance_hardscape relies on disturbance_tolerance=synthetic_fallback, hardscape_tolerance=synthetic_fallback. This is simulated compatibility, not reviewed field evidence."
+          },
+          {
+            "code": "component_assumptions",
+            "message": "spatial relies on pilot_spacing_m=synthetic_fallback, climbing_support_required=synthetic_fallback. This is simulated compatibility, not reviewed field evidence."
+          },
+          {
+            "code": "component_assumptions",
+            "message": "maintenance_vigour relies on vigour_or_spread_risk=synthetic_fallback. This is simulated compatibility, not reviewed field evidence."
+          },
+          {
+            "code": "design_assumptions",
+            "message": "Design output uses flower_colour=expert_inference."
+          }
+        ],
+        "synthetic_components": [
+          "hydrology",
+          "disturbance_hardscape",
+          "spatial",
+          "maintenance_vigour"
+        ]
+      },
+      {
+        "scientific_name": "Prunella vulgaris",
+        "final_score": 59,
+        "raw_score": 100.0,
+        "confidence": 17.29,
+        "explanation": [
+          "soil=clay matches operational ['sand', 'clay', 'peat']. Origin: expert_inference.",
+          "moisture=fresh matches operational ['fresh']. Origin: sourced.",
+          "hydrology=none matches operational ['none', 'seasonal']. Origin: synthetic_fallback.",
+          "light=mixed matches operational ['sun', 'mixed']. Origin: sourced.",
+          "disturbance=low matches operational ['low', 'moderate']. Origin: synthetic_fallback.",
+          "hardscape=no matches operational ['conditional']. Origin: synthetic_fallback."
+        ],
+        "warnings": [
+          {
+            "code": "synthetic_site",
+            "message": "Zone values and dimensions are a synthetic example; site-source confidence factor is 0.5."
+          },
+          {
+            "code": "policy_or_safety_review_required",
+            "message": "invasive_status=unknown; demonstration conditional only, no real-world clearance."
+          },
+          {
+            "code": "policy_or_safety_review_required",
+            "message": "protected_or_legal_status=not_reviewed; demonstration conditional only, no real-world clearance."
+          },
+          {
+            "code": "policy_or_safety_review_required",
+            "message": "provenance_status=unknown; demonstration conditional only, no real-world clearance."
+          },
+          {
+            "code": "policy_or_safety_review_required",
+            "message": "toxicity_status=unknown; demonstration conditional only, no real-world clearance."
+          },
+          {
+            "code": "policy_or_safety_review_required",
+            "message": "public_contact_status=not_reviewed; demonstration conditional only, no real-world clearance."
+          },
+          {
+            "code": "policy_or_safety_review_required",
+            "message": "thorns_or_spines=unknown; demonstration conditional only, no real-world clearance."
+          },
+          {
+            "code": "public_contact_hazard_context",
+            "message": "allergen_risk=unknown; no general safety clearance."
+          },
+          {
+            "code": "public_contact_hazard_context",
+            "message": "irritant_sap=unknown; no general safety clearance."
+          },
+          {
+            "code": "public_contact_hazard_context",
+            "message": "contact_irritation_status=unknown; no general safety clearance."
+          },
+          {
+            "code": "simulation_only",
+            "message": "production_eligible=false; this result is a pilot simulation, not planting, procurement or food advice."
+          },
+          {
+            "code": "canopy_context",
+            "message": "Canopy present: use observed light; no additional canopy score or assumed future shade."
+          },
+          {
+            "code": "component_assumptions",
+            "message": "soil relies on soil_tolerance=expert_inference. This is simulated compatibility, not reviewed field evidence."
+          },
+          {
+            "code": "component_assumptions",
+            "message": "hydrology relies on hydrology_tolerance=synthetic_fallback. This is simulated compatibility, not reviewed field evidence."
+          },
+          {
+            "code": "component_assumptions",
+            "message": "disturbance_hardscape relies on disturbance_tolerance=synthetic_fallback, hardscape_tolerance=synthetic_fallback. This is simulated compatibility, not reviewed field evidence."
+          },
+          {
+            "code": "component_assumptions",
+            "message": "spatial relies on mature_spread_m=synthetic_fallback, pilot_spacing_m=synthetic_fallback, group=synthetic_fallback, climbing_support_required=synthetic_fallback. This is simulated compatibility, not reviewed field evidence."
+          },
+          {
+            "code": "component_assumptions",
+            "message": "maintenance_vigour relies on maintenance_demand=synthetic_fallback, vigour_or_spread_risk=synthetic_fallback. This is simulated compatibility, not reviewed field evidence."
+          },
+          {
+            "code": "design_assumptions",
+            "message": "Design output uses flower_end_month=synthetic_fallback, flower_colour=expert_inference, pollinator_value=synthetic_fallback."
+          },
+          {
+            "code": "synthetic_pollinator_output",
+            "message": "Pollinator value is a simulation placeholder; no researched ecological benefit is asserted."
+          }
+        ],
+        "synthetic_components": [
+          "hydrology",
+          "disturbance_hardscape",
+          "spatial",
+          "maintenance_vigour"
+        ]
+      },
+      {
+        "scientific_name": "Briza media",
+        "final_score": 59,
+        "raw_score": 100.0,
+        "confidence": 17.29,
+        "explanation": [
+          "soil=clay matches operational ['sand', 'clay']. Origin: expert_inference.",
+          "moisture=fresh matches operational ['dry', 'fresh', 'wet']. Origin: sourced.",
+          "hydrology=none matches operational ['none', 'seasonal', 'edge']. Origin: synthetic_fallback.",
+          "light=mixed matches operational ['sun', 'mixed']. Origin: sourced.",
+          "disturbance=low matches operational ['low', 'moderate']. Origin: synthetic_fallback.",
+          "hardscape=no matches operational ['conditional']. Origin: synthetic_fallback."
+        ],
+        "warnings": [
+          {
+            "code": "synthetic_site",
+            "message": "Zone values and dimensions are a synthetic example; site-source confidence factor is 0.5."
+          },
+          {
+            "code": "water_edge_preference",
+            "message": "Operational wet-site preference has no confirmed water edge; not a mandatory aquatic gate."
+          },
+          {
+            "code": "policy_or_safety_review_required",
+            "message": "invasive_status=unknown; demonstration conditional only, no real-world clearance."
+          },
+          {
+            "code": "policy_or_safety_review_required",
+            "message": "protected_or_legal_status=not_reviewed; demonstration conditional only, no real-world clearance."
+          },
+          {
+            "code": "policy_or_safety_review_required",
+            "message": "provenance_status=unknown; demonstration conditional only, no real-world clearance."
+          },
+          {
+            "code": "policy_or_safety_review_required",
+            "message": "toxicity_status=unknown; demonstration conditional only, no real-world clearance."
+          },
+          {
+            "code": "policy_or_safety_review_required",
+            "message": "public_contact_status=not_reviewed; demonstration conditional only, no real-world clearance."
+          },
+          {
+            "code": "policy_or_safety_review_required",
+            "message": "thorns_or_spines=unknown; demonstration conditional only, no real-world clearance."
+          },
+          {
+            "code": "public_contact_hazard_context",
+            "message": "allergen_risk=unknown; no general safety clearance."
+          },
+          {
+            "code": "public_contact_hazard_context",
+            "message": "irritant_sap=unknown; no general safety clearance."
+          },
+          {
+            "code": "public_contact_hazard_context",
+            "message": "contact_irritation_status=unknown; no general safety clearance."
+          },
+          {
+            "code": "simulation_only",
+            "message": "production_eligible=false; this result is a pilot simulation, not planting, procurement or food advice."
+          },
+          {
+            "code": "canopy_context",
+            "message": "Canopy present: use observed light; no additional canopy score or assumed future shade."
+          },
+          {
+            "code": "component_assumptions",
+            "message": "soil relies on soil_tolerance=expert_inference. This is simulated compatibility, not reviewed field evidence."
+          },
+          {
+            "code": "component_assumptions",
+            "message": "hydrology relies on hydrology_tolerance=synthetic_fallback. This is simulated compatibility, not reviewed field evidence."
+          },
+          {
+            "code": "component_assumptions",
+            "message": "disturbance_hardscape relies on disturbance_tolerance=synthetic_fallback, hardscape_tolerance=synthetic_fallback. This is simulated compatibility, not reviewed field evidence."
+          },
+          {
+            "code": "component_assumptions",
+            "message": "spatial relies on mature_spread_m=synthetic_fallback, pilot_spacing_m=synthetic_fallback, group=synthetic_fallback, climbing_support_required=synthetic_fallback. This is simulated compatibility, not reviewed field evidence."
+          },
+          {
+            "code": "component_assumptions",
+            "message": "maintenance_vigour relies on maintenance_demand=synthetic_fallback, vigour_or_spread_risk=synthetic_fallback. This is simulated compatibility, not reviewed field evidence."
+          },
+          {
+            "code": "design_assumptions",
+            "message": "Design output uses flower_colour=synthetic_fallback, pollinator_value=synthetic_fallback."
+          },
+          {
+            "code": "synthetic_pollinator_output",
+            "message": "Pollinator value is a simulation placeholder; no researched ecological benefit is asserted."
+          }
+        ],
+        "synthetic_components": [
+          "hydrology",
+          "disturbance_hardscape",
+          "spatial",
+          "maintenance_vigour"
+        ]
+      },
+      {
+        "scientific_name": "Deschampsia cespitosa",
+        "final_score": 59,
+        "raw_score": 100.0,
+        "confidence": 18.83,
+        "explanation": [
+          "soil=clay matches operational ['clay']. Origin: expert_inference.",
+          "moisture=fresh matches operational ['fresh', 'wet']. Origin: sourced.",
+          "hydrology=none matches operational ['none', 'seasonal', 'edge']. Origin: synthetic_fallback.",
+          "light=mixed matches operational ['sun', 'mixed', 'shade']. Origin: sourced.",
+          "disturbance=low matches operational ['low', 'moderate']. Origin: synthetic_fallback.",
+          "hardscape=no matches operational ['conditional']. Origin: synthetic_fallback."
+        ],
+        "warnings": [
+          {
+            "code": "synthetic_site",
+            "message": "Zone values and dimensions are a synthetic example; site-source confidence factor is 0.5."
+          },
+          {
+            "code": "water_edge_preference",
+            "message": "Operational wet-site preference has no confirmed water edge; not a mandatory aquatic gate."
+          },
+          {
+            "code": "policy_or_safety_review_required",
+            "message": "invasive_status=unknown; demonstration conditional only, no real-world clearance."
+          },
+          {
+            "code": "policy_or_safety_review_required",
+            "message": "protected_or_legal_status=not_reviewed; demonstration conditional only, no real-world clearance."
+          },
+          {
+            "code": "policy_or_safety_review_required",
+            "message": "provenance_status=unknown; demonstration conditional only, no real-world clearance."
+          },
+          {
+            "code": "policy_or_safety_review_required",
+            "message": "toxicity_status=unknown; demonstration conditional only, no real-world clearance."
+          },
+          {
+            "code": "policy_or_safety_review_required",
+            "message": "public_contact_status=not_reviewed; demonstration conditional only, no real-world clearance."
+          },
+          {
+            "code": "policy_or_safety_review_required",
+            "message": "thorns_or_spines=unknown; demonstration conditional only, no real-world clearance."
+          },
+          {
+            "code": "public_contact_hazard_context",
+            "message": "allergen_risk=unknown; no general safety clearance."
+          },
+          {
+            "code": "public_contact_hazard_context",
+            "message": "irritant_sap=unknown; no general safety clearance."
+          },
+          {
+            "code": "public_contact_hazard_context",
+            "message": "contact_irritation_status=unknown; no general safety clearance."
+          },
+          {
+            "code": "simulation_only",
+            "message": "production_eligible=false; this result is a pilot simulation, not planting, procurement or food advice."
+          },
+          {
+            "code": "canopy_context",
+            "message": "Canopy present: use observed light; no additional canopy score or assumed future shade."
+          },
+          {
+            "code": "component_assumptions",
+            "message": "soil relies on soil_tolerance=expert_inference. This is simulated compatibility, not reviewed field evidence."
+          },
+          {
+            "code": "component_assumptions",
+            "message": "hydrology relies on hydrology_tolerance=synthetic_fallback. This is simulated compatibility, not reviewed field evidence."
+          },
+          {
+            "code": "component_assumptions",
+            "message": "disturbance_hardscape relies on disturbance_tolerance=synthetic_fallback, hardscape_tolerance=synthetic_fallback. This is simulated compatibility, not reviewed field evidence."
+          },
+          {
+            "code": "component_assumptions",
+            "message": "spatial relies on pilot_spacing_m=synthetic_fallback, climbing_support_required=synthetic_fallback. This is simulated compatibility, not reviewed field evidence."
+          },
+          {
+            "code": "component_assumptions",
+            "message": "maintenance_vigour relies on vigour_or_spread_risk=synthetic_fallback. This is simulated compatibility, not reviewed field evidence."
+          },
+          {
+            "code": "design_assumptions",
+            "message": "Design output uses flower_colour=synthetic_fallback, pollinator_value=synthetic_fallback."
+          },
+          {
+            "code": "synthetic_pollinator_output",
+            "message": "Pollinator value is a simulation placeholder; no researched ecological benefit is asserted."
+          }
+        ],
+        "synthetic_components": [
+          "hydrology",
+          "disturbance_hardscape",
+          "spatial",
+          "maintenance_vigour"
+        ]
+      },
+      {
+        "scientific_name": "Molinia caerulea",
+        "final_score": 59,
+        "raw_score": 100.0,
+        "confidence": 18.83,
+        "explanation": [
+          "soil=clay matches operational ['sand', 'clay', 'peat']. Origin: expert_inference.",
+          "moisture=fresh matches operational ['fresh', 'wet']. Origin: sourced.",
+          "hydrology=none matches operational ['none', 'seasonal', 'edge']. Origin: synthetic_fallback.",
+          "light=mixed matches operational ['sun', 'mixed']. Origin: sourced.",
+          "disturbance=low matches operational ['low', 'moderate']. Origin: synthetic_fallback.",
+          "hardscape=no matches operational ['conditional']. Origin: synthetic_fallback."
+        ],
+        "warnings": [
+          {
+            "code": "synthetic_site",
+            "message": "Zone values and dimensions are a synthetic example; site-source confidence factor is 0.5."
+          },
+          {
+            "code": "water_edge_preference",
+            "message": "Operational wet-site preference has no confirmed water edge; not a mandatory aquatic gate."
+          },
+          {
+            "code": "policy_or_safety_review_required",
+            "message": "invasive_status=unknown; demonstration conditional only, no real-world clearance."
+          },
+          {
+            "code": "policy_or_safety_review_required",
+            "message": "protected_or_legal_status=not_reviewed; demonstration conditional only, no real-world clearance."
+          },
+          {
+            "code": "policy_or_safety_review_required",
+            "message": "provenance_status=unknown; demonstration conditional only, no real-world clearance."
+          },
+          {
+            "code": "policy_or_safety_review_required",
+            "message": "toxicity_status=unknown; demonstration conditional only, no real-world clearance."
+          },
+          {
+            "code": "policy_or_safety_review_required",
+            "message": "public_contact_status=not_reviewed; demonstration conditional only, no real-world clearance."
+          },
+          {
+            "code": "policy_or_safety_review_required",
+            "message": "thorns_or_spines=unknown; demonstration conditional only, no real-world clearance."
+          },
+          {
+            "code": "public_contact_hazard_context",
+            "message": "allergen_risk=unknown; no general safety clearance."
+          },
+          {
+            "code": "public_contact_hazard_context",
+            "message": "irritant_sap=unknown; no general safety clearance."
+          },
+          {
+            "code": "public_contact_hazard_context",
+            "message": "contact_irritation_status=unknown; no general safety clearance."
+          },
+          {
+            "code": "simulation_only",
+            "message": "production_eligible=false; this result is a pilot simulation, not planting, procurement or food advice."
+          },
+          {
+            "code": "canopy_context",
+            "message": "Canopy present: use observed light; no additional canopy score or assumed future shade."
+          },
+          {
+            "code": "component_assumptions",
+            "message": "soil relies on soil_tolerance=expert_inference. This is simulated compatibility, not reviewed field evidence."
+          },
+          {
+            "code": "component_assumptions",
+            "message": "hydrology relies on hydrology_tolerance=synthetic_fallback. This is simulated compatibility, not reviewed field evidence."
+          },
+          {
+            "code": "component_assumptions",
+            "message": "disturbance_hardscape relies on disturbance_tolerance=synthetic_fallback, hardscape_tolerance=synthetic_fallback. This is simulated compatibility, not reviewed field evidence."
+          },
+          {
+            "code": "component_assumptions",
+            "message": "spatial relies on pilot_spacing_m=synthetic_fallback, climbing_support_required=synthetic_fallback. This is simulated compatibility, not reviewed field evidence."
+          },
+          {
+            "code": "component_assumptions",
+            "message": "maintenance_vigour relies on vigour_or_spread_risk=synthetic_fallback. This is simulated compatibility, not reviewed field evidence."
+          },
+          {
+            "code": "design_assumptions",
+            "message": "Design output uses flower_colour=synthetic_fallback, pollinator_value=synthetic_fallback."
+          },
+          {
+            "code": "synthetic_pollinator_output",
+            "message": "Pollinator value is a simulation placeholder; no researched ecological benefit is asserted."
+          }
+        ],
+        "synthetic_components": [
+          "hydrology",
+          "disturbance_hardscape",
+          "spatial",
+          "maintenance_vigour"
+        ]
+      }
+    ]
+  },
+  "wet_water_edge": {
+    "record_count": 60,
+    "ranked_eligible": [
+      {
+        "rank": 1,
+        "fixture_id": "demo-core-21",
+        "scientific_name": "Butomus umbellatus",
+        "raw_suitability_score": 97.5,
+        "final_suitability_score": 59,
+        "evidence_confidence_score": 17.8675,
+        "eligibility_state": "conditional_match"
+      },
+      {
+        "rank": 2,
+        "fixture_id": "demo-core-19",
+        "scientific_name": "Iris pseudacorus",
+        "raw_suitability_score": 95.0,
+        "final_suitability_score": 59,
+        "evidence_confidence_score": 18.6187,
+        "eligibility_state": "conditional_match"
+      },
+      {
+        "rank": 3,
+        "fixture_id": "demo-core-22",
+        "scientific_name": "Alisma plantago-aquatica",
+        "raw_suitability_score": 95.0,
+        "final_suitability_score": 59,
+        "evidence_confidence_score": 19.0688,
+        "eligibility_state": "conditional_match"
+      },
+      {
+        "rank": 4,
+        "fixture_id": "demo-core-18",
+        "scientific_name": "Lythrum salicaria",
+        "raw_suitability_score": 95.0,
+        "final_suitability_score": 59,
+        "evidence_confidence_score": 17.535,
+        "eligibility_state": "conditional_match"
+      }
+    ],
+    "excluded_plants": [
+      {
+        "fixture_id": "demo-core-01",
+        "scientific_name": "Achillea millefolium",
+        "raw_score": 57.5,
+        "reasons": [
+          {
+            "gate_id": "H04_PERMANENT_WATER",
+            "triggered": true,
+            "state": "excluded",
+            "reason": "Permanent-water regime needs explicit operational permanent tolerance. Pilot assumptions: hydrology_tolerance=synthetic_fallback.",
+            "operational_values": {
+              "hydrology_tolerance": [
+                "none",
+                "seasonal"
+              ]
+            },
+            "value_origins": {
+              "hydrology_tolerance": "synthetic_fallback"
+            }
+          }
+        ]
+      },
+      {
+        "fixture_id": "demo-core-02",
+        "scientific_name": "Centaurea jacea",
+        "raw_score": 60.0,
+        "reasons": [
+          {
+            "gate_id": "H04_PERMANENT_WATER",
+            "triggered": true,
+            "state": "excluded",
+            "reason": "Permanent-water regime needs explicit operational permanent tolerance. Pilot assumptions: hydrology_tolerance=synthetic_fallback.",
+            "operational_values": {
+              "hydrology_tolerance": [
+                "none",
+                "seasonal"
+              ]
+            },
+            "value_origins": {
+              "hydrology_tolerance": "synthetic_fallback"
+            }
+          }
+        ]
+      },
+      {
+        "fixture_id": "demo-core-03",
+        "scientific_name": "Leucanthemum vulgare",
+        "raw_score": 57.5,
+        "reasons": [
+          {
+            "gate_id": "H04_PERMANENT_WATER",
+            "triggered": true,
+            "state": "excluded",
+            "reason": "Permanent-water regime needs explicit operational permanent tolerance. Pilot assumptions: hydrology_tolerance=synthetic_fallback.",
+            "operational_values": {
+              "hydrology_tolerance": [
+                "none",
+                "seasonal"
+              ]
+            },
+            "value_origins": {
+              "hydrology_tolerance": "synthetic_fallback"
+            }
+          }
+        ]
+      },
+      {
+        "fixture_id": "demo-core-04",
+        "scientific_name": "Prunella vulgaris",
+        "raw_score": 75.0,
+        "reasons": [
+          {
+            "gate_id": "H04_PERMANENT_WATER",
+            "triggered": true,
+            "state": "excluded",
+            "reason": "Permanent-water regime needs explicit operational permanent tolerance. Pilot assumptions: hydrology_tolerance=synthetic_fallback.",
+            "operational_values": {
+              "hydrology_tolerance": [
+                "none",
+                "seasonal"
+              ]
+            },
+            "value_origins": {
+              "hydrology_tolerance": "synthetic_fallback"
+            }
+          }
+        ]
+      },
+      {
+        "fixture_id": "demo-core-05",
+        "scientific_name": "Lotus corniculatus",
+        "raw_score": 50.0,
+        "reasons": [
+          {
+            "gate_id": "H04_PERMANENT_WATER",
+            "triggered": true,
+            "state": "excluded",
+            "reason": "Permanent-water regime needs explicit operational permanent tolerance. Pilot assumptions: hydrology_tolerance=synthetic_fallback.",
+            "operational_values": {
+              "hydrology_tolerance": [
+                "none"
+              ]
+            },
+            "value_origins": {
+              "hydrology_tolerance": "synthetic_fallback"
+            }
+          }
+        ]
+      },
+      {
+        "fixture_id": "demo-core-06",
+        "scientific_name": "Filipendula ulmaria",
+        "raw_score": 80.0,
+        "reasons": [
+          {
+            "gate_id": "H04_PERMANENT_WATER",
+            "triggered": true,
+            "state": "excluded",
+            "reason": "Permanent-water regime needs explicit operational permanent tolerance. Pilot assumptions: hydrology_tolerance=synthetic_fallback.",
+            "operational_values": {
+              "hydrology_tolerance": [
+                "none",
+                "seasonal",
+                "edge"
+              ]
+            },
+            "value_origins": {
+              "hydrology_tolerance": "synthetic_fallback"
+            }
+          }
+        ]
+      },
+      {
+        "fixture_id": "demo-core-07",
+        "scientific_name": "Mentha aquatica",
+        "raw_score": 85.0,
+        "reasons": [
+          {
+            "gate_id": "H04_PERMANENT_WATER",
+            "triggered": true,
+            "state": "excluded",
+            "reason": "Permanent-water regime needs explicit operational permanent tolerance. Pilot assumptions: hydrology_tolerance=synthetic_fallback.",
+            "operational_values": {
+              "hydrology_tolerance": [
+                "none",
+                "seasonal",
+                "edge"
+              ]
+            },
+            "value_origins": {
+              "hydrology_tolerance": "synthetic_fallback"
+            }
+          }
+        ]
+      },
+      {
+        "fixture_id": "demo-core-08",
+        "scientific_name": "Knautia arvensis",
+        "raw_score": 60.0,
+        "reasons": [
+          {
+            "gate_id": "H04_PERMANENT_WATER",
+            "triggered": true,
+            "state": "excluded",
+            "reason": "Permanent-water regime needs explicit operational permanent tolerance. Pilot assumptions: hydrology_tolerance=synthetic_fallback.",
+            "operational_values": {
+              "hydrology_tolerance": [
+                "none",
+                "seasonal"
+              ]
+            },
+            "value_origins": {
+              "hydrology_tolerance": "synthetic_fallback"
+            }
+          }
+        ]
+      },
+      {
+        "fixture_id": "demo-core-09",
+        "scientific_name": "Campanula rotundifolia",
+        "raw_score": 50.0,
+        "reasons": [
+          {
+            "gate_id": "H04_PERMANENT_WATER",
+            "triggered": true,
+            "state": "excluded",
+            "reason": "Permanent-water regime needs explicit operational permanent tolerance. Pilot assumptions: hydrology_tolerance=synthetic_fallback.",
+            "operational_values": {
+              "hydrology_tolerance": [
+                "none"
+              ]
+            },
+            "value_origins": {
+              "hydrology_tolerance": "synthetic_fallback"
+            }
+          }
+        ]
+      },
+      {
+        "fixture_id": "demo-core-10",
+        "scientific_name": "Alliaria petiolata",
+        "raw_score": 47.5,
+        "reasons": [
+          {
+            "gate_id": "H04_PERMANENT_WATER",
+            "triggered": true,
+            "state": "excluded",
+            "reason": "Permanent-water regime needs explicit operational permanent tolerance. Pilot assumptions: hydrology_tolerance=synthetic_fallback.",
+            "operational_values": {
+              "hydrology_tolerance": [
+                "none",
+                "seasonal"
+              ]
+            },
+            "value_origins": {
+              "hydrology_tolerance": "synthetic_fallback"
+            }
+          }
+        ]
+      },
+      {
+        "fixture_id": "demo-core-11",
+        "scientific_name": "Silene dioica",
+        "raw_score": 75.0,
+        "reasons": [
+          {
+            "gate_id": "H04_PERMANENT_WATER",
+            "triggered": true,
+            "state": "excluded",
+            "reason": "Permanent-water regime needs explicit operational permanent tolerance. Pilot assumptions: hydrology_tolerance=synthetic_fallback.",
+            "operational_values": {
+              "hydrology_tolerance": [
+                "none",
+                "seasonal"
+              ]
+            },
+            "value_origins": {
+              "hydrology_tolerance": "synthetic_fallback"
+            }
+          }
+        ]
+      },
+      {
+        "fixture_id": "demo-core-12",
+        "scientific_name": "Succisa pratensis",
+        "raw_score": 85.0,
+        "reasons": [
+          {
+            "gate_id": "H04_PERMANENT_WATER",
+            "triggered": true,
+            "state": "excluded",
+            "reason": "Permanent-water regime needs explicit operational permanent tolerance. Pilot assumptions: hydrology_tolerance=synthetic_fallback.",
+            "operational_values": {
+              "hydrology_tolerance": [
+                "none",
+                "seasonal",
+                "edge"
+              ]
+            },
+            "value_origins": {
+              "hydrology_tolerance": "synthetic_fallback"
+            }
+          }
+        ]
+      },
+      {
+        "fixture_id": "demo-core-13",
+        "scientific_name": "Valeriana officinalis",
+        "raw_score": 82.5,
+        "reasons": [
+          {
+            "gate_id": "H04_PERMANENT_WATER",
+            "triggered": true,
+            "state": "excluded",
+            "reason": "Permanent-water regime needs explicit operational permanent tolerance. Pilot assumptions: hydrology_tolerance=synthetic_fallback.",
+            "operational_values": {
+              "hydrology_tolerance": [
+                "none",
+                "seasonal",
+                "edge"
+              ]
+            },
+            "value_origins": {
+              "hydrology_tolerance": "synthetic_fallback"
+            }
+          }
+        ]
+      },
+      {
+        "fixture_id": "demo-core-14",
+        "scientific_name": "Geranium pratense",
+        "raw_score": 70.0,
+        "reasons": [
+          {
+            "gate_id": "H04_PERMANENT_WATER",
+            "triggered": true,
+            "state": "excluded",
+            "reason": "Permanent-water regime needs explicit operational permanent tolerance. Pilot assumptions: hydrology_tolerance=synthetic_fallback.",
+            "operational_values": {
+              "hydrology_tolerance": [
+                "none",
+                "seasonal",
+                "edge"
+              ]
+            },
+            "value_origins": {
+              "hydrology_tolerance": "synthetic_fallback"
+            }
+          }
+        ]
+      },
+      {
+        "fixture_id": "demo-core-15",
+        "scientific_name": "Daucus carota",
+        "raw_score": 55.0,
+        "reasons": [
+          {
+            "gate_id": "H04_PERMANENT_WATER",
+            "triggered": true,
+            "state": "excluded",
+            "reason": "Permanent-water regime needs explicit operational permanent tolerance. Pilot assumptions: hydrology_tolerance=synthetic_fallback.",
+            "operational_values": {
+              "hydrology_tolerance": [
+                "none",
+                "seasonal"
+              ]
+            },
+            "value_origins": {
+              "hydrology_tolerance": "synthetic_fallback"
+            }
+          }
+        ]
+      },
+      {
+        "fixture_id": "demo-core-16",
+        "scientific_name": "Trifolium pratense",
+        "raw_score": 82.5,
+        "reasons": [
+          {
+            "gate_id": "H04_PERMANENT_WATER",
+            "triggered": true,
+            "state": "excluded",
+            "reason": "Permanent-water regime needs explicit operational permanent tolerance. Pilot assumptions: hydrology_tolerance=synthetic_fallback.",
+            "operational_values": {
+              "hydrology_tolerance": [
+                "none",
+                "seasonal",
+                "edge"
+              ]
+            },
+            "value_origins": {
+              "hydrology_tolerance": "synthetic_fallback"
+            }
+          }
+        ]
+      },
+      {
+        "fixture_id": "demo-core-17",
+        "scientific_name": "Plantago lanceolata",
+        "raw_score": 57.5,
+        "reasons": [
+          {
+            "gate_id": "H04_PERMANENT_WATER",
+            "triggered": true,
+            "state": "excluded",
+            "reason": "Permanent-water regime needs explicit operational permanent tolerance. Pilot assumptions: hydrology_tolerance=synthetic_fallback.",
+            "operational_values": {
+              "hydrology_tolerance": [
+                "none",
+                "seasonal"
+              ]
+            },
+            "value_origins": {
+              "hydrology_tolerance": "synthetic_fallback"
+            }
+          }
+        ]
+      },
+      {
+        "fixture_id": "demo-core-24",
+        "scientific_name": "Carex riparia",
+        "raw_score": 85.0,
+        "reasons": [
+          {
+            "gate_id": "H04_PERMANENT_WATER",
+            "triggered": true,
+            "state": "excluded",
+            "reason": "Permanent-water regime needs explicit operational permanent tolerance. Pilot assumptions: hydrology_tolerance=synthetic_fallback.",
+            "operational_values": {
+              "hydrology_tolerance": [
+                "none",
+                "seasonal",
+                "edge"
+              ]
+            },
+            "value_origins": {
+              "hydrology_tolerance": "synthetic_fallback"
+            }
+          }
+        ]
+      },
+      {
+        "fixture_id": "demo-core-25",
+        "scientific_name": "Juncus effusus",
+        "raw_score": 85.0,
+        "reasons": [
+          {
+            "gate_id": "H04_PERMANENT_WATER",
+            "triggered": true,
+            "state": "excluded",
+            "reason": "Permanent-water regime needs explicit operational permanent tolerance. Pilot assumptions: hydrology_tolerance=synthetic_fallback.",
+            "operational_values": {
+              "hydrology_tolerance": [
+                "none",
+                "seasonal",
+                "edge"
+              ]
+            },
+            "value_origins": {
+              "hydrology_tolerance": "synthetic_fallback"
+            }
+          }
+        ]
+      },
+      {
+        "fixture_id": "demo-core-26",
+        "scientific_name": "Deschampsia cespitosa",
+        "raw_score": 70.0,
+        "reasons": [
+          {
+            "gate_id": "H04_PERMANENT_WATER",
+            "triggered": true,
+            "state": "excluded",
+            "reason": "Permanent-water regime needs explicit operational permanent tolerance. Pilot assumptions: hydrology_tolerance=synthetic_fallback.",
+            "operational_values": {
+              "hydrology_tolerance": [
+                "none",
+                "seasonal",
+                "edge"
+              ]
+            },
+            "value_origins": {
+              "hydrology_tolerance": "synthetic_fallback"
+            }
+          }
+        ]
+      },
+      {
+        "fixture_id": "demo-core-27",
+        "scientific_name": "Festuca rubra",
+        "raw_score": 67.5,
+        "reasons": [
+          {
+            "gate_id": "H04_PERMANENT_WATER",
+            "triggered": true,
+            "state": "excluded",
+            "reason": "Permanent-water regime needs explicit operational permanent tolerance. Pilot assumptions: hydrology_tolerance=synthetic_fallback.",
+            "operational_values": {
+              "hydrology_tolerance": [
+                "none",
+                "seasonal",
+                "edge"
+              ]
+            },
+            "value_origins": {
+              "hydrology_tolerance": "synthetic_fallback"
+            }
+          }
+        ]
+      },
+      {
+        "fixture_id": "demo-core-28",
+        "scientific_name": "Briza media",
+        "raw_score": 70.0,
+        "reasons": [
+          {
+            "gate_id": "H04_PERMANENT_WATER",
+            "triggered": true,
+            "state": "excluded",
+            "reason": "Permanent-water regime needs explicit operational permanent tolerance. Pilot assumptions: hydrology_tolerance=synthetic_fallback.",
+            "operational_values": {
+              "hydrology_tolerance": [
+                "none",
+                "seasonal",
+                "edge"
+              ]
+            },
+            "value_origins": {
+              "hydrology_tolerance": "synthetic_fallback"
+            }
+          }
+        ]
+      },
+      {
+        "fixture_id": "demo-core-29",
+        "scientific_name": "Molinia caerulea",
+        "raw_score": 85.0,
+        "reasons": [
+          {
+            "gate_id": "H04_PERMANENT_WATER",
+            "triggered": true,
+            "state": "excluded",
+            "reason": "Permanent-water regime needs explicit operational permanent tolerance. Pilot assumptions: hydrology_tolerance=synthetic_fallback.",
+            "operational_values": {
+              "hydrology_tolerance": [
+                "none",
+                "seasonal",
+                "edge"
+              ]
+            },
+            "value_origins": {
+              "hydrology_tolerance": "synthetic_fallback"
+            }
+          }
+        ]
+      },
+      {
+        "fixture_id": "demo-core-30",
+        "scientific_name": "Carex pendula",
+        "raw_score": 67.5,
+        "reasons": [
+          {
+            "gate_id": "H04_PERMANENT_WATER",
+            "triggered": true,
+            "state": "excluded",
+            "reason": "Permanent-water regime needs explicit operational permanent tolerance. Pilot assumptions: hydrology_tolerance=synthetic_fallback.",
+            "operational_values": {
+              "hydrology_tolerance": [
+                "none",
+                "seasonal",
+                "edge"
+              ]
+            },
+            "value_origins": {
+              "hydrology_tolerance": "synthetic_fallback"
+            }
+          }
+        ]
+      },
+      {
+        "fixture_id": "demo-core-31",
+        "scientific_name": "Carex flacca",
+        "raw_score": 75.0,
+        "reasons": [
+          {
+            "gate_id": "H04_PERMANENT_WATER",
+            "triggered": true,
+            "state": "excluded",
+            "reason": "Permanent-water regime needs explicit operational permanent tolerance. Pilot assumptions: hydrology_tolerance=synthetic_fallback.",
+            "operational_values": {
+              "hydrology_tolerance": [
+                "none",
+                "seasonal"
+              ]
+            },
+            "value_origins": {
+              "hydrology_tolerance": "synthetic_fallback"
+            }
+          }
+        ]
+      },
+      {
+        "fixture_id": "demo-core-32",
+        "scientific_name": "Anthoxanthum odoratum",
+        "raw_score": 85.0,
+        "reasons": [
+          {
+            "gate_id": "H04_PERMANENT_WATER",
+            "triggered": true,
+            "state": "excluded",
+            "reason": "Permanent-water regime needs explicit operational permanent tolerance. Pilot assumptions: hydrology_tolerance=synthetic_fallback.",
+            "operational_values": {
+              "hydrology_tolerance": [
+                "none",
+                "seasonal",
+                "edge"
+              ]
+            },
+            "value_origins": {
+              "hydrology_tolerance": "synthetic_fallback"
+            }
+          }
+        ]
+      },
+      {
+        "fixture_id": "demo-core-33",
+        "scientific_name": "Cornus sanguinea",
+        "raw_score": 60.0,
+        "reasons": [
+          {
+            "gate_id": "H04_PERMANENT_WATER",
+            "triggered": true,
+            "state": "excluded",
+            "reason": "Permanent-water regime needs explicit operational permanent tolerance. Pilot assumptions: hydrology_tolerance=synthetic_fallback.",
+            "operational_values": {
+              "hydrology_tolerance": [
+                "none",
+                "seasonal"
+              ]
+            },
+            "value_origins": {
+              "hydrology_tolerance": "synthetic_fallback"
+            }
+          }
+        ]
+      },
+      {
+        "fixture_id": "demo-core-34",
+        "scientific_name": "Salix cinerea",
+        "raw_score": 73.0,
+        "reasons": [
+          {
+            "gate_id": "H04_PERMANENT_WATER",
+            "triggered": true,
+            "state": "excluded",
+            "reason": "Permanent-water regime needs explicit operational permanent tolerance. Pilot assumptions: hydrology_tolerance=synthetic_fallback.",
+            "operational_values": {
+              "hydrology_tolerance": [
+                "none",
+                "seasonal",
+                "edge"
+              ]
+            },
+            "value_origins": {
+              "hydrology_tolerance": "synthetic_fallback"
+            }
+          },
+          {
+            "gate_id": "H07_WOODY_GEOMETRY",
+            "triggered": true,
+            "state": "excluded",
+            "reason": "Woody spread footprint 9.0m; clear geometry=does_not_fit; stage=placement. Pilot assumptions: group=synthetic_fallback, mature_spread_m=synthetic_fallback.",
+            "operational_values": {
+              "group": "Shrubs",
+              "mature_spread_m": 9.0
+            },
+            "value_origins": {
+              "group": "synthetic_fallback",
+              "mature_spread_m": "synthetic_fallback"
+            }
+          }
+        ]
+      },
+      {
+        "fixture_id": "demo-core-35",
+        "scientific_name": "Viburnum opulus",
+        "raw_score": 65.0,
+        "reasons": [
+          {
+            "gate_id": "H04_PERMANENT_WATER",
+            "triggered": true,
+            "state": "excluded",
+            "reason": "Permanent-water regime needs explicit operational permanent tolerance. Pilot assumptions: hydrology_tolerance=synthetic_fallback.",
+            "operational_values": {
+              "hydrology_tolerance": [
+                "none",
+                "seasonal",
+                "edge"
+              ]
+            },
+            "value_origins": {
+              "hydrology_tolerance": "synthetic_fallback"
+            }
+          }
+        ]
+      },
+      {
+        "fixture_id": "demo-core-36",
+        "scientific_name": "Corylus avellana",
+        "raw_score": 60.0,
+        "reasons": [
+          {
+            "gate_id": "H04_PERMANENT_WATER",
+            "triggered": true,
+            "state": "excluded",
+            "reason": "Permanent-water regime needs explicit operational permanent tolerance. Pilot assumptions: hydrology_tolerance=synthetic_fallback.",
+            "operational_values": {
+              "hydrology_tolerance": [
+                "none",
+                "seasonal"
+              ]
+            },
+            "value_origins": {
+              "hydrology_tolerance": "synthetic_fallback"
+            }
+          }
+        ]
+      },
+      {
+        "fixture_id": "demo-core-37",
+        "scientific_name": "Crataegus monogyna",
+        "raw_score": 60.0,
+        "reasons": [
+          {
+            "gate_id": "H04_PERMANENT_WATER",
+            "triggered": true,
+            "state": "excluded",
+            "reason": "Permanent-water regime needs explicit operational permanent tolerance. Pilot assumptions: hydrology_tolerance=synthetic_fallback.",
+            "operational_values": {
+              "hydrology_tolerance": [
+                "none",
+                "seasonal"
+              ]
+            },
+            "value_origins": {
+              "hydrology_tolerance": "synthetic_fallback"
+            }
+          }
+        ]
+      },
+      {
+        "fixture_id": "demo-core-38",
+        "scientific_name": "Prunus spinosa",
+        "raw_score": 60.0,
+        "reasons": [
+          {
+            "gate_id": "H04_PERMANENT_WATER",
+            "triggered": true,
+            "state": "excluded",
+            "reason": "Permanent-water regime needs explicit operational permanent tolerance. Pilot assumptions: hydrology_tolerance=synthetic_fallback.",
+            "operational_values": {
+              "hydrology_tolerance": [
+                "none",
+                "seasonal"
+              ]
+            },
+            "value_origins": {
+              "hydrology_tolerance": "synthetic_fallback"
+            }
+          }
+        ]
+      },
+      {
+        "fixture_id": "demo-core-39",
+        "scientific_name": "Rosa canina",
+        "raw_score": 50.0,
+        "reasons": [
+          {
+            "gate_id": "H04_PERMANENT_WATER",
+            "triggered": true,
+            "state": "excluded",
+            "reason": "Permanent-water regime needs explicit operational permanent tolerance. Pilot assumptions: hydrology_tolerance=synthetic_fallback.",
+            "operational_values": {
+              "hydrology_tolerance": [
+                "none"
+              ]
+            },
+            "value_origins": {
+              "hydrology_tolerance": "synthetic_fallback"
+            }
+          }
+        ]
+      },
+      {
+        "fixture_id": "demo-core-40",
+        "scientific_name": "Sambucus nigra",
+        "raw_score": 55.0,
+        "reasons": [
+          {
+            "gate_id": "H04_PERMANENT_WATER",
+            "triggered": true,
+            "state": "excluded",
+            "reason": "Permanent-water regime needs explicit operational permanent tolerance. Pilot assumptions: hydrology_tolerance=synthetic_fallback.",
+            "operational_values": {
+              "hydrology_tolerance": [
+                "none",
+                "seasonal"
+              ]
+            },
+            "value_origins": {
+              "hydrology_tolerance": "synthetic_fallback"
+            }
+          }
+        ]
+      },
+      {
+        "fixture_id": "demo-core-41",
+        "scientific_name": "Rhamnus cathartica",
+        "raw_score": 55.0,
+        "reasons": [
+          {
+            "gate_id": "H04_PERMANENT_WATER",
+            "triggered": true,
+            "state": "excluded",
+            "reason": "Permanent-water regime needs explicit operational permanent tolerance. Pilot assumptions: hydrology_tolerance=synthetic_fallback.",
+            "operational_values": {
+              "hydrology_tolerance": [
+                "none",
+                "seasonal"
+              ]
+            },
+            "value_origins": {
+              "hydrology_tolerance": "synthetic_fallback"
+            }
+          }
+        ]
+      },
+      {
+        "fixture_id": "demo-core-42",
+        "scientific_name": "Frangula alnus",
+        "raw_score": 82.5,
+        "reasons": [
+          {
+            "gate_id": "H04_PERMANENT_WATER",
+            "triggered": true,
+            "state": "excluded",
+            "reason": "Permanent-water regime needs explicit operational permanent tolerance. Pilot assumptions: hydrology_tolerance=synthetic_fallback.",
+            "operational_values": {
+              "hydrology_tolerance": [
+                "none",
+                "seasonal",
+                "edge"
+              ]
+            },
+            "value_origins": {
+              "hydrology_tolerance": "synthetic_fallback"
+            }
+          }
+        ]
+      },
+      {
+        "fixture_id": "demo-core-43",
+        "scientific_name": "Alnus glutinosa",
+        "raw_score": 68.0,
+        "reasons": [
+          {
+            "gate_id": "H04_PERMANENT_WATER",
+            "triggered": true,
+            "state": "excluded",
+            "reason": "Permanent-water regime needs explicit operational permanent tolerance. Pilot assumptions: hydrology_tolerance=synthetic_fallback.",
+            "operational_values": {
+              "hydrology_tolerance": [
+                "none",
+                "seasonal",
+                "edge"
+              ]
+            },
+            "value_origins": {
+              "hydrology_tolerance": "synthetic_fallback"
+            }
+          },
+          {
+            "gate_id": "H07_WOODY_GEOMETRY",
+            "triggered": true,
+            "state": "excluded",
+            "reason": "Woody spread footprint 12.192m; clear geometry=does_not_fit; stage=placement.",
+            "operational_values": {
+              "group": "Trees",
+              "mature_spread_m": 12.192
+            },
+            "value_origins": {
+              "group": "sourced",
+              "mature_spread_m": "sourced"
+            }
+          }
+        ]
+      },
+      {
+        "fixture_id": "demo-core-44",
+        "scientific_name": "Betula pendula",
+        "raw_score": 60.5,
+        "reasons": [
+          {
+            "gate_id": "H04_PERMANENT_WATER",
+            "triggered": true,
+            "state": "excluded",
+            "reason": "Permanent-water regime needs explicit operational permanent tolerance. Pilot assumptions: hydrology_tolerance=synthetic_fallback.",
+            "operational_values": {
+              "hydrology_tolerance": [
+                "none",
+                "seasonal"
+              ]
+            },
+            "value_origins": {
+              "hydrology_tolerance": "synthetic_fallback"
+            }
+          },
+          {
+            "gate_id": "H07_WOODY_GEOMETRY",
+            "triggered": true,
+            "state": "excluded",
+            "reason": "Woody spread footprint 9.144m; clear geometry=does_not_fit; stage=placement.",
+            "operational_values": {
+              "group": "Trees",
+              "mature_spread_m": 9.144
+            },
+            "value_origins": {
+              "group": "sourced",
+              "mature_spread_m": "sourced"
+            }
+          }
+        ]
+      },
+      {
+        "fixture_id": "demo-core-45",
+        "scientific_name": "Quercus robur",
+        "raw_score": 48.0,
+        "reasons": [
+          {
+            "gate_id": "H04_PERMANENT_WATER",
+            "triggered": true,
+            "state": "excluded",
+            "reason": "Permanent-water regime needs explicit operational permanent tolerance. Pilot assumptions: hydrology_tolerance=expert_inference.",
+            "operational_values": {
+              "hydrology_tolerance": [
+                "none",
+                "seasonal",
+                "edge"
+              ]
+            },
+            "value_origins": {
+              "hydrology_tolerance": "expert_inference"
+            }
+          },
+          {
+            "gate_id": "H07_WOODY_GEOMETRY",
+            "triggered": true,
+            "state": "excluded",
+            "reason": "Woody spread footprint 21.336m; clear geometry=does_not_fit; stage=placement. Pilot assumptions: mature_spread_m=expert_inference.",
+            "operational_values": {
+              "group": "Trees",
+              "mature_spread_m": 21.336
+            },
+            "value_origins": {
+              "group": "sourced",
+              "mature_spread_m": "expert_inference"
+            }
+          }
+        ]
+      },
+      {
+        "fixture_id": "demo-core-46",
+        "scientific_name": "Tilia cordata",
+        "raw_score": 48.0,
+        "reasons": [
+          {
+            "gate_id": "H04_PERMANENT_WATER",
+            "triggered": true,
+            "state": "excluded",
+            "reason": "Permanent-water regime needs explicit operational permanent tolerance. Pilot assumptions: hydrology_tolerance=synthetic_fallback.",
+            "operational_values": {
+              "hydrology_tolerance": [
+                "none",
+                "seasonal"
+              ]
+            },
+            "value_origins": {
+              "hydrology_tolerance": "synthetic_fallback"
+            }
+          },
+          {
+            "gate_id": "H07_WOODY_GEOMETRY",
+            "triggered": true,
+            "state": "excluded",
+            "reason": "Woody spread footprint 15.24m; clear geometry=does_not_fit; stage=placement.",
+            "operational_values": {
+              "group": "Trees",
+              "mature_spread_m": 15.24
+            },
+            "value_origins": {
+              "group": "sourced",
+              "mature_spread_m": "sourced"
+            }
+          }
+        ]
+      },
+      {
+        "fixture_id": "demo-core-47",
+        "scientific_name": "Sorbus aucuparia",
+        "raw_score": 85.0,
+        "reasons": [
+          {
+            "gate_id": "H04_PERMANENT_WATER",
+            "triggered": true,
+            "state": "excluded",
+            "reason": "Permanent-water regime needs explicit operational permanent tolerance. Pilot assumptions: hydrology_tolerance=synthetic_fallback.",
+            "operational_values": {
+              "hydrology_tolerance": [
+                "none",
+                "seasonal",
+                "edge"
+              ]
+            },
+            "value_origins": {
+              "hydrology_tolerance": "synthetic_fallback"
+            }
+          }
+        ]
+      },
+      {
+        "fixture_id": "demo-core-48",
+        "scientific_name": "Salix alba",
+        "raw_score": 55.5,
+        "reasons": [
+          {
+            "gate_id": "H04_PERMANENT_WATER",
+            "triggered": true,
+            "state": "excluded",
+            "reason": "Permanent-water regime needs explicit operational permanent tolerance. Pilot assumptions: hydrology_tolerance=synthetic_fallback.",
+            "operational_values": {
+              "hydrology_tolerance": [
+                "none",
+                "seasonal",
+                "edge"
+              ]
+            },
+            "value_origins": {
+              "hydrology_tolerance": "synthetic_fallback"
+            }
+          },
+          {
+            "gate_id": "H07_WOODY_GEOMETRY",
+            "triggered": true,
+            "state": "excluded",
+            "reason": "Woody spread footprint 21.336m; clear geometry=does_not_fit; stage=placement.",
+            "operational_values": {
+              "group": "Trees",
+              "mature_spread_m": 21.336
+            },
+            "value_origins": {
+              "group": "sourced",
+              "mature_spread_m": "sourced"
+            }
+          }
+        ]
+      },
+      {
+        "fixture_id": "demo-core-49",
+        "scientific_name": "Acer campestre",
+        "raw_score": 45.5,
+        "reasons": [
+          {
+            "gate_id": "H04_PERMANENT_WATER",
+            "triggered": true,
+            "state": "excluded",
+            "reason": "Permanent-water regime needs explicit operational permanent tolerance. Pilot assumptions: hydrology_tolerance=synthetic_fallback.",
+            "operational_values": {
+              "hydrology_tolerance": [
+                "none",
+                "seasonal"
+              ]
+            },
+            "value_origins": {
+              "hydrology_tolerance": "synthetic_fallback"
+            }
+          },
+          {
+            "gate_id": "H07_WOODY_GEOMETRY",
+            "triggered": true,
+            "state": "excluded",
+            "reason": "Woody spread footprint 10.668m; clear geometry=does_not_fit; stage=placement.",
+            "operational_values": {
+              "group": "Trees",
+              "mature_spread_m": 10.668
+            },
+            "value_origins": {
+              "group": "sourced",
+              "mature_spread_m": "sourced"
+            }
+          }
+        ]
+      },
+      {
+        "fixture_id": "demo-core-50",
+        "scientific_name": "Populus tremula",
+        "raw_score": 63.0,
+        "reasons": [
+          {
+            "gate_id": "H04_PERMANENT_WATER",
+            "triggered": true,
+            "state": "excluded",
+            "reason": "Permanent-water regime needs explicit operational permanent tolerance. Pilot assumptions: hydrology_tolerance=synthetic_fallback.",
+            "operational_values": {
+              "hydrology_tolerance": [
+                "none",
+                "seasonal"
+              ]
+            },
+            "value_origins": {
+              "hydrology_tolerance": "synthetic_fallback"
+            }
+          },
+          {
+            "gate_id": "H07_WOODY_GEOMETRY",
+            "triggered": true,
+            "state": "excluded",
+            "reason": "Woody spread footprint 14.4m; clear geometry=does_not_fit; stage=placement. Pilot assumptions: group=synthetic_fallback, mature_spread_m=synthetic_fallback.",
+            "operational_values": {
+              "group": "Trees",
+              "mature_spread_m": 14.4
+            },
+            "value_origins": {
+              "group": "synthetic_fallback",
+              "mature_spread_m": "synthetic_fallback"
+            }
+          }
+        ]
+      },
+      {
+        "fixture_id": "demo-core-51",
+        "scientific_name": "Lonicera periclymenum",
+        "raw_score": 85.0,
+        "reasons": [
+          {
+            "gate_id": "H04_PERMANENT_WATER",
+            "triggered": true,
+            "state": "excluded",
+            "reason": "Permanent-water regime needs explicit operational permanent tolerance. Pilot assumptions: hydrology_tolerance=synthetic_fallback.",
+            "operational_values": {
+              "hydrology_tolerance": [
+                "none",
+                "seasonal",
+                "edge"
+              ]
+            },
+            "value_origins": {
+              "hydrology_tolerance": "synthetic_fallback"
+            }
+          }
+        ]
+      },
+      {
+        "fixture_id": "demo-core-52",
+        "scientific_name": "Hedera helix",
+        "raw_score": 43.0,
+        "reasons": [
+          {
+            "gate_id": "H04_PERMANENT_WATER",
+            "triggered": true,
+            "state": "excluded",
+            "reason": "Permanent-water regime needs explicit operational permanent tolerance. Pilot assumptions: hydrology_tolerance=synthetic_fallback.",
+            "operational_values": {
+              "hydrology_tolerance": [
+                "none",
+                "seasonal"
+              ]
+            },
+            "value_origins": {
+              "hydrology_tolerance": "synthetic_fallback"
+            }
+          }
+        ]
+      },
+      {
+        "fixture_id": "demo-core-53",
+        "scientific_name": "Humulus lupulus",
+        "raw_score": 90.0,
+        "reasons": [
+          {
+            "gate_id": "H04_PERMANENT_WATER",
+            "triggered": true,
+            "state": "excluded",
+            "reason": "Permanent-water regime needs explicit operational permanent tolerance. Pilot assumptions: hydrology_tolerance=expert_inference.",
+            "operational_values": {
+              "hydrology_tolerance": [
+                "none",
+                "seasonal",
+                "long",
+                "edge"
+              ]
+            },
+            "value_origins": {
+              "hydrology_tolerance": "expert_inference"
+            }
+          }
+        ]
+      },
+      {
+        "fixture_id": "demo-core-54",
+        "scientific_name": "Clematis vitalba",
+        "raw_score": 55.0,
+        "reasons": [
+          {
+            "gate_id": "H04_PERMANENT_WATER",
+            "triggered": true,
+            "state": "excluded",
+            "reason": "Permanent-water regime needs explicit operational permanent tolerance. Pilot assumptions: hydrology_tolerance=synthetic_fallback.",
+            "operational_values": {
+              "hydrology_tolerance": [
+                "none",
+                "seasonal"
+              ]
+            },
+            "value_origins": {
+              "hydrology_tolerance": "synthetic_fallback"
+            }
+          }
+        ]
+      },
+      {
+        "fixture_id": "demo-ornamental-01",
+        "scientific_name": "Echinacea purpurea",
+        "raw_score": 60.0,
+        "reasons": [
+          {
+            "gate_id": "H04_PERMANENT_WATER",
+            "triggered": true,
+            "state": "excluded",
+            "reason": "Permanent-water regime needs explicit operational permanent tolerance. Pilot assumptions: hydrology_tolerance=synthetic_fallback.",
+            "operational_values": {
+              "hydrology_tolerance": [
+                "none",
+                "seasonal"
+              ]
+            },
+            "value_origins": {
+              "hydrology_tolerance": "synthetic_fallback"
+            }
+          }
+        ]
+      },
+      {
+        "fixture_id": "demo-ornamental-02",
+        "scientific_name": "Rudbeckia fulgida",
+        "raw_score": 60.0,
+        "reasons": [
+          {
+            "gate_id": "H04_PERMANENT_WATER",
+            "triggered": true,
+            "state": "excluded",
+            "reason": "Permanent-water regime needs explicit operational permanent tolerance. Pilot assumptions: hydrology_tolerance=synthetic_fallback.",
+            "operational_values": {
+              "hydrology_tolerance": [
+                "none",
+                "seasonal"
+              ]
+            },
+            "value_origins": {
+              "hydrology_tolerance": "synthetic_fallback"
+            }
+          }
+        ]
+      },
+      {
+        "fixture_id": "demo-ornamental-03",
+        "scientific_name": "Verbena bonariensis",
+        "raw_score": 55.0,
+        "reasons": [
+          {
+            "gate_id": "H04_PERMANENT_WATER",
+            "triggered": true,
+            "state": "excluded",
+            "reason": "Permanent-water regime needs explicit operational permanent tolerance. Pilot assumptions: hydrology_tolerance=synthetic_fallback.",
+            "operational_values": {
+              "hydrology_tolerance": [
+                "none",
+                "seasonal"
+              ]
+            },
+            "value_origins": {
+              "hydrology_tolerance": "synthetic_fallback"
+            }
+          }
+        ]
+      },
+      {
+        "fixture_id": "demo-ornamental-04",
+        "scientific_name": "Nepeta × faassenii",
+        "raw_score": 50.0,
+        "reasons": [
+          {
+            "gate_id": "H04_PERMANENT_WATER",
+            "triggered": true,
+            "state": "excluded",
+            "reason": "Permanent-water regime needs explicit operational permanent tolerance. Pilot assumptions: hydrology_tolerance=synthetic_fallback.",
+            "operational_values": {
+              "hydrology_tolerance": [
+                "none"
+              ]
+            },
+            "value_origins": {
+              "hydrology_tolerance": "synthetic_fallback"
+            }
+          }
+        ]
+      },
+      {
+        "fixture_id": "demo-ornamental-05",
+        "scientific_name": "Panicum virgatum",
+        "raw_score": 70.0,
+        "reasons": [
+          {
+            "gate_id": "H04_PERMANENT_WATER",
+            "triggered": true,
+            "state": "excluded",
+            "reason": "Permanent-water regime needs explicit operational permanent tolerance. Pilot assumptions: hydrology_tolerance=synthetic_fallback.",
+            "operational_values": {
+              "hydrology_tolerance": [
+                "none",
+                "seasonal",
+                "edge"
+              ]
+            },
+            "value_origins": {
+              "hydrology_tolerance": "synthetic_fallback"
+            }
+          }
+        ]
+      },
+      {
+        "fixture_id": "demo-ornamental-06",
+        "scientific_name": "Hakonechloa macra",
+        "raw_score": 60.0,
+        "reasons": [
+          {
+            "gate_id": "H04_PERMANENT_WATER",
+            "triggered": true,
+            "state": "excluded",
+            "reason": "Permanent-water regime needs explicit operational permanent tolerance. Pilot assumptions: hydrology_tolerance=synthetic_fallback.",
+            "operational_values": {
+              "hydrology_tolerance": [
+                "none",
+                "seasonal"
+              ]
+            },
+            "value_origins": {
+              "hydrology_tolerance": "synthetic_fallback"
+            }
+          }
+        ]
+      }
+    ],
+    "unsuitable_plants": [
+      {
+        "fixture_id": "demo-core-20",
+        "reasons": [
+          "Environmental conflict: soil=peat versus ['sand', 'clay']."
+        ]
+      },
+      {
+        "fixture_id": "demo-core-23",
+        "reasons": [
+          "Environmental conflict: soil=peat versus ['sand', 'clay']."
+        ]
+      }
+    ],
+    "top_demonstration_candidates": [
+      {
+        "scientific_name": "Butomus umbellatus",
+        "final_score": 59,
+        "raw_score": 97.5,
+        "confidence": 17.8675,
+        "explanation": [
+          "soil=peat matches operational ['sand', 'clay', 'peat']. Origin: expert_inference.",
+          "moisture=wet matches operational ['wet']. Origin: sourced.",
+          "hydrology=permanent matches operational ['seasonal', 'long', 'permanent', 'edge']. Origin: synthetic_fallback.",
+          "light=sun matches operational ['sun']. Origin: sourced.",
+          "disturbance=low matches operational ['low']. Origin: synthetic_fallback.",
+          "hardscape=no matches operational ['conditional']. Origin: synthetic_fallback."
+        ],
+        "warnings": [
+          {
+            "code": "synthetic_site",
+            "message": "Zone values and dimensions are a synthetic example; site-source confidence factor is 0.5."
+          },
+          {
+            "code": "policy_or_safety_review_required",
+            "message": "invasive_status=unknown; demonstration conditional only, no real-world clearance."
+          },
+          {
+            "code": "policy_or_safety_review_required",
+            "message": "protected_or_legal_status=not_reviewed; demonstration conditional only, no real-world clearance."
+          },
+          {
+            "code": "policy_or_safety_review_required",
+            "message": "provenance_status=unknown; demonstration conditional only, no real-world clearance."
+          },
+          {
+            "code": "policy_or_safety_review_required",
+            "message": "toxicity_status=unknown; demonstration conditional only, no real-world clearance."
+          },
+          {
+            "code": "policy_or_safety_review_required",
+            "message": "public_contact_status=not_reviewed; demonstration conditional only, no real-world clearance."
+          },
+          {
+            "code": "policy_or_safety_review_required",
+            "message": "thorns_or_spines=unknown; demonstration conditional only, no real-world clearance."
+          },
+          {
+            "code": "public_contact_hazard_context",
+            "message": "allergen_risk=unknown; no general safety clearance."
+          },
+          {
+            "code": "public_contact_hazard_context",
+            "message": "irritant_sap=unknown; no general safety clearance."
+          },
+          {
+            "code": "public_contact_hazard_context",
+            "message": "contact_irritation_status=unknown; no general safety clearance."
+          },
+          {
+            "code": "simulation_only",
+            "message": "production_eligible=false; this result is a pilot simulation, not planting, procurement or food advice."
+          },
+          {
+            "code": "component_assumptions",
+            "message": "soil relies on soil_tolerance=expert_inference. This is simulated compatibility, not reviewed field evidence."
+          },
+          {
+            "code": "component_assumptions",
+            "message": "hydrology relies on hydrology_tolerance=synthetic_fallback. This is simulated compatibility, not reviewed field evidence."
+          },
+          {
+            "code": "component_assumptions",
+            "message": "disturbance_hardscape relies on disturbance_tolerance=synthetic_fallback, hardscape_tolerance=synthetic_fallback. This is simulated compatibility, not reviewed field evidence."
+          },
+          {
+            "code": "component_assumptions",
+            "message": "spatial relies on mature_spread_m=synthetic_fallback, pilot_spacing_m=synthetic_fallback, climbing_support_required=synthetic_fallback. This is simulated compatibility, not reviewed field evidence."
+          },
+          {
+            "code": "component_assumptions",
+            "message": "maintenance_vigour relies on maintenance_demand=synthetic_fallback, vigour_or_spread_risk=synthetic_fallback. This is simulated compatibility, not reviewed field evidence."
+          },
+          {
+            "code": "design_assumptions",
+            "message": "Design output uses pollinator_value=synthetic_fallback."
+          },
+          {
+            "code": "synthetic_pollinator_output",
+            "message": "Pollinator value is a simulation placeholder; no researched ecological benefit is asserted."
+          }
+        ],
+        "synthetic_components": [
+          "hydrology",
+          "disturbance_hardscape",
+          "spatial",
+          "maintenance_vigour"
+        ]
+      },
+      {
+        "scientific_name": "Iris pseudacorus",
+        "final_score": 59,
+        "raw_score": 95.0,
+        "confidence": 18.6187,
+        "explanation": [
+          "soil=peat matches operational ['clay', 'peat']. Origin: synthetic_fallback.",
+          "moisture=wet matches operational ['wet']. Origin: sourced.",
+          "hydrology=permanent matches operational ['seasonal', 'long', 'permanent', 'edge']. Origin: synthetic_fallback.",
+          "light=sun matches operational ['sun', 'mixed']. Origin: sourced.",
+          "disturbance=low matches operational ['low']. Origin: synthetic_fallback.",
+          "hardscape=no matches operational ['conditional']. Origin: synthetic_fallback."
+        ],
+        "warnings": [
+          {
+            "code": "synthetic_site",
+            "message": "Zone values and dimensions are a synthetic example; site-source confidence factor is 0.5."
+          },
+          {
+            "code": "policy_or_safety_review_required",
+            "message": "invasive_status=unknown; demonstration conditional only, no real-world clearance."
+          },
+          {
+            "code": "policy_or_safety_review_required",
+            "message": "protected_or_legal_status=not_reviewed; demonstration conditional only, no real-world clearance."
+          },
+          {
+            "code": "policy_or_safety_review_required",
+            "message": "provenance_status=unknown; demonstration conditional only, no real-world clearance."
+          },
+          {
+            "code": "policy_or_safety_review_required",
+            "message": "public_contact_status=not_reviewed; demonstration conditional only, no real-world clearance."
+          },
+          {
+            "code": "policy_or_safety_review_required",
+            "message": "thorns_or_spines=unknown; demonstration conditional only, no real-world clearance."
+          },
+          {
+            "code": "documented_toxicity",
+            "message": "Archived toxicity=weakly_toxic_reported; parts, exposure and public use require specialist assessment."
+          },
+          {
+            "code": "public_contact_hazard_context",
+            "message": "allergen_risk=unknown; no general safety clearance."
+          },
+          {
+            "code": "public_contact_hazard_context",
+            "message": "irritant_sap=unknown; no general safety clearance."
+          },
+          {
+            "code": "public_contact_hazard_context",
+            "message": "contact_irritation_status=not_reported_by_this_source; no general safety clearance."
+          },
+          {
+            "code": "simulation_only",
+            "message": "production_eligible=false; this result is a pilot simulation, not planting, procurement or food advice."
+          },
+          {
+            "code": "component_assumptions",
+            "message": "soil relies on soil_tolerance=synthetic_fallback. This is simulated compatibility, not reviewed field evidence."
+          },
+          {
+            "code": "component_assumptions",
+            "message": "hydrology relies on hydrology_tolerance=synthetic_fallback. This is simulated compatibility, not reviewed field evidence."
+          },
+          {
+            "code": "component_assumptions",
+            "message": "disturbance_hardscape relies on disturbance_tolerance=synthetic_fallback, hardscape_tolerance=synthetic_fallback. This is simulated compatibility, not reviewed field evidence."
+          },
+          {
+            "code": "component_assumptions",
+            "message": "spatial relies on mature_spread_m=synthetic_fallback, pilot_spacing_m=synthetic_fallback, group=expert_inference, climbing_support_required=synthetic_fallback. This is simulated compatibility, not reviewed field evidence."
+          },
+          {
+            "code": "component_assumptions",
+            "message": "maintenance_vigour relies on vigour_or_spread_risk=expert_inference. This is simulated compatibility, not reviewed field evidence."
+          },
+          {
+            "code": "design_assumptions",
+            "message": "Design output uses pollinator_value=synthetic_fallback."
+          },
+          {
+            "code": "synthetic_pollinator_output",
+            "message": "Pollinator value is a simulation placeholder; no researched ecological benefit is asserted."
+          }
+        ],
+        "synthetic_components": [
+          "soil",
+          "hydrology",
+          "disturbance_hardscape",
+          "spatial"
+        ]
+      },
+      {
+        "scientific_name": "Alisma plantago-aquatica",
+        "final_score": 59,
+        "raw_score": 95.0,
+        "confidence": 19.0688,
+        "explanation": [
+          "soil=peat matches operational ['clay', 'peat']. Origin: synthetic_fallback.",
+          "moisture=wet matches operational ['wet']. Origin: sourced.",
+          "hydrology=permanent matches operational ['seasonal', 'long', 'permanent', 'edge']. Origin: synthetic_fallback.",
+          "light=sun matches operational ['sun', 'mixed']. Origin: sourced.",
+          "disturbance=low matches operational ['low']. Origin: synthetic_fallback.",
+          "hardscape=no matches operational ['conditional']. Origin: synthetic_fallback."
+        ],
+        "warnings": [
+          {
+            "code": "synthetic_site",
+            "message": "Zone values and dimensions are a synthetic example; site-source confidence factor is 0.5."
+          },
+          {
+            "code": "policy_or_safety_review_required",
+            "message": "invasive_status=unknown; demonstration conditional only, no real-world clearance."
+          },
+          {
+            "code": "policy_or_safety_review_required",
+            "message": "protected_or_legal_status=not_reviewed; demonstration conditional only, no real-world clearance."
+          },
+          {
+            "code": "policy_or_safety_review_required",
+            "message": "provenance_status=unknown; demonstration conditional only, no real-world clearance."
+          },
+          {
+            "code": "policy_or_safety_review_required",
+            "message": "public_contact_status=not_reviewed; demonstration conditional only, no real-world clearance."
+          },
+          {
+            "code": "policy_or_safety_review_required",
+            "message": "thorns_or_spines=unknown; demonstration conditional only, no real-world clearance."
+          },
+          {
+            "code": "documented_toxicity",
+            "message": "Archived toxicity=weakly_toxic_reported; parts, exposure and public use require specialist assessment."
+          },
+          {
+            "code": "public_contact_hazard_context",
+            "message": "allergen_risk=unknown; no general safety clearance."
+          },
+          {
+            "code": "public_contact_hazard_context",
+            "message": "irritant_sap=unknown; no general safety clearance."
+          },
+          {
+            "code": "public_contact_hazard_context",
+            "message": "contact_irritation_status=unknown; no general safety clearance."
+          },
+          {
+            "code": "simulation_only",
+            "message": "production_eligible=false; this result is a pilot simulation, not planting, procurement or food advice."
+          },
+          {
+            "code": "component_assumptions",
+            "message": "soil relies on soil_tolerance=synthetic_fallback. This is simulated compatibility, not reviewed field evidence."
+          },
+          {
+            "code": "component_assumptions",
+            "message": "hydrology relies on hydrology_tolerance=synthetic_fallback. This is simulated compatibility, not reviewed field evidence."
+          },
+          {
+            "code": "component_assumptions",
+            "message": "disturbance_hardscape relies on disturbance_tolerance=synthetic_fallback, hardscape_tolerance=synthetic_fallback. This is simulated compatibility, not reviewed field evidence."
+          },
+          {
+            "code": "component_assumptions",
+            "message": "spatial relies on pilot_spacing_m=synthetic_fallback, group=expert_inference, climbing_support_required=synthetic_fallback. This is simulated compatibility, not reviewed field evidence."
+          },
+          {
+            "code": "component_assumptions",
+            "message": "maintenance_vigour relies on vigour_or_spread_risk=expert_inference. This is simulated compatibility, not reviewed field evidence."
+          },
+          {
+            "code": "design_assumptions",
+            "message": "Design output uses flower_end_month=synthetic_fallback, flower_colour=expert_inference, pollinator_value=synthetic_fallback."
+          },
+          {
+            "code": "synthetic_pollinator_output",
+            "message": "Pollinator value is a simulation placeholder; no researched ecological benefit is asserted."
+          }
+        ],
+        "synthetic_components": [
+          "soil",
+          "hydrology",
+          "disturbance_hardscape",
+          "spatial"
+        ]
+      },
+      {
+        "scientific_name": "Lythrum salicaria",
+        "final_score": 59,
+        "raw_score": 95.0,
+        "confidence": 17.535,
+        "explanation": [
+          "soil=peat matches operational ['clay', 'peat']. Origin: synthetic_fallback.",
+          "moisture=wet matches operational ['wet']. Origin: sourced.",
+          "hydrology=permanent matches operational ['seasonal', 'long', 'permanent', 'edge']. Origin: synthetic_fallback.",
+          "light=sun matches operational ['sun', 'mixed']. Origin: sourced.",
+          "disturbance=low matches operational ['low']. Origin: synthetic_fallback.",
+          "hardscape=no matches operational ['conditional']. Origin: synthetic_fallback."
+        ],
+        "warnings": [
+          {
+            "code": "synthetic_site",
+            "message": "Zone values and dimensions are a synthetic example; site-source confidence factor is 0.5."
+          },
+          {
+            "code": "policy_or_safety_review_required",
+            "message": "invasive_status=unknown; demonstration conditional only, no real-world clearance."
+          },
+          {
+            "code": "policy_or_safety_review_required",
+            "message": "protected_or_legal_status=not_reviewed; demonstration conditional only, no real-world clearance."
+          },
+          {
+            "code": "policy_or_safety_review_required",
+            "message": "provenance_status=unknown; demonstration conditional only, no real-world clearance."
+          },
+          {
+            "code": "policy_or_safety_review_required",
+            "message": "toxicity_status=unknown; demonstration conditional only, no real-world clearance."
+          },
+          {
+            "code": "policy_or_safety_review_required",
+            "message": "public_contact_status=not_reviewed; demonstration conditional only, no real-world clearance."
+          },
+          {
+            "code": "policy_or_safety_review_required",
+            "message": "thorns_or_spines=unknown; demonstration conditional only, no real-world clearance."
+          },
+          {
+            "code": "public_contact_hazard_context",
+            "message": "allergen_risk=unknown; no general safety clearance."
+          },
+          {
+            "code": "public_contact_hazard_context",
+            "message": "irritant_sap=unknown; no general safety clearance."
+          },
+          {
+            "code": "public_contact_hazard_context",
+            "message": "contact_irritation_status=unknown; no general safety clearance."
+          },
+          {
+            "code": "simulation_only",
+            "message": "production_eligible=false; this result is a pilot simulation, not planting, procurement or food advice."
+          },
+          {
+            "code": "component_assumptions",
+            "message": "soil relies on soil_tolerance=synthetic_fallback. This is simulated compatibility, not reviewed field evidence."
+          },
+          {
+            "code": "component_assumptions",
+            "message": "hydrology relies on hydrology_tolerance=synthetic_fallback. This is simulated compatibility, not reviewed field evidence."
+          },
+          {
+            "code": "component_assumptions",
+            "message": "disturbance_hardscape relies on disturbance_tolerance=synthetic_fallback, hardscape_tolerance=synthetic_fallback. This is simulated compatibility, not reviewed field evidence."
+          },
+          {
+            "code": "component_assumptions",
+            "message": "spatial relies on pilot_spacing_m=synthetic_fallback, group=synthetic_fallback, climbing_support_required=synthetic_fallback. This is simulated compatibility, not reviewed field evidence."
+          },
+          {
+            "code": "component_assumptions",
+            "message": "maintenance_vigour relies on vigour_or_spread_risk=expert_inference. This is simulated compatibility, not reviewed field evidence."
+          },
+          {
+            "code": "design_assumptions",
+            "message": "Design output uses flower_colour=expert_inference, pollinator_value=synthetic_fallback."
+          },
+          {
+            "code": "synthetic_pollinator_output",
+            "message": "Pollinator value is a simulation placeholder; no researched ecological benefit is asserted."
+          }
+        ],
+        "synthetic_components": [
+          "soil",
+          "hydrology",
+          "disturbance_hardscape",
+          "spatial"
+        ]
+      }
+    ]
+  }
+}

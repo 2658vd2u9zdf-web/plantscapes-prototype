@@ -1,0 +1,30 @@
+{
+  "note": "SHA-256 (LF-normalised) of research archives read but never written by the project-demo build.",
+  "files": {
+    "dataset/claims/plantscapes_demo_plant_claims_v0_2.jsonl": "0e1cea77c3293d7d1d79d85646a227bc634c4c9d38bd03b4de23069d7e37bc0a",
+    "dataset/dataset_manifest_demo_v0_2.json": "04d01dc9292b11ca576db2f79ba2a96ffa353f011b088d5ff96c5efe9511406d",
+    "dataset/derived/plantscapes_demo_completeness_by_field_v0_2.csv": "4450db48884ff4f294e5a108d984a0130abbae99006824314f80bf683d58f8f6",
+    "dataset/derived/plantscapes_demo_completeness_by_plant_v0_2.csv": "e0b56e8fc575349f631f832a4ac563341244a5e0d3ad5d1f2641efc58039859a",
+    "dataset/derived/plantscapes_demo_completeness_v0_2.json": "33829782866e1fceb28be7a178346129e712e371f93b37463325c84db442cb8c",
+    "dataset/derived/plantscapes_demo_data_gaps_v0_2.csv": "07fde7e980ac02800d7108f6e0d88452bb200580f003dbaed52d18cda95cc53c",
+    "dataset/derived/plantscapes_demo_field_dictionary_v0_2.csv": "f5f5ec4eb67ad0936f1c264f4370f978c4fc68b190bcbcbf4af2413ad9a87bde",
+    "dataset/derived/plantscapes_demo_matching_ready_v0_3.csv": "44ebdec255e6a04da9f15023040f684a59f534a0206f326298951f0528c2a209",
+    "dataset/derived/plantscapes_demo_plant_traits_v0_2.csv": "481e3a7de2ea10fb979286b05a432cfa712d71c0d45cbbacb50a873f83135cb5",
+    "dataset/derived/plantscapes_demo_validation_v0_2.json": "10f9de5794b3abe10f9f141b4ed6e703e94b0b376a241f853fa21489428e245a",
+    "dataset/research/demo-v0_2/baseline.json": "b74f62b02b8b364a480321f5ce28145d0c88ff5e8507b1dcfd7e91a3067279be",
+    "dataset/research/demo-v0_2/collect_horticulture.py": "f1471a84aaef664db42b1400a2987f314608d2a10195c2fdd23e5df0f2ce596c",
+    "dataset/research/demo-v0_2/collect_sources.py": "db284428e583ca001f421934357e7b0a99231a744051ecf10e735dd99307ae87",
+    "dataset/research/demo-v0_2/fixtures.json": "819d0ddfffa3dca7a204e852a0ffc017cddbe6f8d1aca09ddefae24fb53c714e",
+    "dataset/research/demo-v0_2/inspect_sources.py": "21a2c0ea71293abcb6740712fa7b7969fb373ad1dca6ebf4ad27bb5866198cfc",
+    "dataset/research/demo-v0_2/manual-review-checklist.csv": "df35a1b8fe2fbecfddff41d3f954b339f82917d71f19905a4aca97581dadccee",
+    "dataset/research/demo-v0_2/model.py": "a0d73f72ac7041bca0802f25ad6f3b64a642fa87180a5cf97bbf4b6a6c256125",
+    "dataset/research/demo-v0_2/prepare_observations.py": "0ab8250951b3e43d4aabdcb0fcbfdb74eb9d4504455a809ca4d40e5473ea701b",
+    "dataset/research/demo-v0_2/requirements.txt": "a54c7f224e9e0865722b268acde3ecd68c5f09301d18167ec090d6810545ec22",
+    "dataset/research/demo-v0_2/resolution-decisions.json": "5af12acf3bb39071bd0d89fdac8c0d352f8b20ec489396fe24243f590d79c7ff",
+    "dataset/research/demo-v0_2/resolved-profiles.json": "cf9a1b0638c1c6bdcfbc33ba11fc0389b2b007a3203718acfef943e1c57902f9",
+    "dataset/research/demo-v0_2/source-observations.json": "a90e75fffae0ecd1bee4c15715286c9828327063cb8b87dcbc5538dffe4a756b",
+    "dataset/research/demo-v0_2/supplement_sources.py": "fa652676c729c8d23962e3a8fe9a9d27bdd72f915de71ebb87fc0a229aa6bec7",
+    "dataset/research/demo-v0_2/VALIDATION-RUNTIME.md": "8618ec9fec7a0d9d4b04dc62d00dd7c58d4d36978c37c2a52f8797ce232fa74b",
+    "dataset/source-ledger-demo-v0_2.csv": "01762e04f8ba5c8bebe57480233d82e0f13d4a0576239c09a6fdb983963f9793"
+  }
+}

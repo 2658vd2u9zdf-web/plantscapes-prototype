@@ -1,0 +1,241 @@
+{
+  "benchmark_id": "plantscapes-recommender-benchmark",
+  "version": "1.0.0",
+  "created": "2026-10-20",
+  "applies_to_rules": "dataset/scoring/plant-suitability-rules-v0_3.json",
+  "status": "synthetic_policy_benchmark",
+  "statement": "Every zone and project below is an explicitly synthetic test scenario, not a real site. Expectations encode existing project policy only: the v0.3 suitability rules and location contract, the plant/location pilot handovers and the approved planting rulebook v0.1.1 (dataset/planting-plan-rules.v0.1.json). They are not botanical ground truth and never assert that a plant is suitable for a real place. Adversarial variants change an in-memory copy of one record to exercise a gate; they are not plant facts.",
+  "policy_sources": {
+    "V03_RULES": "dataset/scoring/plant-suitability-rules-v0_3.json",
+    "V03_HANDOVER": "dataset/PLANT-DATA-PILOT-HANDOVER-v0.3.md (Suitability and confidence specification)",
+    "V03_CONTRACT": "dataset/scoring/plant-location-contract-v0_3.json",
+    "RULEBOOK": "dataset/planting-plan-rules.v0.1.json (approved design policy, review_state design_policy_approved_species_validation_pending)"
+  },
+  "expectation_language": {
+    "select": "Plant selector over operational record fields. Scalar = equality; {includes|lacks: v} for arrays; {in|not_in: [..]}; {gt|lte: n}; {equals: [..]} for exact arrays. Empty selector = all 60 records.",
+    "adversarial": "Selects only the named in-memory adversarial variant instead of real records.",
+    "min_matches": "The selector must match at least this many records so an expectation can never pass vacuously.",
+    "expect": "state_in, state_not_in, eligible, gate {gate_id: state|[states]}, final_max, final_equals, warning [codes], warning_absent [codes], cap [rules], cap_absent [rules], ratio_max {component: n}, ratio_min {component: n}, conflict_reason_for [site fields], no_conflict_reason_for [site fields], quantity_state_in, quantity_within_zone_area, quantity_support_floor, footprint_state_in, visibility_state_in, invariant_under {zone|project changes, fields}, lower_than_under {zone|project changes, field}."
+  },
+  "scenarios": [
+    {
+      "id": "B01_dry_sunny_sand",
+      "title": "Dry, sunny sandy planting",
+      "zone": {"zone_id": "B01_dry_sunny_sand", "soil": "sand", "moisture": "dry", "hydrology": "none", "light": "sun", "canopy": "no", "disturbance": "low", "hardscape": "no", "waterEdge": "no", "source": "demo", "path_edge": "no", "available_width_m": 20, "available_length_m": 15, "plantable_area_m2": 300, "max_plant_height_m": "unknown", "support_length_m": "unknown"},
+      "project": {"type": "landscape", "area": 1000, "maintenance": "moderate", "publicAccess": true, "publicHarvest": false, "sightlines": false, "rewilding": false, "support": false, "character": "mosaic", "restorationOrnamentals": false, "vigourControl": "no", "evaluation_stage": "candidate", "anchorColours": ["purple", "yellow"], "desiredFlowerMonths": [6, 7, 8], "priorities": ["pollinators"]},
+      "expectations": [
+        {"id": "B01-soil-conflict", "policy_basis": ["V03_RULES.environmental_conflict_rule"], "statement": "A known soil mismatch caps the plant at 49 and is reported as an environmental conflict, never hidden by other components.", "select": {"soil_tolerance": {"lacks": "sand"}}, "min_matches": 5, "expect": {"state_in": ["unsuitable", "excluded"], "final_max": 49, "eligible": false, "conflict_reason_for": ["soil"]}},
+        {"id": "B01-wet-only-moisture-conflict", "policy_basis": ["V03_RULES.environmental_conflict_rule"], "statement": "Wet-only moisture tolerance on dry ground is a known conflict.", "select": {"moisture_tolerance": {"equals": ["wet"]}}, "min_matches": 3, "expect": {"state_in": ["unsuitable", "excluded"], "eligible": false, "conflict_reason_for": ["moisture"]}},
+        {"id": "B01-required-edge", "policy_basis": ["H03_WATER_EDGE"], "statement": "Plants whose operational record requires a water edge are excluded on dry ground without a confirmed edge.", "select": {"water_edge_requirement": "required"}, "min_matches": 3, "expect": {"gate": {"H03_WATER_EDGE": "excluded"}, "final_equals": 0}},
+        {"id": "B01-public-cap", "policy_basis": ["H06_PUBLIC_CONTACT", "V03_RULES.final_score_caps.unreviewed_public_contact", "RULEBOOK.W02"], "statement": "Unreviewed public-contact status is unresolved, never safe: every record requires review and stays at or below 59.", "select": {}, "min_matches": 60, "expect": {"gate": {"H06_PUBLIC_CONTACT": "requires_review"}, "final_max": 59, "state_not_in": ["suitable", "strong_match"]}},
+        {"id": "B01-matched-herbs-conditional", "policy_basis": ["V03_HANDOVER"], "statement": "Herbaceous records whose operational tolerances include every zone category remain conditional demonstration candidates (policy review still outstanding).", "select": {"soil_tolerance": {"includes": "sand"}, "moisture_tolerance": {"includes": "dry"}, "light_tolerance": {"includes": "sun"}, "hydrology_tolerance": {"includes": "none"}, "water_edge_requirement": {"not_in": ["required"]}, "group": {"in": ["Flowers & herbs", "Grasses, sedges & rushes"]}}, "min_matches": 5, "expect": {"state_in": ["conditional_match"], "eligible": true}},
+        {"id": "B01-design-preference-is-tie-break-only", "policy_basis": ["V03_RULES.design_preference", "V03_HANDOVER"], "statement": "Changing colour, month and pollinator preferences never changes raw/final suitability, state or gates.", "select": {}, "min_matches": 60, "expect": {"invariant_under": {"project": {"anchorColours": ["white"], "desiredFlowerMonths": [1, 2], "priorities": []}, "fields": ["raw_suitability_score", "final_suitability_score", "eligibility_state", "hard_gate_results"]}}},
+        {"id": "B01-native-first-ordering", "policy_basis": ["RULEBOOK.first_release_policy.native_policy", "RULEBOOK.G05", "V03_HANDOVER (unknown never native)"], "statement": "When final and raw suitability tie, records with sourced native status are listed before records whose native status is unknown; colour or month preference cannot lift an unknown-native record above them.", "ranking": {"known_native_before_unknown_at_equal_suitability": true}}
+      ]
+    },
+    {
+      "id": "B02_fresh_clay_mixed_light",
+      "title": "Moist/fresh clay with mixed light under existing canopy",
+      "zone": {"zone_id": "B02_fresh_clay_mixed_light", "soil": "clay", "moisture": "fresh", "hydrology": "none", "light": "mixed", "canopy": "yes", "disturbance": "low", "hardscape": "no", "waterEdge": "no", "source": "demo", "path_edge": "no", "available_width_m": 20, "available_length_m": 20, "plantable_area_m2": 400, "max_plant_height_m": "unknown", "support_length_m": "unknown"},
+      "project": {"type": "landscape", "area": 1000, "maintenance": "moderate", "publicAccess": true, "publicHarvest": false, "sightlines": false, "rewilding": false, "support": false, "character": "mosaic", "restorationOrnamentals": false, "vigourControl": "no", "evaluation_stage": "candidate", "anchorColours": [], "desiredFlowerMonths": [], "priorities": []},
+      "expectations": [
+        {"id": "B02-soil-conflict", "policy_basis": ["V03_RULES.environmental_conflict_rule"], "statement": "Records without clay tolerance are known soil conflicts.", "select": {"soil_tolerance": {"lacks": "clay"}}, "min_matches": 3, "expect": {"state_in": ["unsuitable", "excluded"], "eligible": false, "conflict_reason_for": ["soil"]}},
+        {"id": "B02-sun-only-is-conditional-not-conflict", "policy_basis": ["V03_RULES.compatibility_matrices.light"], "statement": "Sun-only plants under mixed light are adjacent (0.5), not a conflict.", "select": {"light_tolerance": {"equals": ["sun"]}}, "min_matches": 3, "expect": {"ratio_max": {"light": 0.5}, "ratio_min": {"light": 0.5}, "no_conflict_reason_for": ["light"]}},
+        {"id": "B02-canopy-not-scored-twice", "policy_basis": ["V03_RULES.canopy_rule"], "statement": "Canopy is context only: removing it never changes suitability.", "select": {}, "min_matches": 60, "expect": {"warning": ["canopy_context"], "invariant_under": {"zone": {"canopy": "no"}, "fields": ["raw_suitability_score", "final_suitability_score", "eligibility_state", "component_scores"]}}}
+      ]
+    },
+    {
+      "id": "B03_permanent_water",
+      "title": "Permanent-water pond zone",
+      "zone": {"zone_id": "B03_permanent_water", "soil": "peat", "moisture": "wet", "hydrology": "permanent", "light": "sun", "canopy": "no", "disturbance": "low", "hardscape": "no", "waterEdge": "yes", "source": "demo", "path_edge": "no", "available_width_m": 12, "available_length_m": 8, "plantable_area_m2": 96, "max_plant_height_m": "unknown", "support_length_m": "unknown"},
+      "project": {"type": "landscape", "area": 1000, "maintenance": "moderate", "publicAccess": true, "publicHarvest": false, "sightlines": false, "rewilding": false, "support": false, "character": "mosaic", "restorationOrnamentals": false, "vigourControl": "no", "evaluation_stage": "placement", "anchorColours": [], "desiredFlowerMonths": [], "priorities": []},
+      "expectations": [
+        {"id": "B03-no-permanent-tolerance-excluded", "policy_basis": ["H04_PERMANENT_WATER", "V03_HANDOVER (wet terrestrial plants never receive permanent-water tolerance)"], "statement": "Records lacking explicit operational permanent-water tolerance are excluded, including wet terrestrial plants.", "select": {"hydrology_tolerance": {"lacks": "permanent"}}, "min_matches": 50, "expect": {"gate": {"H04_PERMANENT_WATER": "excluded"}, "final_equals": 0, "eligible": false}},
+        {"id": "B03-permanent-tolerance-is-synthetic", "policy_basis": ["H04_PERMANENT_WATER", "V03_HANDOVER (synthetic hydrology)"], "statement": "Records with permanent tolerance pass H04 but the synthetic hydrology assumption is disclosed.", "select": {"hydrology_tolerance": {"includes": "permanent"}}, "min_matches": 6, "expect": {"gate": {"H04_PERMANENT_WATER": "passed"}, "warning": ["component_assumptions"]}}
+      ]
+    },
+    {
+      "id": "B04_wet_not_permanent",
+      "title": "Wet soil with seasonal flooding, not permanent water",
+      "zone": {"zone_id": "B04_wet_not_permanent", "soil": "clay", "moisture": "wet", "hydrology": "seasonal", "light": "sun", "canopy": "no", "disturbance": "low", "hardscape": "no", "waterEdge": "no", "source": "demo", "path_edge": "no", "available_width_m": 20, "available_length_m": 15, "plantable_area_m2": 300, "max_plant_height_m": "unknown", "support_length_m": "unknown"},
+      "project": {"type": "landscape", "area": 1000, "maintenance": "moderate", "publicAccess": true, "publicHarvest": false, "sightlines": false, "rewilding": false, "support": false, "character": "mosaic", "restorationOrnamentals": false, "vigourControl": "no", "evaluation_stage": "candidate", "anchorColours": [], "desiredFlowerMonths": [], "priorities": []},
+      "expectations": [
+        {"id": "B04-no-permanent-gate", "policy_basis": ["H04_PERMANENT_WATER"], "statement": "Wet seasonal ground is not permanent water; H04 never fires.", "select": {}, "min_matches": 60, "expect": {"gate": {"H04_PERMANENT_WATER": "passed"}}},
+        {"id": "B04-required-edge-without-edge", "policy_basis": ["H03_WATER_EDGE"], "statement": "Required-edge records still need a confirmed water edge; wet soil alone is not one.", "select": {"water_edge_requirement": "required"}, "min_matches": 3, "expect": {"gate": {"H03_WATER_EDGE": "excluded"}}},
+        {"id": "B04-dry-only-conflict", "policy_basis": ["V03_RULES.environmental_conflict_rule"], "statement": "Dry-only moisture tolerance on wet ground is a known conflict.", "select": {"moisture_tolerance": {"equals": ["dry"]}}, "min_matches": 2, "expect": {"eligible": false, "conflict_reason_for": ["moisture"]}},
+        {"id": "B04-wet-terrestrial-conditional", "policy_basis": ["V03_HANDOVER"], "statement": "Herbaceous records tolerating wet moisture and seasonal hydrology remain conditional candidates.", "select": {"moisture_tolerance": {"includes": "wet"}, "hydrology_tolerance": {"includes": "seasonal"}, "soil_tolerance": {"includes": "clay"}, "light_tolerance": {"includes": "sun"}, "water_edge_requirement": {"not_in": ["required"]}, "group": {"in": ["Flowers & herbs", "Grasses, sedges & rushes"]}}, "min_matches": 3, "expect": {"state_in": ["conditional_match"], "eligible": true}}
+      ]
+    },
+    {
+      "id": "B05_public_playground",
+      "title": "Public playground or school-adjacent planting beside a path",
+      "zone": {"zone_id": "B05_public_playground", "soil": "sand", "moisture": "fresh", "hydrology": "none", "light": "sun", "canopy": "no", "disturbance": "high", "hardscape": "yes", "waterEdge": "no", "source": "demo", "path_edge": "yes", "available_width_m": 10, "available_length_m": 10, "plantable_area_m2": 100, "max_plant_height_m": 1.0, "support_length_m": "unknown"},
+      "project": {"type": "landscape", "area": 400, "maintenance": "moderate", "publicAccess": true, "publicHarvest": false, "sightlines": true, "rewilding": false, "support": false, "character": "open", "restorationOrnamentals": false, "vigourControl": "no", "evaluation_stage": "placement", "anchorColours": [], "desiredFlowerMonths": [], "priorities": []},
+      "expectations": [
+        {"id": "B05-unreviewed-contact", "policy_basis": ["H06_PUBLIC_CONTACT", "RULEBOOK.W02"], "statement": "No record is cleared for public contact: review required and capped at 59.", "select": {}, "min_matches": 60, "expect": {"gate": {"H06_PUBLIC_CONTACT": "requires_review"}, "final_max": 59}},
+        {"id": "B05-known-thorns", "policy_basis": ["H11_PATH_THORNS"], "statement": "Known thorns or prickles at a mapped path edge exclude placement.", "select": {"thorns_or_spines": {"in": ["thorns_present", "prickles_present"]}}, "min_matches": 3, "expect": {"gate": {"H11_PATH_THORNS": "excluded"}, "final_equals": 0}},
+        {"id": "B05-unknown-thorns-review", "policy_basis": ["H11_PATH_THORNS", "RULEBOOK.W02"], "statement": "Unknown thorn evidence never clears a path edge.", "select": {"thorns_or_spines": "unknown"}, "min_matches": 50, "expect": {"gate": {"H11_PATH_THORNS": "requires_review"}}},
+        {"id": "B05-documented-toxicity-warning", "policy_basis": ["V03_HANDOVER (toxicity is a hazard, not a clearance)"], "statement": "Sourced toxicity reports remain visible as warnings for public sites.", "select": {"toxicity_status": {"in": ["toxic_reported", "weakly_toxic_reported", "strongly_toxic_reported"]}}, "min_matches": 10, "expect": {"warning": ["documented_toxicity"]}},
+        {"id": "B05-low-disturbance-conflict", "policy_basis": ["V03_RULES.environmental_conflict_rule"], "statement": "Low-only disturbance tolerance at a high-disturbance edge is a known conflict.", "select": {"disturbance_tolerance": {"equals": ["low"]}}, "min_matches": 10, "expect": {"eligible": false, "conflict_reason_for": ["disturbance"]}},
+        {"id": "B05-hardscape-avoid-conflict", "policy_basis": ["V03_RULES.environmental_conflict_rule"], "statement": "Hardscape-avoiding records conflict with adjacent hardscape.", "select": {"hardscape_tolerance": "avoid"}, "min_matches": 3, "expect": {"eligible": false, "conflict_reason_for": ["hardscape"]}},
+        {"id": "B05-visibility-height", "policy_basis": ["V03_RULES.spatial", "RULEBOOK.W02 (mature visual obstruction)"], "statement": "Records taller than the project visibility limit cannot be eligible.", "select": {"mature_height_m": {"gt": 1.0}}, "min_matches": 20, "expect": {"eligible": false, "visibility_state_in": ["exceeds_visibility_limit"]}}
+      ]
+    },
+    {
+      "id": "B06_narrow_path_edge",
+      "title": "Narrow public path-edge strip (placement stage)",
+      "zone": {"zone_id": "B06_narrow_path_edge", "soil": "clay", "moisture": "fresh", "hydrology": "none", "light": "sun", "canopy": "no", "disturbance": "moderate", "hardscape": "yes", "waterEdge": "no", "source": "demo", "path_edge": "yes", "available_width_m": 1.0, "available_length_m": 30, "plantable_area_m2": 30, "max_plant_height_m": 0.6, "support_length_m": "unknown"},
+      "project": {"type": "landscape", "area": 30, "maintenance": "moderate", "publicAccess": true, "publicHarvest": false, "sightlines": true, "rewilding": false, "support": false, "character": "mosaic", "restorationOrnamentals": false, "vigourControl": "no", "evaluation_stage": "placement", "anchorColours": [], "desiredFlowerMonths": [], "priorities": []},
+      "expectations": [
+        {"id": "B06-woody-geometry", "policy_basis": ["H07_WOODY_GEOMETRY"], "statement": "Trees and shrubs whose spread exceeds the 1 m strip are excluded at placement.", "select": {"group": {"in": ["Trees", "Shrubs"]}}, "min_matches": 15, "expect": {"gate": {"H07_WOODY_GEOMETRY": "excluded"}, "final_equals": 0}},
+        {"id": "B06-visibility", "policy_basis": ["V03_RULES.spatial"], "statement": "Records above the 0.6 m visibility height are never eligible.", "select": {"mature_height_m": {"gt": 0.6}}, "min_matches": 30, "expect": {"eligible": false}},
+        {"id": "B06-thorns", "policy_basis": ["H11_PATH_THORNS"], "statement": "Known thorns at the path edge are excluded at placement.", "select": {"thorns_or_spines": {"in": ["thorns_present", "prickles_present"]}}, "min_matches": 3, "expect": {"gate": {"H11_PATH_THORNS": "excluded"}}}
+      ]
+    },
+    {
+      "id": "B06b_narrow_path_edge_candidate",
+      "title": "Narrow public path-edge strip (candidate screening stage)",
+      "zone": {"zone_id": "B06b_narrow_path_edge_candidate", "soil": "clay", "moisture": "fresh", "hydrology": "none", "light": "sun", "canopy": "no", "disturbance": "moderate", "hardscape": "yes", "waterEdge": "no", "source": "demo", "path_edge": "yes", "available_width_m": 1.0, "available_length_m": 30, "plantable_area_m2": 30, "max_plant_height_m": 0.6, "support_length_m": "unknown"},
+      "project": {"type": "landscape", "area": 30, "maintenance": "moderate", "publicAccess": true, "publicHarvest": false, "sightlines": true, "rewilding": false, "support": false, "character": "mosaic", "restorationOrnamentals": false, "vigourControl": "no", "evaluation_stage": "candidate", "anchorColours": [], "desiredFlowerMonths": [], "priorities": []},
+      "expectations": [
+        {"id": "B06b-woody-unsuitable-not-passed", "policy_basis": ["H07_WOODY_GEOMETRY", "V03_RULES.final_score_caps.spatial_impossibility"], "statement": "At candidate stage a known woody geometry failure is unsuitable and the H07 trace must not read as passed.", "select": {"group": {"in": ["Trees", "Shrubs"]}}, "min_matches": 15, "expect": {"eligible": false, "state_in": ["unsuitable", "excluded"], "gate": {"H07_WOODY_GEOMETRY": "requires_review"}}},
+        {"id": "B06b-known-thorns-not-passed", "policy_basis": ["H11_PATH_THORNS", "RULEBOOK.W02"], "statement": "Known thorns at a mapped path edge must not show H11 as passed at candidate stage; exclusion applies at placement.", "select": {"thorns_or_spines": {"in": ["thorns_present", "prickles_present"]}}, "min_matches": 3, "expect": {"gate": {"H11_PATH_THORNS": "requires_review"}}}
+      ]
+    },
+    {
+      "id": "B07_low_maintenance_municipal",
+      "title": "Low-maintenance municipal planting without active vigour control",
+      "zone": {"zone_id": "B07_low_maintenance_municipal", "soil": "clay", "moisture": "fresh", "hydrology": "none", "light": "sun", "canopy": "no", "disturbance": "moderate", "hardscape": "no", "waterEdge": "no", "source": "demo", "path_edge": "no", "available_width_m": 25, "available_length_m": 25, "plantable_area_m2": 625, "max_plant_height_m": "unknown", "support_length_m": "unknown"},
+      "project": {"type": "landscape", "area": 5000, "maintenance": "low", "publicAccess": true, "publicHarvest": false, "sightlines": false, "rewilding": false, "support": false, "character": "mosaic", "restorationOrnamentals": false, "vigourControl": "no", "evaluation_stage": "candidate", "anchorColours": [], "desiredFlowerMonths": [], "priorities": []},
+      "expectations": [
+        {"id": "B07-uncontrolled-vigour", "policy_basis": ["H08_VIGOUR"], "statement": "High vigour under low maintenance without explicit control is excluded.", "select": {"vigour_or_spread_risk": "high"}, "min_matches": 15, "expect": {"gate": {"H08_VIGOUR": "excluded"}, "final_equals": 0}},
+        {"id": "B07-demand-exceeds-capacity", "policy_basis": ["RULEBOOK.W03 (hard gate: request plan revision)", "V03_RULES.compatibility_matrices.maintenance"], "statement": "A known maintenance demand above project capacity must be flagged for plan revision, not presented as a clean conditional match.", "select": {"maintenance_demand": "high", "vigour_or_spread_risk": "moderate"}, "min_matches": 3, "expect": {"warning": ["maintenance_conflict"], "gate": {"H12_MAINTENANCE_CAPACITY": "requires_review"}}},
+        {"id": "B07-demand-within-capacity", "policy_basis": ["RULEBOOK.W03"], "statement": "Low-demand, moderate-vigour records pass the maintenance check.", "select": {"maintenance_demand": "low", "vigour_or_spread_risk": "moderate"}, "min_matches": 3, "expect": {"gate": {"H12_MAINTENANCE_CAPACITY": "passed"}, "warning_absent": ["maintenance_conflict"]}}
+      ]
+    },
+    {
+      "id": "B07b_low_maintenance_with_control",
+      "title": "Low-maintenance municipal planting with explicit vigour control",
+      "zone": {"zone_id": "B07b_low_maintenance_with_control", "soil": "clay", "moisture": "fresh", "hydrology": "none", "light": "sun", "canopy": "no", "disturbance": "moderate", "hardscape": "no", "waterEdge": "no", "source": "demo", "path_edge": "no", "available_width_m": 25, "available_length_m": 25, "plantable_area_m2": 625, "max_plant_height_m": "unknown", "support_length_m": "unknown"},
+      "project": {"type": "landscape", "area": 5000, "maintenance": "low", "publicAccess": true, "publicHarvest": false, "sightlines": false, "rewilding": false, "support": false, "character": "mosaic", "restorationOrnamentals": false, "vigourControl": "yes", "evaluation_stage": "candidate", "anchorColours": [], "desiredFlowerMonths": [], "priorities": []},
+      "expectations": [
+        {"id": "B07b-controlled-vigour-conditional", "policy_basis": ["H08_VIGOUR", "V03_RULES.final_score_caps.active_vigour_control_required"], "statement": "Explicit control lifts the exclusion but keeps a disclosed cap.", "select": {"vigour_or_spread_risk": "high"}, "min_matches": 15, "expect": {"gate": {"H08_VIGOUR": "passed"}, "cap": ["active_vigour_control_required"], "warning": ["active_vigour_control_required"]}}
+      ]
+    },
+    {
+      "id": "B08_native_only_rewilding",
+      "title": "Native-only rewilding project",
+      "zone": {"zone_id": "B08_native_only_rewilding", "soil": "clay", "moisture": "fresh", "hydrology": "none", "light": "mixed", "canopy": "no", "disturbance": "low", "hardscape": "no", "waterEdge": "no", "source": "demo", "path_edge": "no", "available_width_m": 30, "available_length_m": 30, "plantable_area_m2": 900, "max_plant_height_m": "unknown", "support_length_m": "unknown"},
+      "project": {"type": "restoration", "area": 5000, "maintenance": "moderate", "publicAccess": false, "publicHarvest": false, "sightlines": false, "rewilding": true, "support": false, "character": "mosaic", "restorationOrnamentals": false, "vigourControl": "no", "evaluation_stage": "candidate", "anchorColours": ["purple"], "desiredFlowerMonths": [5, 6, 7, 8, 9], "priorities": ["pollinators"]},
+      "adversarial_variants": [
+        {"label": "introduced_copy", "base_fixture_id": "demo-core-01", "set": {"native_status_nl": "introduced"}, "note": "In-memory copy only; tests that a known introduced status is excluded in native-only mode even with favourable design preferences."}
+      ],
+      "expectations": [
+        {"id": "B08-unknown-native-review-cap", "policy_basis": ["H09_NATIVE_POLICY", "V03_RULES.final_score_caps.unknown_native_rewilding"], "statement": "Unknown native status is never native: review required and final at most 54.", "select": {"native_status_nl": "unknown"}, "min_matches": 5, "expect": {"gate": {"H09_NATIVE_POLICY": "requires_review"}, "cap": ["unknown_native_rewilding"], "final_max": 54}},
+        {"id": "B08-known-native-passes", "policy_basis": ["H09_NATIVE_POLICY"], "statement": "Sourced native records pass the native-only gate.", "select": {"native_status_nl": "native_original"}, "min_matches": 40, "expect": {"gate": {"H09_NATIVE_POLICY": "passed"}, "cap_absent": ["unknown_native_rewilding"]}},
+        {"id": "B08-introduced-excluded", "policy_basis": ["H09_NATIVE_POLICY", "RULEBOOK.G05"], "statement": "A known introduced record is excluded in native-only mode regardless of design preference.", "adversarial": "introduced_copy", "min_matches": 1, "expect": {"gate": {"H09_NATIVE_POLICY": "excluded"}, "final_equals": 0, "eligible": false}}
+      ]
+    },
+    {
+      "id": "B09_small_courtyard",
+      "title": "Small courtyard with restricted width and height",
+      "zone": {"zone_id": "B09_small_courtyard", "soil": "clay", "moisture": "fresh", "hydrology": "none", "light": "mixed", "canopy": "no", "disturbance": "low", "hardscape": "yes", "waterEdge": "no", "source": "demo", "path_edge": "yes", "available_width_m": 3, "available_length_m": 4, "plantable_area_m2": 12, "max_plant_height_m": 2.5, "support_length_m": "unknown"},
+      "project": {"type": "landscape", "area": 12, "maintenance": "moderate", "publicAccess": false, "publicHarvest": false, "sightlines": true, "rewilding": false, "support": false, "character": "enclosed", "restorationOrnamentals": false, "vigourControl": "no", "evaluation_stage": "placement", "anchorColours": [], "desiredFlowerMonths": [], "priorities": []},
+      "expectations": [
+        {"id": "B09-woody-too-wide", "policy_basis": ["H07_WOODY_GEOMETRY"], "statement": "Woody records wider than the 3 m courtyard are excluded at placement.", "select": {"group": {"in": ["Trees", "Shrubs"]}, "mature_spread_m": {"gt": 3}}, "min_matches": 10, "expect": {"gate": {"H07_WOODY_GEOMETRY": "excluded"}}},
+        {"id": "B09-height-limit", "policy_basis": ["V03_RULES.spatial"], "statement": "Records above the 2.5 m height limit are never eligible.", "select": {"mature_height_m": {"gt": 2.5}}, "min_matches": 15, "expect": {"eligible": false}},
+        {"id": "B09-quantity-bounded", "policy_basis": ["V03_RULES.placement"], "statement": "Eligible single-species capacity never exceeds the zone area divided by pilot spacing squared and is labelled an estimate.", "select": {"group": {"in": ["Flowers & herbs", "Grasses, sedges & rushes"]}}, "min_matches": 10, "expect": {"quantity_within_zone_area": true}}
+      ]
+    },
+    {
+      "id": "B10a_climber_with_support",
+      "title": "Climber with mapped support",
+      "zone": {"zone_id": "B10a_climber_with_support", "soil": "clay", "moisture": "fresh", "hydrology": "none", "light": "mixed", "canopy": "no", "disturbance": "low", "hardscape": "no", "waterEdge": "no", "source": "demo", "path_edge": "no", "available_width_m": 10, "available_length_m": 10, "plantable_area_m2": 100, "max_plant_height_m": "unknown", "support_length_m": 8},
+      "project": {"type": "landscape", "area": 100, "maintenance": "moderate", "publicAccess": false, "publicHarvest": false, "sightlines": false, "rewilding": false, "support": true, "character": "mosaic", "restorationOrnamentals": false, "vigourControl": "no", "evaluation_stage": "placement", "anchorColours": [], "desiredFlowerMonths": [], "priorities": []},
+      "expectations": [
+        {"id": "B10a-support-passes", "policy_basis": ["H05_SUPPORT"], "statement": "Climbers pass the support gate when support is supplied.", "select": {"climbing_support_required": true}, "min_matches": 4, "expect": {"gate": {"H05_SUPPORT": "passed"}}},
+        {"id": "B10a-support-quantity", "policy_basis": ["V03_RULES.placement"], "statement": "Climbers that fit the mapped support get capacity floor(support length / spacing).", "select": {"climbing_support_required": true, "pilot_spacing_m": {"lte": 8}}, "min_matches": 2, "expect": {"quantity_support_floor": true, "footprint_state_in": ["fits"]}},
+        {"id": "B10a-support-too-short", "policy_basis": ["V03_RULES.placement"], "statement": "A climber whose pilot spacing exceeds the mapped support cannot be eligible.", "select": {"climbing_support_required": true, "pilot_spacing_m": {"gt": 8}}, "min_matches": 1, "expect": {"eligible": false, "footprint_state_in": ["does_not_fit"]}}
+      ]
+    },
+    {
+      "id": "B10b_climber_without_support",
+      "title": "Climber without support",
+      "zone": {"zone_id": "B10b_climber_without_support", "soil": "clay", "moisture": "fresh", "hydrology": "none", "light": "mixed", "canopy": "no", "disturbance": "low", "hardscape": "no", "waterEdge": "no", "source": "demo", "path_edge": "no", "available_width_m": 10, "available_length_m": 10, "plantable_area_m2": 100, "max_plant_height_m": "unknown", "support_length_m": 8},
+      "project": {"type": "landscape", "area": 100, "maintenance": "moderate", "publicAccess": false, "publicHarvest": false, "sightlines": false, "rewilding": false, "support": false, "character": "mosaic", "restorationOrnamentals": false, "vigourControl": "no", "evaluation_stage": "placement", "anchorColours": ["yellow", "white"], "desiredFlowerMonths": [6, 7], "priorities": ["pollinators"]},
+      "expectations": [
+        {"id": "B10b-no-support-excluded", "policy_basis": ["H05_SUPPORT"], "statement": "Climbers without supplied support are excluded whatever the design preference.", "select": {"climbing_support_required": true}, "min_matches": 4, "expect": {"gate": {"H05_SUPPORT": "excluded"}, "final_equals": 0}}
+      ]
+    },
+    {
+      "id": "B10c_climber_support_length_unknown",
+      "title": "Climber with support but unmapped support length",
+      "zone": {"zone_id": "B10c_climber_support_length_unknown", "soil": "clay", "moisture": "fresh", "hydrology": "none", "light": "mixed", "canopy": "no", "disturbance": "low", "hardscape": "no", "waterEdge": "no", "source": "demo", "path_edge": "no", "available_width_m": 10, "available_length_m": 10, "plantable_area_m2": 100, "max_plant_height_m": "unknown", "support_length_m": "unknown"},
+      "project": {"type": "landscape", "area": 100, "maintenance": "moderate", "publicAccess": false, "publicHarvest": false, "sightlines": false, "rewilding": false, "support": true, "character": "mosaic", "restorationOrnamentals": false, "vigourControl": "no", "evaluation_stage": "candidate", "anchorColours": [], "desiredFlowerMonths": [], "priorities": []},
+      "expectations": [
+        {"id": "B10c-unresolved-support", "policy_basis": ["V03_HANDOVER (unknown support length is unresolved geometry)"], "statement": "Unknown support length is a geometry gap: no full spatial points, unresolved quantity, gap cap, not an exclusion.", "select": {"climbing_support_required": true}, "min_matches": 4, "expect": {"gate": {"H05_SUPPORT": "passed"}, "quantity_state_in": ["unresolved_support", "not_eligible_for_pilot_placement"], "ratio_max": {"spatial": 0.2}, "cap": ["unknown_site"], "warning": ["site_geometry_gap"]}}
+      ]
+    },
+    {
+      "id": "B11_restoration_ornamental_restriction",
+      "title": "Restoration project with ornamental restriction",
+      "zone": {"zone_id": "B11_restoration_ornamental_restriction", "soil": "sand", "moisture": "fresh", "hydrology": "none", "light": "sun", "canopy": "no", "disturbance": "low", "hardscape": "no", "waterEdge": "no", "source": "demo", "path_edge": "no", "available_width_m": 30, "available_length_m": 30, "plantable_area_m2": 900, "max_plant_height_m": "unknown", "support_length_m": "unknown"},
+      "project": {"type": "restoration", "area": 5000, "maintenance": "moderate", "publicAccess": false, "publicHarvest": false, "sightlines": false, "rewilding": false, "support": false, "character": "mosaic", "restorationOrnamentals": false, "vigourControl": "no", "evaluation_stage": "candidate", "anchorColours": ["yellow"], "desiredFlowerMonths": [7, 8], "priorities": ["pollinators"]},
+      "adversarial_variants": [
+        {"label": "introduced_copy", "base_fixture_id": "demo-core-08", "set": {"native_status_nl": "introduced"}, "note": "In-memory copy only; exercises the restoration ornamental restriction."}
+      ],
+      "expectations": [
+        {"id": "B11-unknown-native-review", "policy_basis": ["H10_RESTORATION_POLICY", "RULEBOOK.G05 (restoration remains native-first)", "V03_HANDOVER (unknown never native)"], "statement": "Unknown native status in a restoration project is unresolved and must show H10 as requiring review.", "select": {"native_status_nl": "unknown"}, "min_matches": 5, "expect": {"gate": {"H10_RESTORATION_POLICY": "requires_review"}, "warning": ["policy_or_safety_review_required"], "final_max": 64}},
+        {"id": "B11-introduced-excluded", "policy_basis": ["H10_RESTORATION_POLICY"], "statement": "Known introduced records are excluded without the explicit ornamental override.", "adversarial": "introduced_copy", "min_matches": 1, "expect": {"gate": {"H10_RESTORATION_POLICY": "excluded"}, "final_equals": 0}}
+      ]
+    },
+    {
+      "id": "B11b_restoration_with_ornamental_override",
+      "title": "Restoration project with explicit ornamental override",
+      "zone": {"zone_id": "B11b_restoration_with_ornamental_override", "soil": "sand", "moisture": "fresh", "hydrology": "none", "light": "sun", "canopy": "no", "disturbance": "low", "hardscape": "no", "waterEdge": "no", "source": "demo", "path_edge": "no", "available_width_m": 30, "available_length_m": 30, "plantable_area_m2": 900, "max_plant_height_m": "unknown", "support_length_m": "unknown"},
+      "project": {"type": "restoration", "area": 5000, "maintenance": "moderate", "publicAccess": false, "publicHarvest": false, "sightlines": false, "rewilding": false, "support": false, "character": "mosaic", "restorationOrnamentals": true, "vigourControl": "no", "evaluation_stage": "candidate", "anchorColours": [], "desiredFlowerMonths": [], "priorities": []},
+      "adversarial_variants": [
+        {"label": "introduced_copy", "base_fixture_id": "demo-core-08", "set": {"native_status_nl": "introduced"}, "note": "In-memory copy only; exercises the separately disclosed override."}
+      ],
+      "expectations": [
+        {"id": "B11b-override-disclosed", "policy_basis": ["H10_RESTORATION_POLICY (remains separately disclosed)", "RULEBOOK.G05 (non-native requires explicit override pending policy review)"], "statement": "The override allows the introduced record but it stays visibly under review and disclosed.", "adversarial": "introduced_copy", "min_matches": 1, "expect": {"gate": {"H10_RESTORATION_POLICY": "requires_review"}, "warning": ["restoration_ornamental_exception"]}}
+      ]
+    },
+    {
+      "id": "B12_many_unknown_inputs",
+      "title": "Several important site and project inputs unknown",
+      "zone": {"zone_id": "B12_many_unknown_inputs", "soil": "unknown", "moisture": "fresh", "hydrology": "unknown", "light": "sun", "canopy": "unknown", "disturbance": "unknown", "hardscape": "unknown", "waterEdge": "unknown", "source": "demo", "path_edge": "unknown", "available_width_m": "unknown", "available_length_m": "unknown", "plantable_area_m2": "unknown", "max_plant_height_m": "unknown", "support_length_m": "unknown"},
+      "project": {"type": "landscape", "area": "unknown", "maintenance": "unknown", "publicAccess": true, "publicHarvest": false, "sightlines": false, "rewilding": false, "support": false, "character": "mosaic", "restorationOrnamentals": false, "vigourControl": "unknown", "evaluation_stage": "candidate", "anchorColours": [], "desiredFlowerMonths": [], "priorities": []},
+      "expectations": [
+        {"id": "B12-unknown-never-full-points", "policy_basis": ["V03_RULES.unknown_site_rule"], "statement": "Unknown inputs never receive compatibility points.", "select": {}, "min_matches": 60, "expect": {"ratio_max": {"soil": 0, "hydrology": 0, "disturbance_hardscape": 0, "maintenance_vigour": 0, "spatial": 0.2}, "cap": ["unknown_site"], "warning": ["site_data_gap", "site_geometry_gap", "project_data_gap"]}},
+        {"id": "B12-unknown-is-not-conflict", "policy_basis": ["V03_RULES.environmental_conflict_rule", "V03_HANDOVER (not described as a proven environmental conflict)"], "statement": "Unknown soil, hydrology, disturbance and hardscape are reported as gaps, never as environmental conflicts.", "select": {}, "min_matches": 60, "expect": {"no_conflict_reason_for": ["soil", "hydrology", "disturbance", "hardscape"]}},
+        {"id": "B12-no-conflict-cap-without-known-conflict", "policy_basis": ["V03_RULES.environmental_conflict_rule"], "statement": "Records whose only zero ratios come from unknown inputs never receive the known-conflict cap; a known light conflict still does.", "select": {"light_tolerance": {"includes": "sun"}}, "min_matches": 50, "expect": {"cap_absent": ["known_environmental_conflict"]}},
+        {"id": "B12-gap-not-unsuitable", "policy_basis": ["RULEBOOK.G02 (missing decisive condition returns zone_data_gap rather than an assumed fit)", "V03_HANDOVER"], "statement": "When the score is low only because inputs are unknown, the state is data_gap: not eligible, and not labelled unsuitable.", "select": {"light_tolerance": {"includes": "sun"}, "water_edge_requirement": {"not_in": ["required"]}, "climbing_support_required": false}, "min_matches": 40, "expect": {"state_in": ["data_gap", "excluded"], "eligible": false}},
+        {"id": "B12-mandatory-edge-missing", "policy_basis": ["H03_WATER_EDGE", "V03_HANDOVER (missing mandatory edge excludes)"], "statement": "A required edge cannot be assumed from unknown edge context.", "select": {"water_edge_requirement": "required"}, "min_matches": 3, "expect": {"gate": {"H03_WATER_EDGE": "excluded"}}},
+        {"id": "B12-unknown-hydrology-not-cleared", "policy_basis": ["H04_PERMANENT_WATER", "phase D: unknown never hydrologically compatible"], "statement": "With unknown hydrology the permanent-water gate cannot read as passed for records lacking permanent tolerance.", "select": {"hydrology_tolerance": {"lacks": "permanent"}}, "min_matches": 50, "expect": {"gate": {"H04_PERMANENT_WATER": "requires_review"}}},
+        {"id": "B12-unknown-maintenance-vigour", "policy_basis": ["H08_VIGOUR", "RULEBOOK.W03 (on_missing management_unresolved)"], "statement": "High vigour with unknown maintenance capacity is unresolved, not passed.", "select": {"vigour_or_spread_risk": "high"}, "min_matches": 15, "expect": {"gate": {"H08_VIGOUR": "requires_review", "H12_MAINTENANCE_CAPACITY": "requires_review"}}},
+        {"id": "B12-woody-geometry-unknown", "policy_basis": ["H07_WOODY_GEOMETRY"], "statement": "Woody placement geometry is unresolved when dimensions are unknown.", "select": {"group": {"in": ["Trees", "Shrubs"]}}, "min_matches": 15, "expect": {"gate": {"H07_WOODY_GEOMETRY": "requires_review"}}},
+        {"id": "B12-known-thorns-unknown-edge", "policy_basis": ["H11_PATH_THORNS", "V03_CONTRACT.added_inputs.path_edge (unknown never clears thorn restrictions)"], "statement": "Known thorns with unknown path-edge context require review.", "select": {"thorns_or_spines": {"in": ["thorns_present", "prickles_present"]}}, "min_matches": 3, "expect": {"gate": {"H11_PATH_THORNS": "requires_review"}}},
+        {"id": "B12-confidence-reduced", "policy_basis": ["V03_RULES.confidence_formula"], "statement": "Unknown inputs reduce evidence confidence compared with the same plant on a fully described zone.", "select": {}, "min_matches": 60, "expect": {"lower_than_under": {"zone": {"soil": "sand", "hydrology": "none", "disturbance": "low", "hardscape": "no", "waterEdge": "no", "path_edge": "no", "canopy": "no", "available_width_m": 40, "available_length_m": 40, "plantable_area_m2": 1600}, "project": {"maintenance": "moderate", "vigourControl": "no"}, "field": "evidence_confidence_score"}}}
+      ]
+    },
+    {
+      "id": "B12b_single_unknown_soil",
+      "title": "One unknown input (soil) on an otherwise described zone",
+      "zone": {"zone_id": "B12b_single_unknown_soil", "soil": "unknown", "moisture": "fresh", "hydrology": "none", "light": "sun", "canopy": "no", "disturbance": "low", "hardscape": "no", "waterEdge": "no", "source": "demo", "path_edge": "no", "available_width_m": 20, "available_length_m": 20, "plantable_area_m2": 400, "max_plant_height_m": "unknown", "support_length_m": "unknown"},
+      "project": {"type": "landscape", "area": 1000, "maintenance": "moderate", "publicAccess": false, "publicHarvest": false, "sightlines": false, "rewilding": false, "support": false, "character": "mosaic", "restorationOrnamentals": false, "vigourControl": "no", "evaluation_stage": "candidate", "anchorColours": [], "desiredFlowerMonths": [], "priorities": []},
+      "expectations": [
+        {"id": "B12b-single-gap-conditional", "policy_basis": ["V03_RULES.final_score_caps.unknown_site", "V03_HANDOVER"], "statement": "One unknown site category still allows a conditional simulation, capped at 64, with a site-data warning and zero soil points.", "select": {"moisture_tolerance": {"includes": "fresh"}, "light_tolerance": {"includes": "sun"}, "hydrology_tolerance": {"includes": "none"}, "water_edge_requirement": {"not_in": ["required"]}, "group": {"in": ["Flowers & herbs", "Grasses, sedges & rushes"]}}, "min_matches": 10, "expect": {"state_in": ["conditional_match"], "cap": ["unknown_site"], "warning": ["site_data_gap"], "ratio_max": {"soil": 0}, "final_max": 64}}
+      ]
+    },
+    {
+      "id": "B12c_unverified_source",
+      "title": "Unverified site source",
+      "zone": {"zone_id": "B12c_unverified_source", "soil": "sand", "moisture": "dry", "hydrology": "none", "light": "sun", "canopy": "no", "disturbance": "low", "hardscape": "no", "waterEdge": "no", "source": "unverified", "path_edge": "no", "available_width_m": 20, "available_length_m": 15, "plantable_area_m2": 300, "max_plant_height_m": "unknown", "support_length_m": "unknown"},
+      "project": {"type": "landscape", "area": 1000, "maintenance": "moderate", "publicAccess": false, "publicHarvest": false, "sightlines": false, "rewilding": false, "support": false, "character": "mosaic", "restorationOrnamentals": false, "vigourControl": "no", "evaluation_stage": "candidate", "anchorColours": [], "desiredFlowerMonths": [], "priorities": []},
+      "expectations": [
+        {"id": "B12c-zero-confidence", "policy_basis": ["V03_RULES.site_source_factors"], "statement": "An unverified site source gives zero evidence confidence and a gap cap without changing compatibility ratios.", "select": {}, "min_matches": 60, "expect": {"warning": ["site_evidence_gap"], "cap": ["unknown_site"], "final_max": 64, "invariant_under": {"zone": {"source": "demo"}, "fields": ["raw_suitability_score", "component_scores"]}}}
+      ]
+    }
+  ]
+}

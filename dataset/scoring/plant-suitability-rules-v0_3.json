@@ -1,0 +1,471 @@
+{
+  "version": "0.3.1",
+  "components": {
+    "soil": {
+      "weight": 15,
+      "plant_fields": [
+        "soil_tolerance"
+      ],
+      "site_or_project_fields": [
+        "soil"
+      ]
+    },
+    "moisture": {
+      "weight": 20,
+      "plant_fields": [
+        "moisture_tolerance"
+      ],
+      "site_or_project_fields": [
+        "moisture"
+      ]
+    },
+    "hydrology": {
+      "weight": 15,
+      "plant_fields": [
+        "hydrology_tolerance"
+      ],
+      "site_or_project_fields": [
+        "hydrology"
+      ]
+    },
+    "light": {
+      "weight": 15,
+      "plant_fields": [
+        "light_tolerance"
+      ],
+      "site_or_project_fields": [
+        "light"
+      ]
+    },
+    "disturbance_hardscape": {
+      "weight": 10,
+      "plant_fields": [
+        "disturbance_tolerance",
+        "hardscape_tolerance"
+      ],
+      "site_or_project_fields": [
+        "disturbance",
+        "hardscape"
+      ]
+    },
+    "spatial": {
+      "weight": 15,
+      "plant_fields": [
+        "mature_height_m",
+        "mature_spread_m",
+        "pilot_spacing_m",
+        "group",
+        "climbing_support_required"
+      ],
+      "site_or_project_fields": [
+        "available_width_m",
+        "available_length_m",
+        "plantable_area_m2",
+        "support_length_m",
+        "max_plant_height_m",
+        "path_edge",
+        "sightlines"
+      ]
+    },
+    "maintenance_vigour": {
+      "weight": 10,
+      "plant_fields": [
+        "maintenance_demand",
+        "vigour_or_spread_risk"
+      ],
+      "site_or_project_fields": [
+        "maintenance",
+        "vigourControl"
+      ]
+    }
+  },
+  "compatibility_matrices": {
+    "soil": {
+      "sand": {
+        "sand": 1,
+        "clay": 0,
+        "peat": 0,
+        "made": 0.25,
+        "unknown": 0
+      },
+      "clay": {
+        "sand": 0,
+        "clay": 1,
+        "peat": 0,
+        "made": 0.25,
+        "unknown": 0
+      },
+      "peat": {
+        "sand": 0,
+        "clay": 0,
+        "peat": 1,
+        "made": 0.25,
+        "unknown": 0
+      }
+    },
+    "moisture": {
+      "dry": {
+        "dry": 1,
+        "fresh": 0.5,
+        "wet": 0,
+        "variable": 0.5,
+        "unknown": 0
+      },
+      "fresh": {
+        "dry": 0.5,
+        "fresh": 1,
+        "wet": 0.5,
+        "variable": 0.5,
+        "unknown": 0
+      },
+      "wet": {
+        "dry": 0,
+        "fresh": 0.5,
+        "wet": 1,
+        "variable": 0.5,
+        "unknown": 0
+      }
+    },
+    "light": {
+      "sun": {
+        "sun": 1,
+        "mixed": 0.5,
+        "shade": 0,
+        "unknown": 0
+      },
+      "mixed": {
+        "sun": 0.5,
+        "mixed": 1,
+        "shade": 0.5,
+        "unknown": 0
+      },
+      "shade": {
+        "sun": 0,
+        "mixed": 0.5,
+        "shade": 1,
+        "unknown": 0
+      }
+    },
+    "hydrology": {
+      "none": {
+        "none": 1,
+        "seasonal": 0.5,
+        "long": 0,
+        "permanent": 0,
+        "edge": 0.5,
+        "unknown": 0
+      },
+      "seasonal": {
+        "none": 0.5,
+        "seasonal": 1,
+        "long": 0.5,
+        "permanent": 0,
+        "edge": 0.5,
+        "unknown": 0
+      },
+      "long": {
+        "none": 0,
+        "seasonal": 0.5,
+        "long": 1,
+        "permanent": 0.5,
+        "edge": 0.5,
+        "unknown": 0
+      },
+      "permanent": {
+        "none": 0,
+        "seasonal": 0.5,
+        "long": 0.5,
+        "permanent": 1,
+        "edge": 0.5,
+        "unknown": 0
+      },
+      "edge": {
+        "none": 0,
+        "seasonal": 0.5,
+        "long": 0.5,
+        "permanent": 0,
+        "edge": 0.5,
+        "unknown": 0
+      }
+    },
+    "disturbance": {
+      "low": {
+        "low": 1,
+        "moderate": 0.5,
+        "high": 0,
+        "unknown": 0
+      },
+      "moderate": {
+        "low": 1,
+        "moderate": 1,
+        "high": 0.5,
+        "unknown": 0
+      },
+      "high": {
+        "low": 1,
+        "moderate": 1,
+        "high": 1,
+        "unknown": 0
+      }
+    },
+    "hardscape": {
+      "avoid": {
+        "yes": 0,
+        "no": 1,
+        "unknown": 0
+      },
+      "conditional": {
+        "yes": 0.5,
+        "no": 1,
+        "unknown": 0
+      },
+      "tolerant": {
+        "yes": 1,
+        "no": 1,
+        "unknown": 0
+      }
+    },
+    "maintenance": {
+      "low": {
+        "low": 1,
+        "moderate": 1,
+        "high": 1,
+        "unknown": 0
+      },
+      "moderate": {
+        "low": 0.5,
+        "moderate": 1,
+        "high": 1,
+        "unknown": 0
+      },
+      "high": {
+        "low": 0,
+        "moderate": 0.5,
+        "high": 1,
+        "unknown": 0
+      }
+    },
+    "vigour": {
+      "low": {
+        "low": 1,
+        "moderate": 1,
+        "high": 1,
+        "unknown": 0
+      },
+      "moderate": {
+        "low": 0.5,
+        "moderate": 1,
+        "high": 1,
+        "unknown": 0
+      },
+      "high": {
+        "low": 0,
+        "moderate": 0.5,
+        "high": 1,
+        "unknown": 0
+      }
+    },
+    "spatial_footprint": {
+      "fits": 1,
+      "does_not_fit": 0,
+      "unknown_geometry": 0
+    },
+    "spatial_height": {
+      "inactive": 1,
+      "fits": 1,
+      "exceeds_visibility_limit": 0,
+      "unknown_required_height_limit": 0
+    }
+  },
+  "combination": "Best supported operational tolerance category; arrays do not mean all site categories are compatible.",
+  "component_aggregation": {
+    "disturbance_hardscape": "Mean of disturbance and hardscape ratios.",
+    "spatial": "0.8 footprint ratio + 0.2 visibility-height ratio.",
+    "maintenance_vigour": "Mean demand and vigour ratios; explicit control makes high vigour conditional (0.5) under low capacity."
+  },
+  "hard_gates": {
+    "H01_IDENTITY": "Unknown scientific identity or plant_id excludes.",
+    "H02_INVASIVE_LEGAL": "Any explicit positive invasive status (listed_nl, listed_eu, invasive_elsewhere) or legally_prohibited excludes; unknown/nonlisting never clears. Foreign weediness alone is not assigned an invasive status.",
+    "H03_WATER_EDGE": "Required edge demands waterEdge=yes AND hydrology seasonal|long|permanent|edge.",
+    "H04_PERMANENT_WATER": "Permanent zone excludes plant lacking explicit operational permanent tolerance. Unknown hydrology requires review for such a plant: permanent water is not ruled out and the plant is never treated as hydrologically compatible.",
+    "H05_SUPPORT": "Climbing support required but support=false excludes.",
+    "H06_PUBLIC_CONTACT": "Public access and known unsuitable public contact excludes.",
+    "H07_WOODY_GEOMETRY": "Tree/shrub cannot fit full spread square and area: exclusion at placement, unsuitable candidate. A known misfit at candidate stage and unknown geometry require review; neither reads as passed.",
+    "H08_VIGOUR": "Low maintenance plus high vigour and no explicit active control excludes; control=yes conditional. High vigour with unknown maintenance capacity (and no declared control) requires review.",
+    "H09_NATIVE_POLICY": "Rewilding known introduced excludes. Unknown native in rewilding caps final at 54.",
+    "H10_RESTORATION_POLICY": "Restoration known introduced needs explicit ornamental override. With the override it requires review and is disclosed by warning restoration_ornamental_exception (rulebook G05). Unknown native status in restoration requires review.",
+    "H11_PATH_THORNS": "Known thorns/prickles at path edge excludes placement. Known thorns at a mapped path edge during candidate screening, or where path-edge context is unknown, require review. Unknown thorns never clear public-contact use.",
+    "H12_MAINTENANCE_CAPACITY": "Approved rulebook W03: known maintenance demand above project capacity (demand ratio 0) or unknown capacity requires review/plan revision. It never excludes and never changes points in v0.3.1; whether it should cap or exclude is an open policy question."
+  },
+  "hard_gate_plant_fields": {
+    "H01_IDENTITY": [
+      "scientific_name",
+      "plant_id"
+    ],
+    "H02_INVASIVE_LEGAL": [
+      "invasive_status",
+      "protected_or_legal_status"
+    ],
+    "H03_WATER_EDGE": [
+      "water_edge_requirement",
+      "hydrology_tolerance"
+    ],
+    "H04_PERMANENT_WATER": [
+      "hydrology_tolerance"
+    ],
+    "H05_SUPPORT": [
+      "climbing_support_required"
+    ],
+    "H06_PUBLIC_CONTACT": [
+      "public_contact_status"
+    ],
+    "H07_WOODY_GEOMETRY": [
+      "group",
+      "mature_spread_m"
+    ],
+    "H08_VIGOUR": [
+      "vigour_or_spread_risk"
+    ],
+    "H09_NATIVE_POLICY": [
+      "native_status_nl"
+    ],
+    "H10_RESTORATION_POLICY": [
+      "native_status_nl"
+    ],
+    "H11_PATH_THORNS": [
+      "thorns_or_spines"
+    ],
+    "H12_MAINTENANCE_CAPACITY": [
+      "maintenance_demand"
+    ]
+  },
+  "thresholds": {
+    "strong_match": 80,
+    "suitable": 65,
+    "conditional_match": 50,
+    "unsuitable": 0
+  },
+  "eligibility_states": {
+    "strong_match": "final >= 80",
+    "suitable": "65 <= final < 80",
+    "conditional_match": "50 <= final < 65; simulation may proceed with disclosed review items",
+    "unsuitable": "final < 50 because of a known environmental conflict, a known spatial/visibility impossibility, or known partial matches that stay below 50 even if every unknown input were resolved favourably",
+    "data_gap": "final < 50 only because inputs are unknown: no known conflict or impossibility, and raw + points_withheld_for_unknown_inputs >= the conditional threshold. Rulebook G02 zone_data_gap. Not eligible for ranking and never described as a biological conflict.",
+    "excluded": "A hard gate triggered; final = 0. Raw diagnostics are kept."
+  },
+  "data_gap_rule": "points_withheld_for_unknown_inputs = full weight of each unknown soil/moisture/hydrology/light input + half the disturbance_hardscape weight per unknown disturbance or hardscape input + 0.8 x spatial weight for unknown clear geometry/support length + 0.2 x spatial weight for an unknown required height limit + the maintenance_vigour weight for unknown maintenance capacity. It reports what confirmation could resolve; it is never added to any score.",
+  "final_score_caps": {
+    "unknown_policy": 64,
+    "unknown_site": 64,
+    "active_vigour_control_required": 64,
+    "unreviewed_public_contact": 59,
+    "unknown_native_rewilding": 54,
+    "known_environmental_conflict": 49,
+    "spatial_impossibility": 49,
+    "hard_exclusion": 0
+  },
+  "unknown_site_rule": {
+    "ratio": 0,
+    "confidence_multiplier": 0,
+    "warning": "site_data_gap",
+    "conflict": false
+  },
+  "site_uncertainty_factors": {
+    "known": 1,
+    "made": 0.25,
+    "variable": 0.5,
+    "edge_hydroperiod": 0.5,
+    "unknown": 0
+  },
+  "site_source_factors": {
+    "survey": 1,
+    "document": 1,
+    "observation": 0.85,
+    "demo": 0.5,
+    "unverified": 0,
+    "unknown": 0
+  },
+  "confidence_origin_scale": {
+    "independently_reviewed": 100,
+    "official_unreviewed": 85,
+    "institutional_secondary": 70,
+    "expert_inference": 55,
+    "synthetic_fallback": 30,
+    "unknown": 0,
+    "conflicting": 0,
+    "not_reviewed": 0,
+    "policy_rule": 0
+  },
+  "confidence_formula": "Weighted component field confidence × corresponding site-certainty factor × site-source factor × policy factor. Component spatial averages height/spread/spacing/group/support requirement; maintenance and disturbance each average their two fields. Policy factor=max(0.5,1−0.05 per unresolved applicable policy); safety never supplies biological suitability points.",
+  "policy_confidence_fields": [
+    "invasive_status",
+    "protected_or_legal_status",
+    "provenance_status",
+    "toxicity_status",
+    "public_contact_status",
+    "edible_use_status",
+    "native_status_nl",
+    "thorns_or_spines"
+  ],
+  "no_verified_records": true,
+  "design_preference": "0–100 separate preference average of active colour, month, pollinator and spatial-character/role terms. Ranking position is defined by ranking_stages. Never include excluded/unsuitable/data_gap plants.",
+  "native_evidence_tiers": {
+    "native_original": 0,
+    "native_archaeophyte": 0,
+    "unknown": 1,
+    "not_reviewed": 1,
+    "introduced": 2
+  },
+  "ranking_stages": [
+    {
+      "field": "final_suitability_score",
+      "order": "desc",
+      "reason": "Capped suitability decides first."
+    },
+    {
+      "field": "raw_suitability_score",
+      "order": "desc",
+      "reason": "Policy caps tie different biological scores; the uncapped diagnostic separates them."
+    },
+    {
+      "field": "native_evidence_tier",
+      "order": "asc",
+      "reason": "Rulebook first_release_policy native/local-first: sourced native status before unknown/unreviewed before known introduced. Unknown is never treated as native. Applied only when suitability ties."
+    },
+    {
+      "field": "design_preference_score",
+      "order": "desc",
+      "reason": "Design preference is a tie-break only; it never changes suitability or gates."
+    },
+    {
+      "field": "evidence_confidence_score",
+      "order": "desc",
+      "reason": "Confidence stays a separate number; it orders otherwise tied candidates and is never multiplied into suitability."
+    },
+    {
+      "field": "fixture_id",
+      "order": "asc",
+      "reason": "Stable final tie-break by Unicode code point (locale independent)."
+    }
+  ],
+  "placement": "Square clear footprint: woody mature spread, others pilot spacing. Climbers also require support_length>=spacing to pass the spatial screen. Approximate single-species stock capacity=min(floor(width/spacing)×floor(length/spacing),floor(zone_area/spacing²),floor(project_area/spacing²) if known). Climber stock=floor(mapped support_length/spacing). No allocation across species or seed quantities; polygon/path packing remains separate.",
+  "space_rule": "SPACE-01: tree/shrub spread; climber max(1,spread); herb/graminoid/aquatic ceil(max(0.30,0.90spread)/0.05)×0.05.",
+  "environmental_conflict_rule": "Known ratio 0 for soil/moisture/hydrology/light/disturbance/hardscape caps final at 49. Unknown values have ratio 0 but warn as gaps, not proven conflicts.",
+  "canopy_rule": "Context only; no independent effect or doubled light points.",
+  "numeric_summation": "Every implementation sums component points, confidence terms and design terms left to right starting from 0. Python's built-in sum() is not used for floats because Python >= 3.12 applies compensated summation, which can change a rounded result.",
+  "changelog": [
+    {
+      "version": "0.3.1",
+      "date": "2026-10-20",
+      "source": "project-information/RECOMMENDER-SYSTEM-AUDIT.md",
+      "changes": [
+        "Added data_gap eligibility state and points_withheld_for_unknown_inputs (rulebook G02) so unknown inputs are not labelled unsuitable.",
+        "Added review states: H04 unknown hydrology, H07 candidate-stage misfit, H08 unknown maintenance, H10 unknown native and disclosed ornamental override, H11 unknown path edge or candidate stage with known thorns.",
+        "Added H12_MAINTENANCE_CAPACITY review gate (rulebook W03); no score change.",
+        "Added explicit ranking_stages with native_evidence_tier after raw score (rulebook native/local-first); fixture_id compares by code point.",
+        "Specified left-to-right summation so Python and JavaScript round identically.",
+        "Weights, compatibility matrices, caps and thresholds are unchanged."
+      ]
+    }
+  ]
+}

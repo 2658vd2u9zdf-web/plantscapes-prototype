@@ -1,0 +1,85 @@
+{
+  "project": {
+    "type": "landscape",
+    "maintenance": "moderate",
+    "character": "mosaic",
+    "vigourControl": "no",
+    "evaluation_stage": "placement",
+    "publicAccess": true,
+    "publicHarvest": false,
+    "sightlines": false,
+    "rewilding": false,
+    "support": true,
+    "restorationOrnamentals": false,
+    "area": 1000,
+    "anchorColours": [
+      "purple",
+      "yellow"
+    ],
+    "desiredFlowerMonths": [
+      6,
+      7,
+      8
+    ],
+    "priorities": [
+      "pollinators"
+    ]
+  },
+  "zones": [
+    {
+      "zone_id": "dry_sunny_sand",
+      "soil": "sand",
+      "moisture": "dry",
+      "hydrology": "none",
+      "light": "sun",
+      "canopy": "no",
+      "disturbance": "low",
+      "hardscape": "no",
+      "waterEdge": "no",
+      "source": "demo",
+      "path_edge": "no",
+      "available_width_m": 20.0,
+      "available_length_m": 15.0,
+      "plantable_area_m2": 300.0,
+      "max_plant_height_m": 3.0,
+      "support_length_m": 10.0
+    },
+    {
+      "zone_id": "fresh_clay_mixed",
+      "soil": "clay",
+      "moisture": "fresh",
+      "hydrology": "none",
+      "light": "mixed",
+      "canopy": "yes",
+      "disturbance": "low",
+      "hardscape": "no",
+      "waterEdge": "no",
+      "source": "demo",
+      "path_edge": "no",
+      "available_width_m": 20.0,
+      "available_length_m": 20.0,
+      "plantable_area_m2": 400.0,
+      "max_plant_height_m": 3.0,
+      "support_length_m": 10.0
+    },
+    {
+      "zone_id": "wet_water_edge",
+      "soil": "peat",
+      "moisture": "wet",
+      "hydrology": "permanent",
+      "light": "sun",
+      "canopy": "no",
+      "disturbance": "low",
+      "hardscape": "no",
+      "waterEdge": "yes",
+      "source": "demo",
+      "path_edge": "no",
+      "available_width_m": 12.0,
+      "available_length_m": 8.0,
+      "plantable_area_m2": 96.0,
+      "max_plant_height_m": 3.0,
+      "support_length_m": 10.0
+    }
+  ],
+  "note": "Synthetic canonical fixtures with complete operational values; evidence envelopes are in canonical-test-zones-v0_3.json."
+}

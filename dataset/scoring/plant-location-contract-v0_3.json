@@ -1,0 +1,222 @@
+{
+  "version": "0.3.0",
+  "units": {
+    "length": "m",
+    "area": "m2",
+    "month": "integer 1–12",
+    "score": "points 0–100"
+  },
+  "zone_vocabulary": {
+    "soil": [
+      "sand",
+      "clay",
+      "peat",
+      "made",
+      "unknown"
+    ],
+    "moisture": [
+      "dry",
+      "fresh",
+      "wet",
+      "variable",
+      "unknown"
+    ],
+    "hydrology": [
+      "none",
+      "seasonal",
+      "long",
+      "permanent",
+      "edge",
+      "unknown"
+    ],
+    "light": [
+      "sun",
+      "mixed",
+      "shade",
+      "unknown"
+    ],
+    "canopy": [
+      "yes",
+      "no",
+      "unknown"
+    ],
+    "disturbance": [
+      "low",
+      "moderate",
+      "high",
+      "unknown"
+    ],
+    "hardscape": [
+      "yes",
+      "no",
+      "unknown"
+    ],
+    "waterEdge": [
+      "yes",
+      "no",
+      "unknown"
+    ],
+    "source": [
+      "demo",
+      "observation",
+      "survey",
+      "document",
+      "unverified",
+      "unknown"
+    ],
+    "path_edge": [
+      "yes",
+      "no",
+      "unknown"
+    ]
+  },
+  "zone_numeric_or_unknown": [
+    "available_width_m",
+    "available_length_m",
+    "plantable_area_m2",
+    "max_plant_height_m",
+    "support_length_m"
+  ],
+  "zone_required": [
+    "zone_id",
+    "soil",
+    "moisture",
+    "hydrology",
+    "light",
+    "canopy",
+    "disturbance",
+    "hardscape",
+    "waterEdge",
+    "source",
+    "path_edge",
+    "available_width_m",
+    "available_length_m",
+    "plantable_area_m2",
+    "max_plant_height_m",
+    "support_length_m"
+  ],
+  "project_vocabulary": {
+    "type": [
+      "restoration",
+      "landscape",
+      "productive",
+      "other"
+    ],
+    "maintenance": [
+      "low",
+      "moderate",
+      "high",
+      "unknown"
+    ],
+    "character": [
+      "mosaic",
+      "open",
+      "enclosed"
+    ],
+    "vigourControl": [
+      "yes",
+      "no",
+      "unknown"
+    ],
+    "evaluation_stage": [
+      "candidate",
+      "placement"
+    ]
+  },
+  "project_booleans": [
+    "publicAccess",
+    "publicHarvest",
+    "sightlines",
+    "rewilding",
+    "support",
+    "restorationOrnamentals"
+  ],
+  "project_required": [
+    "type",
+    "maintenance",
+    "character",
+    "vigourControl",
+    "evaluation_stage",
+    "publicAccess",
+    "publicHarvest",
+    "sightlines",
+    "rewilding",
+    "support",
+    "restorationOrnamentals",
+    "area",
+    "anchorColours",
+    "desiredFlowerMonths",
+    "priorities"
+  ],
+  "project_array_vocabulary": {
+    "anchorColours": [
+      "white",
+      "red",
+      "pink",
+      "purple",
+      "blue",
+      "yellow",
+      "green",
+      "brown",
+      "cream",
+      "transparent",
+      "orange"
+    ],
+    "desiredFlowerMonths": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12
+    ],
+    "priorities": [
+      "pollinators"
+    ]
+  },
+  "defaults": {
+    "missing_zone_category": "unknown",
+    "missing_geometry": "unknown",
+    "missing_project_boolean": false,
+    "missing_project_maintenance": "unknown",
+    "missing_project_area": "unknown",
+    "missing_support": false
+  },
+  "added_inputs": {
+    "available_width_m": "Conservative clear plantable width from mapped geometry; not plot width.",
+    "available_length_m": "Conservative clear length excluding paths/voids.",
+    "plantable_area_m2": "Usable zone area, never geographic whole-plot area by default.",
+    "max_plant_height_m": "Project-specific visibility clearance only when sightlines and path_edge=yes.",
+    "path_edge": "Mapped path-edge context; unknown never clears thorn/visibility restrictions.",
+    "support_length_m": "Usable mapped climbing support length; checks the climber spatial screen and estimates stock capacity.",
+    "support": "Explicit project support boolean; current app does not supply it.",
+    "vigourControl": "Explicit active containment/management arrangement, not assumed from capacity.",
+    "evaluation_stage": "candidate screening versus placement hard gate.",
+    "desiredFlowerMonths": "Optional design output preference; no environmental score."
+  },
+  "normalizations": {
+    "moist": "fresh",
+    "loam": "clay (coarse expert transfer: current clay label includes loam)",
+    "sandy_loam": "sand (coarse expert transfer)",
+    "full_sun": "sun",
+    "partial_shade": "mixed",
+    "shade": "shade",
+    "made": "Uncertain substrate; score 0.25, never automatic soil compatibility.",
+    "edge": "Hydroperiod unspecified at the edge; maximum compatibility 0.5.",
+    "canopy": "Context/explanation only. Light is scored once; canopy does not add or subtract points."
+  },
+  "non_goals": [
+    "No website integration",
+    "No professional root-volume or seed-rate specification",
+    "No reviewed safety or food advice",
+    "No hydrological depth model",
+    "No universal per-plant suitability score"
+  ],
+  "current_ui_priority_adapter": "Keep pollinators in the design-priority subset; use rewilding as its separate policy boolean. habitat/seasonal/beauty/food/learning/climate remain annotations unless a separately defined input/rule uses them. desiredFlowerMonths is optional, absent→[]."
+}

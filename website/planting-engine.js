@@ -11,33 +11,23 @@
   const key=(x,y)=>Math.sin(x*12.9898+y*78.233)*43758.5453;
   const hash=(x,y)=>Math.abs(Math.floor(key(x,y)));
   function enrich(plant){
-    if(!plant.demo)return plant;
-    const woody=['Trees','Shrubs'].includes(plant.group);
-    const spread=plant.spread||(plant.group==='Trees'?Math.max(5,plant.height*.42):plant.group==='Shrubs'?Math.max(1.8,plant.height*.7):Math.max(.3,Math.min(.95,plant.height*.42+.2)));
-    return {...plant,spread,spacing:woody?spread:spread*.83,soil:plant.soil||(plant.moisture==='dry'?'sand / clay':plant.moisture==='wet'?'peat / clay':'clay / peat / sand'),nativeStatus:plant.nativeStatus||'native_fixture',invasiveStatus:plant.invasiveStatus||'not_invasive_fixture',provenance:'unverified demo provenance',safetyStatus:'unverified demo safety',vigorous:/dominate|strongly|vigorous|thicket|suckering/i.test(plant.caution||''),thorny:/thorn/i.test(plant.caution||''),evidenceStatus:'synthetic_demo',traitSource:'synthetic-geometry-fixture-v0.2'};
+    return plant;
   }
   function eligibility(plant,project){
-    if(!plant.demo&&plant.traitReviewStatus!=='reviewed')return {eligible:false,reason:'Name or precedent only; reviewed site traits and mature spread missing.',rules:['G04','D01']};
-    if(!plant.demo&&(!plant.invasiveStatus||!plant.nativeStatus||!plant.provenance))return {eligible:false,reason:'Native status, invasive status or provenance is missing.',rules:['G04','G05']};
-    if(!Number.isFinite(plant.spread)||plant.spread<=0)return {eligible:false,reason:'Mature spread is missing.',rules:['D01']};
-    if(['invasive','potentially_invasive'].includes(plant.invasiveStatus))return {eligible:false,reason:'Invasive status excludes planting.',rules:['G04']};
-    if(project.rewilding&&!['native','native_fixture'].includes(plant.nativeStatus))return {eligible:false,reason:'Rewilding requires native status and provenance review.',rules:['G05']};
-    if(project.type==='restoration'&&!project.restorationOrnamentals&&!['native','native_fixture'].includes(plant.nativeStatus))return {eligible:false,reason:'Restoration needs an explicit designer override for ornamental alternatives.',rules:['G05']};
-    if(!plant.demo&&project.publicAccess&&plant.safetyStatus!=='reviewed')return {eligible:false,reason:'Public-contact safety needs review.',rules:['W02']};
-    if(plant.group==='Climbers'&&!project.support)return {eligible:false,reason:'No climbing support is mapped.',rules:['S04']};
-    return {eligible:true,reason:plant.demo?'Synthetic traits permit a test placement; locality, provenance and safety still need review.':'Reviewed traits permit a concept placement.',rules:['G04','G05']};
+    if(plant.recommendation)return {eligible:plant.recommendation.placeable,reason:plant.recommendation.constraint?.text||plant.recommendation.label,rules:plant.recommendation.gates.map(g=>g.id)};
+    if(!plant.operational)return {eligible:false,reason:'Taxonomy or precedent record only; no v0.3 operational evaluation.',rules:['G04','D01']};
+    return {eligible:!!plant.evaluation?.eligible_for_demo_ranking,reason:plant.evaluation?.exclusion_reasons?.join(' ')||'No v0.3 evaluation.',rules:plant.evaluation?.hard_gate_results?.filter(g=>g.triggered).map(g=>g.gate_id)||[]};
   }
   function zoneFit(plant,zone,project){
-    const c=zone.conditions||zone;
-    if(!c.source||c.source==='unverified')return {fit:false,reason:'Zone conditions have not been confirmed.'};
-    if(['soil','moisture','light'].some(k=>!c[k]||c[k]==='unknown'))return {fit:false,reason:'Soil, moisture or light is unknown.'};
-    if(c.soil!=='made'&&!String(plant.soil||'').split(/\s*\/\s*/).includes(c.soil))return {fit:false,reason:'Soil tolerance does not match the confirmed zone.'};
-    if((c.moisture==='dry'&&plant.moisture==='wet')||(c.moisture==='wet'&&plant.moisture==='dry'))return {fit:false,reason:'Moisture tolerance conflicts with the confirmed zone.'};
-    if((c.light==='shade'&&plant.light==='sun')||(c.light==='sun'&&plant.light==='shade'))return {fit:false,reason:'Light tolerance conflicts with the confirmed zone.'};
-    if(c.hydrology==='permanent'&&plant.moisture!=='wet')return {fit:false,reason:'Permanent wetness conflicts with the moisture tolerance.'};
-    if(plant.group==='Aquatic & marginal plants'&&(c.waterEdge!=='yes'||!['seasonal','long','permanent','edge'].includes(c.hydrology)))return {fit:false,reason:'No confirmed wet edge or water regime.'};
-    if(project.maintenance==='low'&&plant.vigorous)return {fit:false,reason:'Spread control exceeds the selected maintenance capacity.'};
-    return {fit:true,reason:'Fits the confirmed demo moisture and light; soil and safety remain review items.'};
+    if(plant.recommendation){
+      const result=root.PlantscapesRecommender.evaluate(root.PlantscapesRecommender.record(plant.id),zone,project,zone.geometry||{},'placement');
+      return {fit:result.placeable,reason:result.constraint?.text||result.label,evaluation:result};
+    }
+    if(!plant.operational)return {fit:false,reason:'Taxonomy or precedent record only.'};
+    const record=root.PlantscapesSuitabilityV03.plants.find(x=>x.fixture_id===plant.id);
+    if(!record)return {fit:false,reason:'Unknown operational plant ID.'};
+    const result=root.PlantscapesRuntimeV03.evaluate(record,zone,project,zone.geometry||{},'placement');
+    return {fit:result.eligible_for_demo_ranking,reason:result.exclusion_reasons.join(' '),evaluation:result};
   }
   function generate(input){
     const {boundary,beds,paths,waterBeds=[],exclusions=[],plants,project,zones,mode='repeated_drifts',pathWidth=1.5,mix={matrix:45,flowers:45,structure:10}}=input;
@@ -47,7 +37,7 @@
     if(!rules)return {error:'The approved rulebook could not load. Reload this page.'};
     const mixWeights={matrix:Math.max(0,Number(mix.matrix)||0),flowers:Math.max(0,Number(mix.flowers)||0),structure:Math.max(0,Number(mix.structure)||0)};
     if(mode!=='formal_blocks'&&!Object.values(mixWeights).some(n=>n>0))return {error:'Set at least one planting-mix weight above zero.'};
-    const mixRole=p=>p.group==='Grasses, sedges & rushes'?'matrix':p.group==='Shrubs'||p.height>=1.3?'structure':'flowers';
+    const mixRole=p=>p.role==='matrix'?'matrix':p.role==='woody_framework'||p.role==='structural_perennial'?'structure':'flowers';
     const weighted=(candidates,seed)=>{
       const roleCounts={};candidates.forEach(p=>{const role=mixRole(p);roleCounts[role]=(roleCounts[role]||0)+1;});
       let entries=candidates.map(p=>({p,w:(mixWeights[mixRole(p)]||0)/roleCounts[mixRole(p)]*(!project.rewilding&&project.anchorColours?.includes(p.colour)?1.15:1)}));
@@ -66,7 +56,9 @@
     const allBeds=[...beds,...waterBeds];
     const byBed=new Map(allBeds.map(b=>{
       const zone=selectedZones.get(String(b.zoneId));
-      const matches=zone?pool.filter(p=>zoneFit(p,zone,project).fit&&(!waterBeds.includes(b)||p.group==='Aquatic & marginal plants')):[];
+      const xs=b.polygon.map(q=>q[0]),ys=b.polygon.map(q=>q[1]);
+      const geometry={available_width_m:Math.max(...xs)-Math.min(...xs),available_length_m:Math.max(...ys)-Math.min(...ys),plantable_area_m2:area(b.polygon)};
+      const matches=zone?pool.filter(p=>zoneFit(p,{...zone,geometry},project).fit&&(!waterBeds.includes(b)||p.group==='Aquatic & marginal plants')):[];
       if(!zone||!matches.length)warnings.push('No eligible plants in '+(zone?.name||'unlinked planting zone')+'. Check its conditions or add reviewed data.');
       return [b,matches];
     }));
@@ -75,7 +67,7 @@
     const bucket=new Map(),bucketSize=2,maxSpacing=Math.max(...pool.map(p=>p.spacing||.5)),reach=Math.ceil(maxSpacing/bucketSize);
     const nearby=p=>{const result=[],gx=Math.floor(p[0]/bucketSize),gy=Math.floor(p[1]/bucketSize);for(let x=gx-reach;x<=gx+reach;x++)for(let y=gy-reach;y<=gy+reach;y++)result.push(...(bucket.get(x+':'+y)||[]));return result;};
     const add=(p,plant,bed,ruleTrace)=>{
-      const item={xy:p,plantId:plant.id,spacing:plant.spacing,spread:plant.spread,height:plant.height,tree:plant.group==='Trees',accent:plant.group==='Shrubs',zoneId:bed.zoneId,zone:selectedZones.get(String(bed.zoneId))?.name,ruleTrace,evidenceStatus:plant.demo?'synthetic_demo':'reviewed',reason:'Assigned to '+(selectedZones.get(String(bed.zoneId))?.name||'zone')+'; '+(pathDistance(p)<config.edgeDepth?'low path edge':pathDistance(p)<config.transitionDepth?'middle transition':'interior structure')+'. Spacing '+plant.spacing.toFixed(2)+' m from mature-spread '+plant.spread.toFixed(2)+' m '+(plant.demo?'fixture.':'record.')};
+      const item={xy:p,plantId:plant.id,spacing:plant.spacing,spread:plant.spread,height:plant.height,tree:plant.group==='Trees',accent:plant.group==='Shrubs',zoneId:bed.zoneId,zone:selectedZones.get(String(bed.zoneId))?.name,ruleTrace,evidenceStatus:plant.operational?'v0.3 conditional demonstration':'unassessed',reason:'Assigned to '+(selectedZones.get(String(bed.zoneId))?.name||'zone')+'; '+(pathDistance(p)<config.edgeDepth?'low path edge':pathDistance(p)<config.transitionDepth?'middle transition':'interior structure')+'. SPACE-01 pilot spacing '+plant.spacing.toFixed(2)+' m ('+(plant.fieldOrigins?.pilot_spacing_m||'unassessed')+').'};
       placements.push(item);const id=Math.floor(p[0]/bucketSize)+':'+Math.floor(p[1]/bucketSize);if(!bucket.has(id))bucket.set(id,[]);bucket.get(id).push(item);
     };
     // Trees are optional; each trial must fit its full mature canopy and usable bed.
@@ -101,7 +93,7 @@
         const jitter=mode==='formal_blocks'?0:sampleStep*.7;
         const p=[x+((hash(x*113,y*97)%10000)/10000-.5)*jitter,y+((hash(y*127,x*83)%10000)/10000-.5)*jitter];if(!valid(p))continue;const bed=bedFor(p),d=pathDistance(p);
         const zone=selectedZones.get(String(bed.zoneId)),available=(byBed.get(bed)||[]).filter(q=>q.group!=='Trees'&&q.group!=='Climbers'&&aquaticFit(q,p)&&(!waterFor(p)||q.waterBand&&q.waterBand!=='margin'||shoreDistance(p)<=1.2));
-        let local=available.filter(q=>d<config.edgeDepth?q.height<=config.edgeHeight&&!q.thorny:d<config.transitionDepth?q.height<=config.transitionHeight&&!q.thorny:project.character==='open'?q.height<=config.transitionHeight:true);
+        let local=available.filter(q=>d<config.edgeDepth?q.height<=config.edgeHeight&&q.thorns==='absent_reported':d<config.transitionDepth?q.height<=config.transitionHeight&&q.thorns==='absent_reported':project.character==='open'?q.height<=config.transitionHeight:true);
         const tree=placements.find(q=>q.tree&&Math.hypot(q.xy[0]-p[0],q.xy[1]-p[1])<q.spread/2);
         if(tree){local=local.filter(q=>q.light!=='sun');if(zone?.conditions?.light==='sun')warnings.push('Future tree shade changes the understorey check in '+zone.name+'.');}
         if(!local.length)continue;
@@ -129,7 +121,7 @@
     if(project.priorities?.includes('pollinators')&&bloomGaps.length)warnings.push('Flowering gap in month(s) '+bloomGaps.join(', ')+'. Check local flowering evidence before adding species.');
     if(placements.length>=config.limit)warnings.push('Preview limit reached; divide the site into smaller plans for complete quantities.');
     if(project.maintenance==='unknown')warnings.push('Maintenance capacity has not been agreed.');
-    warnings.push('Municipal review: path junctions, bends and entrances need visibility and accessibility checks.','Local occurrence, public-contact safety, provenance and fixture spacing need specialist review.');
+    warnings.push('Municipal review: path junctions, bends and entrances need visibility and accessibility checks.','Local occurrence, public-contact safety, provenance and synthetic SPACE-01 spacing need specialist review.');
     const visibility=[];
     paths.forEach(line=>line.forEach((p,i)=>{if(i===0||i===line.length-1||line.length>2)visibility.push({xy:p,reason:i===0||i===line.length-1?'Path entrance / end: review visibility and accessibility.':'Path bend: review visibility.'});}));
     pathSegments.forEach(([a,b],i)=>pathSegments.slice(i+1).forEach(([c,d])=>{
@@ -137,7 +129,7 @@
       const t=((c[0]-a[0])*cd[1]-(c[1]-a[1])*cd[0])/den,u=((c[0]-a[0])*ab[1]-(c[1]-a[1])*ab[0])/den;
       if(t>0&&t<1&&u>0&&u<1)visibility.push({xy:[a[0]+t*ab[0],a[1]+t*ab[1]],reason:'Path crossing: municipality should review visibility.'});
     }));
-    return {placements,decisions,warnings:[...new Set(warnings)],months,bounds,valid,bedFor,pathDistance,shoreDistance,waterFor,aquaticFit,visibility,area:area(boundary),ruleVersion:rules.version,algorithmVersion:'intermingled-fixtures-v0.3',mixWeights,config,plants:pool};
+    return {placements,decisions,warnings:[...new Set(warnings)],months,bounds,valid,bedFor,pathDistance,shoreDistance,waterFor,aquaticFit,visibility,area:area(boundary),ruleVersion:rules.version,algorithmVersion:'intermingled-v0.3',mixWeights,config,plants:pool};
   }
-  root.PlantscapesEngine={enrich,eligibility,zoneFit,generate,config,inside,distance};
+  root.PlantscapesEngine={enrich,eligibility,zoneFit,generate,config,inside,distance,area};
 })(typeof window==='undefined'?globalThis:window);

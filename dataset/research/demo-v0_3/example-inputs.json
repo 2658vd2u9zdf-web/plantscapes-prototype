@@ -1,0 +1,85 @@
+{
+  "project": {
+    "type": "landscape",
+    "area": 1000,
+    "maintenance": "moderate",
+    "publicAccess": true,
+    "publicHarvest": false,
+    "sightlines": false,
+    "rewilding": false,
+    "support": true,
+    "character": "mosaic",
+    "restorationOrnamentals": false,
+    "vigourControl": "no",
+    "evaluation_stage": "placement",
+    "anchorColours": [
+      "purple",
+      "yellow"
+    ],
+    "desiredFlowerMonths": [
+      6,
+      7,
+      8
+    ],
+    "priorities": [
+      "pollinators"
+    ]
+  },
+  "zones": [
+    {
+      "zone_id": "dry_sunny_sand",
+      "soil": "sand",
+      "moisture": "dry",
+      "hydrology": "none",
+      "light": "sun",
+      "canopy": "no",
+      "disturbance": "low",
+      "hardscape": "no",
+      "waterEdge": "no",
+      "source": "demo",
+      "available_width_m": 20,
+      "available_length_m": 15,
+      "plantable_area_m2": 300,
+      "max_plant_height_m": "unknown",
+      "path_edge": "no",
+      "support_length_m": 10
+    },
+    {
+      "zone_id": "fresh_clay_mixed",
+      "soil": "clay",
+      "moisture": "fresh",
+      "hydrology": "none",
+      "light": "mixed",
+      "canopy": "yes",
+      "disturbance": "low",
+      "hardscape": "no",
+      "waterEdge": "no",
+      "source": "demo",
+      "available_width_m": 20,
+      "available_length_m": 20,
+      "plantable_area_m2": 400,
+      "max_plant_height_m": "unknown",
+      "path_edge": "no",
+      "support_length_m": 10
+    },
+    {
+      "zone_id": "wet_water_edge",
+      "soil": "peat",
+      "moisture": "wet",
+      "hydrology": "permanent",
+      "light": "sun",
+      "canopy": "no",
+      "disturbance": "low",
+      "hardscape": "no",
+      "waterEdge": "yes",
+      "source": "demo",
+      "available_width_m": 12,
+      "available_length_m": 8,
+      "plantable_area_m2": 96,
+      "max_plant_height_m": "unknown",
+      "path_edge": "no",
+      "support_length_m": 10
+    }
+  ],
+  "note": "Invented demonstration zones; no existing location records modified."
+}

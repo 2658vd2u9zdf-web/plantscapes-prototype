@@ -1,5 +1,7 @@
 # Local development / operating-system files
 node_modules/
+__pycache__/
+*.py[cod]
 .plantscapes-local/
 .DS_Store
 Thumbs.db

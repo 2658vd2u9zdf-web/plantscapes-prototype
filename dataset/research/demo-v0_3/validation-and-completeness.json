@@ -1,0 +1,760 @@
+{
+  "version": "0.3.0",
+  "date": "2026-10-13",
+  "profiles": 60,
+  "core": 54,
+  "ornamental": 6,
+  "operational_field_count": 33,
+  "non_safety_field_count": 20,
+  "policy_safety_field_count": 8,
+  "identity_field_count": 4,
+  "trace_columns": 7,
+  "csv_column_count": 40,
+  "all_field_origin_counts": {
+    "sourced": 738,
+    "expert_inference": 108,
+    "synthetic_fallback": 663,
+    "unknown": 277,
+    "not_reviewed": 133,
+    "policy_rule": 60,
+    "conflicting": 1
+  },
+  "non_safety_origin_counts": {
+    "sourced": 429,
+    "expert_inference": 108,
+    "synthetic_fallback": 663
+  },
+  "safety_or_policy_unknown_values": 405,
+  "field_completeness": {
+    "fixture_id": {
+      "populated": 60,
+      "percentage": 100,
+      "origins": {
+        "sourced": 60
+      },
+      "sourced_pct": 100.0,
+      "inferred_pct": 0.0,
+      "synthetic_pct": 0.0,
+      "unknown_or_unreviewed_pct": 0.0
+    },
+    "plant_id": {
+      "populated": 60,
+      "percentage": 100,
+      "origins": {
+        "sourced": 60
+      },
+      "sourced_pct": 100.0,
+      "inferred_pct": 0.0,
+      "synthetic_pct": 0.0,
+      "unknown_or_unreviewed_pct": 0.0
+    },
+    "scientific_name": {
+      "populated": 60,
+      "percentage": 100,
+      "origins": {
+        "sourced": 60
+      },
+      "sourced_pct": 100.0,
+      "inferred_pct": 0.0,
+      "synthetic_pct": 0.0,
+      "unknown_or_unreviewed_pct": 0.0
+    },
+    "dutch_name": {
+      "populated": 60,
+      "percentage": 100,
+      "origins": {
+        "sourced": 54,
+        "unknown": 6
+      },
+      "sourced_pct": 90.0,
+      "inferred_pct": 0.0,
+      "synthetic_pct": 0.0,
+      "unknown_or_unreviewed_pct": 10.0
+    },
+    "group": {
+      "populated": 60,
+      "percentage": 100,
+      "origins": {
+        "sourced": 26,
+        "synthetic_fallback": 23,
+        "expert_inference": 11
+      },
+      "sourced_pct": 43.33,
+      "inferred_pct": 18.33,
+      "synthetic_pct": 38.33,
+      "unknown_or_unreviewed_pct": 0.0
+    },
+    "soil_tolerance": {
+      "populated": 60,
+      "percentage": 100,
+      "origins": {
+        "expert_inference": 47,
+        "synthetic_fallback": 10,
+        "sourced": 3
+      },
+      "sourced_pct": 5.0,
+      "inferred_pct": 78.33,
+      "synthetic_pct": 16.67,
+      "unknown_or_unreviewed_pct": 0.0
+    },
+    "moisture_tolerance": {
+      "populated": 60,
+      "percentage": 100,
+      "origins": {
+        "sourced": 56,
+        "synthetic_fallback": 4
+      },
+      "sourced_pct": 93.33,
+      "inferred_pct": 0.0,
+      "synthetic_pct": 6.67,
+      "unknown_or_unreviewed_pct": 0.0
+    },
+    "hydrology_tolerance": {
+      "populated": 60,
+      "percentage": 100,
+      "origins": {
+        "synthetic_fallback": 58,
+        "expert_inference": 2
+      },
+      "sourced_pct": 0.0,
+      "inferred_pct": 3.33,
+      "synthetic_pct": 96.67,
+      "unknown_or_unreviewed_pct": 0.0
+    },
+    "light_tolerance": {
+      "populated": 60,
+      "percentage": 100,
+      "origins": {
+        "sourced": 58,
+        "synthetic_fallback": 2
+      },
+      "sourced_pct": 96.67,
+      "inferred_pct": 0.0,
+      "synthetic_pct": 3.33,
+      "unknown_or_unreviewed_pct": 0.0
+    },
+    "disturbance_tolerance": {
+      "populated": 60,
+      "percentage": 100,
+      "origins": {
+        "expert_inference": 1,
+        "synthetic_fallback": 59
+      },
+      "sourced_pct": 0.0,
+      "inferred_pct": 1.67,
+      "synthetic_pct": 98.33,
+      "unknown_or_unreviewed_pct": 0.0
+    },
+    "hardscape_tolerance": {
+      "populated": 60,
+      "percentage": 100,
+      "origins": {
+        "synthetic_fallback": 60
+      },
+      "sourced_pct": 0.0,
+      "inferred_pct": 0.0,
+      "synthetic_pct": 100.0,
+      "unknown_or_unreviewed_pct": 0.0
+    },
+    "water_edge_requirement": {
+      "populated": 60,
+      "percentage": 100,
+      "origins": {
+        "synthetic_fallback": 60
+      },
+      "sourced_pct": 0.0,
+      "inferred_pct": 0.0,
+      "synthetic_pct": 100.0,
+      "unknown_or_unreviewed_pct": 0.0
+    },
+    "mature_height_m": {
+      "populated": 60,
+      "percentage": 100,
+      "origins": {
+        "sourced": 59,
+        "expert_inference": 1
+      },
+      "sourced_pct": 98.33,
+      "inferred_pct": 1.67,
+      "synthetic_pct": 0.0,
+      "unknown_or_unreviewed_pct": 0.0
+    },
+    "mature_spread_m": {
+      "populated": 60,
+      "percentage": 100,
+      "origins": {
+        "sourced": 37,
+        "synthetic_fallback": 22,
+        "expert_inference": 1
+      },
+      "sourced_pct": 61.67,
+      "inferred_pct": 1.67,
+      "synthetic_pct": 36.67,
+      "unknown_or_unreviewed_pct": 0.0
+    },
+    "pilot_spacing_m": {
+      "populated": 60,
+      "percentage": 100,
+      "origins": {
+        "synthetic_fallback": 60
+      },
+      "sourced_pct": 0.0,
+      "inferred_pct": 0.0,
+      "synthetic_pct": 100.0,
+      "unknown_or_unreviewed_pct": 0.0
+    },
+    "functional_layer": {
+      "populated": 60,
+      "percentage": 100,
+      "origins": {
+        "synthetic_fallback": 60
+      },
+      "sourced_pct": 0.0,
+      "inferred_pct": 0.0,
+      "synthetic_pct": 100.0,
+      "unknown_or_unreviewed_pct": 0.0
+    },
+    "composition_role": {
+      "populated": 60,
+      "percentage": 100,
+      "origins": {
+        "synthetic_fallback": 60
+      },
+      "sourced_pct": 0.0,
+      "inferred_pct": 0.0,
+      "synthetic_pct": 100.0,
+      "unknown_or_unreviewed_pct": 0.0
+    },
+    "climbing_support_required": {
+      "populated": 60,
+      "percentage": 100,
+      "origins": {
+        "synthetic_fallback": 56,
+        "expert_inference": 4
+      },
+      "sourced_pct": 0.0,
+      "inferred_pct": 6.67,
+      "synthetic_pct": 93.33,
+      "unknown_or_unreviewed_pct": 0.0
+    },
+    "vigour_or_spread_risk": {
+      "populated": 60,
+      "percentage": 100,
+      "origins": {
+        "expert_inference": 20,
+        "synthetic_fallback": 38,
+        "sourced": 2
+      },
+      "sourced_pct": 3.33,
+      "inferred_pct": 33.33,
+      "synthetic_pct": 63.33,
+      "unknown_or_unreviewed_pct": 0.0
+    },
+    "maintenance_demand": {
+      "populated": 60,
+      "percentage": 100,
+      "origins": {
+        "expert_inference": 2,
+        "synthetic_fallback": 21,
+        "sourced": 37
+      },
+      "sourced_pct": 61.67,
+      "inferred_pct": 3.33,
+      "synthetic_pct": 35.0,
+      "unknown_or_unreviewed_pct": 0.0
+    },
+    "native_status_nl": {
+      "populated": 60,
+      "percentage": 100,
+      "origins": {
+        "sourced": 53,
+        "unknown": 7
+      },
+      "sourced_pct": 88.33,
+      "inferred_pct": 0.0,
+      "synthetic_pct": 0.0,
+      "unknown_or_unreviewed_pct": 11.67
+    },
+    "invasive_status": {
+      "populated": 60,
+      "percentage": 100,
+      "origins": {
+        "unknown": 60
+      },
+      "sourced_pct": 0.0,
+      "inferred_pct": 0.0,
+      "synthetic_pct": 0.0,
+      "unknown_or_unreviewed_pct": 100.0
+    },
+    "protected_or_legal_status": {
+      "populated": 60,
+      "percentage": 100,
+      "origins": {
+        "not_reviewed": 60
+      },
+      "sourced_pct": 0.0,
+      "inferred_pct": 0.0,
+      "synthetic_pct": 0.0,
+      "unknown_or_unreviewed_pct": 100.0
+    },
+    "provenance_status": {
+      "populated": 60,
+      "percentage": 100,
+      "origins": {
+        "unknown": 60
+      },
+      "sourced_pct": 0.0,
+      "inferred_pct": 0.0,
+      "synthetic_pct": 0.0,
+      "unknown_or_unreviewed_pct": 100.0
+    },
+    "public_contact_status": {
+      "populated": 60,
+      "percentage": 100,
+      "origins": {
+        "not_reviewed": 60
+      },
+      "sourced_pct": 0.0,
+      "inferred_pct": 0.0,
+      "synthetic_pct": 0.0,
+      "unknown_or_unreviewed_pct": 100.0
+    },
+    "toxicity_status": {
+      "populated": 60,
+      "percentage": 100,
+      "origins": {
+        "unknown": 41,
+        "sourced": 19
+      },
+      "sourced_pct": 31.67,
+      "inferred_pct": 0.0,
+      "synthetic_pct": 0.0,
+      "unknown_or_unreviewed_pct": 68.33
+    },
+    "edible_use_status": {
+      "populated": 60,
+      "percentage": 100,
+      "origins": {
+        "not_reviewed": 13,
+        "unknown": 46,
+        "conflicting": 1
+      },
+      "sourced_pct": 0.0,
+      "inferred_pct": 0.0,
+      "synthetic_pct": 0.0,
+      "unknown_or_unreviewed_pct": 100.0
+    },
+    "thorns_or_spines": {
+      "populated": 60,
+      "percentage": 100,
+      "origins": {
+        "unknown": 57,
+        "sourced": 3
+      },
+      "sourced_pct": 5.0,
+      "inferred_pct": 0.0,
+      "synthetic_pct": 0.0,
+      "unknown_or_unreviewed_pct": 95.0
+    },
+    "production_eligible": {
+      "populated": 60,
+      "percentage": 100,
+      "origins": {
+        "policy_rule": 60
+      },
+      "sourced_pct": 0.0,
+      "inferred_pct": 0.0,
+      "synthetic_pct": 0.0,
+      "unknown_or_unreviewed_pct": 0.0
+    },
+    "flower_start_month": {
+      "populated": 60,
+      "percentage": 100,
+      "origins": {
+        "sourced": 58,
+        "synthetic_fallback": 2
+      },
+      "sourced_pct": 96.67,
+      "inferred_pct": 0.0,
+      "synthetic_pct": 3.33,
+      "unknown_or_unreviewed_pct": 0.0
+    },
+    "flower_end_month": {
+      "populated": 60,
+      "percentage": 100,
+      "origins": {
+        "sourced": 48,
+        "synthetic_fallback": 12
+      },
+      "sourced_pct": 80.0,
+      "inferred_pct": 0.0,
+      "synthetic_pct": 20.0,
+      "unknown_or_unreviewed_pct": 0.0
+    },
+    "flower_colour": {
+      "populated": 60,
+      "percentage": 100,
+      "origins": {
+        "expert_inference": 19,
+        "sourced": 23,
+        "synthetic_fallback": 18
+      },
+      "sourced_pct": 38.33,
+      "inferred_pct": 31.67,
+      "synthetic_pct": 30.0,
+      "unknown_or_unreviewed_pct": 0.0
+    },
+    "pollinator_value": {
+      "populated": 60,
+      "percentage": 100,
+      "origins": {
+        "sourced": 22,
+        "synthetic_fallback": 38
+      },
+      "sourced_pct": 36.67,
+      "inferred_pct": 0.0,
+      "synthetic_pct": 63.33,
+      "unknown_or_unreviewed_pct": 0.0
+    }
+  },
+  "evidence_confidence_distribution": {
+    "count": 180,
+    "min": 11.0775,
+    "median": 18.785,
+    "mean": 18.4877,
+    "max": 22.1625,
+    "bands": {
+      "0–24.99": 180
+    }
+  },
+  "example_states": {
+    "conditional_match": 94,
+    "unsuitable": 15,
+    "excluded": 71
+  },
+  "all_records_production_eligible": false,
+  "protected_files_hash_checked": 66,
+  "validation": "PASS",
+  "sensitivity_tests": [
+    {
+      "input": "soil",
+      "changed_plants": 41,
+      "zone_before": {
+        "soil": "sand"
+      },
+      "zone_after": {
+        "soil": "peat"
+      },
+      "project_before": {},
+      "project_after": {},
+      "example": {
+        "fixture_id": "demo-core-01",
+        "scientific_name": "Achillea millefolium",
+        "before": {
+          "raw_suitability_score": 97.5,
+          "final_suitability_score": 64,
+          "eligibility_state": "conditional_match"
+        },
+        "after": {
+          "raw_suitability_score": 82.5,
+          "final_suitability_score": 49,
+          "eligibility_state": "unsuitable"
+        }
+      }
+    },
+    {
+      "input": "moisture",
+      "changed_plants": 43,
+      "zone_before": {
+        "moisture": "dry"
+      },
+      "zone_after": {
+        "moisture": "wet"
+      },
+      "project_before": {},
+      "project_after": {},
+      "example": {
+        "fixture_id": "demo-core-01",
+        "scientific_name": "Achillea millefolium",
+        "before": {
+          "raw_suitability_score": 97.5,
+          "final_suitability_score": 64,
+          "eligibility_state": "conditional_match"
+        },
+        "after": {
+          "raw_suitability_score": 87.5,
+          "final_suitability_score": 64,
+          "eligibility_state": "conditional_match"
+        }
+      }
+    },
+    {
+      "input": "hydrology",
+      "changed_plants": 60,
+      "zone_before": {
+        "hydrology": "none"
+      },
+      "zone_after": {
+        "hydrology": "permanent"
+      },
+      "project_before": {},
+      "project_after": {},
+      "example": {
+        "fixture_id": "demo-core-01",
+        "scientific_name": "Achillea millefolium",
+        "before": {
+          "raw_suitability_score": 97.5,
+          "final_suitability_score": 64,
+          "eligibility_state": "conditional_match"
+        },
+        "after": {
+          "raw_suitability_score": 82.5,
+          "final_suitability_score": 0,
+          "eligibility_state": "excluded"
+        }
+      }
+    },
+    {
+      "input": "light",
+      "changed_plants": 55,
+      "zone_before": {
+        "light": "sun"
+      },
+      "zone_after": {
+        "light": "shade"
+      },
+      "project_before": {},
+      "project_after": {},
+      "example": {
+        "fixture_id": "demo-core-01",
+        "scientific_name": "Achillea millefolium",
+        "before": {
+          "raw_suitability_score": 97.5,
+          "final_suitability_score": 64,
+          "eligibility_state": "conditional_match"
+        },
+        "after": {
+          "raw_suitability_score": 90.0,
+          "final_suitability_score": 64,
+          "eligibility_state": "conditional_match"
+        }
+      }
+    },
+    {
+      "input": "disturbance",
+      "changed_plants": 60,
+      "zone_before": {
+        "disturbance": "low"
+      },
+      "zone_after": {
+        "disturbance": "high"
+      },
+      "project_before": {},
+      "project_after": {},
+      "example": {
+        "fixture_id": "demo-core-01",
+        "scientific_name": "Achillea millefolium",
+        "before": {
+          "raw_suitability_score": 97.5,
+          "final_suitability_score": 64,
+          "eligibility_state": "conditional_match"
+        },
+        "after": {
+          "raw_suitability_score": 95.0,
+          "final_suitability_score": 64,
+          "eligibility_state": "conditional_match"
+        }
+      }
+    },
+    {
+      "input": "hardscape",
+      "changed_plants": 60,
+      "zone_before": {
+        "hardscape": "no"
+      },
+      "zone_after": {
+        "hardscape": "yes"
+      },
+      "project_before": {},
+      "project_after": {},
+      "example": {
+        "fixture_id": "demo-core-01",
+        "scientific_name": "Achillea millefolium",
+        "before": {
+          "raw_suitability_score": 97.5,
+          "final_suitability_score": 64,
+          "eligibility_state": "conditional_match"
+        },
+        "after": {
+          "raw_suitability_score": 95.0,
+          "final_suitability_score": 64,
+          "eligibility_state": "conditional_match"
+        }
+      }
+    },
+    {
+      "input": "water_edge",
+      "changed_plants": 6,
+      "zone_before": {
+        "hydrology": "permanent",
+        "waterEdge": "yes",
+        "moisture": "wet"
+      },
+      "zone_after": {
+        "hydrology": "permanent",
+        "waterEdge": "no",
+        "moisture": "wet"
+      },
+      "project_before": {},
+      "project_after": {},
+      "example": {
+        "fixture_id": "demo-core-18",
+        "scientific_name": "Lythrum salicaria",
+        "before": {
+          "raw_suitability_score": 95.0,
+          "final_suitability_score": 64,
+          "eligibility_state": "conditional_match"
+        },
+        "after": {
+          "raw_suitability_score": 95.0,
+          "final_suitability_score": 0,
+          "eligibility_state": "excluded"
+        }
+      }
+    },
+    {
+      "input": "maintenance_capacity",
+      "changed_plants": 60,
+      "zone_before": {},
+      "zone_after": {},
+      "project_before": {
+        "maintenance": "low"
+      },
+      "project_after": {
+        "maintenance": "high"
+      },
+      "example": {
+        "fixture_id": "demo-core-01",
+        "scientific_name": "Achillea millefolium",
+        "before": {
+          "raw_suitability_score": 92.5,
+          "final_suitability_score": 0,
+          "eligibility_state": "excluded"
+        },
+        "after": {
+          "raw_suitability_score": 100.0,
+          "final_suitability_score": 64,
+          "eligibility_state": "conditional_match"
+        }
+      }
+    },
+    {
+      "input": "available_spatial_dimensions",
+      "changed_plants": 24,
+      "zone_before": {
+        "available_width_m": 1,
+        "available_length_m": 1,
+        "plantable_area_m2": 1
+      },
+      "zone_after": {
+        "available_width_m": 40,
+        "available_length_m": 40,
+        "plantable_area_m2": 1600
+      },
+      "project_before": {},
+      "project_after": {},
+      "example": {
+        "fixture_id": "demo-core-01",
+        "scientific_name": "Achillea millefolium",
+        "before": {
+          "raw_suitability_score": 85.5,
+          "final_suitability_score": 49,
+          "eligibility_state": "unsuitable"
+        },
+        "after": {
+          "raw_suitability_score": 97.5,
+          "final_suitability_score": 64,
+          "eligibility_state": "conditional_match"
+        }
+      }
+    },
+    {
+      "input": "climbing_support",
+      "changed_plants": 4,
+      "zone_before": {},
+      "zone_after": {},
+      "project_before": {
+        "support": false
+      },
+      "project_after": {
+        "support": true
+      },
+      "example": {
+        "fixture_id": "demo-core-51",
+        "scientific_name": "Lonicera periclymenum",
+        "before": {
+          "raw_suitability_score": 100.0,
+          "final_suitability_score": 0,
+          "eligibility_state": "excluded"
+        },
+        "after": {
+          "raw_suitability_score": 100.0,
+          "final_suitability_score": 64,
+          "eligibility_state": "conditional_match"
+        }
+      }
+    },
+    {
+      "input": "public_access",
+      "changed_plants": 48,
+      "zone_before": {},
+      "zone_after": {},
+      "project_before": {
+        "publicAccess": false
+      },
+      "project_after": {
+        "publicAccess": true
+      },
+      "example": {
+        "fixture_id": "demo-core-01",
+        "scientific_name": "Achillea millefolium",
+        "before": {
+          "raw_suitability_score": 97.5,
+          "final_suitability_score": 64,
+          "eligibility_state": "conditional_match"
+        },
+        "after": {
+          "raw_suitability_score": 97.5,
+          "final_suitability_score": 59,
+          "eligibility_state": "conditional_match"
+        }
+      }
+    },
+    {
+      "input": "rewilding_policy",
+      "changed_plants": 7,
+      "zone_before": {},
+      "zone_after": {},
+      "project_before": {
+        "rewilding": false
+      },
+      "project_after": {
+        "rewilding": true
+      },
+      "example": {
+        "fixture_id": "demo-core-05",
+        "scientific_name": "Lotus corniculatus",
+        "before": {
+          "raw_suitability_score": 90.0,
+          "final_suitability_score": 64,
+          "eligibility_state": "conditional_match"
+        },
+        "after": {
+          "raw_suitability_score": 90.0,
+          "final_suitability_score": 54,
+          "eligibility_state": "conditional_match"
+        }
+      }
+    }
+  ]
+}

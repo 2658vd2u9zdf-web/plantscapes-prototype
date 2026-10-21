@@ -1,0 +1,322 @@
+{
+  "version": "project-demo-1.0.0",
+  "base_dataset": "dataset/derived/plantscapes_demo_matching_ready_v0_3.csv",
+  "purpose": "Demonstrate how a transparent plant-location recommendation system would work when reliable plant and site data become available. The filled values below are working values for the demonstration only. They are not new research, not reviewed evidence and never production eligible.",
+  "origin_vocabulary": {
+    "demo_inference": "Derived for the demonstration from another recorded attribute of the same record (for example its fixture track or a sourced hazard). Not reviewed.",
+    "synthetic_demo": "Deliberate placeholder chosen so the demonstration can run end to end. Carries no evidential weight."
+  },
+  "demo_value_vocabulary": {
+    "invasive_status": {
+      "not_listed": "Treated as not on a Dutch or EU invasive list for the demonstration."
+    },
+    "provenance_status": {
+      "regional_stock": "Regional-origin planting stock assumed available.",
+      "nursery_stock": "General nursery stock; no regional origin."
+    },
+    "regional_occurrence_nl": {
+      "widespread": "Treated as occurring widely in the Netherlands.",
+      "planted_only": "Occurs only where planted.",
+      "unknown": "Not known."
+    },
+    "toxicity_status": {
+      "no_known_hazard": "No hazard assumed for the demonstration."
+    },
+    "public_contact_status": {
+      "suitable": "Treated as suitable where the public can touch it."
+    },
+    "edible_use_status": {
+      "edible_parts_reported": "Edible parts are commonly reported; identification is still needed.",
+      "not_a_food_plant": "Not treated as a food plant."
+    }
+  },
+  "field_order": [
+    "native_status_nl",
+    "invasive_status",
+    "protected_or_legal_status",
+    "provenance_status",
+    "regional_occurrence_nl",
+    "toxicity_status",
+    "thorns_or_spines",
+    "public_contact_status",
+    "edible_use_status"
+  ],
+  "fill_when_value_in": [
+    "unknown",
+    "not_reviewed",
+    "not_assessed",
+    "conflicting"
+  ],
+  "rules": [
+    {
+      "rule_id": "NATIVE-DEMO-01",
+      "field": "native_status_nl",
+      "when": {
+        "track": "core"
+      },
+      "set": "native_original",
+      "origin": "demo_inference",
+      "note": "The core fixture track was assembled from Dutch native flora; the one unresolved core record takes the track status."
+    },
+    {
+      "rule_id": "NATIVE-DEMO-02",
+      "field": "native_status_nl",
+      "when": {
+        "track": "ornamental"
+      },
+      "set": "introduced",
+      "origin": "demo_inference",
+      "note": "Ornamental-track fixtures are garden introductions in this demonstration."
+    },
+    {
+      "rule_id": "INVASIVE-DEMO-01",
+      "field": "invasive_status",
+      "when": {},
+      "set": "not_listed",
+      "origin": "synthetic_demo",
+      "note": "No record is placed on an invasive list in the demonstration. A real deployment must check current Dutch and EU lists."
+    },
+    {
+      "rule_id": "LEGAL-DEMO-01",
+      "field": "protected_or_legal_status",
+      "when": {},
+      "set": "not_protected_snapshot",
+      "origin": "synthetic_demo",
+      "note": "Legal and protection review is assumed complete for the demonstration."
+    },
+    {
+      "rule_id": "PROV-DEMO-01",
+      "field": "provenance_status",
+      "when": {
+        "native_status_nl": [
+          "native_original",
+          "native_archaeophyte"
+        ]
+      },
+      "set": "regional_stock",
+      "origin": "demo_inference",
+      "note": "Native records are assumed available from regional-origin stock."
+    },
+    {
+      "rule_id": "PROV-DEMO-02",
+      "field": "provenance_status",
+      "when": {
+        "native_status_nl": [
+          "introduced"
+        ]
+      },
+      "set": "nursery_stock",
+      "origin": "demo_inference",
+      "note": "Introduced records come from general nursery stock."
+    },
+    {
+      "rule_id": "OCC-DEMO-01",
+      "field": "regional_occurrence_nl",
+      "when": {
+        "native_status_nl": [
+          "native_original",
+          "native_archaeophyte"
+        ]
+      },
+      "set": "widespread",
+      "origin": "synthetic_demo",
+      "note": "Placeholder until occurrence data (for example NDFF/FLORON grids) are joined."
+    },
+    {
+      "rule_id": "OCC-DEMO-02",
+      "field": "regional_occurrence_nl",
+      "when": {
+        "native_status_nl": [
+          "introduced"
+        ]
+      },
+      "set": "planted_only",
+      "origin": "demo_inference",
+      "note": "Introduced records occur only where planted."
+    },
+    {
+      "rule_id": "TOX-DEMO-01",
+      "field": "toxicity_status",
+      "when": {},
+      "set": "no_known_hazard",
+      "origin": "synthetic_demo",
+      "note": "Records without an archived hazard are treated as hazard-free for the demonstration only."
+    },
+    {
+      "rule_id": "THORN-DEMO-01",
+      "field": "thorns_or_spines",
+      "when": {
+        "fixture_id": [
+          "demo-core-41"
+        ]
+      },
+      "set": "thorns_present",
+      "origin": "demo_inference",
+      "note": "Rhamnus cathartica (Wegedoorn) is treated as having thorn-tipped shoots."
+    },
+    {
+      "rule_id": "THORN-DEMO-02",
+      "field": "thorns_or_spines",
+      "when": {},
+      "set": "absent_reported",
+      "origin": "synthetic_demo",
+      "note": "Records without thorn evidence are treated as thornless for the demonstration."
+    },
+    {
+      "rule_id": "CONTACT-DEMO-01",
+      "field": "public_contact_status",
+      "when": {
+        "any": [
+          {
+            "toxicity_status": [
+              "strongly_toxic_reported"
+            ]
+          },
+          {
+            "thorns_or_spines": [
+              "thorns_present",
+              "prickles_present"
+            ]
+          }
+        ]
+      },
+      "set": "suitable_with_conditions",
+      "origin": "demo_inference",
+      "note": "Thorns or strong toxicity make public contact conditional."
+    },
+    {
+      "rule_id": "CONTACT-DEMO-02",
+      "field": "public_contact_status",
+      "when": {},
+      "set": "suitable",
+      "origin": "synthetic_demo",
+      "note": "Other records are treated as suitable for public contact."
+    },
+    {
+      "rule_id": "EDIBLE-DEMO-01",
+      "field": "edible_use_status",
+      "when": {
+        "fixture_id": [
+          "demo-core-07",
+          "demo-core-10",
+          "demo-core-15",
+          "demo-core-36",
+          "demo-core-38",
+          "demo-core-39",
+          "demo-core-40",
+          "demo-core-46",
+          "demo-core-53"
+        ]
+      },
+      "set": "edible_parts_reported",
+      "origin": "demo_inference",
+      "note": "Commonly gathered plants (mint, garlic mustard, carrot root, hazel, sloe, rose hip, elder, lime leaves, hop shoots). Not a harvesting approval."
+    },
+    {
+      "rule_id": "EDIBLE-DEMO-02",
+      "field": "edible_use_status",
+      "when": {},
+      "set": "not_a_food_plant",
+      "origin": "synthetic_demo",
+      "note": "Other records are not treated as food plants."
+    }
+  ],
+  "uncertainty_examples": [
+    {
+      "example_id": "uncertainty-01-native-status",
+      "base_fixture_id": "demo-core-29",
+      "unknown_fields": [
+        "native_status_nl"
+      ],
+      "title": "Native status unknown",
+      "explanation": "Same plant as Pijpenstrootje, but nobody has recorded whether it is native. Normal projects can still use it after review; rewilding and restoration cannot rank it."
+    },
+    {
+      "example_id": "uncertainty-02-invasive-legal",
+      "base_fixture_id": "demo-core-04",
+      "unknown_fields": [
+        "invasive_status",
+        "protected_or_legal_status"
+      ],
+      "title": "Invasive and legal status unknown",
+      "explanation": "Same plant as Gewone brunel, but its invasive and legal status are missing. Every project needs this check, so the plant is excluded until it is known."
+    },
+    {
+      "example_id": "uncertainty-03-public-contact",
+      "base_fixture_id": "demo-core-47",
+      "unknown_fields": [
+        "public_contact_status"
+      ],
+      "title": "Public-contact suitability unknown",
+      "explanation": "Same plant as Wilde lijsterbes, but nobody has assessed whether the public can touch it. Public projects must review it first."
+    },
+    {
+      "example_id": "uncertainty-04-toxicity",
+      "base_fixture_id": "demo-core-11",
+      "unknown_fields": [
+        "toxicity_status"
+      ],
+      "title": "Toxicity unknown",
+      "explanation": "Same plant as Dagkoekoeksbloem, but its toxicity is missing. Public and harvesting projects must review it first."
+    },
+    {
+      "example_id": "uncertainty-05-thorns",
+      "base_fixture_id": "demo-core-42",
+      "unknown_fields": [
+        "thorns_or_spines"
+      ],
+      "title": "Thorns unknown",
+      "explanation": "Same plant as Sporkehout, but the record does not say whether it has thorns. Public projects, and planting beside paths, need this answer."
+    },
+    {
+      "example_id": "uncertainty-06-hydrology",
+      "base_fixture_id": "demo-core-06",
+      "unknown_fields": [
+        "hydrology_tolerance"
+      ],
+      "title": "Wetness tolerance unknown",
+      "explanation": "Same plant as Moerasspirea, but it is not known how much flooding or standing water it tolerates. Site fit cannot be judged, so it cannot be ranked yet."
+    },
+    {
+      "example_id": "uncertainty-07-size",
+      "base_fixture_id": "demo-core-44",
+      "unknown_fields": [
+        "mature_spread_m",
+        "pilot_spacing_m"
+      ],
+      "title": "Spread and spacing unknown",
+      "explanation": "Same plant as Ruwe berk, but its mature spread and planting distance are missing. The system cannot check whether it fits or how many are needed."
+    },
+    {
+      "example_id": "uncertainty-08-provenance",
+      "base_fixture_id": "demo-core-32",
+      "unknown_fields": [
+        "provenance_status"
+      ],
+      "title": "Provenance unknown",
+      "explanation": "Same plant as Gewoon reukgras, but the origin of the planting stock is not given. Every project flags this for review; rewilding prefers regional stock."
+    },
+    {
+      "example_id": "uncertainty-09-regional-occurrence",
+      "base_fixture_id": "demo-core-13",
+      "unknown_fields": [
+        "regional_occurrence_nl"
+      ],
+      "title": "Regional occurrence unknown",
+      "explanation": "Same plant as Echte valeriaan, but it is not known where it occurs in the Netherlands. Normal projects are unaffected; rewilding and restoration must review it."
+    },
+    {
+      "example_id": "uncertainty-10-several-decisive",
+      "base_fixture_id": "demo-core-43",
+      "unknown_fields": [
+        "hydrology_tolerance",
+        "light_tolerance",
+        "mature_spread_m",
+        "pilot_spacing_m",
+        "native_status_nl"
+      ],
+      "title": "Several decisive facts missing",
+      "explanation": "Same plant as Zwarte els, but water levels, light, size and native status are all missing. It cannot be ranked until these are provided."
+    }
+  ]
+}

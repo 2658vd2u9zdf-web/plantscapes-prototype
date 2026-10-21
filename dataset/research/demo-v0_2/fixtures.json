@@ -1,0 +1,422 @@
+[
+  {
+    "fixture_id": "demo-core-01",
+    "fixture_track": "core",
+    "fixture_scientific_name": "Achillea millefolium",
+    "fixture_vernacular_nl": "Duizendblad",
+    "fixture_group": "Flowers & herbs"
+  },
+  {
+    "fixture_id": "demo-core-02",
+    "fixture_track": "core",
+    "fixture_scientific_name": "Centaurea jacea",
+    "fixture_vernacular_nl": "Knoopkruid",
+    "fixture_group": "Flowers & herbs"
+  },
+  {
+    "fixture_id": "demo-core-03",
+    "fixture_track": "core",
+    "fixture_scientific_name": "Leucanthemum vulgare",
+    "fixture_vernacular_nl": "Margriet",
+    "fixture_group": "Flowers & herbs"
+  },
+  {
+    "fixture_id": "demo-core-04",
+    "fixture_track": "core",
+    "fixture_scientific_name": "Prunella vulgaris",
+    "fixture_vernacular_nl": "Gewone brunel",
+    "fixture_group": "Flowers & herbs"
+  },
+  {
+    "fixture_id": "demo-core-05",
+    "fixture_track": "core",
+    "fixture_scientific_name": "Lotus corniculatus",
+    "fixture_vernacular_nl": "Gewone rolklaver",
+    "fixture_group": "Flowers & herbs"
+  },
+  {
+    "fixture_id": "demo-core-06",
+    "fixture_track": "core",
+    "fixture_scientific_name": "Filipendula ulmaria",
+    "fixture_vernacular_nl": "Moerasspirea",
+    "fixture_group": "Flowers & herbs"
+  },
+  {
+    "fixture_id": "demo-core-07",
+    "fixture_track": "core",
+    "fixture_scientific_name": "Mentha aquatica",
+    "fixture_vernacular_nl": "Watermunt",
+    "fixture_group": "Flowers & herbs"
+  },
+  {
+    "fixture_id": "demo-core-08",
+    "fixture_track": "core",
+    "fixture_scientific_name": "Knautia arvensis",
+    "fixture_vernacular_nl": "Beemdkroon",
+    "fixture_group": "Flowers & herbs"
+  },
+  {
+    "fixture_id": "demo-core-09",
+    "fixture_track": "core",
+    "fixture_scientific_name": "Campanula rotundifolia",
+    "fixture_vernacular_nl": "Grasklokje",
+    "fixture_group": "Flowers & herbs"
+  },
+  {
+    "fixture_id": "demo-core-10",
+    "fixture_track": "core",
+    "fixture_scientific_name": "Alliaria petiolata",
+    "fixture_vernacular_nl": "Look-zonder-look",
+    "fixture_group": "Flowers & herbs"
+  },
+  {
+    "fixture_id": "demo-core-11",
+    "fixture_track": "core",
+    "fixture_scientific_name": "Silene dioica",
+    "fixture_vernacular_nl": "Dagkoekoeksbloem",
+    "fixture_group": "Flowers & herbs"
+  },
+  {
+    "fixture_id": "demo-core-12",
+    "fixture_track": "core",
+    "fixture_scientific_name": "Succisa pratensis",
+    "fixture_vernacular_nl": "Blauwe knoop",
+    "fixture_group": "Flowers & herbs"
+  },
+  {
+    "fixture_id": "demo-core-13",
+    "fixture_track": "core",
+    "fixture_scientific_name": "Valeriana officinalis",
+    "fixture_vernacular_nl": "Echte valeriaan",
+    "fixture_group": "Flowers & herbs"
+  },
+  {
+    "fixture_id": "demo-core-14",
+    "fixture_track": "core",
+    "fixture_scientific_name": "Geranium pratense",
+    "fixture_vernacular_nl": "Beemdooievaarsbek",
+    "fixture_group": "Flowers & herbs"
+  },
+  {
+    "fixture_id": "demo-core-15",
+    "fixture_track": "core",
+    "fixture_scientific_name": "Daucus carota",
+    "fixture_vernacular_nl": "Peen",
+    "fixture_group": "Flowers & herbs"
+  },
+  {
+    "fixture_id": "demo-core-16",
+    "fixture_track": "core",
+    "fixture_scientific_name": "Trifolium pratense",
+    "fixture_vernacular_nl": "Rode klaver",
+    "fixture_group": "Flowers & herbs"
+  },
+  {
+    "fixture_id": "demo-core-17",
+    "fixture_track": "core",
+    "fixture_scientific_name": "Plantago lanceolata",
+    "fixture_vernacular_nl": "Smalle weegbree",
+    "fixture_group": "Flowers & herbs"
+  },
+  {
+    "fixture_id": "demo-core-18",
+    "fixture_track": "core",
+    "fixture_scientific_name": "Lythrum salicaria",
+    "fixture_vernacular_nl": "Grote kattenstaart",
+    "fixture_group": "Aquatic & marginal plants"
+  },
+  {
+    "fixture_id": "demo-core-19",
+    "fixture_track": "core",
+    "fixture_scientific_name": "Iris pseudacorus",
+    "fixture_vernacular_nl": "Gele lis",
+    "fixture_group": "Aquatic & marginal plants"
+  },
+  {
+    "fixture_id": "demo-core-20",
+    "fixture_track": "core",
+    "fixture_scientific_name": "Caltha palustris",
+    "fixture_vernacular_nl": "Dotterbloem",
+    "fixture_group": "Aquatic & marginal plants"
+  },
+  {
+    "fixture_id": "demo-core-21",
+    "fixture_track": "core",
+    "fixture_scientific_name": "Butomus umbellatus",
+    "fixture_vernacular_nl": "Zwanenbloem",
+    "fixture_group": "Aquatic & marginal plants"
+  },
+  {
+    "fixture_id": "demo-core-22",
+    "fixture_track": "core",
+    "fixture_scientific_name": "Alisma plantago-aquatica",
+    "fixture_vernacular_nl": "Grote waterweegbree",
+    "fixture_group": "Aquatic & marginal plants"
+  },
+  {
+    "fixture_id": "demo-core-23",
+    "fixture_track": "core",
+    "fixture_scientific_name": "Myosotis scorpioides",
+    "fixture_vernacular_nl": "Moerasvergeet-mij-nietje",
+    "fixture_group": "Aquatic & marginal plants"
+  },
+  {
+    "fixture_id": "demo-core-24",
+    "fixture_track": "core",
+    "fixture_scientific_name": "Carex riparia",
+    "fixture_vernacular_nl": "Oeverzegge",
+    "fixture_group": "Grasses, sedges & rushes"
+  },
+  {
+    "fixture_id": "demo-core-25",
+    "fixture_track": "core",
+    "fixture_scientific_name": "Juncus effusus",
+    "fixture_vernacular_nl": "Pitrus",
+    "fixture_group": "Grasses, sedges & rushes"
+  },
+  {
+    "fixture_id": "demo-core-26",
+    "fixture_track": "core",
+    "fixture_scientific_name": "Deschampsia cespitosa",
+    "fixture_vernacular_nl": "Ruwe smele",
+    "fixture_group": "Grasses, sedges & rushes"
+  },
+  {
+    "fixture_id": "demo-core-27",
+    "fixture_track": "core",
+    "fixture_scientific_name": "Festuca rubra",
+    "fixture_vernacular_nl": "Rood zwenkgras",
+    "fixture_group": "Grasses, sedges & rushes"
+  },
+  {
+    "fixture_id": "demo-core-28",
+    "fixture_track": "core",
+    "fixture_scientific_name": "Briza media",
+    "fixture_vernacular_nl": "Trilgras",
+    "fixture_group": "Grasses, sedges & rushes"
+  },
+  {
+    "fixture_id": "demo-core-29",
+    "fixture_track": "core",
+    "fixture_scientific_name": "Molinia caerulea",
+    "fixture_vernacular_nl": "Pijpenstrootje",
+    "fixture_group": "Grasses, sedges & rushes"
+  },
+  {
+    "fixture_id": "demo-core-30",
+    "fixture_track": "core",
+    "fixture_scientific_name": "Carex pendula",
+    "fixture_vernacular_nl": "Hangende zegge",
+    "fixture_group": "Grasses, sedges & rushes"
+  },
+  {
+    "fixture_id": "demo-core-31",
+    "fixture_track": "core",
+    "fixture_scientific_name": "Carex flacca",
+    "fixture_vernacular_nl": "Zeegroene zegge",
+    "fixture_group": "Grasses, sedges & rushes"
+  },
+  {
+    "fixture_id": "demo-core-32",
+    "fixture_track": "core",
+    "fixture_scientific_name": "Anthoxanthum odoratum",
+    "fixture_vernacular_nl": "Gewoon reukgras",
+    "fixture_group": "Grasses, sedges & rushes"
+  },
+  {
+    "fixture_id": "demo-core-33",
+    "fixture_track": "core",
+    "fixture_scientific_name": "Cornus sanguinea",
+    "fixture_vernacular_nl": "Rode kornoelje",
+    "fixture_group": "Shrubs"
+  },
+  {
+    "fixture_id": "demo-core-34",
+    "fixture_track": "core",
+    "fixture_scientific_name": "Salix cinerea",
+    "fixture_vernacular_nl": "Grauwe wilg",
+    "fixture_group": "Shrubs"
+  },
+  {
+    "fixture_id": "demo-core-35",
+    "fixture_track": "core",
+    "fixture_scientific_name": "Viburnum opulus",
+    "fixture_vernacular_nl": "Gelderse roos",
+    "fixture_group": "Shrubs"
+  },
+  {
+    "fixture_id": "demo-core-36",
+    "fixture_track": "core",
+    "fixture_scientific_name": "Corylus avellana",
+    "fixture_vernacular_nl": "Hazelaar",
+    "fixture_group": "Shrubs"
+  },
+  {
+    "fixture_id": "demo-core-37",
+    "fixture_track": "core",
+    "fixture_scientific_name": "Crataegus monogyna",
+    "fixture_vernacular_nl": "Eenstijlige meidoorn",
+    "fixture_group": "Shrubs"
+  },
+  {
+    "fixture_id": "demo-core-38",
+    "fixture_track": "core",
+    "fixture_scientific_name": "Prunus spinosa",
+    "fixture_vernacular_nl": "Sleedoorn",
+    "fixture_group": "Shrubs"
+  },
+  {
+    "fixture_id": "demo-core-39",
+    "fixture_track": "core",
+    "fixture_scientific_name": "Rosa canina",
+    "fixture_vernacular_nl": "Hondsroos",
+    "fixture_group": "Shrubs"
+  },
+  {
+    "fixture_id": "demo-core-40",
+    "fixture_track": "core",
+    "fixture_scientific_name": "Sambucus nigra",
+    "fixture_vernacular_nl": "Gewone vlier",
+    "fixture_group": "Shrubs"
+  },
+  {
+    "fixture_id": "demo-core-41",
+    "fixture_track": "core",
+    "fixture_scientific_name": "Rhamnus cathartica",
+    "fixture_vernacular_nl": "Wegedoorn",
+    "fixture_group": "Shrubs"
+  },
+  {
+    "fixture_id": "demo-core-42",
+    "fixture_track": "core",
+    "fixture_scientific_name": "Frangula alnus",
+    "fixture_vernacular_nl": "Sporkehout",
+    "fixture_group": "Shrubs"
+  },
+  {
+    "fixture_id": "demo-core-43",
+    "fixture_track": "core",
+    "fixture_scientific_name": "Alnus glutinosa",
+    "fixture_vernacular_nl": "Zwarte els",
+    "fixture_group": "Trees"
+  },
+  {
+    "fixture_id": "demo-core-44",
+    "fixture_track": "core",
+    "fixture_scientific_name": "Betula pendula",
+    "fixture_vernacular_nl": "Ruwe berk",
+    "fixture_group": "Trees"
+  },
+  {
+    "fixture_id": "demo-core-45",
+    "fixture_track": "core",
+    "fixture_scientific_name": "Quercus robur",
+    "fixture_vernacular_nl": "Zomereik",
+    "fixture_group": "Trees"
+  },
+  {
+    "fixture_id": "demo-core-46",
+    "fixture_track": "core",
+    "fixture_scientific_name": "Tilia cordata",
+    "fixture_vernacular_nl": "Winterlinde",
+    "fixture_group": "Trees"
+  },
+  {
+    "fixture_id": "demo-core-47",
+    "fixture_track": "core",
+    "fixture_scientific_name": "Sorbus aucuparia",
+    "fixture_vernacular_nl": "Wilde lijsterbes",
+    "fixture_group": "Trees"
+  },
+  {
+    "fixture_id": "demo-core-48",
+    "fixture_track": "core",
+    "fixture_scientific_name": "Salix alba",
+    "fixture_vernacular_nl": "Schietwilg",
+    "fixture_group": "Trees"
+  },
+  {
+    "fixture_id": "demo-core-49",
+    "fixture_track": "core",
+    "fixture_scientific_name": "Acer campestre",
+    "fixture_vernacular_nl": "Spaanse aak",
+    "fixture_group": "Trees"
+  },
+  {
+    "fixture_id": "demo-core-50",
+    "fixture_track": "core",
+    "fixture_scientific_name": "Populus tremula",
+    "fixture_vernacular_nl": "Ratelpopulier",
+    "fixture_group": "Trees"
+  },
+  {
+    "fixture_id": "demo-core-51",
+    "fixture_track": "core",
+    "fixture_scientific_name": "Lonicera periclymenum",
+    "fixture_vernacular_nl": "Wilde kamperfoelie",
+    "fixture_group": "Climbers"
+  },
+  {
+    "fixture_id": "demo-core-52",
+    "fixture_track": "core",
+    "fixture_scientific_name": "Hedera helix",
+    "fixture_vernacular_nl": "Klimop",
+    "fixture_group": "Climbers"
+  },
+  {
+    "fixture_id": "demo-core-53",
+    "fixture_track": "core",
+    "fixture_scientific_name": "Humulus lupulus",
+    "fixture_vernacular_nl": "Hop",
+    "fixture_group": "Climbers"
+  },
+  {
+    "fixture_id": "demo-core-54",
+    "fixture_track": "core",
+    "fixture_scientific_name": "Clematis vitalba",
+    "fixture_vernacular_nl": "Bosrank",
+    "fixture_group": "Climbers"
+  },
+  {
+    "fixture_id": "demo-ornamental-01",
+    "fixture_track": "ornamental",
+    "fixture_scientific_name": "Echinacea purpurea",
+    "fixture_vernacular_nl": "Zonnehoed",
+    "fixture_group": "Flowers & herbs"
+  },
+  {
+    "fixture_id": "demo-ornamental-02",
+    "fixture_track": "ornamental",
+    "fixture_scientific_name": "Rudbeckia fulgida",
+    "fixture_vernacular_nl": "Zonnehoed (geel)",
+    "fixture_group": "Flowers & herbs"
+  },
+  {
+    "fixture_id": "demo-ornamental-03",
+    "fixture_track": "ornamental",
+    "fixture_scientific_name": "Verbena bonariensis",
+    "fixture_vernacular_nl": "IJzerhard",
+    "fixture_group": "Flowers & herbs"
+  },
+  {
+    "fixture_id": "demo-ornamental-04",
+    "fixture_track": "ornamental",
+    "fixture_scientific_name": "Nepeta × faassenii",
+    "fixture_vernacular_nl": "Kattenkruid",
+    "fixture_group": "Flowers & herbs"
+  },
+  {
+    "fixture_id": "demo-ornamental-05",
+    "fixture_track": "ornamental",
+    "fixture_scientific_name": "Panicum virgatum",
+    "fixture_vernacular_nl": "Vingergras",
+    "fixture_group": "Grasses, sedges & rushes"
+  },
+  {
+    "fixture_id": "demo-ornamental-06",
+    "fixture_track": "ornamental",
+    "fixture_scientific_name": "Hakonechloa macra",
+    "fixture_vernacular_nl": "Japans bosgras",
+    "fixture_group": "Grasses, sedges & rushes"
+  }
+]

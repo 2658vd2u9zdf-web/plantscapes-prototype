@@ -1,0 +1,28 @@
+FAIL B01-native-first-ordering: 58 unknown-native-before-native pairs, e.g. Panicum virgatum (#1, native unknown) above Knautia arvensis (#3); Panicum virgatum (#1, native unknown) above Briza media (#4)
+FAIL B06b-woody-unsuitable-not-passed: 18/18 records fail, e.g. Cornus sanguinea → H07_WOODY_GEOMETRY=passed | Salix cinerea → H07_WOODY_GEOMETRY=passed
+FAIL B06b-known-thorns-not-passed: 3/3 records fail, e.g. Crataegus monogyna → H11_PATH_THORNS=passed | Prunus spinosa → H11_PATH_THORNS=passed
+FAIL B07-demand-exceeds-capacity: 5/5 records fail, e.g. Butomus umbellatus → H12_MAINTENANCE_CAPACITY=undefined | Festuca rubra → H12_MAINTENANCE_CAPACITY=undefined
+FAIL B07-demand-within-capacity: 14/14 records fail, e.g. Caltha palustris → H12_MAINTENANCE_CAPACITY=undefined | Juncus effusus → H12_MAINTENANCE_CAPACITY=undefined
+FAIL B11-unknown-native-review: 7/7 records fail, e.g. Lotus corniculatus → H10_RESTORATION_POLICY=passed | Echinacea purpurea → H10_RESTORATION_POLICY=passed
+FAIL B11b-override-disclosed: 1/1 records fail, e.g. Knautia arvensis [introduced_copy] → H10_RESTORATION_POLICY=passed, missing warning restoration_ornamental_exception
+FAIL B12-gap-not-unsuitable: 48/48 records fail, e.g. Achillea millefolium → state unsuitable | Centaurea jacea → state unsuitable
+FAIL B12-unknown-hydrology-not-cleared: 54/54 records fail, e.g. Achillea millefolium → H04_PERMANENT_WATER=passed | Centaurea jacea → H04_PERMANENT_WATER=passed
+FAIL B12-unknown-maintenance-vigour: 22/22 records fail, e.g. Achillea millefolium → H08_VIGOUR=passed, H12_MAINTENANCE_CAPACITY=undefined | Leucanthemum vulgare → H08_VIGOUR=passed, H12_MAINTENANCE_CAPACITY=undefined
+FAIL B12-known-thorns-unknown-edge: 3/3 records fail, e.g. Crataegus monogyna → H11_PATH_THORNS=passed | Prunus spinosa → H11_PATH_THORNS=passed
+FAIL review/H04_PERMANENT_WATER unknown hydrology: H04_PERMANENT_WATER=passed (unknown or unresolved input must not read as passed)
+FAIL review/H07_WOODY_GEOMETRY candidate misfit: H07_WOODY_GEOMETRY=passed (unknown or unresolved input must not read as passed)
+FAIL review/H08_VIGOUR unknown maintenance: H08_VIGOUR=passed (unknown or unresolved input must not read as passed)
+FAIL review/H10_RESTORATION_POLICY unknown native: H10_RESTORATION_POLICY=passed (unknown or unresolved input must not read as passed)
+FAIL review/H10_RESTORATION_POLICY override disclosed: H10_RESTORATION_POLICY=passed (unknown or unresolved input must not read as passed)
+FAIL review/H11_PATH_THORNS unknown path edge: H11_PATH_THORNS=passed (unknown or unresolved input must not read as passed)
+FAIL review/H11_PATH_THORNS candidate stage: H11_PATH_THORNS=passed (unknown or unresolved input must not read as passed)
+FAIL review/H12_MAINTENANCE_CAPACITY demand above capacity: H12_MAINTENANCE_CAPACITY=undefined (unknown or unresolved input must not read as passed)
+FAIL review/H12_MAINTENANCE_CAPACITY unknown capacity: H12_MAINTENANCE_CAPACITY=undefined (unknown or unresolved input must not read as passed)
+FAIL review/H10 override warning: override admitted an introduced record without a disclosure warning
+FAIL policy/G05 non-native label: introduced record outside rewilding has no explicit non-native label
+FAIL unknown/all-inputs-blank: state unsuitable, confidence 0 (missing inputs must read as a data gap, not unsuitable)
+FAIL ranking/codepoint-fixture-tie-break: locale-dependent order demo_a,demo-a,Demo-a,demo-b,demo-B vs Python/codepoint Demo-a,demo-B,demo-a,demo-b,demo_a
+FAIL community/dry-sand: community-0-interior-3ruj10 share basis not declared (count share vs ground cover); community-0-interior-shade-bsrsjo share basis not declared (count share vs ground cover)
+FAIL community/open-character: community-0-interior-1up8a00 share basis not declared (count share vs ground cover); server accepts demo-ornamental-05 (Grasses, sedges & rushes, h=2.1336) that the browser keeps out of interior land community; server accepts demo-core-26 (Grasses, sedges & rushes, h=1.5) that the browser keeps out of interior land community; server accepts demo-core-25 (Grasses, sedges & rushes, h=1.4) that the browser keeps out of interior land community … +10
+FAIL community/wet-edge-with-pond: community-0-interior-15xy1c2 share basis not declared (count share vs ground cover); community-0-interior-shade-1jraknk share basis not declared (count share vs ground cover); community-0-interior-90wd63 share basis not declared (count share vs ground cover); community-0-interior-shade-17v96j0 share basis not declared (count share vs ground cover) … +34
+{"passed":96,"failed":27,"engine":"pre-change snapshot (rules 0.3.0)","benchmark":"1.0.0","rules":"0.3.0"}

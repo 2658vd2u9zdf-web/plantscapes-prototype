@@ -1,0 +1,59 @@
+v0_3_field_or_result,current_app_or_engine_field,adapter_or_rule,integration_status
+fixture_id,id,"Stable fixture ID replaces positional demo-i; update palettes, species toggles and saved plans through a deliberate adapter.",documented_only
+plant_id,plant_id (new export/lookup property),Preserve national or external taxon key; never regenerate from a display name.,documented_only
+scientific_name,scientific_name,Direct; preserve × and accepted hybrid scope.,documented_only
+dutch_name,vernacular_nl,Unknown stays unknown in data; display scientific name as a labelled display fallback.,documented_only
+group,group,Direct existing six group labels; grouping origins remain visible.,documented_only
+soil_tolerance,soils,Array adapter. Replace old made-ground bypass with evaluator; never invent soils from moisture.,documented_only
+moisture_tolerance,moisture,Legacy field is scalar. Do not collapse multi-value tolerances for matching; route all matching through evaluator. Display pipe set; moist archive value normalizes to fresh.,documented_only
+hydrology_tolerance,no current plant property; zone.hydrology,New matching adapter; no wet-moisture shorthand for permanent water.,documented_only
+light_tolerance,light,Legacy scalar becomes display set. Evaluator uses direct sun/mixed/shade vocab; future tree shade remains a separate placement scenario.,documented_only
+disturbance_tolerance,no current plant property; zone.disturbance,New weighted comparator; current shortlist mostly ignores this location input.,documented_only
+hardscape_tolerance,no current plant property; zone.hardscape,Explicit comparator replaces blanket tree -2 score; preserve independent path/root clearance checks.,documented_only
+water_edge_requirement,group / engine.zoneFit water rule,"Explicit required/preferred/not_required gate. Actual mapped water polygon, shoreline distance and depth approval remain placement responsibilities.",documented_only
+mature_height_m,height,Upper-endpoint/proxy scalar with original range/context in field_resolutions_json and v0.2; visibility/future-shade consumers must preserve origin.,documented_only
+mature_spread_m,spread,Direct operational proxy; remove engine.enrich height-to-spread fallback. Crown containment still needs polygon geometry.,documented_only
+pilot_spacing_m,spacing,Direct SPACE-01 assumption; remove hidden ×0.83 spacing. Placement must not reinterpret the number as reviewed horticultural specification.,documented_only
+functional_layer,no current property; group-derived placement branches,New composition/output property; preserve group-specific crown/support/water placement.,documented_only
+composition_role,compositionRole,Direct; replace inconsistent >=1.1 app / >=1.3 engine role heuristics with one explicit role.,documented_only
+climbing_support_required,project.support / climber branch,Requires explicit support input and mapped support length. app.project() currently supplies neither; engine general placement also skips climbers.,documented_only
+vigour_or_spread_risk,vigorous,No boolean that treats unknown as low risk. Keep ordered class and active-control rule; remove caution-regex inference.,documented_only
+maintenance_demand,no current plant property; project.maintenance,"Demand comparator is separate from vigour, which the legacy engine alone filters.",documented_only
+native_status_nl,nativeStatus,Remove fixture-index native/non-native defaults. native_original/archaeophyte are supported status labels; unknown never maps to native_fixture.,documented_only
+invasive_status,invasiveStatus,Remove not_invasive_fixture default. Known Dutch/EU listing gates; foreign weediness is not Dutch invasive evidence.,documented_only
+protected_or_legal_status,no complete current property,Policy review metadata and gate; EU non-listing alone never gives legal clearance.,documented_only
+provenance_status,provenanceStatus,Explicit unknown/not_reviewed; no automatic regional-origin approval.,documented_only
+public_contact_status,safetyStatus,Keep controlled status and public-access gate; remove demo bypass of public safety. Not a simple safe boolean.,documented_only
+toxicity_status,caution,Generate precise hazard warning from sourced status plus claim scope; no invented absence or genus-based hazard.,documented_only
+edible_use_status,no current approved food property; publicHarvest,Harvest action stays blocked for these records; provisional parts evidence never becomes edible=true.,documented_only
+thorns_or_spines,thorny,"Tri-state evidence-aware adapter; unknown is not false. Replace caution regex, preserve path-edge placement exclusion.",documented_only
+production_eligible,evidenceStatus / source / demo,Always false; keep demonstration badge and disable real-use claims. Do not pass real to legacy gate to disguise review status.,documented_only
+flower_start_month,from,Direct numeric month plus origin for chart/export.,documented_only
+flower_end_month,to,Direct numeric month plus origin. Demonstration endpoint is labelled synthetic.,documented_only
+flower_colour,colour,Single design swatch with choice origin; affects separate preference/composition only.,documented_only
+pollinator_value,no current evidence-backed property,Output/preference only; pilot_potential cannot be advertised as researched biodiversity benefit.,documented_only
+field_origins_json,evidenceStatus / explanation panel (adapter),Per-field origin badges; do not compress into verified.,documented_only
+field_confidence_json,no current property,Publish field confidence and separate evaluator confidence; never add confidence to suitability.,documented_only
+synthetic_derivations_json,no current property,Expose all inferred/synthetic derivations in evidence details and exports.,documented_only
+unresolved_safety_or_policy_json,caution / explanation panel (adapter),Expose unresolved fields and documented allergen/sap context; no blanket public-safe badge.,documented_only
+evidence_claim_ids_json,no current property,Trace to preserved v0.2 JSONL and source ledger.,documented_only
+field_resolutions_json,no current property,Real versus operational values are separate; keep null real evidence and nonblank operational input.,documented_only
+record_notes,caution / exports,Display simulation/review limitations alongside individual warnings.,documented_only
+raw_suitability_score,score / demoCandidates(),Replace ad hoc score starting at 3 with 100-point diagnostic score; do not use the old >=4 cutoff.,documented_only
+final_suitability_score,score / shortlist ranking,"Use capped/gated final score, retaining raw score in explanation; final=0 on hard exclusion.",documented_only
+evidence_confidence_score,no current field,Separate 0–100 display/export column.,documented_only
+eligibility_state,engine.eligibility() / engine.zoneFit(),Use full per-zone result before ranking; never hide excluded records from diagnostic exports.,documented_only
+component_scores,demoCandidates local score clauses,Replace soil/moisture/light/hydro/size clauses with explicit weighted matrices.,documented_only
+component_value_origins,no current field,Mark components that depend on inference/synthesis in shortlist explanations.,documented_only
+hard_gate_results,eligibility reasons / zoneFit boolean,Structured exact rule IDs; keep separate from design preferences.,documented_only
+warnings|inclusion_reasons|exclusion_reasons,caution / validation notes / rule traces,Human-readable per-zone reasons; do not replace with generic native/public-safety claims.,documented_only
+placement,engine.generate / height / spread / spacing,"Provide dimensions, layer, role and support requirements. Continue polygon, path, void, asset and neighbour checks separately.",documented_only
+quantity,plan.cells and counts / exports,Approximate capacity for a single-species zone only. Final mixed-plan quantities must come from actual packing; no seed-rate conversion.,documented_only
+design_preference_score,anchor colour / group preference ranking,Tie-break only after final and raw suitability; no environmental or hard-gate override.,documented_only
+harvesting_allowed,publicHarvest / productive project,Always false for this pilot; add specific harvest-review warnings.,documented_only
+eligible_for_demo_ranking,candidate filter,Only strong/suitable/conditional results enter eligible ranking. Complete results retain all plants.,documented_only
+zone clear dimensions|support_length_m|path_edge|max_plant_height_m,scaled drawing / paths / water polygon / support geometry,Adapter must compute/use actual clear space or explicit unknown. Never use whole geographic project area as bed dimensions.,documented_only
+project.support|vigourControl|evaluation_stage,missing support; maintenance; generate phase,New explicit contract fields; support is currently referenced but not supplied by app.project().,documented_only
+zone.canopy,zone.canopy / futureShade logic,"Current observed canopy is light context only; future tree shade remains a separate placement scenario, not a second score.",documented_only
+project.priorities|desiredFlowerMonths,priorities / seasonal chart,"Adapter keeps only pollinators in the v0.3 design-priority array; rewilding maps to its separate policy boolean. Other UI priorities remain annotations, not ecological points. desiredFlowerMonths is an optional new preference input, absent→empty array. Never submit unsupported UI priority strings directly to the strict evaluator.",documented_only
+project.area,project.area (geographic polygon area or legacy 0),"Use m2 only when actually measured. Legacy 0 meaning no drawn geographic polygon maps to unknown, not confirmed empty land. Project area caps stock capacity; clear zone geometry supplies spatial scoring, never the old whole-project <180m2 tree shortcut.",documented_only

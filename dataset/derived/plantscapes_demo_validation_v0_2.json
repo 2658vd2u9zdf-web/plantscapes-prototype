@@ -1,0 +1,30 @@
+{
+  "status": "PASS",
+  "profiles": 60,
+  "core": 54,
+  "ornamental": 6,
+  "claims": 2811,
+  "sources": 169,
+  "gaps": 3780,
+  "profile_schema_objects_validated": 60,
+  "claim_schema_objects_validated": 2811,
+  "claim_value_schema_objects_validated": 2811,
+  "production_eligible": 0,
+  "national_backbone_records": 2443,
+  "national_backbone_sha256": "167256ade50af4cf4ce5af9a186ac1867212e237f26311631f7eaaf17e5de739",
+  "checks": "Schemas; exact fixtures; taxonomic rank/hybrid handling; resolved claim support; source/rights references; separate synthetic values and gaps; vocabularies; SI units; numeric bounds; months; review metadata; eligibility; completeness; preserved inputs.",
+  "negative_self_tests": {
+    "duplicate_fixture_id": "rejected",
+    "missing_source_reference": "rejected",
+    "synthetic_toxicity": "rejected",
+    "inferred_safety": "rejected",
+    "invented_real_value": "rejected",
+    "invalid_month": "rejected",
+    "unknown_controlled_value": "rejected",
+    "unreviewed_production_eligibility": "rejected",
+    "missing_gap": "rejected",
+    "fabricated_review": "rejected",
+    "hybrid_reduction": "rejected",
+    "unrecorded_source_rights": "rejected"
+  }
+}

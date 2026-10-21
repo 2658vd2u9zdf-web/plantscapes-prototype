@@ -1,5 +1,11 @@
 # Plantscapes local dataset — Netherlands vascular-plant master scaffold
 
+## Operational pilot v0.3
+
+The live browser and local AI server use the 60-record `derived/plantscapes_demo_matching_ready_v0_3.csv` with `scoring/plant-location-contract-v0_3.json` and `scoring/plant-suitability-rules-v0_3.json`. These source files, the v0.2 evidence archive, `research/demo-v0_3/operational-derivations.jsonl`, and the saved canonical evaluations are authoritative. Run `python dataset/build_runtime_v0_3.py` from the repository root to regenerate `website/data/operational-v0.3.generated.js` deterministically. The builder does not edit its inputs. See [the handover](PLANT-DATA-PILOT-HANDOVER-v0.3.md) and [runtime notes](../project-information/V03-RUNTIME-IMPLEMENTATION.md).
+
+All operational records are demonstration-only and `production_eligible=false`. Suitability, evidence confidence, conditional/excluded state, policy warnings and field origins must be read together. Synthetic SPACE-01 spacing is a simulation assumption, not an exact horticultural density. The national vascular table below remains taxonomy-only for the website; a national name does not become an operational candidate.
+
 This directory is an intentionally small, auditable Netherlands vascular-plant taxonomy backbone for Plantscapes. It is not a South Holland occurrence inventory, a planting specification, a trait database, or a substitute for field survey.
 
 ## Contents

@@ -1,0 +1,445 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "version": "0.3.0",
+  "status": "pilot_only_not_production_ready",
+  "authoritative_dependencies": {
+    "plant_location_contract": {
+      "path": "dataset/scoring/plant-location-contract-v0_3.json",
+      "sha256": "f3bb93cd15970df15977bedafa2a23d03ba3d3c56a67c6c6ec5e201f8e5d8947"
+    },
+    "plant_suitability_rules": {
+      "path": "dataset/scoring/plant-suitability-rules-v0_3.json",
+      "sha256": "f9a213ec5fd8c14de095d44e29c71d6df8ae12c2bf451830596e82b31c42f0ed"
+    },
+    "plant_matching_ready_data": {
+      "path": "dataset/derived/plantscapes_demo_matching_ready_v0_3.csv",
+      "sha256": "599503b7967799c9745b9c5783b25f128d6050d56524c95ae152de3de144fa6d"
+    }
+  },
+  "contract_rule": "evaluation_payload uses the plant-side contract verbatim; evidence envelopes must not silently replace real_value with operational_value",
+  "site_model": [
+    "Site",
+    "one boundary or reference",
+    "one or more independently matchable zones",
+    "field evidence per zone",
+    "operational values per zone",
+    "separate user corrections and survey replacements"
+  ],
+  "field_evidence_required": [
+    "real_value",
+    "operational_value",
+    "operational_value_origin",
+    "operational_value_confidence",
+    "source_or_derivation_note",
+    "source_ledger_reference",
+    "spatial_scope",
+    "temporal_scope",
+    "verification_status"
+  ],
+  "allowed_operational_origins": [
+    "site_survey",
+    "user_confirmed_observation",
+    "official_spatial_dataset",
+    "official_regional_proxy",
+    "documented_inference",
+    "synthetic_fallback",
+    "explicit_unknown"
+  ],
+  "origin_confidence": {
+    "site_survey": 1.0,
+    "user_confirmed_observation": 0.9,
+    "official_spatial_dataset": 0.85,
+    "official_regional_proxy": 0.65,
+    "documented_inference": 0.5,
+    "synthetic_fallback": 0.3,
+    "explicit_unknown": 0.0
+  },
+  "spatial_scopes": [
+    "exact site or polygon",
+    "site zone",
+    "nearby point",
+    "neighbourhood",
+    "municipality",
+    "regional proxy",
+    "synthetic demonstration profile",
+    "synthetic canonical test fixture"
+  ],
+  "zone_scoring_fields": {
+    "zone_id": {
+      "required": true,
+      "unit": "categorical"
+    },
+    "soil": {
+      "required": true,
+      "unit": "categorical",
+      "allowed_values": [
+        "sand",
+        "clay",
+        "peat",
+        "made",
+        "unknown"
+      ]
+    },
+    "moisture": {
+      "required": true,
+      "unit": "categorical",
+      "allowed_values": [
+        "dry",
+        "fresh",
+        "wet",
+        "variable",
+        "unknown"
+      ]
+    },
+    "hydrology": {
+      "required": true,
+      "unit": "categorical",
+      "allowed_values": [
+        "none",
+        "seasonal",
+        "long",
+        "permanent",
+        "edge",
+        "unknown"
+      ]
+    },
+    "light": {
+      "required": true,
+      "unit": "categorical",
+      "allowed_values": [
+        "sun",
+        "mixed",
+        "shade",
+        "unknown"
+      ]
+    },
+    "canopy": {
+      "required": true,
+      "unit": "categorical",
+      "allowed_values": [
+        "yes",
+        "no",
+        "unknown"
+      ]
+    },
+    "disturbance": {
+      "required": true,
+      "unit": "categorical",
+      "allowed_values": [
+        "low",
+        "moderate",
+        "high",
+        "unknown"
+      ]
+    },
+    "hardscape": {
+      "required": true,
+      "unit": "categorical",
+      "allowed_values": [
+        "yes",
+        "no",
+        "unknown"
+      ]
+    },
+    "waterEdge": {
+      "required": true,
+      "unit": "categorical",
+      "allowed_values": [
+        "yes",
+        "no",
+        "unknown"
+      ]
+    },
+    "source": {
+      "required": true,
+      "unit": "categorical",
+      "allowed_values": [
+        "demo",
+        "observation",
+        "survey",
+        "document",
+        "unverified",
+        "unknown"
+      ]
+    },
+    "path_edge": {
+      "required": true,
+      "unit": "categorical",
+      "allowed_values": [
+        "yes",
+        "no",
+        "unknown"
+      ]
+    },
+    "available_width_m": {
+      "required": true,
+      "unit": "m",
+      "value_rule": "non-negative number or literal unknown; pilot fixtures resolve to a number"
+    },
+    "available_length_m": {
+      "required": true,
+      "unit": "m",
+      "value_rule": "non-negative number or literal unknown; pilot fixtures resolve to a number"
+    },
+    "plantable_area_m2": {
+      "required": true,
+      "unit": "m2",
+      "value_rule": "non-negative number or literal unknown; pilot fixtures resolve to a number"
+    },
+    "max_plant_height_m": {
+      "required": true,
+      "unit": "m",
+      "value_rule": "non-negative number or literal unknown; pilot fixtures resolve to a number"
+    },
+    "support_length_m": {
+      "required": true,
+      "unit": "m",
+      "value_rule": "non-negative number or literal unknown; pilot fixtures resolve to a number"
+    }
+  },
+  "project_scoring_fields": {
+    "type": {
+      "required": true,
+      "unit": "categorical_or_boolean",
+      "allowed_values": [
+        "restoration",
+        "landscape",
+        "productive",
+        "other"
+      ]
+    },
+    "maintenance": {
+      "required": true,
+      "unit": "categorical_or_boolean",
+      "allowed_values": [
+        "low",
+        "moderate",
+        "high",
+        "unknown"
+      ]
+    },
+    "character": {
+      "required": true,
+      "unit": "categorical_or_boolean",
+      "allowed_values": [
+        "mosaic",
+        "open",
+        "enclosed"
+      ]
+    },
+    "vigourControl": {
+      "required": true,
+      "unit": "categorical_or_boolean",
+      "allowed_values": [
+        "yes",
+        "no",
+        "unknown"
+      ]
+    },
+    "evaluation_stage": {
+      "required": true,
+      "unit": "categorical_or_boolean",
+      "allowed_values": [
+        "candidate",
+        "placement"
+      ]
+    },
+    "publicAccess": {
+      "required": true,
+      "unit": "categorical_or_boolean",
+      "allowed_values": [
+        true,
+        false
+      ]
+    },
+    "publicHarvest": {
+      "required": true,
+      "unit": "categorical_or_boolean",
+      "allowed_values": [
+        true,
+        false
+      ]
+    },
+    "sightlines": {
+      "required": true,
+      "unit": "categorical_or_boolean",
+      "allowed_values": [
+        true,
+        false
+      ]
+    },
+    "rewilding": {
+      "required": true,
+      "unit": "categorical_or_boolean",
+      "allowed_values": [
+        true,
+        false
+      ]
+    },
+    "support": {
+      "required": true,
+      "unit": "categorical_or_boolean",
+      "allowed_values": [
+        true,
+        false
+      ]
+    },
+    "restorationOrnamentals": {
+      "required": true,
+      "unit": "categorical_or_boolean",
+      "allowed_values": [
+        true,
+        false
+      ]
+    },
+    "area": {
+      "required": true,
+      "unit": "m2"
+    },
+    "anchorColours": {
+      "required": true,
+      "unit": "categorical_or_boolean",
+      "allowed_values": [
+        "white",
+        "red",
+        "pink",
+        "purple",
+        "blue",
+        "yellow",
+        "green",
+        "brown",
+        "cream",
+        "transparent",
+        "orange"
+      ]
+    },
+    "desiredFlowerMonths": {
+      "required": true,
+      "unit": "categorical_or_boolean",
+      "allowed_values": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ]
+    },
+    "priorities": {
+      "required": true,
+      "unit": "categorical_or_boolean",
+      "allowed_values": [
+        "pollinators"
+      ]
+    }
+  },
+  "score_components": {
+    "soil": {
+      "weight": 15,
+      "plant_fields": [
+        "soil_tolerance"
+      ],
+      "site_or_project_fields": [
+        "soil"
+      ]
+    },
+    "moisture": {
+      "weight": 20,
+      "plant_fields": [
+        "moisture_tolerance"
+      ],
+      "site_or_project_fields": [
+        "moisture"
+      ]
+    },
+    "hydrology": {
+      "weight": 15,
+      "plant_fields": [
+        "hydrology_tolerance"
+      ],
+      "site_or_project_fields": [
+        "hydrology"
+      ]
+    },
+    "light": {
+      "weight": 15,
+      "plant_fields": [
+        "light_tolerance"
+      ],
+      "site_or_project_fields": [
+        "light"
+      ]
+    },
+    "disturbance_hardscape": {
+      "weight": 10,
+      "plant_fields": [
+        "disturbance_tolerance",
+        "hardscape_tolerance"
+      ],
+      "site_or_project_fields": [
+        "disturbance",
+        "hardscape"
+      ]
+    },
+    "spatial": {
+      "weight": 15,
+      "plant_fields": [
+        "mature_height_m",
+        "mature_spread_m",
+        "pilot_spacing_m",
+        "group",
+        "climbing_support_required"
+      ],
+      "site_or_project_fields": [
+        "available_width_m",
+        "available_length_m",
+        "plantable_area_m2",
+        "support_length_m",
+        "max_plant_height_m",
+        "path_edge",
+        "sightlines"
+      ]
+    },
+    "maintenance_vigour": {
+      "weight": 10,
+      "plant_fields": [
+        "maintenance_demand",
+        "vigour_or_spread_risk"
+      ],
+      "site_or_project_fields": [
+        "maintenance",
+        "vigourControl"
+      ]
+    }
+  },
+  "hard_gates": {
+    "H01_IDENTITY": "Unknown scientific identity or plant_id excludes.",
+    "H02_INVASIVE_LEGAL": "Any explicit positive invasive status (listed_nl, listed_eu, invasive_elsewhere) or legally_prohibited excludes; unknown/nonlisting never clears. Foreign weediness alone is not assigned an invasive status.",
+    "H03_WATER_EDGE": "Required edge demands waterEdge=yes AND hydrology seasonal|long|permanent|edge.",
+    "H04_PERMANENT_WATER": "Permanent zone excludes plant lacking explicit operational permanent tolerance. Unknown hydrology requires review for such a plant: permanent water is not ruled out and the plant is never treated as hydrologically compatible.",
+    "H05_SUPPORT": "Climbing support required but support=false excludes.",
+    "H06_PUBLIC_CONTACT": "Public access and known unsuitable public contact excludes.",
+    "H07_WOODY_GEOMETRY": "Tree/shrub cannot fit full spread square and area: exclusion at placement, unsuitable candidate. A known misfit at candidate stage and unknown geometry require review; neither reads as passed.",
+    "H08_VIGOUR": "Low maintenance plus high vigour and no explicit active control excludes; control=yes conditional. High vigour with unknown maintenance capacity (and no declared control) requires review.",
+    "H09_NATIVE_POLICY": "Rewilding known introduced excludes. Unknown native in rewilding caps final at 54.",
+    "H10_RESTORATION_POLICY": "Restoration known introduced needs explicit ornamental override. With the override it requires review and is disclosed by warning restoration_ornamental_exception (rulebook G05). Unknown native status in restoration requires review.",
+    "H11_PATH_THORNS": "Known thorns/prickles at path edge excludes placement. Known thorns at a mapped path edge during candidate screening, or where path-edge context is unknown, require review. Unknown thorns never clear public-contact use.",
+    "H12_MAINTENANCE_CAPACITY": "Approved rulebook W03: known maintenance demand above project capacity (demand ratio 0) or unknown capacity requires review/plan revision. It never excludes and never changes points in v0.3.1; whether it should cap or exclude is an open policy question."
+  },
+  "score_weight_total": 100,
+  "confidence_rule": "Evidence confidence is independent of suitability. Compatibility is never inferred from confidence, and unknown has zero evidence confidence.",
+  "canopy_rule": "Context only; no independent effect or doubled light points.",
+  "dynamic_update_rule": "Preserve original suggestion, append user correction or survey replacement with timestamp and actor/basis, recompute operational value, and flag stale evidence without deleting history.",
+  "non_goals": [
+    "no website integration",
+    "no citywide environmental truth",
+    "no production planting advice",
+    "no safety or legal decision on the location side"
+  ]
+}

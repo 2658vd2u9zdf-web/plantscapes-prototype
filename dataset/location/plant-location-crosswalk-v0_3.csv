@@ -1,0 +1,28 @@
+location_or_project_field,corresponding_plant_field,comparison_method,score_weight_or_gate,consumer,reason_needed
+soil,soil_tolerance,best matrix compatibility from soil matrix,15,score:soil,Supplies the location/project side of the soil component.
+moisture,moisture_tolerance,best matrix compatibility from moisture matrix,20,score:moisture,Supplies the location/project side of the moisture component.
+hydrology,hydrology_tolerance,best matrix compatibility from hydrology matrix,15,score:hydrology,Supplies the location/project side of the hydrology component.
+light,light_tolerance,best matrix compatibility from light matrix,15,score:light,Supplies the location/project side of the light component.
+disturbance,disturbance_tolerance|hardscape_tolerance,Mean of disturbance and hardscape ratios.,10,score:disturbance_hardscape,Supplies the location/project side of the disturbance_hardscape component.
+hardscape,disturbance_tolerance|hardscape_tolerance,Mean of disturbance and hardscape ratios.,10,score:disturbance_hardscape,Supplies the location/project side of the disturbance_hardscape component.
+available_width_m,mature_height_m|mature_spread_m|pilot_spacing_m|group|climbing_support_required,0.8 footprint ratio + 0.2 visibility-height ratio.,15,score:spatial,Supplies the location/project side of the spatial component.
+available_length_m,mature_height_m|mature_spread_m|pilot_spacing_m|group|climbing_support_required,0.8 footprint ratio + 0.2 visibility-height ratio.,15,score:spatial,Supplies the location/project side of the spatial component.
+plantable_area_m2,mature_height_m|mature_spread_m|pilot_spacing_m|group|climbing_support_required,0.8 footprint ratio + 0.2 visibility-height ratio.,15,score:spatial,Supplies the location/project side of the spatial component.
+support_length_m,mature_height_m|mature_spread_m|pilot_spacing_m|group|climbing_support_required,0.8 footprint ratio + 0.2 visibility-height ratio.,15,score:spatial,Supplies the location/project side of the spatial component.
+max_plant_height_m,mature_height_m|mature_spread_m|pilot_spacing_m|group|climbing_support_required,0.8 footprint ratio + 0.2 visibility-height ratio.,15,score:spatial,Supplies the location/project side of the spatial component.
+path_edge,mature_height_m|mature_spread_m|pilot_spacing_m|group|climbing_support_required,0.8 footprint ratio + 0.2 visibility-height ratio.,15,score:spatial,Supplies the location/project side of the spatial component.
+sightlines,mature_height_m|mature_spread_m|pilot_spacing_m|group|climbing_support_required,0.8 footprint ratio + 0.2 visibility-height ratio.,15,score:spatial,Supplies the location/project side of the spatial component.
+maintenance,maintenance_demand|vigour_or_spread_risk,Mean demand and vigour ratios; explicit control makes high vigour conditional (0.5) under low capacity.,10,score:maintenance_vigour,Supplies the location/project side of the maintenance_vigour component.
+vigourControl,maintenance_demand|vigour_or_spread_risk,Mean demand and vigour ratios; explicit control makes high vigour conditional (0.5) under low capacity.,10,score:maintenance_vigour,Supplies the location/project side of the maintenance_vigour component.
+waterEdge,water_edge_requirement|hydrology_tolerance,yes plus compatible hydrology,H03_WATER_EDGE,H03_WATER_EDGE,"Required for the stated gate, placement, quantity or visible explanation."
+hydrology,hydrology_tolerance|water_edge_requirement,matrix plus permanent/edge gates,H03|H04,H03|H04,"Required for the stated gate, placement, quantity or visible explanation."
+support,climbing_support_required,boolean requirement,H05,H05,"Required for the stated gate, placement, quantity or visible explanation."
+publicAccess,public_contact_status|thorns_or_spines,policy activation,H06|H11,H06|H11,"Required for the stated gate, placement, quantity or visible explanation."
+available_width_m|available_length_m|plantable_area_m2,mature_spread_m|pilot_spacing_m|group,clear square footprint,H07,H07,"Required for the stated gate, placement, quantity or visible explanation."
+maintenance|vigourControl,maintenance_demand|vigour_or_spread_risk,matrix and explicit-control gate,H08,H08,"Required for the stated gate, placement, quantity or visible explanation."
+rewilding,native_status_nl,native-only policy,H09,H09,"Required for the stated gate, placement, quantity or visible explanation."
+type|restorationOrnamentals,native_status_nl,restoration exception,H10,H10,"Required for the stated gate, placement, quantity or visible explanation."
+path_edge|max_plant_height_m|sightlines,mature_height_m|thorns_or_spines,visibility and thorn placement,H11|spatial,H11|spatial,"Required for the stated gate, placement, quantity or visible explanation."
+source,field_confidence_json,scorer source factor,confidence,confidence,"Required for the stated gate, placement, quantity or visible explanation."
+canopy,light_tolerance,explanation only; light scored once,warning,warning,"Required for the stated gate, placement, quantity or visible explanation."
+support_length_m,pilot_spacing_m|climbing_support_required,floor support length / spacing,quantity,quantity,"Required for the stated gate, placement, quantity or visible explanation."

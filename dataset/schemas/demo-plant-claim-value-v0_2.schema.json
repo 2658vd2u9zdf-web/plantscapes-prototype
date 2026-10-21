@@ -1,0 +1,281 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Additional value contract; every claim ALSO validates against unchanged plant-claim.schema.json",
+  "type": "object",
+  "required": [
+    "fixture_id",
+    "field",
+    "origin",
+    "real_value",
+    "demo_value",
+    "resolution_priority",
+    "resolution_status",
+    "interpretation"
+  ],
+  "properties": {
+    "fixture_id": {
+      "type": "string"
+    },
+    "field": {
+      "enum": [
+        "accepted_scientific_name",
+        "canonical_name",
+        "vernacular_nl",
+        "family",
+        "scientific_name_authorship",
+        "synonyms",
+        "taxonomic_authority",
+        "gbif_species_key",
+        "verspreidingsatlas_taxon_number",
+        "native_status_nl",
+        "establishment_status_nl",
+        "regional_occurrence_status",
+        "invasive_status",
+        "eu_union_concern_status",
+        "protected_status_nl",
+        "red_list_status_nl",
+        "provenance_requirement",
+        "soil_textures",
+        "soil_ph_min",
+        "soil_ph_max",
+        "nutrient_tolerance_min",
+        "nutrient_tolerance_max",
+        "moisture_regimes",
+        "drainage_tolerance",
+        "light_regimes",
+        "canopy_compatibility",
+        "inundation_depth_min_cm",
+        "inundation_depth_max_cm",
+        "inundation_duration",
+        "inundation_frequency",
+        "seasonal_drawdown_tolerance",
+        "salinity_tolerance",
+        "drought_tolerance",
+        "compaction_tolerance",
+        "road_salt_tolerance",
+        "pollution_tolerance",
+        "wind_tolerance",
+        "heat_tolerance",
+        "soil_ph_classes",
+        "growth_form",
+        "lifecycle",
+        "mature_height_min_m",
+        "mature_height_max_m",
+        "mature_spread_min_m",
+        "mature_spread_max_m",
+        "dimension_context",
+        "dimension_target_year",
+        "growth_rate",
+        "root_space_class",
+        "root_behaviour",
+        "suckering_or_spreading_method",
+        "vigour_or_spread_risk",
+        "competition_strength",
+        "water_band",
+        "functional_layer",
+        "community_roles",
+        "suitable_habitats",
+        "incompatible_conditions",
+        "height_upper_bound_open",
+        "spread_upper_bound_open",
+        "toxicity_status",
+        "toxic_parts",
+        "irritant_sap",
+        "thorns_or_spines",
+        "allergen_risk",
+        "fruit_drop_risk",
+        "public_contact_suitability",
+        "school_or_play_suitability",
+        "edible_parts",
+        "edibility_evidence_status",
+        "preparation_required",
+        "food_safety_note",
+        "contact_irritation_status",
+        "flower_start_month",
+        "flower_end_month",
+        "flowering_context",
+        "flower_colour",
+        "flower_form",
+        "evergreen_status",
+        "autumn_interest",
+        "winter_structure",
+        "seedhead_persistence",
+        "pollinator_value",
+        "host_species_or_group",
+        "other_habitat_functions",
+        "suitable_establishment_methods",
+        "spacing_min_m",
+        "spacing_max_m",
+        "spacing_context",
+        "density_min_per_m2",
+        "density_max_per_m2",
+        "density_context",
+        "establishment_watering",
+        "establishment_notes",
+        "mowing_or_cutback_regime",
+        "maintenance_demand",
+        "maintenance_notes",
+        "management_warnings",
+        "seed_or_plant_source_notes"
+      ]
+    },
+    "origin": {
+      "enum": [
+        "sourced_primary",
+        "sourced_official_database",
+        "sourced_secondary",
+        "expert_inference",
+        "conflicting",
+        "synthetic_fallback",
+        "unknown"
+      ]
+    },
+    "real_value": {},
+    "demo_value": {},
+    "resolution_priority": {
+      "type": "integer"
+    },
+    "resolution_status": {
+      "enum": [
+        "demo_only",
+        "candidate_evidence",
+        "selected_provisional",
+        "selected_positive_part_union",
+        "retained_alternative_scope",
+        "conflicting_unresolved"
+      ]
+    },
+    "interpretation": {
+      "type": "string"
+    },
+    "synthetic_derivation": {
+      "type": "object",
+      "required": [
+        "plant_id",
+        "trait",
+        "synthetic_value",
+        "unit",
+        "rationale",
+        "bounding_basis",
+        "sources_searched",
+        "reason_evidence_insufficient",
+        "risk_if_treated_as_real",
+        "future_reviewer_required"
+      ]
+    },
+    "occurrence_context": {
+      "type": "object",
+      "required": [
+        "geographic_level",
+        "area_identifier",
+        "start_year",
+        "end_year",
+        "spatial_resolution_m",
+        "date_basis",
+        "sensitivity_or_generalisation"
+      ],
+      "properties": {
+        "geographic_level": {
+          "enum": [
+            "national",
+            "province",
+            "municipality",
+            "grid",
+            "site",
+            "point"
+          ]
+        },
+        "area_identifier": {
+          "type": "string"
+        },
+        "start_year": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 1
+        },
+        "end_year": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 1
+        },
+        "spatial_resolution_m": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "date_basis": {
+          "type": "string"
+        },
+        "sensitivity_or_generalisation": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "description": "Required for future occurrence claims. Null dates/resolution explicitly retain gaps; no map absence interpretation."
+    },
+    "measurement_context": {
+      "type": "object",
+      "properties": {
+        "life_stage": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "cultivar_or_stock": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "original_value": {},
+        "original_unit": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "measurement_method": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "target_age_year": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false,
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "field": {
+            "const": "regional_occurrence_status"
+          }
+        },
+        "required": [
+          "field"
+        ]
+      },
+      "then": {
+        "required": [
+          "occurrence_context"
+        ]
+      }
+    }
+  ]
+}

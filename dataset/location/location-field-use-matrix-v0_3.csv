@@ -1,0 +1,37 @@
+location_field,current_app_field,v0_3_status,used_in_score,used_by_hard_gate_or_placement,interface_or_explanation_only,current_collection_state,synthetic_from_city_or_fixture,consumer,reason
+soil,zone.conditions.soil,retained,true,false,false,user-confirmable,true,score:soil (15 points),Retained because it has an explicit v0.3 consumer; complete evidence envelope required.
+moisture,zone.conditions.moisture,retained,true,false,false,user-confirmable,true,score:moisture (20 points),Retained because it has an explicit v0.3 consumer; complete evidence envelope required.
+hydrology,zone.conditions.hydrology,retained,true,true,false,user-confirmable,true,score:hydrology (15 points)|H03_WATER_EDGE|H04_PERMANENT_WATER,Retained because it has an explicit v0.3 consumer; complete evidence envelope required.
+light,zone.conditions.light,retained,true,false,false,user-confirmable,true,score:light (15 points),Retained because it has an explicit v0.3 consumer; complete evidence envelope required.
+canopy,zone.conditions.canopy,retained,false,false,true,user-confirmable,true,explanation_only,Retained because it has an explicit v0.3 consumer; complete evidence envelope required.
+disturbance,zone.conditions.disturbance,retained,true,false,false,user-confirmable,true,score:disturbance_hardscape (10 points),Retained because it has an explicit v0.3 consumer; complete evidence envelope required.
+hardscape,zone.conditions.hardscape,retained,true,false,false,user-confirmable,true,score:disturbance_hardscape (10 points),Retained because it has an explicit v0.3 consumer; complete evidence envelope required.
+waterEdge,zone.conditions.waterEdge,retained,false,true,false,user-confirmable,true,H03_WATER_EDGE,Retained because it has an explicit v0.3 consumer; complete evidence envelope required.
+source,zone.conditions.source,retained,false,false,false,missing_from_current_app,false,confidence/input validation,Retained because it has an explicit v0.3 consumer; complete evidence envelope required.
+path_edge,zone.conditions.path_edge,retained,true,true,false,missing_from_current_app,false,score:spatial (15 points)|H11_PATH_THORNS|visibility,Retained because it has an explicit v0.3 consumer; complete evidence envelope required.
+available_width_m,zone.conditions.available_width_m,retained,true,true,false,missing_from_current_app,false,score:spatial (15 points)|H07_WOODY_GEOMETRY,Retained because it has an explicit v0.3 consumer; complete evidence envelope required.
+available_length_m,zone.conditions.available_length_m,retained,true,true,false,missing_from_current_app,false,score:spatial (15 points)|H07_WOODY_GEOMETRY,Retained because it has an explicit v0.3 consumer; complete evidence envelope required.
+plantable_area_m2,zone.conditions.plantable_area_m2,retained,true,true,false,missing_from_current_app,false,score:spatial (15 points)|H07_WOODY_GEOMETRY,Retained because it has an explicit v0.3 consumer; complete evidence envelope required.
+max_plant_height_m,zone.conditions.max_plant_height_m,retained,true,true,false,missing_from_current_app,false,score:spatial (15 points)|visibility,Retained because it has an explicit v0.3 consumer; complete evidence envelope required.
+support_length_m,zone.conditions.support_length_m,retained,true,true,false,missing_from_current_app,false,score:spatial (15 points)|climber_quantity,Retained because it has an explicit v0.3 consumer; complete evidence envelope required.
+type,project().type,retained,false,true,false,collected,false,H10_RESTORATION_POLICY,Retained because it has an explicit v0.3 consumer; complete evidence envelope required.
+maintenance,project().maintenance,retained,true,true,false,user-confirmable,false,score:maintenance_vigour (10 points)|H08_VIGOUR,Retained because it has an explicit v0.3 consumer; complete evidence envelope required.
+character,project().character,retained,false,true,true,collected,false,placement_quantity|design_preference,Retained because it has an explicit v0.3 consumer; complete evidence envelope required.
+vigourControl,not_collected,retained,true,true,false,missing_from_current_app,false,score:maintenance_vigour (10 points)|H08_VIGOUR,Retained because it has an explicit v0.3 consumer; complete evidence envelope required.
+evaluation_stage,not_collected,retained,false,true,false,missing_from_current_app,false,H07_WOODY_GEOMETRY|H11_PATH_THORNS,Retained because it has an explicit v0.3 consumer; complete evidence envelope required.
+publicAccess,project().publicAccess,retained,false,true,false,user-confirmable,false,H06_PUBLIC_CONTACT|H11_PATH_THORNS,Retained because it has an explicit v0.3 consumer; complete evidence envelope required.
+publicHarvest,project().publicHarvest,retained,false,true,false,user-confirmable,false,harvest_warning,Retained because it has an explicit v0.3 consumer; complete evidence envelope required.
+sightlines,project().sightlines,retained,true,false,false,user-confirmable,false,score:spatial (15 points),Retained because it has an explicit v0.3 consumer; complete evidence envelope required.
+rewilding,project().rewilding,retained,false,true,false,user-confirmable,false,H09_NATIVE_POLICY,Retained because it has an explicit v0.3 consumer; complete evidence envelope required.
+support,not_collected,retained,false,true,false,missing_from_current_app,false,H05_SUPPORT,Retained because it has an explicit v0.3 consumer; complete evidence envelope required.
+restorationOrnamentals,project().restorationOrnamentals,retained,false,true,false,collected,false,H10_RESTORATION_POLICY,Retained because it has an explicit v0.3 consumer; complete evidence envelope required.
+area,project().area,retained,false,true,false,derived_from_geometry,false,quantity_capacity,Retained because it has an explicit v0.3 consumer; complete evidence envelope required.
+anchorColours,project().anchorColours,retained,false,false,true,collected,false,design_preference/output,Retained because it has an explicit v0.3 consumer; complete evidence envelope required.
+desiredFlowerMonths,not_collected,retained,false,false,true,missing_from_current_app,false,design_preference/output,Retained because it has an explicit v0.3 consumer; complete evidence envelope required.
+priorities,project().priorities,retained,false,false,true,collected,false,design_preference/output,Retained because it has an explicit v0.3 consumer; complete evidence envelope required.
+site_id|zone_id|zone_name,state.zones[].id|name plus site form,identity,false,false,true,partly_collected,true,evaluation key|display|export,Stable identity for independent zone matching and traceability.
+zone.note,zone.conditions.note,research_notes_only,false,false,true,user_confirmed_free_text,false,visible explanation/export,Preserve outside numeric matching fields.
+audience,project().audience,excluded,false,false,true,collected_but_ignored_by_v0_3,false,none,"No plant comparison, gate or placement rule."
+project.notes,project().notes,research_notes_only,false,false,true,collected_but_ignored_by_v0_3,false,visible explanation/export,"Keep as notes, not a matching input."
+site.reference|site.description,site().reference|site().description,research_notes_only,false,false,true,collected_but_ignored_by_v0_3,false,site identity/output,Useful provenance context but not compatibility.
+city preset soil|moisture|disturbance,demo.places.*,low_confidence_start_only,true,false,false,synthesized_from_city_preset,true,prefill only; must become zone evidence,Never treat as citywide or surveyed truth.

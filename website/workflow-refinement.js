@@ -6,11 +6,11 @@
   ['productive','other'].forEach(v=>remove('input[name="projectType"][value="'+v+'"]'));
   // Remove empty choice labels too.
   $$('#stage1 .choice').filter(el=>!el.querySelector('input')).forEach(el=>el.remove());
-  ['audience','maintenance','projectNotes','siteReference','mapPreset'].forEach(parkField);
-  remove('#stage1 fieldset:last-of-type');
+  ['audience','projectNotes','siteReference'].forEach(parkField);
+  field('location').closest('.field-row').append(field('mapPreset').closest('label'));
   $$('#priorityOptions input').filter(el=>['food','learning'].includes(el.value)).forEach(el=>park.append(el.closest('label')));
-  remove('.stage-header p,.stage-kicker,.nav-note,.site-map-top,.map-disclaimer,#stage2 .field small,.zones-head,#zoneList,#stage3 .evidence-banner,.composition-panel,#paletteGate,#restorationOverride,#stage4 .case-study-note,#paletteSummary,#paletteChangeLog,#catalogueStatus');
-  field('inNetherlands').closest('fieldset').hidden=true;
+  remove('.stage-header p,.stage-kicker,.nav-note,.site-map-top,.map-disclaimer,#stage2 .field small,.zones-head,#zoneList,#stage3 .evidence-banner,.composition-panel,#paletteGate,#stage4 .case-study-note:not(#restorationOverride)');
+  if(field('inNetherlands'))field('inNetherlands').closest('fieldset').hidden=true;
   const features=field('featureCanopy').closest('fieldset');features.querySelector('legend').textContent='Existing trees / canopy, paving or walls';
   ['featureWater','featureDry','featureWet','featureSlope','featureRoad'].forEach(id=>park.append(field(id).closest('label')));
   field('siteDescription').closest('label').after(features);

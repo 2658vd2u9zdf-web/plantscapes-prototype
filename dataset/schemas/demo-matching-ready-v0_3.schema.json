@@ -1,0 +1,5569 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://plantscapes.local/schemas/demo-matching-ready-v0_3.schema.json",
+  "title": "Plantscapes complete pilot operational profile v0.3",
+  "description": "Flat fields are operational values. Original real values, origins and derivations are separate metadata. No non-safety operational input is null.",
+  "type": "object",
+  "required": [
+    "fixture_id",
+    "plant_id",
+    "scientific_name",
+    "dutch_name",
+    "group",
+    "soil_tolerance",
+    "moisture_tolerance",
+    "hydrology_tolerance",
+    "light_tolerance",
+    "disturbance_tolerance",
+    "hardscape_tolerance",
+    "water_edge_requirement",
+    "mature_height_m",
+    "mature_spread_m",
+    "pilot_spacing_m",
+    "functional_layer",
+    "composition_role",
+    "climbing_support_required",
+    "vigour_or_spread_risk",
+    "maintenance_demand",
+    "native_status_nl",
+    "invasive_status",
+    "protected_or_legal_status",
+    "provenance_status",
+    "public_contact_status",
+    "toxicity_status",
+    "edible_use_status",
+    "thorns_or_spines",
+    "production_eligible",
+    "flower_start_month",
+    "flower_end_month",
+    "flower_colour",
+    "pollinator_value",
+    "field_origins_json",
+    "field_confidence_json",
+    "synthetic_derivations_json",
+    "unresolved_safety_or_policy_json",
+    "evidence_claim_ids_json",
+    "field_resolutions_json",
+    "record_notes"
+  ],
+  "properties": {
+    "fixture_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "plant_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "scientific_name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "dutch_name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "group": {
+      "type": "string",
+      "minLength": 1,
+      "enum": [
+        "Trees",
+        "Shrubs",
+        "Flowers & herbs",
+        "Grasses, sedges & rushes",
+        "Climbers",
+        "Aquatic & marginal plants"
+      ]
+    },
+    "soil_tolerance": {
+      "type": "array",
+      "items": {
+        "enum": [
+          "sand",
+          "clay",
+          "peat"
+        ]
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "moisture_tolerance": {
+      "type": "array",
+      "items": {
+        "enum": [
+          "dry",
+          "fresh",
+          "wet"
+        ]
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "hydrology_tolerance": {
+      "type": "array",
+      "items": {
+        "enum": [
+          "none",
+          "seasonal",
+          "long",
+          "permanent",
+          "edge"
+        ]
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "light_tolerance": {
+      "type": "array",
+      "items": {
+        "enum": [
+          "sun",
+          "mixed",
+          "shade"
+        ]
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "disturbance_tolerance": {
+      "type": "array",
+      "items": {
+        "enum": [
+          "low",
+          "moderate",
+          "high"
+        ]
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "hardscape_tolerance": {
+      "type": "string",
+      "minLength": 1,
+      "enum": [
+        "avoid",
+        "conditional",
+        "tolerant"
+      ]
+    },
+    "water_edge_requirement": {
+      "type": "string",
+      "minLength": 1,
+      "enum": [
+        "required",
+        "preferred",
+        "not_required"
+      ]
+    },
+    "mature_height_m": {
+      "type": "number",
+      "exclusiveMinimum": 0
+    },
+    "mature_spread_m": {
+      "type": "number",
+      "exclusiveMinimum": 0
+    },
+    "pilot_spacing_m": {
+      "type": "number",
+      "exclusiveMinimum": 0
+    },
+    "functional_layer": {
+      "type": "string",
+      "minLength": 1,
+      "enum": [
+        "canopy",
+        "shrub",
+        "herb",
+        "graminoid",
+        "climber",
+        "water_margin"
+      ]
+    },
+    "composition_role": {
+      "type": "string",
+      "minLength": 1,
+      "enum": [
+        "woody_framework",
+        "matrix",
+        "structural_perennial",
+        "seasonal_accent",
+        "community_patch"
+      ]
+    },
+    "climbing_support_required": {
+      "type": "boolean"
+    },
+    "vigour_or_spread_risk": {
+      "type": "string",
+      "minLength": 1,
+      "enum": [
+        "low",
+        "moderate",
+        "high"
+      ]
+    },
+    "maintenance_demand": {
+      "type": "string",
+      "minLength": 1,
+      "enum": [
+        "low",
+        "moderate",
+        "high"
+      ]
+    },
+    "native_status_nl": {
+      "type": "string",
+      "minLength": 1,
+      "enum": [
+        "native_original",
+        "native_archaeophyte",
+        "introduced",
+        "unknown",
+        "not_reviewed"
+      ]
+    },
+    "invasive_status": {
+      "type": "string",
+      "minLength": 1,
+      "enum": [
+        "listed_nl",
+        "listed_eu",
+        "invasive_elsewhere",
+        "not_assessed",
+        "unknown",
+        "not_reviewed"
+      ]
+    },
+    "protected_or_legal_status": {
+      "type": "string",
+      "minLength": 1,
+      "enum": [
+        "legally_prohibited",
+        "protected",
+        "not_protected_snapshot",
+        "unknown",
+        "not_reviewed"
+      ]
+    },
+    "provenance_status": {
+      "type": "string",
+      "minLength": 1,
+      "enum": [
+        "reviewed_for_project",
+        "unknown",
+        "not_reviewed"
+      ]
+    },
+    "public_contact_status": {
+      "type": "string",
+      "minLength": 1,
+      "enum": [
+        "reviewed_for_project",
+        "suitable_with_conditions",
+        "unsuitable",
+        "unknown",
+        "not_reviewed"
+      ]
+    },
+    "toxicity_status": {
+      "type": "string",
+      "minLength": 1,
+      "enum": [
+        "toxic_reported",
+        "weakly_toxic_reported",
+        "strongly_toxic_reported",
+        "harmful_to_dogs_reported",
+        "no_hazard_reviewed_for_use",
+        "unknown",
+        "not_reviewed"
+      ]
+    },
+    "edible_use_status": {
+      "type": "string",
+      "minLength": 1,
+      "enum": [
+        "reviewed_for_requested_use",
+        "prohibited",
+        "conflicting",
+        "unknown",
+        "not_reviewed"
+      ]
+    },
+    "thorns_or_spines": {
+      "type": "string",
+      "minLength": 1,
+      "enum": [
+        "thorns_present",
+        "prickles_present",
+        "absent_reported",
+        "unknown",
+        "not_reviewed"
+      ]
+    },
+    "production_eligible": {
+      "type": "boolean",
+      "const": false,
+      "description": "This pilot never clears construction, safety, harvesting or procurement."
+    },
+    "flower_start_month": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 12
+    },
+    "flower_end_month": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 12
+    },
+    "flower_colour": {
+      "type": "string",
+      "minLength": 1,
+      "enum": [
+        "white",
+        "red",
+        "pink",
+        "purple",
+        "blue",
+        "yellow",
+        "green",
+        "brown",
+        "cream",
+        "transparent",
+        "orange"
+      ]
+    },
+    "pollinator_value": {
+      "type": "string",
+      "minLength": 1,
+      "enum": [
+        "nectar_reported",
+        "pollinator_visitation_reported",
+        "pilot_potential",
+        "not_assessed"
+      ]
+    },
+    "field_origins_json": {
+      "type": "object",
+      "required": [
+        "fixture_id",
+        "plant_id",
+        "scientific_name",
+        "dutch_name",
+        "group",
+        "soil_tolerance",
+        "moisture_tolerance",
+        "hydrology_tolerance",
+        "light_tolerance",
+        "disturbance_tolerance",
+        "hardscape_tolerance",
+        "water_edge_requirement",
+        "mature_height_m",
+        "mature_spread_m",
+        "pilot_spacing_m",
+        "functional_layer",
+        "composition_role",
+        "climbing_support_required",
+        "vigour_or_spread_risk",
+        "maintenance_demand",
+        "native_status_nl",
+        "invasive_status",
+        "protected_or_legal_status",
+        "provenance_status",
+        "public_contact_status",
+        "toxicity_status",
+        "edible_use_status",
+        "thorns_or_spines",
+        "production_eligible",
+        "flower_start_month",
+        "flower_end_month",
+        "flower_colour",
+        "pollinator_value"
+      ],
+      "properties": {
+        "fixture_id": {
+          "enum": [
+            "sourced",
+            "expert_inference",
+            "synthetic_fallback",
+            "unknown",
+            "conflicting",
+            "not_reviewed",
+            "policy_rule"
+          ]
+        },
+        "plant_id": {
+          "enum": [
+            "sourced",
+            "expert_inference",
+            "synthetic_fallback",
+            "unknown",
+            "conflicting",
+            "not_reviewed",
+            "policy_rule"
+          ]
+        },
+        "scientific_name": {
+          "enum": [
+            "sourced",
+            "expert_inference",
+            "synthetic_fallback",
+            "unknown",
+            "conflicting",
+            "not_reviewed",
+            "policy_rule"
+          ]
+        },
+        "dutch_name": {
+          "enum": [
+            "sourced",
+            "expert_inference",
+            "synthetic_fallback",
+            "unknown",
+            "conflicting",
+            "not_reviewed",
+            "policy_rule"
+          ]
+        },
+        "group": {
+          "enum": [
+            "sourced",
+            "expert_inference",
+            "synthetic_fallback",
+            "unknown",
+            "conflicting",
+            "not_reviewed",
+            "policy_rule"
+          ]
+        },
+        "soil_tolerance": {
+          "enum": [
+            "sourced",
+            "expert_inference",
+            "synthetic_fallback",
+            "unknown",
+            "conflicting",
+            "not_reviewed",
+            "policy_rule"
+          ]
+        },
+        "moisture_tolerance": {
+          "enum": [
+            "sourced",
+            "expert_inference",
+            "synthetic_fallback",
+            "unknown",
+            "conflicting",
+            "not_reviewed",
+            "policy_rule"
+          ]
+        },
+        "hydrology_tolerance": {
+          "enum": [
+            "sourced",
+            "expert_inference",
+            "synthetic_fallback",
+            "unknown",
+            "conflicting",
+            "not_reviewed",
+            "policy_rule"
+          ]
+        },
+        "light_tolerance": {
+          "enum": [
+            "sourced",
+            "expert_inference",
+            "synthetic_fallback",
+            "unknown",
+            "conflicting",
+            "not_reviewed",
+            "policy_rule"
+          ]
+        },
+        "disturbance_tolerance": {
+          "enum": [
+            "sourced",
+            "expert_inference",
+            "synthetic_fallback",
+            "unknown",
+            "conflicting",
+            "not_reviewed",
+            "policy_rule"
+          ]
+        },
+        "hardscape_tolerance": {
+          "enum": [
+            "sourced",
+            "expert_inference",
+            "synthetic_fallback",
+            "unknown",
+            "conflicting",
+            "not_reviewed",
+            "policy_rule"
+          ]
+        },
+        "water_edge_requirement": {
+          "enum": [
+            "sourced",
+            "expert_inference",
+            "synthetic_fallback",
+            "unknown",
+            "conflicting",
+            "not_reviewed",
+            "policy_rule"
+          ]
+        },
+        "mature_height_m": {
+          "enum": [
+            "sourced",
+            "expert_inference",
+            "synthetic_fallback",
+            "unknown",
+            "conflicting",
+            "not_reviewed",
+            "policy_rule"
+          ]
+        },
+        "mature_spread_m": {
+          "enum": [
+            "sourced",
+            "expert_inference",
+            "synthetic_fallback",
+            "unknown",
+            "conflicting",
+            "not_reviewed",
+            "policy_rule"
+          ]
+        },
+        "pilot_spacing_m": {
+          "enum": [
+            "sourced",
+            "expert_inference",
+            "synthetic_fallback",
+            "unknown",
+            "conflicting",
+            "not_reviewed",
+            "policy_rule"
+          ]
+        },
+        "functional_layer": {
+          "enum": [
+            "sourced",
+            "expert_inference",
+            "synthetic_fallback",
+            "unknown",
+            "conflicting",
+            "not_reviewed",
+            "policy_rule"
+          ]
+        },
+        "composition_role": {
+          "enum": [
+            "sourced",
+            "expert_inference",
+            "synthetic_fallback",
+            "unknown",
+            "conflicting",
+            "not_reviewed",
+            "policy_rule"
+          ]
+        },
+        "climbing_support_required": {
+          "enum": [
+            "sourced",
+            "expert_inference",
+            "synthetic_fallback",
+            "unknown",
+            "conflicting",
+            "not_reviewed",
+            "policy_rule"
+          ]
+        },
+        "vigour_or_spread_risk": {
+          "enum": [
+            "sourced",
+            "expert_inference",
+            "synthetic_fallback",
+            "unknown",
+            "conflicting",
+            "not_reviewed",
+            "policy_rule"
+          ]
+        },
+        "maintenance_demand": {
+          "enum": [
+            "sourced",
+            "expert_inference",
+            "synthetic_fallback",
+            "unknown",
+            "conflicting",
+            "not_reviewed",
+            "policy_rule"
+          ]
+        },
+        "native_status_nl": {
+          "enum": [
+            "sourced",
+            "expert_inference",
+            "synthetic_fallback",
+            "unknown",
+            "conflicting",
+            "not_reviewed",
+            "policy_rule"
+          ]
+        },
+        "invasive_status": {
+          "enum": [
+            "sourced",
+            "expert_inference",
+            "synthetic_fallback",
+            "unknown",
+            "conflicting",
+            "not_reviewed",
+            "policy_rule"
+          ]
+        },
+        "protected_or_legal_status": {
+          "enum": [
+            "sourced",
+            "expert_inference",
+            "synthetic_fallback",
+            "unknown",
+            "conflicting",
+            "not_reviewed",
+            "policy_rule"
+          ]
+        },
+        "provenance_status": {
+          "enum": [
+            "sourced",
+            "expert_inference",
+            "synthetic_fallback",
+            "unknown",
+            "conflicting",
+            "not_reviewed",
+            "policy_rule"
+          ]
+        },
+        "public_contact_status": {
+          "enum": [
+            "sourced",
+            "expert_inference",
+            "synthetic_fallback",
+            "unknown",
+            "conflicting",
+            "not_reviewed",
+            "policy_rule"
+          ]
+        },
+        "toxicity_status": {
+          "enum": [
+            "sourced",
+            "expert_inference",
+            "synthetic_fallback",
+            "unknown",
+            "conflicting",
+            "not_reviewed",
+            "policy_rule"
+          ]
+        },
+        "edible_use_status": {
+          "enum": [
+            "sourced",
+            "expert_inference",
+            "synthetic_fallback",
+            "unknown",
+            "conflicting",
+            "not_reviewed",
+            "policy_rule"
+          ]
+        },
+        "thorns_or_spines": {
+          "enum": [
+            "sourced",
+            "expert_inference",
+            "synthetic_fallback",
+            "unknown",
+            "conflicting",
+            "not_reviewed",
+            "policy_rule"
+          ]
+        },
+        "production_eligible": {
+          "enum": [
+            "sourced",
+            "expert_inference",
+            "synthetic_fallback",
+            "unknown",
+            "conflicting",
+            "not_reviewed",
+            "policy_rule"
+          ]
+        },
+        "flower_start_month": {
+          "enum": [
+            "sourced",
+            "expert_inference",
+            "synthetic_fallback",
+            "unknown",
+            "conflicting",
+            "not_reviewed",
+            "policy_rule"
+          ]
+        },
+        "flower_end_month": {
+          "enum": [
+            "sourced",
+            "expert_inference",
+            "synthetic_fallback",
+            "unknown",
+            "conflicting",
+            "not_reviewed",
+            "policy_rule"
+          ]
+        },
+        "flower_colour": {
+          "enum": [
+            "sourced",
+            "expert_inference",
+            "synthetic_fallback",
+            "unknown",
+            "conflicting",
+            "not_reviewed",
+            "policy_rule"
+          ]
+        },
+        "pollinator_value": {
+          "enum": [
+            "sourced",
+            "expert_inference",
+            "synthetic_fallback",
+            "unknown",
+            "conflicting",
+            "not_reviewed",
+            "policy_rule"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "field_confidence_json": {
+      "type": "object",
+      "required": [
+        "fixture_id",
+        "plant_id",
+        "scientific_name",
+        "dutch_name",
+        "group",
+        "soil_tolerance",
+        "moisture_tolerance",
+        "hydrology_tolerance",
+        "light_tolerance",
+        "disturbance_tolerance",
+        "hardscape_tolerance",
+        "water_edge_requirement",
+        "mature_height_m",
+        "mature_spread_m",
+        "pilot_spacing_m",
+        "functional_layer",
+        "composition_role",
+        "climbing_support_required",
+        "vigour_or_spread_risk",
+        "maintenance_demand",
+        "native_status_nl",
+        "invasive_status",
+        "protected_or_legal_status",
+        "provenance_status",
+        "public_contact_status",
+        "toxicity_status",
+        "edible_use_status",
+        "thorns_or_spines",
+        "production_eligible",
+        "flower_start_month",
+        "flower_end_month",
+        "flower_colour",
+        "pollinator_value"
+      ],
+      "properties": {
+        "fixture_id": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "plant_id": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "scientific_name": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "dutch_name": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "group": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "soil_tolerance": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "moisture_tolerance": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "hydrology_tolerance": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "light_tolerance": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "disturbance_tolerance": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "hardscape_tolerance": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "water_edge_requirement": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "mature_height_m": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "mature_spread_m": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "pilot_spacing_m": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "functional_layer": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "composition_role": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "climbing_support_required": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "vigour_or_spread_risk": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "maintenance_demand": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "native_status_nl": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "invasive_status": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "protected_or_legal_status": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "provenance_status": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "public_contact_status": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "toxicity_status": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "edible_use_status": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "thorns_or_spines": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "production_eligible": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "flower_start_month": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "flower_end_month": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "flower_colour": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "pollinator_value": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        }
+      },
+      "additionalProperties": false
+    },
+    "synthetic_derivations_json": {
+      "type": "object",
+      "properties": {
+        "group": {
+          "type": "object",
+          "required": [
+            "fixture_id",
+            "plant_id",
+            "field",
+            "operational_value",
+            "real_value",
+            "source_values_or_bounding_facts",
+            "derivation_rule",
+            "rationale",
+            "uncertainty",
+            "risk_if_wrong",
+            "future_verification_needed",
+            "evidence_claim_ids",
+            "archive_gap_reference",
+            "origin"
+          ],
+          "properties": {
+            "fixture_id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "plant_id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "field": {
+              "type": "string",
+              "minLength": 1
+            },
+            "operational_value": {},
+            "real_value": {},
+            "source_values_or_bounding_facts": {},
+            "derivation_rule": {
+              "type": "string",
+              "minLength": 1
+            },
+            "rationale": {
+              "type": "string",
+              "minLength": 1
+            },
+            "uncertainty": {
+              "type": "string",
+              "minLength": 1
+            },
+            "risk_if_wrong": {
+              "type": "string",
+              "minLength": 1
+            },
+            "future_verification_needed": {
+              "type": "string",
+              "minLength": 1
+            },
+            "evidence_claim_ids": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              },
+              "uniqueItems": true
+            },
+            "archive_gap_reference": {
+              "type": "string",
+              "minLength": 1
+            },
+            "origin": {
+              "enum": [
+                "expert_inference",
+                "synthetic_fallback"
+              ]
+            }
+          },
+          "additionalProperties": false
+        },
+        "soil_tolerance": {
+          "type": "object",
+          "required": [
+            "fixture_id",
+            "plant_id",
+            "field",
+            "operational_value",
+            "real_value",
+            "source_values_or_bounding_facts",
+            "derivation_rule",
+            "rationale",
+            "uncertainty",
+            "risk_if_wrong",
+            "future_verification_needed",
+            "evidence_claim_ids",
+            "archive_gap_reference",
+            "origin"
+          ],
+          "properties": {
+            "fixture_id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "plant_id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "field": {
+              "type": "string",
+              "minLength": 1
+            },
+            "operational_value": {},
+            "real_value": {},
+            "source_values_or_bounding_facts": {},
+            "derivation_rule": {
+              "type": "string",
+              "minLength": 1
+            },
+            "rationale": {
+              "type": "string",
+              "minLength": 1
+            },
+            "uncertainty": {
+              "type": "string",
+              "minLength": 1
+            },
+            "risk_if_wrong": {
+              "type": "string",
+              "minLength": 1
+            },
+            "future_verification_needed": {
+              "type": "string",
+              "minLength": 1
+            },
+            "evidence_claim_ids": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              },
+              "uniqueItems": true
+            },
+            "archive_gap_reference": {
+              "type": "string",
+              "minLength": 1
+            },
+            "origin": {
+              "enum": [
+                "expert_inference",
+                "synthetic_fallback"
+              ]
+            }
+          },
+          "additionalProperties": false
+        },
+        "moisture_tolerance": {
+          "type": "object",
+          "required": [
+            "fixture_id",
+            "plant_id",
+            "field",
+            "operational_value",
+            "real_value",
+            "source_values_or_bounding_facts",
+            "derivation_rule",
+            "rationale",
+            "uncertainty",
+            "risk_if_wrong",
+            "future_verification_needed",
+            "evidence_claim_ids",
+            "archive_gap_reference",
+            "origin"
+          ],
+          "properties": {
+            "fixture_id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "plant_id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "field": {
+              "type": "string",
+              "minLength": 1
+            },
+            "operational_value": {},
+            "real_value": {},
+            "source_values_or_bounding_facts": {},
+            "derivation_rule": {
+              "type": "string",
+              "minLength": 1
+            },
+            "rationale": {
+              "type": "string",
+              "minLength": 1
+            },
+            "uncertainty": {
+              "type": "string",
+              "minLength": 1
+            },
+            "risk_if_wrong": {
+              "type": "string",
+              "minLength": 1
+            },
+            "future_verification_needed": {
+              "type": "string",
+              "minLength": 1
+            },
+            "evidence_claim_ids": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              },
+              "uniqueItems": true
+            },
+            "archive_gap_reference": {
+              "type": "string",
+              "minLength": 1
+            },
+            "origin": {
+              "enum": [
+                "expert_inference",
+                "synthetic_fallback"
+              ]
+            }
+          },
+          "additionalProperties": false
+        },
+        "hydrology_tolerance": {
+          "type": "object",
+          "required": [
+            "fixture_id",
+            "plant_id",
+            "field",
+            "operational_value",
+            "real_value",
+            "source_values_or_bounding_facts",
+            "derivation_rule",
+            "rationale",
+            "uncertainty",
+            "risk_if_wrong",
+            "future_verification_needed",
+            "evidence_claim_ids",
+            "archive_gap_reference",
+            "origin"
+          ],
+          "properties": {
+            "fixture_id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "plant_id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "field": {
+              "type": "string",
+              "minLength": 1
+            },
+            "operational_value": {},
+            "real_value": {},
+            "source_values_or_bounding_facts": {},
+            "derivation_rule": {
+              "type": "string",
+              "minLength": 1
+            },
+            "rationale": {
+              "type": "string",
+              "minLength": 1
+            },
+            "uncertainty": {
+              "type": "string",
+              "minLength": 1
+            },
+            "risk_if_wrong": {
+              "type": "string",
+              "minLength": 1
+            },
+            "future_verification_needed": {
+              "type": "string",
+              "minLength": 1
+            },
+            "evidence_claim_ids": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              },
+              "uniqueItems": true
+            },
+            "archive_gap_reference": {
+              "type": "string",
+              "minLength": 1
+            },
+            "origin": {
+              "enum": [
+                "expert_inference",
+                "synthetic_fallback"
+              ]
+            }
+          },
+          "additionalProperties": false
+        },
+        "light_tolerance": {
+          "type": "object",
+          "required": [
+            "fixture_id",
+            "plant_id",
+            "field",
+            "operational_value",
+            "real_value",
+            "source_values_or_bounding_facts",
+            "derivation_rule",
+            "rationale",
+            "uncertainty",
+            "risk_if_wrong",
+            "future_verification_needed",
+            "evidence_claim_ids",
+            "archive_gap_reference",
+            "origin"
+          ],
+          "properties": {
+            "fixture_id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "plant_id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "field": {
+              "type": "string",
+              "minLength": 1
+            },
+            "operational_value": {},
+            "real_value": {},
+            "source_values_or_bounding_facts": {},
+            "derivation_rule": {
+              "type": "string",
+              "minLength": 1
+            },
+            "rationale": {
+              "type": "string",
+              "minLength": 1
+            },
+            "uncertainty": {
+              "type": "string",
+              "minLength": 1
+            },
+            "risk_if_wrong": {
+              "type": "string",
+              "minLength": 1
+            },
+            "future_verification_needed": {
+              "type": "string",
+              "minLength": 1
+            },
+            "evidence_claim_ids": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              },
+              "uniqueItems": true
+            },
+            "archive_gap_reference": {
+              "type": "string",
+              "minLength": 1
+            },
+            "origin": {
+              "enum": [
+                "expert_inference",
+                "synthetic_fallback"
+              ]
+            }
+          },
+          "additionalProperties": false
+        },
+        "disturbance_tolerance": {
+          "type": "object",
+          "required": [
+            "fixture_id",
+            "plant_id",
+            "field",
+            "operational_value",
+            "real_value",
+            "source_values_or_bounding_facts",
+            "derivation_rule",
+            "rationale",
+            "uncertainty",
+            "risk_if_wrong",
+            "future_verification_needed",
+            "evidence_claim_ids",
+            "archive_gap_reference",
+            "origin"
+          ],
+          "properties": {
+            "fixture_id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "plant_id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "field": {
+              "type": "string",
+              "minLength": 1
+            },
+            "operational_value": {},
+            "real_value": {},
+            "source_values_or_bounding_facts": {},
+            "derivation_rule": {
+              "type": "string",
+              "minLength": 1
+            },
+            "rationale": {
+              "type": "string",
+              "minLength": 1
+            },
+            "uncertainty": {
+              "type": "string",
+              "minLength": 1
+            },
+            "risk_if_wrong": {
+              "type": "string",
+              "minLength": 1
+            },
+            "future_verification_needed": {
+              "type": "string",
+              "minLength": 1
+            },
+            "evidence_claim_ids": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              },
+              "uniqueItems": true
+            },
+            "archive_gap_reference": {
+              "type": "string",
+              "minLength": 1
+            },
+            "origin": {
+              "enum": [
+                "expert_inference",
+                "synthetic_fallback"
+              ]
+            }
+          },
+          "additionalProperties": false
+        },
+        "hardscape_tolerance": {
+          "type": "object",
+          "required": [
+            "fixture_id",
+            "plant_id",
+            "field",
+            "operational_value",
+            "real_value",
+            "source_values_or_bounding_facts",
+            "derivation_rule",
+            "rationale",
+            "uncertainty",
+            "risk_if_wrong",
+            "future_verification_needed",
+            "evidence_claim_ids",
+            "archive_gap_reference",
+            "origin"
+          ],
+          "properties": {
+            "fixture_id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "plant_id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "field": {
+              "type": "string",
+              "minLength": 1
+            },
+            "operational_value": {},
+            "real_value": {},
+            "source_values_or_bounding_facts": {},
+            "derivation_rule": {
+              "type": "string",
+              "minLength": 1
+            },
+            "rationale": {
+              "type": "string",
+              "minLength": 1
+            },
+            "uncertainty": {
+              "type": "string",
+              "minLength": 1
+            },
+            "risk_if_wrong": {
+              "type": "string",
+              "minLength": 1
+            },
+            "future_verification_needed": {
+              "type": "string",
+              "minLength": 1
+            },
+            "evidence_claim_ids": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              },
+              "uniqueItems": true
+            },
+            "archive_gap_reference": {
+              "type": "string",
+              "minLength": 1
+            },
+            "origin": {
+              "enum": [
+                "expert_inference",
+                "synthetic_fallback"
+              ]
+            }
+          },
+          "additionalProperties": false
+        },
+        "water_edge_requirement": {
+          "type": "object",
+          "required": [
+            "fixture_id",
+            "plant_id",
+            "field",
+            "operational_value",
+            "real_value",
+            "source_values_or_bounding_facts",
+            "derivation_rule",
+            "rationale",
+            "uncertainty",
+            "risk_if_wrong",
+            "future_verification_needed",
+            "evidence_claim_ids",
+            "archive_gap_reference",
+            "origin"
+          ],
+          "properties": {
+            "fixture_id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "plant_id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "field": {
+              "type": "string",
+              "minLength": 1
+            },
+            "operational_value": {},
+            "real_value": {},
+            "source_values_or_bounding_facts": {},
+            "derivation_rule": {
+              "type": "string",
+              "minLength": 1
+            },
+            "rationale": {
+              "type": "string",
+              "minLength": 1
+            },
+            "uncertainty": {
+              "type": "string",
+              "minLength": 1
+            },
+            "risk_if_wrong": {
+              "type": "string",
+              "minLength": 1
+            },
+            "future_verification_needed": {
+              "type": "string",
+              "minLength": 1
+            },
+            "evidence_claim_ids": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              },
+              "uniqueItems": true
+            },
+            "archive_gap_reference": {
+              "type": "string",
+              "minLength": 1
+            },
+            "origin": {
+              "enum": [
+                "expert_inference",
+                "synthetic_fallback"
+              ]
+            }
+          },
+          "additionalProperties": false
+        },
+        "mature_height_m": {
+          "type": "object",
+          "required": [
+            "fixture_id",
+            "plant_id",
+            "field",
+            "operational_value",
+            "real_value",
+            "source_values_or_bounding_facts",
+            "derivation_rule",
+            "rationale",
+            "uncertainty",
+            "risk_if_wrong",
+            "future_verification_needed",
+            "evidence_claim_ids",
+            "archive_gap_reference",
+            "origin"
+          ],
+          "properties": {
+            "fixture_id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "plant_id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "field": {
+              "type": "string",
+              "minLength": 1
+            },
+            "operational_value": {},
+            "real_value": {},
+            "source_values_or_bounding_facts": {},
+            "derivation_rule": {
+              "type": "string",
+              "minLength": 1
+            },
+            "rationale": {
+              "type": "string",
+              "minLength": 1
+            },
+            "uncertainty": {
+              "type": "string",
+              "minLength": 1
+            },
+            "risk_if_wrong": {
+              "type": "string",
+              "minLength": 1
+            },
+            "future_verification_needed": {
+              "type": "string",
+              "minLength": 1
+            },
+            "evidence_claim_ids": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              },
+              "uniqueItems": true
+            },
+            "archive_gap_reference": {
+              "type": "string",
+              "minLength": 1
+            },
+            "origin": {
+              "enum": [
+                "expert_inference",
+                "synthetic_fallback"
+              ]
+            }
+          },
+          "additionalProperties": false
+        },
+        "mature_spread_m": {
+          "type": "object",
+          "required": [
+            "fixture_id",
+            "plant_id",
+            "field",
+            "operational_value",
+            "real_value",
+            "source_values_or_bounding_facts",
+            "derivation_rule",
+            "rationale",
+            "uncertainty",
+            "risk_if_wrong",
+            "future_verification_needed",
+            "evidence_claim_ids",
+            "archive_gap_reference",
+            "origin"
+          ],
+          "properties": {
+            "fixture_id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "plant_id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "field": {
+              "type": "string",
+              "minLength": 1
+            },
+            "operational_value": {},
+            "real_value": {},
+            "source_values_or_bounding_facts": {},
+            "derivation_rule": {
+              "type": "string",
+              "minLength": 1
+            },
+            "rationale": {
+              "type": "string",
+              "minLength": 1
+            },
+            "uncertainty": {
+              "type": "string",
+              "minLength": 1
+            },
+            "risk_if_wrong": {
+              "type": "string",
+              "minLength": 1
+            },
+            "future_verification_needed": {
+              "type": "string",
+              "minLength": 1
+            },
+            "evidence_claim_ids": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              },
+              "uniqueItems": true
+            },
+            "archive_gap_reference": {
+              "type": "string",
+              "minLength": 1
+            },
+            "origin": {
+              "enum": [
+                "expert_inference",
+                "synthetic_fallback"
+              ]
+            }
+          },
+          "additionalProperties": false
+        },
+        "pilot_spacing_m": {
+          "type": "object",
+          "required": [
+            "fixture_id",
+            "plant_id",
+            "field",
+            "operational_value",
+            "real_value",
+            "source_values_or_bounding_facts",
+            "derivation_rule",
+            "rationale",
+            "uncertainty",
+            "risk_if_wrong",
+            "future_verification_needed",
+            "evidence_claim_ids",
+            "archive_gap_reference",
+            "origin"
+          ],
+          "properties": {
+            "fixture_id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "plant_id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "field": {
+              "type": "string",
+              "minLength": 1
+            },
+            "operational_value": {},
+            "real_value": {},
+            "source_values_or_bounding_facts": {},
+            "derivation_rule": {
+              "type": "string",
+              "minLength": 1
+            },
+            "rationale": {
+              "type": "string",
+              "minLength": 1
+            },
+            "uncertainty": {
+              "type": "string",
+              "minLength": 1
+            },
+            "risk_if_wrong": {
+              "type": "string",
+              "minLength": 1
+            },
+            "future_verification_needed": {
+              "type": "string",
+              "minLength": 1
+            },
+            "evidence_claim_ids": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              },
+              "uniqueItems": true
+            },
+            "archive_gap_reference": {
+              "type": "string",
+              "minLength": 1
+            },
+            "origin": {
+              "enum": [
+                "expert_inference",
+                "synthetic_fallback"
+              ]
+            }
+          },
+          "additionalProperties": false
+        },
+        "functional_layer": {
+          "type": "object",
+          "required": [
+            "fixture_id",
+            "plant_id",
+            "field",
+            "operational_value",
+            "real_value",
+            "source_values_or_bounding_facts",
+            "derivation_rule",
+            "rationale",
+            "uncertainty",
+            "risk_if_wrong",
+            "future_verification_needed",
+            "evidence_claim_ids",
+            "archive_gap_reference",
+            "origin"
+          ],
+          "properties": {
+            "fixture_id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "plant_id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "field": {
+              "type": "string",
+              "minLength": 1
+            },
+            "operational_value": {},
+            "real_value": {},
+            "source_values_or_bounding_facts": {},
+            "derivation_rule": {
+              "type": "string",
+              "minLength": 1
+            },
+            "rationale": {
+              "type": "string",
+              "minLength": 1
+            },
+            "uncertainty": {
+              "type": "string",
+              "minLength": 1
+            },
+            "risk_if_wrong": {
+              "type": "string",
+              "minLength": 1
+            },
+            "future_verification_needed": {
+              "type": "string",
+              "minLength": 1
+            },
+            "evidence_claim_ids": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              },
+              "uniqueItems": true
+            },
+            "archive_gap_reference": {
+              "type": "string",
+              "minLength": 1
+            },
+            "origin": {
+              "enum": [
+                "expert_inference",
+                "synthetic_fallback"
+              ]
+            }
+          },
+          "additionalProperties": false
+        },
+        "composition_role": {
+          "type": "object",
+          "required": [
+            "fixture_id",
+            "plant_id",
+            "field",
+            "operational_value",
+            "real_value",
+            "source_values_or_bounding_facts",
+            "derivation_rule",
+            "rationale",
+            "uncertainty",
+            "risk_if_wrong",
+            "future_verification_needed",
+            "evidence_claim_ids",
+            "archive_gap_reference",
+            "origin"
+          ],
+          "properties": {
+            "fixture_id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "plant_id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "field": {
+              "type": "string",
+              "minLength": 1
+            },
+            "operational_value": {},
+            "real_value": {},
+            "source_values_or_bounding_facts": {},
+            "derivation_rule": {
+              "type": "string",
+              "minLength": 1
+            },
+            "rationale": {
+              "type": "string",
+              "minLength": 1
+            },
+            "uncertainty": {
+              "type": "string",
+              "minLength": 1
+            },
+            "risk_if_wrong": {
+              "type": "string",
+              "minLength": 1
+            },
+            "future_verification_needed": {
+              "type": "string",
+              "minLength": 1
+            },
+            "evidence_claim_ids": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              },
+              "uniqueItems": true
+            },
+            "archive_gap_reference": {
+              "type": "string",
+              "minLength": 1
+            },
+            "origin": {
+              "enum": [
+                "expert_inference",
+                "synthetic_fallback"
+              ]
+            }
+          },
+          "additionalProperties": false
+        },
+        "climbing_support_required": {
+          "type": "object",
+          "required": [
+            "fixture_id",
+            "plant_id",
+            "field",
+            "operational_value",
+            "real_value",
+            "source_values_or_bounding_facts",
+            "derivation_rule",
+            "rationale",
+            "uncertainty",
+            "risk_if_wrong",
+            "future_verification_needed",
+            "evidence_claim_ids",
+            "archive_gap_reference",
+            "origin"
+          ],
+          "properties": {
+            "fixture_id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "plant_id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "field": {
+              "type": "string",
+              "minLength": 1
+            },
+            "operational_value": {},
+            "real_value": {},
+            "source_values_or_bounding_facts": {},
+            "derivation_rule": {
+              "type": "string",
+              "minLength": 1
+            },
+            "rationale": {
+              "type": "string",
+              "minLength": 1
+            },
+            "uncertainty": {
+              "type": "string",
+              "minLength": 1
+            },
+            "risk_if_wrong": {
+              "type": "string",
+              "minLength": 1
+            },
+            "future_verification_needed": {
+              "type": "string",
+              "minLength": 1
+            },
+            "evidence_claim_ids": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              },
+              "uniqueItems": true
+            },
+            "archive_gap_reference": {
+              "type": "string",
+              "minLength": 1
+            },
+            "origin": {
+              "enum": [
+                "expert_inference",
+                "synthetic_fallback"
+              ]
+            }
+          },
+          "additionalProperties": false
+        },
+        "vigour_or_spread_risk": {
+          "type": "object",
+          "required": [
+            "fixture_id",
+            "plant_id",
+            "field",
+            "operational_value",
+            "real_value",
+            "source_values_or_bounding_facts",
+            "derivation_rule",
+            "rationale",
+            "uncertainty",
+            "risk_if_wrong",
+            "future_verification_needed",
+            "evidence_claim_ids",
+            "archive_gap_reference",
+            "origin"
+          ],
+          "properties": {
+            "fixture_id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "plant_id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "field": {
+              "type": "string",
+              "minLength": 1
+            },
+            "operational_value": {},
+            "real_value": {},
+            "source_values_or_bounding_facts": {},
+            "derivation_rule": {
+              "type": "string",
+              "minLength": 1
+            },
+            "rationale": {
+              "type": "string",
+              "minLength": 1
+            },
+            "uncertainty": {
+              "type": "string",
+              "minLength": 1
+            },
+            "risk_if_wrong": {
+              "type": "string",
+              "minLength": 1
+            },
+            "future_verification_needed": {
+              "type": "string",
+              "minLength": 1
+            },
+            "evidence_claim_ids": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              },
+              "uniqueItems": true
+            },
+            "archive_gap_reference": {
+              "type": "string",
+              "minLength": 1
+            },
+            "origin": {
+              "enum": [
+                "expert_inference",
+                "synthetic_fallback"
+              ]
+            }
+          },
+          "additionalProperties": false
+        },
+        "maintenance_demand": {
+          "type": "object",
+          "required": [
+            "fixture_id",
+            "plant_id",
+            "field",
+            "operational_value",
+            "real_value",
+            "source_values_or_bounding_facts",
+            "derivation_rule",
+            "rationale",
+            "uncertainty",
+            "risk_if_wrong",
+            "future_verification_needed",
+            "evidence_claim_ids",
+            "archive_gap_reference",
+            "origin"
+          ],
+          "properties": {
+            "fixture_id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "plant_id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "field": {
+              "type": "string",
+              "minLength": 1
+            },
+            "operational_value": {},
+            "real_value": {},
+            "source_values_or_bounding_facts": {},
+            "derivation_rule": {
+              "type": "string",
+              "minLength": 1
+            },
+            "rationale": {
+              "type": "string",
+              "minLength": 1
+            },
+            "uncertainty": {
+              "type": "string",
+              "minLength": 1
+            },
+            "risk_if_wrong": {
+              "type": "string",
+              "minLength": 1
+            },
+            "future_verification_needed": {
+              "type": "string",
+              "minLength": 1
+            },
+            "evidence_claim_ids": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              },
+              "uniqueItems": true
+            },
+            "archive_gap_reference": {
+              "type": "string",
+              "minLength": 1
+            },
+            "origin": {
+              "enum": [
+                "expert_inference",
+                "synthetic_fallback"
+              ]
+            }
+          },
+          "additionalProperties": false
+        },
+        "flower_start_month": {
+          "type": "object",
+          "required": [
+            "fixture_id",
+            "plant_id",
+            "field",
+            "operational_value",
+            "real_value",
+            "source_values_or_bounding_facts",
+            "derivation_rule",
+            "rationale",
+            "uncertainty",
+            "risk_if_wrong",
+            "future_verification_needed",
+            "evidence_claim_ids",
+            "archive_gap_reference",
+            "origin"
+          ],
+          "properties": {
+            "fixture_id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "plant_id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "field": {
+              "type": "string",
+              "minLength": 1
+            },
+            "operational_value": {},
+            "real_value": {},
+            "source_values_or_bounding_facts": {},
+            "derivation_rule": {
+              "type": "string",
+              "minLength": 1
+            },
+            "rationale": {
+              "type": "string",
+              "minLength": 1
+            },
+            "uncertainty": {
+              "type": "string",
+              "minLength": 1
+            },
+            "risk_if_wrong": {
+              "type": "string",
+              "minLength": 1
+            },
+            "future_verification_needed": {
+              "type": "string",
+              "minLength": 1
+            },
+            "evidence_claim_ids": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              },
+              "uniqueItems": true
+            },
+            "archive_gap_reference": {
+              "type": "string",
+              "minLength": 1
+            },
+            "origin": {
+              "enum": [
+                "expert_inference",
+                "synthetic_fallback"
+              ]
+            }
+          },
+          "additionalProperties": false
+        },
+        "flower_end_month": {
+          "type": "object",
+          "required": [
+            "fixture_id",
+            "plant_id",
+            "field",
+            "operational_value",
+            "real_value",
+            "source_values_or_bounding_facts",
+            "derivation_rule",
+            "rationale",
+            "uncertainty",
+            "risk_if_wrong",
+            "future_verification_needed",
+            "evidence_claim_ids",
+            "archive_gap_reference",
+            "origin"
+          ],
+          "properties": {
+            "fixture_id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "plant_id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "field": {
+              "type": "string",
+              "minLength": 1
+            },
+            "operational_value": {},
+            "real_value": {},
+            "source_values_or_bounding_facts": {},
+            "derivation_rule": {
+              "type": "string",
+              "minLength": 1
+            },
+            "rationale": {
+              "type": "string",
+              "minLength": 1
+            },
+            "uncertainty": {
+              "type": "string",
+              "minLength": 1
+            },
+            "risk_if_wrong": {
+              "type": "string",
+              "minLength": 1
+            },
+            "future_verification_needed": {
+              "type": "string",
+              "minLength": 1
+            },
+            "evidence_claim_ids": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              },
+              "uniqueItems": true
+            },
+            "archive_gap_reference": {
+              "type": "string",
+              "minLength": 1
+            },
+            "origin": {
+              "enum": [
+                "expert_inference",
+                "synthetic_fallback"
+              ]
+            }
+          },
+          "additionalProperties": false
+        },
+        "flower_colour": {
+          "type": "object",
+          "required": [
+            "fixture_id",
+            "plant_id",
+            "field",
+            "operational_value",
+            "real_value",
+            "source_values_or_bounding_facts",
+            "derivation_rule",
+            "rationale",
+            "uncertainty",
+            "risk_if_wrong",
+            "future_verification_needed",
+            "evidence_claim_ids",
+            "archive_gap_reference",
+            "origin"
+          ],
+          "properties": {
+            "fixture_id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "plant_id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "field": {
+              "type": "string",
+              "minLength": 1
+            },
+            "operational_value": {},
+            "real_value": {},
+            "source_values_or_bounding_facts": {},
+            "derivation_rule": {
+              "type": "string",
+              "minLength": 1
+            },
+            "rationale": {
+              "type": "string",
+              "minLength": 1
+            },
+            "uncertainty": {
+              "type": "string",
+              "minLength": 1
+            },
+            "risk_if_wrong": {
+              "type": "string",
+              "minLength": 1
+            },
+            "future_verification_needed": {
+              "type": "string",
+              "minLength": 1
+            },
+            "evidence_claim_ids": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              },
+              "uniqueItems": true
+            },
+            "archive_gap_reference": {
+              "type": "string",
+              "minLength": 1
+            },
+            "origin": {
+              "enum": [
+                "expert_inference",
+                "synthetic_fallback"
+              ]
+            }
+          },
+          "additionalProperties": false
+        },
+        "pollinator_value": {
+          "type": "object",
+          "required": [
+            "fixture_id",
+            "plant_id",
+            "field",
+            "operational_value",
+            "real_value",
+            "source_values_or_bounding_facts",
+            "derivation_rule",
+            "rationale",
+            "uncertainty",
+            "risk_if_wrong",
+            "future_verification_needed",
+            "evidence_claim_ids",
+            "archive_gap_reference",
+            "origin"
+          ],
+          "properties": {
+            "fixture_id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "plant_id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "field": {
+              "type": "string",
+              "minLength": 1
+            },
+            "operational_value": {},
+            "real_value": {},
+            "source_values_or_bounding_facts": {},
+            "derivation_rule": {
+              "type": "string",
+              "minLength": 1
+            },
+            "rationale": {
+              "type": "string",
+              "minLength": 1
+            },
+            "uncertainty": {
+              "type": "string",
+              "minLength": 1
+            },
+            "risk_if_wrong": {
+              "type": "string",
+              "minLength": 1
+            },
+            "future_verification_needed": {
+              "type": "string",
+              "minLength": 1
+            },
+            "evidence_claim_ids": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              },
+              "uniqueItems": true
+            },
+            "archive_gap_reference": {
+              "type": "string",
+              "minLength": 1
+            },
+            "origin": {
+              "enum": [
+                "expert_inference",
+                "synthetic_fallback"
+              ]
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "unresolved_safety_or_policy_json": {
+      "type": "object",
+      "properties": {
+        "native_status_nl": {
+          "type": "object",
+          "required": [
+            "status",
+            "origin",
+            "confidence",
+            "note"
+          ],
+          "properties": {
+            "status": {},
+            "origin": {
+              "enum": [
+                "sourced",
+                "unknown",
+                "not_reviewed",
+                "conflicting"
+              ]
+            },
+            "confidence": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 100
+            },
+            "note": {
+              "type": "string",
+              "minLength": 1
+            },
+            "claim_ids": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          },
+          "additionalProperties": false
+        },
+        "invasive_status": {
+          "type": "object",
+          "required": [
+            "status",
+            "origin",
+            "confidence",
+            "note"
+          ],
+          "properties": {
+            "status": {},
+            "origin": {
+              "enum": [
+                "sourced",
+                "unknown",
+                "not_reviewed",
+                "conflicting"
+              ]
+            },
+            "confidence": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 100
+            },
+            "note": {
+              "type": "string",
+              "minLength": 1
+            },
+            "claim_ids": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          },
+          "additionalProperties": false
+        },
+        "protected_or_legal_status": {
+          "type": "object",
+          "required": [
+            "status",
+            "origin",
+            "confidence",
+            "note"
+          ],
+          "properties": {
+            "status": {},
+            "origin": {
+              "enum": [
+                "sourced",
+                "unknown",
+                "not_reviewed",
+                "conflicting"
+              ]
+            },
+            "confidence": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 100
+            },
+            "note": {
+              "type": "string",
+              "minLength": 1
+            },
+            "claim_ids": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          },
+          "additionalProperties": false
+        },
+        "provenance_status": {
+          "type": "object",
+          "required": [
+            "status",
+            "origin",
+            "confidence",
+            "note"
+          ],
+          "properties": {
+            "status": {},
+            "origin": {
+              "enum": [
+                "sourced",
+                "unknown",
+                "not_reviewed",
+                "conflicting"
+              ]
+            },
+            "confidence": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 100
+            },
+            "note": {
+              "type": "string",
+              "minLength": 1
+            },
+            "claim_ids": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          },
+          "additionalProperties": false
+        },
+        "public_contact_status": {
+          "type": "object",
+          "required": [
+            "status",
+            "origin",
+            "confidence",
+            "note"
+          ],
+          "properties": {
+            "status": {},
+            "origin": {
+              "enum": [
+                "sourced",
+                "unknown",
+                "not_reviewed",
+                "conflicting"
+              ]
+            },
+            "confidence": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 100
+            },
+            "note": {
+              "type": "string",
+              "minLength": 1
+            },
+            "claim_ids": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          },
+          "additionalProperties": false
+        },
+        "toxicity_status": {
+          "type": "object",
+          "required": [
+            "status",
+            "origin",
+            "confidence",
+            "note"
+          ],
+          "properties": {
+            "status": {},
+            "origin": {
+              "enum": [
+                "sourced",
+                "unknown",
+                "not_reviewed",
+                "conflicting"
+              ]
+            },
+            "confidence": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 100
+            },
+            "note": {
+              "type": "string",
+              "minLength": 1
+            },
+            "claim_ids": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          },
+          "additionalProperties": false
+        },
+        "edible_use_status": {
+          "type": "object",
+          "required": [
+            "status",
+            "origin",
+            "confidence",
+            "note"
+          ],
+          "properties": {
+            "status": {},
+            "origin": {
+              "enum": [
+                "sourced",
+                "unknown",
+                "not_reviewed",
+                "conflicting"
+              ]
+            },
+            "confidence": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 100
+            },
+            "note": {
+              "type": "string",
+              "minLength": 1
+            },
+            "claim_ids": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          },
+          "additionalProperties": false
+        },
+        "thorns_or_spines": {
+          "type": "object",
+          "required": [
+            "status",
+            "origin",
+            "confidence",
+            "note"
+          ],
+          "properties": {
+            "status": {},
+            "origin": {
+              "enum": [
+                "sourced",
+                "unknown",
+                "not_reviewed",
+                "conflicting"
+              ]
+            },
+            "confidence": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 100
+            },
+            "note": {
+              "type": "string",
+              "minLength": 1
+            },
+            "claim_ids": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          },
+          "additionalProperties": false
+        },
+        "allergen_risk": {
+          "type": "object",
+          "required": [
+            "status",
+            "origin",
+            "confidence",
+            "note"
+          ],
+          "properties": {
+            "status": {},
+            "origin": {
+              "enum": [
+                "sourced",
+                "unknown",
+                "not_reviewed",
+                "conflicting"
+              ]
+            },
+            "confidence": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 100
+            },
+            "note": {
+              "type": "string",
+              "minLength": 1
+            },
+            "claim_ids": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          },
+          "additionalProperties": false
+        },
+        "irritant_sap": {
+          "type": "object",
+          "required": [
+            "status",
+            "origin",
+            "confidence",
+            "note"
+          ],
+          "properties": {
+            "status": {},
+            "origin": {
+              "enum": [
+                "sourced",
+                "unknown",
+                "not_reviewed",
+                "conflicting"
+              ]
+            },
+            "confidence": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 100
+            },
+            "note": {
+              "type": "string",
+              "minLength": 1
+            },
+            "claim_ids": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          },
+          "additionalProperties": false
+        },
+        "contact_irritation_status": {
+          "type": "object",
+          "required": [
+            "status",
+            "origin",
+            "confidence",
+            "note"
+          ],
+          "properties": {
+            "status": {},
+            "origin": {
+              "enum": [
+                "sourced",
+                "unknown",
+                "not_reviewed",
+                "conflicting"
+              ]
+            },
+            "confidence": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 100
+            },
+            "note": {
+              "type": "string",
+              "minLength": 1
+            },
+            "claim_ids": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "evidence_claim_ids_json": {
+      "type": "object",
+      "required": [
+        "fixture_id",
+        "plant_id",
+        "scientific_name",
+        "dutch_name",
+        "group",
+        "soil_tolerance",
+        "moisture_tolerance",
+        "hydrology_tolerance",
+        "light_tolerance",
+        "disturbance_tolerance",
+        "hardscape_tolerance",
+        "water_edge_requirement",
+        "mature_height_m",
+        "mature_spread_m",
+        "pilot_spacing_m",
+        "functional_layer",
+        "composition_role",
+        "climbing_support_required",
+        "vigour_or_spread_risk",
+        "maintenance_demand",
+        "native_status_nl",
+        "invasive_status",
+        "protected_or_legal_status",
+        "provenance_status",
+        "public_contact_status",
+        "toxicity_status",
+        "edible_use_status",
+        "thorns_or_spines",
+        "production_eligible",
+        "flower_start_month",
+        "flower_end_month",
+        "flower_colour",
+        "pollinator_value"
+      ],
+      "properties": {
+        "fixture_id": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "plant_id": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "scientific_name": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "dutch_name": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "group": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "soil_tolerance": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "moisture_tolerance": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "hydrology_tolerance": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "light_tolerance": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "disturbance_tolerance": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "hardscape_tolerance": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "water_edge_requirement": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "mature_height_m": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "mature_spread_m": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "pilot_spacing_m": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "functional_layer": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "composition_role": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "climbing_support_required": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "vigour_or_spread_risk": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "maintenance_demand": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "native_status_nl": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "invasive_status": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "protected_or_legal_status": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "provenance_status": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "public_contact_status": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "toxicity_status": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "edible_use_status": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "thorns_or_spines": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "production_eligible": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "flower_start_month": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "flower_end_month": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "flower_colour": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "pollinator_value": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        }
+      },
+      "additionalProperties": false
+    },
+    "field_resolutions_json": {
+      "type": "object",
+      "required": [
+        "fixture_id",
+        "plant_id",
+        "scientific_name",
+        "dutch_name",
+        "group",
+        "soil_tolerance",
+        "moisture_tolerance",
+        "hydrology_tolerance",
+        "light_tolerance",
+        "disturbance_tolerance",
+        "hardscape_tolerance",
+        "water_edge_requirement",
+        "mature_height_m",
+        "mature_spread_m",
+        "pilot_spacing_m",
+        "functional_layer",
+        "composition_role",
+        "climbing_support_required",
+        "vigour_or_spread_risk",
+        "maintenance_demand",
+        "native_status_nl",
+        "invasive_status",
+        "protected_or_legal_status",
+        "provenance_status",
+        "public_contact_status",
+        "toxicity_status",
+        "edible_use_status",
+        "thorns_or_spines",
+        "production_eligible",
+        "flower_start_month",
+        "flower_end_month",
+        "flower_colour",
+        "pollinator_value"
+      ],
+      "properties": {
+        "fixture_id": {
+          "type": "object",
+          "required": [
+            "real_value",
+            "real_value_origin",
+            "operational_value",
+            "operational_value_origin",
+            "operational_value_confidence",
+            "evidence_class",
+            "derivation_or_source_note",
+            "v0_2_fields",
+            "claim_ids",
+            "source_locator"
+          ],
+          "properties": {
+            "real_value": {},
+            "real_value_origin": {
+              "type": "string"
+            },
+            "operational_value": {},
+            "operational_value_origin": {
+              "enum": [
+                "sourced",
+                "expert_inference",
+                "synthetic_fallback",
+                "unknown",
+                "conflicting",
+                "not_reviewed",
+                "policy_rule"
+              ]
+            },
+            "operational_value_confidence": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 100
+            },
+            "evidence_class": {
+              "enum": [
+                "independently_reviewed",
+                "official_unreviewed",
+                "institutional_secondary",
+                "expert_inference",
+                "synthetic_fallback",
+                "unknown",
+                "conflicting",
+                "not_reviewed",
+                "policy_rule"
+              ]
+            },
+            "derivation_or_source_note": {
+              "type": "string",
+              "minLength": 1
+            },
+            "v0_2_fields": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "claim_ids": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "source_locator": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": false
+        },
+        "plant_id": {
+          "type": "object",
+          "required": [
+            "real_value",
+            "real_value_origin",
+            "operational_value",
+            "operational_value_origin",
+            "operational_value_confidence",
+            "evidence_class",
+            "derivation_or_source_note",
+            "v0_2_fields",
+            "claim_ids",
+            "source_locator"
+          ],
+          "properties": {
+            "real_value": {},
+            "real_value_origin": {
+              "type": "string"
+            },
+            "operational_value": {},
+            "operational_value_origin": {
+              "enum": [
+                "sourced",
+                "expert_inference",
+                "synthetic_fallback",
+                "unknown",
+                "conflicting",
+                "not_reviewed",
+                "policy_rule"
+              ]
+            },
+            "operational_value_confidence": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 100
+            },
+            "evidence_class": {
+              "enum": [
+                "independently_reviewed",
+                "official_unreviewed",
+                "institutional_secondary",
+                "expert_inference",
+                "synthetic_fallback",
+                "unknown",
+                "conflicting",
+                "not_reviewed",
+                "policy_rule"
+              ]
+            },
+            "derivation_or_source_note": {
+              "type": "string",
+              "minLength": 1
+            },
+            "v0_2_fields": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "claim_ids": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "source_locator": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": false
+        },
+        "scientific_name": {
+          "type": "object",
+          "required": [
+            "real_value",
+            "real_value_origin",
+            "operational_value",
+            "operational_value_origin",
+            "operational_value_confidence",
+            "evidence_class",
+            "derivation_or_source_note",
+            "v0_2_fields",
+            "claim_ids",
+            "source_locator"
+          ],
+          "properties": {
+            "real_value": {},
+            "real_value_origin": {
+              "type": "string"
+            },
+            "operational_value": {},
+            "operational_value_origin": {
+              "enum": [
+                "sourced",
+                "expert_inference",
+                "synthetic_fallback",
+                "unknown",
+                "conflicting",
+                "not_reviewed",
+                "policy_rule"
+              ]
+            },
+            "operational_value_confidence": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 100
+            },
+            "evidence_class": {
+              "enum": [
+                "independently_reviewed",
+                "official_unreviewed",
+                "institutional_secondary",
+                "expert_inference",
+                "synthetic_fallback",
+                "unknown",
+                "conflicting",
+                "not_reviewed",
+                "policy_rule"
+              ]
+            },
+            "derivation_or_source_note": {
+              "type": "string",
+              "minLength": 1
+            },
+            "v0_2_fields": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "claim_ids": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "source_locator": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": false
+        },
+        "dutch_name": {
+          "type": "object",
+          "required": [
+            "real_value",
+            "real_value_origin",
+            "operational_value",
+            "operational_value_origin",
+            "operational_value_confidence",
+            "evidence_class",
+            "derivation_or_source_note",
+            "v0_2_fields",
+            "claim_ids",
+            "source_locator"
+          ],
+          "properties": {
+            "real_value": {},
+            "real_value_origin": {
+              "type": "string"
+            },
+            "operational_value": {},
+            "operational_value_origin": {
+              "enum": [
+                "sourced",
+                "expert_inference",
+                "synthetic_fallback",
+                "unknown",
+                "conflicting",
+                "not_reviewed",
+                "policy_rule"
+              ]
+            },
+            "operational_value_confidence": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 100
+            },
+            "evidence_class": {
+              "enum": [
+                "independently_reviewed",
+                "official_unreviewed",
+                "institutional_secondary",
+                "expert_inference",
+                "synthetic_fallback",
+                "unknown",
+                "conflicting",
+                "not_reviewed",
+                "policy_rule"
+              ]
+            },
+            "derivation_or_source_note": {
+              "type": "string",
+              "minLength": 1
+            },
+            "v0_2_fields": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "claim_ids": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "source_locator": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": false
+        },
+        "group": {
+          "type": "object",
+          "required": [
+            "real_value",
+            "real_value_origin",
+            "operational_value",
+            "operational_value_origin",
+            "operational_value_confidence",
+            "evidence_class",
+            "derivation_or_source_note",
+            "v0_2_fields",
+            "claim_ids",
+            "source_locator"
+          ],
+          "properties": {
+            "real_value": {},
+            "real_value_origin": {
+              "type": "string"
+            },
+            "operational_value": {},
+            "operational_value_origin": {
+              "enum": [
+                "sourced",
+                "expert_inference",
+                "synthetic_fallback",
+                "unknown",
+                "conflicting",
+                "not_reviewed",
+                "policy_rule"
+              ]
+            },
+            "operational_value_confidence": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 100
+            },
+            "evidence_class": {
+              "enum": [
+                "independently_reviewed",
+                "official_unreviewed",
+                "institutional_secondary",
+                "expert_inference",
+                "synthetic_fallback",
+                "unknown",
+                "conflicting",
+                "not_reviewed",
+                "policy_rule"
+              ]
+            },
+            "derivation_or_source_note": {
+              "type": "string",
+              "minLength": 1
+            },
+            "v0_2_fields": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "claim_ids": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "source_locator": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": false
+        },
+        "soil_tolerance": {
+          "type": "object",
+          "required": [
+            "real_value",
+            "real_value_origin",
+            "operational_value",
+            "operational_value_origin",
+            "operational_value_confidence",
+            "evidence_class",
+            "derivation_or_source_note",
+            "v0_2_fields",
+            "claim_ids",
+            "source_locator"
+          ],
+          "properties": {
+            "real_value": {},
+            "real_value_origin": {
+              "type": "string"
+            },
+            "operational_value": {},
+            "operational_value_origin": {
+              "enum": [
+                "sourced",
+                "expert_inference",
+                "synthetic_fallback",
+                "unknown",
+                "conflicting",
+                "not_reviewed",
+                "policy_rule"
+              ]
+            },
+            "operational_value_confidence": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 100
+            },
+            "evidence_class": {
+              "enum": [
+                "independently_reviewed",
+                "official_unreviewed",
+                "institutional_secondary",
+                "expert_inference",
+                "synthetic_fallback",
+                "unknown",
+                "conflicting",
+                "not_reviewed",
+                "policy_rule"
+              ]
+            },
+            "derivation_or_source_note": {
+              "type": "string",
+              "minLength": 1
+            },
+            "v0_2_fields": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "claim_ids": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "source_locator": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": false
+        },
+        "moisture_tolerance": {
+          "type": "object",
+          "required": [
+            "real_value",
+            "real_value_origin",
+            "operational_value",
+            "operational_value_origin",
+            "operational_value_confidence",
+            "evidence_class",
+            "derivation_or_source_note",
+            "v0_2_fields",
+            "claim_ids",
+            "source_locator"
+          ],
+          "properties": {
+            "real_value": {},
+            "real_value_origin": {
+              "type": "string"
+            },
+            "operational_value": {},
+            "operational_value_origin": {
+              "enum": [
+                "sourced",
+                "expert_inference",
+                "synthetic_fallback",
+                "unknown",
+                "conflicting",
+                "not_reviewed",
+                "policy_rule"
+              ]
+            },
+            "operational_value_confidence": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 100
+            },
+            "evidence_class": {
+              "enum": [
+                "independently_reviewed",
+                "official_unreviewed",
+                "institutional_secondary",
+                "expert_inference",
+                "synthetic_fallback",
+                "unknown",
+                "conflicting",
+                "not_reviewed",
+                "policy_rule"
+              ]
+            },
+            "derivation_or_source_note": {
+              "type": "string",
+              "minLength": 1
+            },
+            "v0_2_fields": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "claim_ids": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "source_locator": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": false
+        },
+        "hydrology_tolerance": {
+          "type": "object",
+          "required": [
+            "real_value",
+            "real_value_origin",
+            "operational_value",
+            "operational_value_origin",
+            "operational_value_confidence",
+            "evidence_class",
+            "derivation_or_source_note",
+            "v0_2_fields",
+            "claim_ids",
+            "source_locator"
+          ],
+          "properties": {
+            "real_value": {},
+            "real_value_origin": {
+              "type": "string"
+            },
+            "operational_value": {},
+            "operational_value_origin": {
+              "enum": [
+                "sourced",
+                "expert_inference",
+                "synthetic_fallback",
+                "unknown",
+                "conflicting",
+                "not_reviewed",
+                "policy_rule"
+              ]
+            },
+            "operational_value_confidence": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 100
+            },
+            "evidence_class": {
+              "enum": [
+                "independently_reviewed",
+                "official_unreviewed",
+                "institutional_secondary",
+                "expert_inference",
+                "synthetic_fallback",
+                "unknown",
+                "conflicting",
+                "not_reviewed",
+                "policy_rule"
+              ]
+            },
+            "derivation_or_source_note": {
+              "type": "string",
+              "minLength": 1
+            },
+            "v0_2_fields": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "claim_ids": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "source_locator": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": false
+        },
+        "light_tolerance": {
+          "type": "object",
+          "required": [
+            "real_value",
+            "real_value_origin",
+            "operational_value",
+            "operational_value_origin",
+            "operational_value_confidence",
+            "evidence_class",
+            "derivation_or_source_note",
+            "v0_2_fields",
+            "claim_ids",
+            "source_locator"
+          ],
+          "properties": {
+            "real_value": {},
+            "real_value_origin": {
+              "type": "string"
+            },
+            "operational_value": {},
+            "operational_value_origin": {
+              "enum": [
+                "sourced",
+                "expert_inference",
+                "synthetic_fallback",
+                "unknown",
+                "conflicting",
+                "not_reviewed",
+                "policy_rule"
+              ]
+            },
+            "operational_value_confidence": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 100
+            },
+            "evidence_class": {
+              "enum": [
+                "independently_reviewed",
+                "official_unreviewed",
+                "institutional_secondary",
+                "expert_inference",
+                "synthetic_fallback",
+                "unknown",
+                "conflicting",
+                "not_reviewed",
+                "policy_rule"
+              ]
+            },
+            "derivation_or_source_note": {
+              "type": "string",
+              "minLength": 1
+            },
+            "v0_2_fields": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "claim_ids": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "source_locator": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": false
+        },
+        "disturbance_tolerance": {
+          "type": "object",
+          "required": [
+            "real_value",
+            "real_value_origin",
+            "operational_value",
+            "operational_value_origin",
+            "operational_value_confidence",
+            "evidence_class",
+            "derivation_or_source_note",
+            "v0_2_fields",
+            "claim_ids",
+            "source_locator"
+          ],
+          "properties": {
+            "real_value": {},
+            "real_value_origin": {
+              "type": "string"
+            },
+            "operational_value": {},
+            "operational_value_origin": {
+              "enum": [
+                "sourced",
+                "expert_inference",
+                "synthetic_fallback",
+                "unknown",
+                "conflicting",
+                "not_reviewed",
+                "policy_rule"
+              ]
+            },
+            "operational_value_confidence": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 100
+            },
+            "evidence_class": {
+              "enum": [
+                "independently_reviewed",
+                "official_unreviewed",
+                "institutional_secondary",
+                "expert_inference",
+                "synthetic_fallback",
+                "unknown",
+                "conflicting",
+                "not_reviewed",
+                "policy_rule"
+              ]
+            },
+            "derivation_or_source_note": {
+              "type": "string",
+              "minLength": 1
+            },
+            "v0_2_fields": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "claim_ids": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "source_locator": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": false
+        },
+        "hardscape_tolerance": {
+          "type": "object",
+          "required": [
+            "real_value",
+            "real_value_origin",
+            "operational_value",
+            "operational_value_origin",
+            "operational_value_confidence",
+            "evidence_class",
+            "derivation_or_source_note",
+            "v0_2_fields",
+            "claim_ids",
+            "source_locator"
+          ],
+          "properties": {
+            "real_value": {},
+            "real_value_origin": {
+              "type": "string"
+            },
+            "operational_value": {},
+            "operational_value_origin": {
+              "enum": [
+                "sourced",
+                "expert_inference",
+                "synthetic_fallback",
+                "unknown",
+                "conflicting",
+                "not_reviewed",
+                "policy_rule"
+              ]
+            },
+            "operational_value_confidence": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 100
+            },
+            "evidence_class": {
+              "enum": [
+                "independently_reviewed",
+                "official_unreviewed",
+                "institutional_secondary",
+                "expert_inference",
+                "synthetic_fallback",
+                "unknown",
+                "conflicting",
+                "not_reviewed",
+                "policy_rule"
+              ]
+            },
+            "derivation_or_source_note": {
+              "type": "string",
+              "minLength": 1
+            },
+            "v0_2_fields": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "claim_ids": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "source_locator": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": false
+        },
+        "water_edge_requirement": {
+          "type": "object",
+          "required": [
+            "real_value",
+            "real_value_origin",
+            "operational_value",
+            "operational_value_origin",
+            "operational_value_confidence",
+            "evidence_class",
+            "derivation_or_source_note",
+            "v0_2_fields",
+            "claim_ids",
+            "source_locator"
+          ],
+          "properties": {
+            "real_value": {},
+            "real_value_origin": {
+              "type": "string"
+            },
+            "operational_value": {},
+            "operational_value_origin": {
+              "enum": [
+                "sourced",
+                "expert_inference",
+                "synthetic_fallback",
+                "unknown",
+                "conflicting",
+                "not_reviewed",
+                "policy_rule"
+              ]
+            },
+            "operational_value_confidence": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 100
+            },
+            "evidence_class": {
+              "enum": [
+                "independently_reviewed",
+                "official_unreviewed",
+                "institutional_secondary",
+                "expert_inference",
+                "synthetic_fallback",
+                "unknown",
+                "conflicting",
+                "not_reviewed",
+                "policy_rule"
+              ]
+            },
+            "derivation_or_source_note": {
+              "type": "string",
+              "minLength": 1
+            },
+            "v0_2_fields": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "claim_ids": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "source_locator": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": false
+        },
+        "mature_height_m": {
+          "type": "object",
+          "required": [
+            "real_value",
+            "real_value_origin",
+            "operational_value",
+            "operational_value_origin",
+            "operational_value_confidence",
+            "evidence_class",
+            "derivation_or_source_note",
+            "v0_2_fields",
+            "claim_ids",
+            "source_locator"
+          ],
+          "properties": {
+            "real_value": {},
+            "real_value_origin": {
+              "type": "string"
+            },
+            "operational_value": {},
+            "operational_value_origin": {
+              "enum": [
+                "sourced",
+                "expert_inference",
+                "synthetic_fallback",
+                "unknown",
+                "conflicting",
+                "not_reviewed",
+                "policy_rule"
+              ]
+            },
+            "operational_value_confidence": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 100
+            },
+            "evidence_class": {
+              "enum": [
+                "independently_reviewed",
+                "official_unreviewed",
+                "institutional_secondary",
+                "expert_inference",
+                "synthetic_fallback",
+                "unknown",
+                "conflicting",
+                "not_reviewed",
+                "policy_rule"
+              ]
+            },
+            "derivation_or_source_note": {
+              "type": "string",
+              "minLength": 1
+            },
+            "v0_2_fields": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "claim_ids": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "source_locator": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": false
+        },
+        "mature_spread_m": {
+          "type": "object",
+          "required": [
+            "real_value",
+            "real_value_origin",
+            "operational_value",
+            "operational_value_origin",
+            "operational_value_confidence",
+            "evidence_class",
+            "derivation_or_source_note",
+            "v0_2_fields",
+            "claim_ids",
+            "source_locator"
+          ],
+          "properties": {
+            "real_value": {},
+            "real_value_origin": {
+              "type": "string"
+            },
+            "operational_value": {},
+            "operational_value_origin": {
+              "enum": [
+                "sourced",
+                "expert_inference",
+                "synthetic_fallback",
+                "unknown",
+                "conflicting",
+                "not_reviewed",
+                "policy_rule"
+              ]
+            },
+            "operational_value_confidence": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 100
+            },
+            "evidence_class": {
+              "enum": [
+                "independently_reviewed",
+                "official_unreviewed",
+                "institutional_secondary",
+                "expert_inference",
+                "synthetic_fallback",
+                "unknown",
+                "conflicting",
+                "not_reviewed",
+                "policy_rule"
+              ]
+            },
+            "derivation_or_source_note": {
+              "type": "string",
+              "minLength": 1
+            },
+            "v0_2_fields": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "claim_ids": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "source_locator": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": false
+        },
+        "pilot_spacing_m": {
+          "type": "object",
+          "required": [
+            "real_value",
+            "real_value_origin",
+            "operational_value",
+            "operational_value_origin",
+            "operational_value_confidence",
+            "evidence_class",
+            "derivation_or_source_note",
+            "v0_2_fields",
+            "claim_ids",
+            "source_locator"
+          ],
+          "properties": {
+            "real_value": {},
+            "real_value_origin": {
+              "type": "string"
+            },
+            "operational_value": {},
+            "operational_value_origin": {
+              "enum": [
+                "sourced",
+                "expert_inference",
+                "synthetic_fallback",
+                "unknown",
+                "conflicting",
+                "not_reviewed",
+                "policy_rule"
+              ]
+            },
+            "operational_value_confidence": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 100
+            },
+            "evidence_class": {
+              "enum": [
+                "independently_reviewed",
+                "official_unreviewed",
+                "institutional_secondary",
+                "expert_inference",
+                "synthetic_fallback",
+                "unknown",
+                "conflicting",
+                "not_reviewed",
+                "policy_rule"
+              ]
+            },
+            "derivation_or_source_note": {
+              "type": "string",
+              "minLength": 1
+            },
+            "v0_2_fields": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "claim_ids": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "source_locator": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": false
+        },
+        "functional_layer": {
+          "type": "object",
+          "required": [
+            "real_value",
+            "real_value_origin",
+            "operational_value",
+            "operational_value_origin",
+            "operational_value_confidence",
+            "evidence_class",
+            "derivation_or_source_note",
+            "v0_2_fields",
+            "claim_ids",
+            "source_locator"
+          ],
+          "properties": {
+            "real_value": {},
+            "real_value_origin": {
+              "type": "string"
+            },
+            "operational_value": {},
+            "operational_value_origin": {
+              "enum": [
+                "sourced",
+                "expert_inference",
+                "synthetic_fallback",
+                "unknown",
+                "conflicting",
+                "not_reviewed",
+                "policy_rule"
+              ]
+            },
+            "operational_value_confidence": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 100
+            },
+            "evidence_class": {
+              "enum": [
+                "independently_reviewed",
+                "official_unreviewed",
+                "institutional_secondary",
+                "expert_inference",
+                "synthetic_fallback",
+                "unknown",
+                "conflicting",
+                "not_reviewed",
+                "policy_rule"
+              ]
+            },
+            "derivation_or_source_note": {
+              "type": "string",
+              "minLength": 1
+            },
+            "v0_2_fields": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "claim_ids": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "source_locator": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": false
+        },
+        "composition_role": {
+          "type": "object",
+          "required": [
+            "real_value",
+            "real_value_origin",
+            "operational_value",
+            "operational_value_origin",
+            "operational_value_confidence",
+            "evidence_class",
+            "derivation_or_source_note",
+            "v0_2_fields",
+            "claim_ids",
+            "source_locator"
+          ],
+          "properties": {
+            "real_value": {},
+            "real_value_origin": {
+              "type": "string"
+            },
+            "operational_value": {},
+            "operational_value_origin": {
+              "enum": [
+                "sourced",
+                "expert_inference",
+                "synthetic_fallback",
+                "unknown",
+                "conflicting",
+                "not_reviewed",
+                "policy_rule"
+              ]
+            },
+            "operational_value_confidence": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 100
+            },
+            "evidence_class": {
+              "enum": [
+                "independently_reviewed",
+                "official_unreviewed",
+                "institutional_secondary",
+                "expert_inference",
+                "synthetic_fallback",
+                "unknown",
+                "conflicting",
+                "not_reviewed",
+                "policy_rule"
+              ]
+            },
+            "derivation_or_source_note": {
+              "type": "string",
+              "minLength": 1
+            },
+            "v0_2_fields": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "claim_ids": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "source_locator": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": false
+        },
+        "climbing_support_required": {
+          "type": "object",
+          "required": [
+            "real_value",
+            "real_value_origin",
+            "operational_value",
+            "operational_value_origin",
+            "operational_value_confidence",
+            "evidence_class",
+            "derivation_or_source_note",
+            "v0_2_fields",
+            "claim_ids",
+            "source_locator"
+          ],
+          "properties": {
+            "real_value": {},
+            "real_value_origin": {
+              "type": "string"
+            },
+            "operational_value": {},
+            "operational_value_origin": {
+              "enum": [
+                "sourced",
+                "expert_inference",
+                "synthetic_fallback",
+                "unknown",
+                "conflicting",
+                "not_reviewed",
+                "policy_rule"
+              ]
+            },
+            "operational_value_confidence": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 100
+            },
+            "evidence_class": {
+              "enum": [
+                "independently_reviewed",
+                "official_unreviewed",
+                "institutional_secondary",
+                "expert_inference",
+                "synthetic_fallback",
+                "unknown",
+                "conflicting",
+                "not_reviewed",
+                "policy_rule"
+              ]
+            },
+            "derivation_or_source_note": {
+              "type": "string",
+              "minLength": 1
+            },
+            "v0_2_fields": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "claim_ids": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "source_locator": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": false
+        },
+        "vigour_or_spread_risk": {
+          "type": "object",
+          "required": [
+            "real_value",
+            "real_value_origin",
+            "operational_value",
+            "operational_value_origin",
+            "operational_value_confidence",
+            "evidence_class",
+            "derivation_or_source_note",
+            "v0_2_fields",
+            "claim_ids",
+            "source_locator"
+          ],
+          "properties": {
+            "real_value": {},
+            "real_value_origin": {
+              "type": "string"
+            },
+            "operational_value": {},
+            "operational_value_origin": {
+              "enum": [
+                "sourced",
+                "expert_inference",
+                "synthetic_fallback",
+                "unknown",
+                "conflicting",
+                "not_reviewed",
+                "policy_rule"
+              ]
+            },
+            "operational_value_confidence": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 100
+            },
+            "evidence_class": {
+              "enum": [
+                "independently_reviewed",
+                "official_unreviewed",
+                "institutional_secondary",
+                "expert_inference",
+                "synthetic_fallback",
+                "unknown",
+                "conflicting",
+                "not_reviewed",
+                "policy_rule"
+              ]
+            },
+            "derivation_or_source_note": {
+              "type": "string",
+              "minLength": 1
+            },
+            "v0_2_fields": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "claim_ids": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "source_locator": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": false
+        },
+        "maintenance_demand": {
+          "type": "object",
+          "required": [
+            "real_value",
+            "real_value_origin",
+            "operational_value",
+            "operational_value_origin",
+            "operational_value_confidence",
+            "evidence_class",
+            "derivation_or_source_note",
+            "v0_2_fields",
+            "claim_ids",
+            "source_locator"
+          ],
+          "properties": {
+            "real_value": {},
+            "real_value_origin": {
+              "type": "string"
+            },
+            "operational_value": {},
+            "operational_value_origin": {
+              "enum": [
+                "sourced",
+                "expert_inference",
+                "synthetic_fallback",
+                "unknown",
+                "conflicting",
+                "not_reviewed",
+                "policy_rule"
+              ]
+            },
+            "operational_value_confidence": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 100
+            },
+            "evidence_class": {
+              "enum": [
+                "independently_reviewed",
+                "official_unreviewed",
+                "institutional_secondary",
+                "expert_inference",
+                "synthetic_fallback",
+                "unknown",
+                "conflicting",
+                "not_reviewed",
+                "policy_rule"
+              ]
+            },
+            "derivation_or_source_note": {
+              "type": "string",
+              "minLength": 1
+            },
+            "v0_2_fields": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "claim_ids": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "source_locator": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": false
+        },
+        "native_status_nl": {
+          "type": "object",
+          "required": [
+            "real_value",
+            "real_value_origin",
+            "operational_value",
+            "operational_value_origin",
+            "operational_value_confidence",
+            "evidence_class",
+            "derivation_or_source_note",
+            "v0_2_fields",
+            "claim_ids",
+            "source_locator"
+          ],
+          "properties": {
+            "real_value": {},
+            "real_value_origin": {
+              "type": "string"
+            },
+            "operational_value": {},
+            "operational_value_origin": {
+              "enum": [
+                "sourced",
+                "expert_inference",
+                "synthetic_fallback",
+                "unknown",
+                "conflicting",
+                "not_reviewed",
+                "policy_rule"
+              ]
+            },
+            "operational_value_confidence": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 100
+            },
+            "evidence_class": {
+              "enum": [
+                "independently_reviewed",
+                "official_unreviewed",
+                "institutional_secondary",
+                "expert_inference",
+                "synthetic_fallback",
+                "unknown",
+                "conflicting",
+                "not_reviewed",
+                "policy_rule"
+              ]
+            },
+            "derivation_or_source_note": {
+              "type": "string",
+              "minLength": 1
+            },
+            "v0_2_fields": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "claim_ids": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "source_locator": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": false
+        },
+        "invasive_status": {
+          "type": "object",
+          "required": [
+            "real_value",
+            "real_value_origin",
+            "operational_value",
+            "operational_value_origin",
+            "operational_value_confidence",
+            "evidence_class",
+            "derivation_or_source_note",
+            "v0_2_fields",
+            "claim_ids",
+            "source_locator"
+          ],
+          "properties": {
+            "real_value": {},
+            "real_value_origin": {
+              "type": "string"
+            },
+            "operational_value": {},
+            "operational_value_origin": {
+              "enum": [
+                "sourced",
+                "expert_inference",
+                "synthetic_fallback",
+                "unknown",
+                "conflicting",
+                "not_reviewed",
+                "policy_rule"
+              ]
+            },
+            "operational_value_confidence": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 100
+            },
+            "evidence_class": {
+              "enum": [
+                "independently_reviewed",
+                "official_unreviewed",
+                "institutional_secondary",
+                "expert_inference",
+                "synthetic_fallback",
+                "unknown",
+                "conflicting",
+                "not_reviewed",
+                "policy_rule"
+              ]
+            },
+            "derivation_or_source_note": {
+              "type": "string",
+              "minLength": 1
+            },
+            "v0_2_fields": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "claim_ids": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "source_locator": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": false
+        },
+        "protected_or_legal_status": {
+          "type": "object",
+          "required": [
+            "real_value",
+            "real_value_origin",
+            "operational_value",
+            "operational_value_origin",
+            "operational_value_confidence",
+            "evidence_class",
+            "derivation_or_source_note",
+            "v0_2_fields",
+            "claim_ids",
+            "source_locator"
+          ],
+          "properties": {
+            "real_value": {},
+            "real_value_origin": {
+              "type": "string"
+            },
+            "operational_value": {},
+            "operational_value_origin": {
+              "enum": [
+                "sourced",
+                "expert_inference",
+                "synthetic_fallback",
+                "unknown",
+                "conflicting",
+                "not_reviewed",
+                "policy_rule"
+              ]
+            },
+            "operational_value_confidence": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 100
+            },
+            "evidence_class": {
+              "enum": [
+                "independently_reviewed",
+                "official_unreviewed",
+                "institutional_secondary",
+                "expert_inference",
+                "synthetic_fallback",
+                "unknown",
+                "conflicting",
+                "not_reviewed",
+                "policy_rule"
+              ]
+            },
+            "derivation_or_source_note": {
+              "type": "string",
+              "minLength": 1
+            },
+            "v0_2_fields": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "claim_ids": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "source_locator": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": false
+        },
+        "provenance_status": {
+          "type": "object",
+          "required": [
+            "real_value",
+            "real_value_origin",
+            "operational_value",
+            "operational_value_origin",
+            "operational_value_confidence",
+            "evidence_class",
+            "derivation_or_source_note",
+            "v0_2_fields",
+            "claim_ids",
+            "source_locator"
+          ],
+          "properties": {
+            "real_value": {},
+            "real_value_origin": {
+              "type": "string"
+            },
+            "operational_value": {},
+            "operational_value_origin": {
+              "enum": [
+                "sourced",
+                "expert_inference",
+                "synthetic_fallback",
+                "unknown",
+                "conflicting",
+                "not_reviewed",
+                "policy_rule"
+              ]
+            },
+            "operational_value_confidence": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 100
+            },
+            "evidence_class": {
+              "enum": [
+                "independently_reviewed",
+                "official_unreviewed",
+                "institutional_secondary",
+                "expert_inference",
+                "synthetic_fallback",
+                "unknown",
+                "conflicting",
+                "not_reviewed",
+                "policy_rule"
+              ]
+            },
+            "derivation_or_source_note": {
+              "type": "string",
+              "minLength": 1
+            },
+            "v0_2_fields": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "claim_ids": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "source_locator": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": false
+        },
+        "public_contact_status": {
+          "type": "object",
+          "required": [
+            "real_value",
+            "real_value_origin",
+            "operational_value",
+            "operational_value_origin",
+            "operational_value_confidence",
+            "evidence_class",
+            "derivation_or_source_note",
+            "v0_2_fields",
+            "claim_ids",
+            "source_locator"
+          ],
+          "properties": {
+            "real_value": {},
+            "real_value_origin": {
+              "type": "string"
+            },
+            "operational_value": {},
+            "operational_value_origin": {
+              "enum": [
+                "sourced",
+                "expert_inference",
+                "synthetic_fallback",
+                "unknown",
+                "conflicting",
+                "not_reviewed",
+                "policy_rule"
+              ]
+            },
+            "operational_value_confidence": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 100
+            },
+            "evidence_class": {
+              "enum": [
+                "independently_reviewed",
+                "official_unreviewed",
+                "institutional_secondary",
+                "expert_inference",
+                "synthetic_fallback",
+                "unknown",
+                "conflicting",
+                "not_reviewed",
+                "policy_rule"
+              ]
+            },
+            "derivation_or_source_note": {
+              "type": "string",
+              "minLength": 1
+            },
+            "v0_2_fields": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "claim_ids": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "source_locator": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": false
+        },
+        "toxicity_status": {
+          "type": "object",
+          "required": [
+            "real_value",
+            "real_value_origin",
+            "operational_value",
+            "operational_value_origin",
+            "operational_value_confidence",
+            "evidence_class",
+            "derivation_or_source_note",
+            "v0_2_fields",
+            "claim_ids",
+            "source_locator"
+          ],
+          "properties": {
+            "real_value": {},
+            "real_value_origin": {
+              "type": "string"
+            },
+            "operational_value": {},
+            "operational_value_origin": {
+              "enum": [
+                "sourced",
+                "expert_inference",
+                "synthetic_fallback",
+                "unknown",
+                "conflicting",
+                "not_reviewed",
+                "policy_rule"
+              ]
+            },
+            "operational_value_confidence": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 100
+            },
+            "evidence_class": {
+              "enum": [
+                "independently_reviewed",
+                "official_unreviewed",
+                "institutional_secondary",
+                "expert_inference",
+                "synthetic_fallback",
+                "unknown",
+                "conflicting",
+                "not_reviewed",
+                "policy_rule"
+              ]
+            },
+            "derivation_or_source_note": {
+              "type": "string",
+              "minLength": 1
+            },
+            "v0_2_fields": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "claim_ids": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "source_locator": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": false
+        },
+        "edible_use_status": {
+          "type": "object",
+          "required": [
+            "real_value",
+            "real_value_origin",
+            "operational_value",
+            "operational_value_origin",
+            "operational_value_confidence",
+            "evidence_class",
+            "derivation_or_source_note",
+            "v0_2_fields",
+            "claim_ids",
+            "source_locator"
+          ],
+          "properties": {
+            "real_value": {},
+            "real_value_origin": {
+              "type": "string"
+            },
+            "operational_value": {},
+            "operational_value_origin": {
+              "enum": [
+                "sourced",
+                "expert_inference",
+                "synthetic_fallback",
+                "unknown",
+                "conflicting",
+                "not_reviewed",
+                "policy_rule"
+              ]
+            },
+            "operational_value_confidence": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 100
+            },
+            "evidence_class": {
+              "enum": [
+                "independently_reviewed",
+                "official_unreviewed",
+                "institutional_secondary",
+                "expert_inference",
+                "synthetic_fallback",
+                "unknown",
+                "conflicting",
+                "not_reviewed",
+                "policy_rule"
+              ]
+            },
+            "derivation_or_source_note": {
+              "type": "string",
+              "minLength": 1
+            },
+            "v0_2_fields": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "claim_ids": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "source_locator": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": false
+        },
+        "thorns_or_spines": {
+          "type": "object",
+          "required": [
+            "real_value",
+            "real_value_origin",
+            "operational_value",
+            "operational_value_origin",
+            "operational_value_confidence",
+            "evidence_class",
+            "derivation_or_source_note",
+            "v0_2_fields",
+            "claim_ids",
+            "source_locator"
+          ],
+          "properties": {
+            "real_value": {},
+            "real_value_origin": {
+              "type": "string"
+            },
+            "operational_value": {},
+            "operational_value_origin": {
+              "enum": [
+                "sourced",
+                "expert_inference",
+                "synthetic_fallback",
+                "unknown",
+                "conflicting",
+                "not_reviewed",
+                "policy_rule"
+              ]
+            },
+            "operational_value_confidence": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 100
+            },
+            "evidence_class": {
+              "enum": [
+                "independently_reviewed",
+                "official_unreviewed",
+                "institutional_secondary",
+                "expert_inference",
+                "synthetic_fallback",
+                "unknown",
+                "conflicting",
+                "not_reviewed",
+                "policy_rule"
+              ]
+            },
+            "derivation_or_source_note": {
+              "type": "string",
+              "minLength": 1
+            },
+            "v0_2_fields": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "claim_ids": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "source_locator": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": false
+        },
+        "production_eligible": {
+          "type": "object",
+          "required": [
+            "real_value",
+            "real_value_origin",
+            "operational_value",
+            "operational_value_origin",
+            "operational_value_confidence",
+            "evidence_class",
+            "derivation_or_source_note",
+            "v0_2_fields",
+            "claim_ids",
+            "source_locator"
+          ],
+          "properties": {
+            "real_value": {},
+            "real_value_origin": {
+              "type": "string"
+            },
+            "operational_value": {},
+            "operational_value_origin": {
+              "enum": [
+                "sourced",
+                "expert_inference",
+                "synthetic_fallback",
+                "unknown",
+                "conflicting",
+                "not_reviewed",
+                "policy_rule"
+              ]
+            },
+            "operational_value_confidence": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 100
+            },
+            "evidence_class": {
+              "enum": [
+                "independently_reviewed",
+                "official_unreviewed",
+                "institutional_secondary",
+                "expert_inference",
+                "synthetic_fallback",
+                "unknown",
+                "conflicting",
+                "not_reviewed",
+                "policy_rule"
+              ]
+            },
+            "derivation_or_source_note": {
+              "type": "string",
+              "minLength": 1
+            },
+            "v0_2_fields": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "claim_ids": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "source_locator": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": false
+        },
+        "flower_start_month": {
+          "type": "object",
+          "required": [
+            "real_value",
+            "real_value_origin",
+            "operational_value",
+            "operational_value_origin",
+            "operational_value_confidence",
+            "evidence_class",
+            "derivation_or_source_note",
+            "v0_2_fields",
+            "claim_ids",
+            "source_locator"
+          ],
+          "properties": {
+            "real_value": {},
+            "real_value_origin": {
+              "type": "string"
+            },
+            "operational_value": {},
+            "operational_value_origin": {
+              "enum": [
+                "sourced",
+                "expert_inference",
+                "synthetic_fallback",
+                "unknown",
+                "conflicting",
+                "not_reviewed",
+                "policy_rule"
+              ]
+            },
+            "operational_value_confidence": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 100
+            },
+            "evidence_class": {
+              "enum": [
+                "independently_reviewed",
+                "official_unreviewed",
+                "institutional_secondary",
+                "expert_inference",
+                "synthetic_fallback",
+                "unknown",
+                "conflicting",
+                "not_reviewed",
+                "policy_rule"
+              ]
+            },
+            "derivation_or_source_note": {
+              "type": "string",
+              "minLength": 1
+            },
+            "v0_2_fields": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "claim_ids": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "source_locator": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": false
+        },
+        "flower_end_month": {
+          "type": "object",
+          "required": [
+            "real_value",
+            "real_value_origin",
+            "operational_value",
+            "operational_value_origin",
+            "operational_value_confidence",
+            "evidence_class",
+            "derivation_or_source_note",
+            "v0_2_fields",
+            "claim_ids",
+            "source_locator"
+          ],
+          "properties": {
+            "real_value": {},
+            "real_value_origin": {
+              "type": "string"
+            },
+            "operational_value": {},
+            "operational_value_origin": {
+              "enum": [
+                "sourced",
+                "expert_inference",
+                "synthetic_fallback",
+                "unknown",
+                "conflicting",
+                "not_reviewed",
+                "policy_rule"
+              ]
+            },
+            "operational_value_confidence": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 100
+            },
+            "evidence_class": {
+              "enum": [
+                "independently_reviewed",
+                "official_unreviewed",
+                "institutional_secondary",
+                "expert_inference",
+                "synthetic_fallback",
+                "unknown",
+                "conflicting",
+                "not_reviewed",
+                "policy_rule"
+              ]
+            },
+            "derivation_or_source_note": {
+              "type": "string",
+              "minLength": 1
+            },
+            "v0_2_fields": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "claim_ids": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "source_locator": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": false
+        },
+        "flower_colour": {
+          "type": "object",
+          "required": [
+            "real_value",
+            "real_value_origin",
+            "operational_value",
+            "operational_value_origin",
+            "operational_value_confidence",
+            "evidence_class",
+            "derivation_or_source_note",
+            "v0_2_fields",
+            "claim_ids",
+            "source_locator"
+          ],
+          "properties": {
+            "real_value": {},
+            "real_value_origin": {
+              "type": "string"
+            },
+            "operational_value": {},
+            "operational_value_origin": {
+              "enum": [
+                "sourced",
+                "expert_inference",
+                "synthetic_fallback",
+                "unknown",
+                "conflicting",
+                "not_reviewed",
+                "policy_rule"
+              ]
+            },
+            "operational_value_confidence": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 100
+            },
+            "evidence_class": {
+              "enum": [
+                "independently_reviewed",
+                "official_unreviewed",
+                "institutional_secondary",
+                "expert_inference",
+                "synthetic_fallback",
+                "unknown",
+                "conflicting",
+                "not_reviewed",
+                "policy_rule"
+              ]
+            },
+            "derivation_or_source_note": {
+              "type": "string",
+              "minLength": 1
+            },
+            "v0_2_fields": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "claim_ids": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "source_locator": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": false
+        },
+        "pollinator_value": {
+          "type": "object",
+          "required": [
+            "real_value",
+            "real_value_origin",
+            "operational_value",
+            "operational_value_origin",
+            "operational_value_confidence",
+            "evidence_class",
+            "derivation_or_source_note",
+            "v0_2_fields",
+            "claim_ids",
+            "source_locator"
+          ],
+          "properties": {
+            "real_value": {},
+            "real_value_origin": {
+              "type": "string"
+            },
+            "operational_value": {},
+            "operational_value_origin": {
+              "enum": [
+                "sourced",
+                "expert_inference",
+                "synthetic_fallback",
+                "unknown",
+                "conflicting",
+                "not_reviewed",
+                "policy_rule"
+              ]
+            },
+            "operational_value_confidence": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 100
+            },
+            "evidence_class": {
+              "enum": [
+                "independently_reviewed",
+                "official_unreviewed",
+                "institutional_secondary",
+                "expert_inference",
+                "synthetic_fallback",
+                "unknown",
+                "conflicting",
+                "not_reviewed",
+                "policy_rule"
+              ]
+            },
+            "derivation_or_source_note": {
+              "type": "string",
+              "minLength": 1
+            },
+            "v0_2_fields": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "claim_ids": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "source_locator": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "record_notes": {
+      "type": "string",
+      "minLength": 1
+    }
+  },
+  "additionalProperties": false
+}

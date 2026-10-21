@@ -1,0 +1,19 @@
+v0_3_location_field,current_app_js_field,required_vocabulary_conversion,current_synthetic_default_to_replace,future_value_source,scoring_or_gate_consumer,displayed_warning
+soil,zone.conditions.soil,none,nearest demo place or made-ground toggle,user/survey/future BRO polygon intersection,soil score,Regional or synthetic suggestion—confirm on site.
+moisture,zone.conditions.moisture,none,nearest demo place or wet/dry toggle,user/survey,moisture score,Seasonal moisture has not been measured.
+hydrology,zone.conditions.hydrology,none,feature toggle/profile rule,survey/user; map only as supporting context,hydrology score; H03/H04,Confirm duration/depth; mapped water is not hydroperiod.
+light,zone.conditions.light,none,canopy toggle,user observation/geometry study,light score,Confirm season and time-of-day scope.
+canopy,zone.conditions.canopy,none,canopy toggle,map/user,warning only,Canopy is not a second light score.
+disturbance,zone.conditions.disturbance,none,nearest demo place or road toggle,user/project/survey,disturbance score,Road proximity alone is not measured disturbance.
+hardscape,zone.conditions.hardscape,none,hardscape toggle,BGT/geometry plus user confirmation,hardscape half-component,Confirm actual rooting/edge context.
+waterEdge,zone.conditions.waterEdge,snake_case water_edge only at domain boundary,water toggle,BGT/geometry plus user/survey,H03 and aquatic fit,Map absence is not proof of absence.
+source,zone.conditions.source,map UI bases to scorer demo|observation|survey|document,unverified until user selection,evidence workflow,confidence factor/current confirmation gate,"Basis labels evidence, not compatibility."
+available_width_m,not collected,derive conservative clear width,none,zone geometry,spatial score/H07,Usable width is not whole-plot width.
+available_length_m,not collected,derive conservative clear length,none,zone geometry,spatial score/H07,"Exclude paths, water and voids."
+plantable_area_m2,project().area only,derive per-zone usable area,whole plot area currently substituted,zone geometry,spatial score/H07/quantity,Do not use site area as zone plantable area.
+max_plant_height_m,not collected,none,unknown,project input,visibility spatial term,Required only when sightline policy is active.
+path_edge,derived during placement but not zone input,yes/no/unknown,geometry proximity,zone/path geometry,H11/visibility,Unknown cannot clear thorn placement.
+support_length_m,not collected,metres,none,mapped support geometry,climber quantity,Support availability and length are separate.
+support,not collected,boolean,false in v0.3 scorer default,user/project input,H05,Must not be inferred from map alone.
+vigourControl,not collected,yes/no/unknown,unknown in v0.3 scorer default,user/project input,maintenance/vigour score and H08,Active control commitment must be explicit.
+desiredFlowerMonths,not collected,integer month array,empty,user preference,design tie-breaker only,Never overrides a hard gate.

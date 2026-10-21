@@ -1,13 +1,32 @@
 /* Public lookup: PDOK geocoding and OSM geometry, tested against the plot + 10 m. */
 (()=>{
-  let version=0,lookupKey='',pending=null,controller=null;
-  const search=field('location');search.insertAdjacentHTML('afterend','<div id="locationResults" class="search-results" hidden></div><small id="locationStatus" role="status"></small>');
-  search.addEventListener('keydown',async e=>{if(e.key!=='Enter')return;e.preventDefault();const query=search.value.trim();if(!query)return;const serial=++version;field('locationStatus').textContent='Searching…';try{
-    const response=await fetch('https://api.pdok.nl/bzk/locatieserver/search/v3_1/free?q='+encodeURIComponent(query)+'&rows=5',{signal:AbortSignal.timeout(12000)});if(!response.ok)throw Error();const data=await response.json();if(serial!==version)return;
-    const docs=data.response?.docs||[];field('locationResults').hidden=false;field('locationResults').replaceChildren();
-    docs.forEach(doc=>{const match=doc.centroide_ll?.match(/POINT\(([-\d.]+) ([-\d.]+)\)/);if(!match)return;const b=document.createElement('button');b.type='button';b.className='text-button';b.textContent=doc.weergavenaam;b.onclick=()=>{search.value=doc.weergavenaam;state.siteMap?.setView([Number(match[2]),Number(match[1])],17);field('locationResults').hidden=true;field('locationStatus').textContent='';};field('locationResults').append(b);});
-    field('locationStatus').textContent=docs.length?'':'No location found.';
-  }catch{field('locationStatus').textContent='Search unavailable. You can still move the map.';}});
+  let version=0,searchTimer=null,searchController=null,lookupKey='',pending=null,controller=null;
+  const search=field('location'),row=search.closest('.field-row');row.classList.add('location-picker');
+  const button=document.createElement('button');button.id='locationSearch';button.type='button';button.className='button button-secondary';button.textContent='Search';
+  const results=document.createElement('div');results.id='locationResults';results.className='search-results';results.hidden=true;
+  const status=document.createElement('small');status.id='locationStatus';status.setAttribute('role','status');status.textContent='Type a place or address, then choose a result. The city selector also moves the map.';
+  row.insertBefore(button,field('mapPreset').closest('label'));row.insertBefore(results,field('mapPreset').closest('label'));row.insertBefore(status,field('mapPreset').closest('label'));
+  async function findLocation(){
+    clearTimeout(searchTimer);const query=search.value.trim(),serial=++version;searchController?.abort();results.hidden=true;results.replaceChildren();
+    if(query.length<2){status.textContent='Type at least two characters to search.';return;}
+    searchController=new AbortController();const requestController=searchController,timeout=setTimeout(()=>requestController.abort(),12000);status.textContent='Searching locations…';button.disabled=true;
+    try{
+      const url=new URL('https://api.pdok.nl/bzk/locatieserver/search/v3_1/free');url.searchParams.set('q',query);url.searchParams.set('rows','7');url.searchParams.set('fq','*');
+      const response=await fetch(url,{signal:requestController.signal});if(!response.ok)throw Error('Search service unavailable');const data=await response.json();if(serial!==version)return;
+      const matches=(data.response?.docs||[]).map(doc=>{const match=doc.centroide_ll?.match(/POINT\(([-\d.]+) ([-\d.]+)\)/);return match&&doc.weergavenaam?{label:doc.weergavenaam,lat:Number(match[2]),lng:Number(match[1])}:null;}).filter(place=>place&&place.lat>=50.5&&place.lat<=53.7&&place.lng>=3.2&&place.lng<=7.3);
+      for(const place of matches){const option=document.createElement('button');option.type='button';option.className='search-result';option.textContent=place.label;option.addEventListener('click',()=>{
+        search.value=place.label;results.hidden=true;state.selectedLocation={...place,source:'PDOK location search'};
+        if(!state.siteMap){status.textContent='Location found, but the scaled map is unavailable. Reload when the map service is reachable to outline a real site.';return;}
+        const hadBoundary=state.plotBoundary.length>=3;state.siteMap.setView([place.lat,place.lng],17);clearPlotPreview();state.plotBoundary=[];state.plotDraft=[];state.zones.forEach(z=>z.conditions=null);invalidateFrom(2);drawPlot();
+        status.textContent='Map moved to '+place.label+'. '+(hadBoundary?'The previous boundary was cleared. ':'')+'Draw or confirm your plot boundary.';
+      });results.append(option);}
+      results.hidden=!matches.length;status.textContent=matches.length?'Choose a result to move the map.':'No matching location found. Try a nearby town or use the starting city selector.';
+    }catch{if(serial===version)status.textContent='Location search service unavailable. Choose a starting city or move the map manually.';}
+    finally{clearTimeout(timeout);if(serial===version)button.disabled=false;}
+  }
+  search.addEventListener('input',()=>{version++;searchController?.abort();clearTimeout(searchTimer);button.disabled=false;state.selectedLocation=null;results.hidden=true;status.textContent=search.value.trim().length<2?'Type at least two characters to search.':'Searching shortly…';if(search.value.trim().length>=2)searchTimer=setTimeout(findLocation,400);});
+  search.addEventListener('keydown',event=>{if(event.key==='Enter'){event.preventDefault();findLocation();}});
+  button.addEventListener('click',findLocation);
   field('plotAreaReadout').insertAdjacentHTML('afterend','<small id="mapDataStatus" role="status"></small>');
   const segments=poly=>poly.map((p,i)=>[p,poly[(i+1)%poly.length]]);
   const cross=(a,b,c)=>(b[0]-a[0])*(c[1]-a[1])-(b[1]-a[1])*(c[0]-a[0]);
@@ -33,9 +52,9 @@
         const query='[out:json][timeout:3];(way[highway]('+bbox+');way[waterway]('+bbox+');way[natural=water]('+bbox+');way[water]('+bbox+');relation[natural=water]('+bbox+'););out geom;';
         const response=await fetch('https://overpass-api.de/api/interpreter',{method:'POST',body:new URLSearchParams({data:query}),signal});if(!response.ok)throw Error();const data=await response.json();if(data.remark)throw Error();if(JSON.stringify(state.plotBoundary)!==key)return;
         const result=classify(data.elements||[],boundary);state.mapEvidence={...result,source:'OpenStreetMap / Overpass',checkedAt:new Date().toISOString(),boundary:key};
-        if(state.stage<=2){field('featureWater').checked=result.water;field('featureRoad').checked=result.road;state.zones.forEach(z=>z.conditions=null);}
+        if(state.stage<=2){field('featureWater').checked=result.water;state.zones.forEach(z=>z.conditions=null);}
         box.textContent=[result.water?'Mapped water in plot':result.waterNearby?'Water within 10 m, outside plot':'Water not verified',result.road?'Road within 10 m':''].filter(Boolean).join(' · ');box.title='OpenStreetMap suggestions; absence is not verified. Manual corrections are preserved.';
-      }catch{if(JSON.stringify(state.plotBoundary)!==key)return;state.mapEvidence={source:'unavailable',boundary:key};box.textContent='Map check unavailable · continue and confirm manually';}finally{clearTimeout(timer);}
+      }catch{if(JSON.stringify(state.plotBoundary)!==key)return;state.mapEvidence={source:'unavailable',boundary:key};box.textContent='Nearby water/road check unavailable. Location search and drawing still work; confirm site features manually.';}finally{clearTimeout(timer);}
     })();return pending;
   }
   const originalDraw=drawPlot;drawPlot=function(){originalDraw();if(state.plotBoundary.length>=3)detect();else{lookupKey='';state.mapEvidence=null;field('featureWater').checked=false;field('featureRoad').checked=false;field('mapDataStatus').textContent='';}};

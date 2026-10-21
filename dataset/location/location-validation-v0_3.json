@@ -1,0 +1,212 @@
+{
+  "version": "0.3.0",
+  "validated_at": "2026-10-13",
+  "status": "passed",
+  "checks_passed": 4458,
+  "errors": [],
+  "headline": {
+    "presets": 8,
+    "zones_total": 11,
+    "canonical_zones": 3,
+    "plants": 60,
+    "evaluations": 180,
+    "matching_fields_per_zone": 30
+  },
+  "sensitivity_witnesses": {
+    "soil": {
+      "fixture_id": "demo-core-07",
+      "before": [
+        65.0,
+        49,
+        "unsuitable",
+        false
+      ],
+      "after": [
+        80.0,
+        49,
+        "unsuitable",
+        false
+      ]
+    },
+    "moisture": {
+      "fixture_id": "demo-core-01",
+      "before": [
+        97.5,
+        59,
+        "conditional_match",
+        true
+      ],
+      "after": [
+        87.5,
+        59,
+        "conditional_match",
+        true
+      ]
+    },
+    "hydrology": {
+      "fixture_id": "demo-core-01",
+      "before": [
+        97.5,
+        59,
+        "conditional_match",
+        true
+      ],
+      "after": [
+        82.5,
+        0,
+        "excluded",
+        false
+      ]
+    },
+    "light": {
+      "fixture_id": "demo-core-01",
+      "before": [
+        97.5,
+        59,
+        "conditional_match",
+        true
+      ],
+      "after": [
+        90.0,
+        59,
+        "conditional_match",
+        true
+      ]
+    },
+    "disturbance": {
+      "fixture_id": "demo-core-01",
+      "before": [
+        97.5,
+        59,
+        "conditional_match",
+        true
+      ],
+      "after": [
+        95.0,
+        59,
+        "conditional_match",
+        true
+      ]
+    },
+    "hardscape": {
+      "fixture_id": "demo-core-01",
+      "before": [
+        97.5,
+        59,
+        "conditional_match",
+        true
+      ],
+      "after": [
+        95.0,
+        59,
+        "conditional_match",
+        true
+      ]
+    },
+    "water_edge": {
+      "fixture_id": "demo-core-18",
+      "before": [
+        52.5,
+        0,
+        "excluded",
+        false
+      ],
+      "after": [
+        52.5,
+        49,
+        "unsuitable",
+        false
+      ]
+    },
+    "available_area_or_width": {
+      "fixture_id": "demo-core-01",
+      "before": [
+        97.5,
+        59,
+        "conditional_match",
+        true
+      ],
+      "after": [
+        85.5,
+        49,
+        "unsuitable",
+        false
+      ]
+    },
+    "maximum_height": {
+      "fixture_id": "demo-core-01",
+      "before": [
+        97.5,
+        59,
+        "conditional_match",
+        true
+      ],
+      "after": [
+        94.5,
+        49,
+        "unsuitable",
+        false
+      ]
+    },
+    "climbing_support": {
+      "fixture_id": "demo-core-51",
+      "before": [
+        100.0,
+        59,
+        "conditional_match",
+        true
+      ],
+      "after": [
+        100.0,
+        0,
+        "excluded",
+        false
+      ]
+    },
+    "maintenance": {
+      "fixture_id": "demo-core-01",
+      "before": [
+        100.0,
+        59,
+        "conditional_match",
+        true
+      ],
+      "after": [
+        92.5,
+        0,
+        "excluded",
+        false
+      ]
+    },
+    "public_access": {
+      "fixture_id": "demo-core-01",
+      "before": [
+        97.5,
+        64,
+        "conditional_match",
+        true
+      ],
+      "after": [
+        97.5,
+        59,
+        "conditional_match",
+        true
+      ]
+    },
+    "rewilding_policy": {
+      "fixture_id": "demo-core-05",
+      "before": [
+        100.0,
+        64,
+        "conditional_match",
+        true
+      ],
+      "after": [
+        100.0,
+        54,
+        "conditional_match",
+        true
+      ]
+    }
+  }
+}

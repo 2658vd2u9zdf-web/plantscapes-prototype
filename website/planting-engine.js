@@ -63,7 +63,8 @@
       return [b,matches];
     }));
     if(![...byBed.values()].some(p=>p.length))return {error:'No eligible plants fit the drawn zones. Check confirmed soil, light and moisture; name-only records cannot be placed.',decisions,warnings};
-    const bounds={minX:Math.min(...allBeds.flatMap(b=>b.polygon.map(p=>p[0]))),maxX:Math.max(...allBeds.flatMap(b=>b.polygon.map(p=>p[0]))),minY:Math.min(...allBeds.flatMap(b=>b.polygon.map(p=>p[1]))),maxY:Math.max(...allBeds.flatMap(b=>b.polygon.map(p=>p[1])))};
+    // Beds clipped to the plot extent: positions outside the boundary are never valid, so they must not stretch sampling.
+    const bounds={minX:Math.max(Math.min(...allBeds.flatMap(b=>b.polygon.map(p=>p[0]))),Math.min(...boundary.map(p=>p[0]))),maxX:Math.min(Math.max(...allBeds.flatMap(b=>b.polygon.map(p=>p[0]))),Math.max(...boundary.map(p=>p[0]))),minY:Math.max(Math.min(...allBeds.flatMap(b=>b.polygon.map(p=>p[1]))),Math.min(...boundary.map(p=>p[1]))),maxY:Math.min(Math.max(...allBeds.flatMap(b=>b.polygon.map(p=>p[1]))),Math.max(...boundary.map(p=>p[1])))};
     const bucket=new Map(),bucketSize=2,maxSpacing=Math.max(...pool.map(p=>p.spacing||.5)),reach=Math.ceil(maxSpacing/bucketSize);
     const nearby=p=>{const result=[],gx=Math.floor(p[0]/bucketSize),gy=Math.floor(p[1]/bucketSize);for(let x=gx-reach;x<=gx+reach;x++)for(let y=gy-reach;y<=gy+reach;y++)result.push(...(bucket.get(x+':'+y)||[]));return result;};
     const add=(p,plant,bed,ruleTrace)=>{

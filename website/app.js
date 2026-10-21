@@ -323,6 +323,7 @@ function renderPalette(){
   $$('[data-remove-plant]').forEach(button=>button.addEventListener('click',()=>{
     const index=state.selected.findIndex(p=>p.id===button.dataset.removePlant);if(index<0)return;
     const p=state.selected.splice(index,1)[0];state.removed.push(p);state.log.push('Removed '+p.name);invalidateFrom(4);renderPalette();
+    field('undoPlant')?.focus();
   }));
   $$('[data-expand]').forEach(button=>button.addEventListener('click',()=>candidateCards.toggle(button)));
   $$('[data-source-toggle]').forEach(button=>button.addEventListener('click',()=>candidateCards.toggleSource(button)));
@@ -336,6 +337,7 @@ function renderPalette(){
   field('paletteChangeLog').innerHTML=state.log.length?esc(state.log.slice(-3).join(' · '))+(state.removed.length?' <button type="button" id="undoPlant">Undo removal</button>':''):'No palette edits yet.';
   if(field('undoPlant'))field('undoPlant').addEventListener('click',()=>{
     const p=state.removed.pop();if(!p)return;state.selected.push(p);state.log.push('Restored '+p.name);invalidateFrom(4);renderPalette();
+    document.querySelector('#paletteGroups [data-candidate="'+p.id+'"] [data-expand]')?.focus();
   });
 }
 function renderSearch(){
@@ -776,11 +778,31 @@ function drawPlot(){
   field('plotAreaReadout').textContent=Math.round(area||0).toLocaleString()+' m²';
   field('plotFinish').disabled=count<3;field('plotUndo').disabled=!count;field('plotClear').disabled=!count&&!state.plotBoundary.length;
 }
-function finishPlot(){if(state.plotDraft.length<3)return;clearPlotPreview();state.plotBoundary=state.plotDraft.map(p=>p.slice());state.plotDraft=[];state.zones.forEach(z=>z.conditions=null);invalidateFrom(2);state.plotMode='pan';if(state.siteMap)state.siteMap.dragging.enable();field('siteMap').classList.remove('draw-mode');field('plotPan').classList.add('active');field('plotDraw').classList.remove('active');drawPlot();}
+/* A saved outline must enclose an area: corners not on one line, and no edges crossing each other. */
+function outlineProblem(points){
+  const poly=localMetricPolygon(points)||points,side=(a,b,c)=>Math.sign((b[0]-a[0])*(c[1]-a[1])-(b[1]-a[1])*(c[0]-a[0]));
+  const cross=(a,b,c,d)=>side(a,b,c)*side(a,b,d)<0&&side(c,d,a)*side(c,d,b)<0;
+  if(poly.some((a,i)=>poly.some((c,j)=>j>i+1&&!(i===0&&j===poly.length-1)&&cross(a,poly[i+1],c,poly[(j+1)%poly.length]))))return 'The outline crosses itself. Undo the last corners and redraw it without crossing lines.';
+  if(metricPolygonAreaFromXY(poly)<1)return 'The outline encloses almost no area. Place corners that are not on one straight line.';
+  return '';
+}
+/* Plan shapes drawn for an earlier plot elsewhere would otherwise stay in the plan, camera and exports. */
+function dropShapesOutsidePlot(){
+  const b=planBounds(),outside=s=>s.points.every(p=>p[0]<b.minA)||s.points.every(p=>p[0]>b.maxA)||s.points.every(p=>p[1]<b.minB)||s.points.every(p=>p[1]>b.maxB);
+  const dropped=state.sketches.filter(outside);if(!dropped.length)return;
+  dropped.forEach(s=>{if(state.map&&s.layer)state.map.removeLayer(s.layer);});
+  state.sketches=state.sketches.filter(s=>!outside(s));renderSketchList();updateSketchButtons();
+  field('generationStatus').textContent=dropped.length+' drawn shape'+(dropped.length===1?' was':'s were')+' outside the new plot boundary and '+(dropped.length===1?'has':'have')+' been removed from the plan.';
+}
+function finishPlot(){
+  if(state.plotDraft.length<3)return;
+  const problem=outlineProblem(state.plotDraft);field('siteError').textContent=problem;field('siteError').classList.toggle('hidden',!problem);if(problem)return;
+  clearPlotPreview();state.plotBoundary=state.plotDraft.map(p=>p.slice());state.plotDraft=[];state.zones.forEach(z=>z.conditions=null);invalidateFrom(2);dropShapesOutsidePlot();state.plotMode='pan';if(state.siteMap)state.siteMap.dragging.enable();field('siteMap').classList.remove('draw-mode');field('plotPan').classList.add('active');field('plotDraw').classList.remove('active');drawPlot();
+}
 function examplePlot(){
   const center=state.siteMap?state.siteMap.getCenter():{lat:500,lng:500};
   state.plotBoundary=state.siteMap?[[center.lat-.000045,center.lng-.00013],[center.lat-.000045,center.lng+.00013],[center.lat+.000045,center.lng+.00013],[center.lat+.000045,center.lng-.00013]]:[[430,430],[570,430],[570,570],[430,570]];
-  clearPlotPreview();state.plotDraft=[];state.zones.forEach(z=>z.conditions=null);invalidateFrom(2);state.plotMode='pan';if(state.siteMap)state.siteMap.dragging.enable();field('siteMap').classList.remove('draw-mode');field('plotPan').classList.add('active');field('plotDraw').classList.remove('active');drawPlot();if(state.siteMap)state.siteMap.fitBounds(state.plotBoundary,{padding:[55,55],animate:false});
+  clearPlotPreview();state.plotDraft=[];state.zones.forEach(z=>z.conditions=null);invalidateFrom(2);dropShapesOutsidePlot();field('siteError').classList.add('hidden');state.plotMode='pan';if(state.siteMap)state.siteMap.dragging.enable();field('siteMap').classList.remove('draw-mode');field('plotPan').classList.add('active');field('plotDraw').classList.remove('active');drawPlot();if(state.siteMap)state.siteMap.fitBounds(state.plotBoundary,{padding:[55,55],animate:false});
 }
 const sketchStyles={
   boundary:{color:'#26443a',fillColor:'#d4e7bf',fillOpacity:.06,weight:3,dashArray:'7 5'},
@@ -822,6 +844,7 @@ function drawDraft(){
 function finishShape(){
   const minimum=state.tool==='path'?2:3;
   if(state.draft.length<minimum)return;
+  const problem=state.tool==='path'?'':outlineProblem(state.draft);if(problem){field('mapInstruction').textContent=problem;return;}
   const item={type:state.tool,points:state.draft.map(pair=>pair.slice()),layer:null,zoneId:['planting','water'].includes(state.tool)?(Number(field('sketchZone').value)||state.zones[0].id):null};
   if(state.map){
     item.layer=state.tool==='path'?L.polyline(item.points,sketchStyles[item.type]).addTo(state.map):L.polygon(item.points,sketchStyles[item.type]).addTo(state.map);

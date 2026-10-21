@@ -224,7 +224,8 @@ for(const [label,scenario,changes,water] of communityCases){
   }
   /* Server revalidation: same membership as the browser for every operational plant. */
   const geometry=[{type:'boundary',points:input.boundary},...input.beds.map(b=>({type:'planting',zoneId:1,points:b.polygon})),...input.waterBeds.map(b=>({type:'water',zoneId:1,points:b.polygon}))];
-  const context={version:'benchmark',project:JSON.parse(JSON.stringify(A.project(appProject,'placement'))),zones:[{id:1,conditions:zone}],geometry,species:pool.map(p=>({id:p.id})),communities:plan.communities.map(c=>({id:c.id,zoneId:1,bedIndex:c.bedIndex,zone:c.zone,band:c.band,shade:c.shade,area:c.area,allowedIds:c.eligible.map(p=>p.id),rows:c.rows.map(r=>({plantId:r.plantId,percentage:r.percentage}))}))};
+  // Species as the browser sends them (ai-ui.js): community members. The v0.3 reference pool can include plants the project-demo policies exclude.
+  const context={version:'benchmark',project:JSON.parse(JSON.stringify(A.project(appProject,'placement'))),zones:[{id:1,conditions:zone}],geometry,species:[...new Set(plan.communities.flatMap(c=>c.eligible.map(p=>p.id)))].map(id=>({id})),communities:plan.communities.map(c=>({id:c.id,zoneId:1,bedIndex:c.bedIndex,zone:c.zone,band:c.band,shade:c.shade,area:c.area,allowedIds:c.eligible.map(p=>p.id),rows:c.rows.map(r=>({plantId:r.plantId,percentage:r.percentage}))}))};
   try{server.validateContext(context);}catch(e){errs.push('server rejected browser community: '+e.message);}
   for(const c of context.communities){
     const browser=new Set(c.allowedIds);

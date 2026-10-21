@@ -7,8 +7,8 @@
     const {boundary,beds=[],waterBeds=[],paths=[],exclusions=[],plants=[],zones=[],project={},pathWidth=1.5,mix={matrix:45,flowers:45,structure:10},recipes={}}=input;
     if(!boundary?.length||!beds.length)return individuals(input);
     const pool=plants.map(E.enrich).filter(p=>E.eligibility(p,project).eligible),zoneMap=new Map(zones.map(z=>[String(z.id),z]));
-    const points=[...boundary,...beds.flatMap(b=>b.polygon),...waterBeds.flatMap(b=>b.polygon)];
-    const bounds={minX:Math.min(...points.map(p=>p[0])),maxX:Math.max(...points.map(p=>p[0])),minY:Math.min(...points.map(p=>p[1])),maxY:Math.max(...points.map(p=>p[1]))};
+    // Every valid cell lies inside the plot, so shapes drawn beyond it must not widen the quadrature grid.
+    const bounds={minX:Math.min(...boundary.map(p=>p[0])),maxX:Math.max(...boundary.map(p=>p[0])),minY:Math.min(...boundary.map(p=>p[1])),maxY:Math.max(...boundary.map(p=>p[1]))};
     const segments=poly=>poly.map((p,i)=>[p,poly[(i+1)%poly.length]]);
     const lines=paths.flatMap(line=>line.slice(1).map((p,i)=>[line[i],p]));
     const pathDistance=p=>Math.min(...lines.map(([a,b])=>E.distance(p,a,b)))-pathWidth/2;

@@ -41,25 +41,45 @@ export function validateContext(c){
   if(!c.project||!Array.isArray(c.species)||c.species.length>100||!Array.isArray(c.geometry))throw fail(400,'Invalid plan context.');
   for(const key of S.contract.project_required)if(!(key in c.project))throw fail(400,'Missing project context: '+key);
   if(c.project.overrideIds!==undefined&&(!Array.isArray(c.project.overrideIds)||c.project.overrideIds.length>F.examples.length||c.project.overrideIds.some(id=>typeof id!=='string')))throw fail(400,'Invalid plant overrides.');
+  const allowed=new Set();
   for(const community of c.communities){
-    if(typeof community.id!=='string'||!['edge','transition','interior'].includes(community.band)||!Number.isFinite(community.area)||community.area<=0||!Array.isArray(community.allowedIds))throw fail(400,'Invalid community.');
-    const zone=c.zones.find(z=>String(z.id)===String(community.zoneId));if(!zone||community.allowedIds.length>100||!community.allowedIds.length)throw fail(400,'Community has no confirmed zone or eligible species.');
-    for(const id of community.allowedIds)if(!communityResult(c,community,id).eligible_for_demo_ranking)throw fail(400,'A community includes a species that fails its v0.3 gate.');
+    if(!community||typeof community.id!=='string'||!['edge','transition','interior'].includes(community.band)||!Number.isFinite(community.area)||community.area<=0||!Array.isArray(community.allowedIds)||!Array.isArray(community.rows))throw fail(400,'Invalid community.');
+    const zone=c.zones.find(z=>String(z?.id)===String(community.zoneId));if(!zone||community.allowedIds.length>100||!community.allowedIds.length)throw fail(400,'Community has no confirmed zone or eligible species.');
+    for(const id of community.allowedIds){if(!communityResult(c,community,id).eligible_for_demo_ranking)throw fail(400,'A community includes a species that fails its v0.3 gate.');allowed.add(id);}
+    // Recipe rows and species are sent to the provider as well, so they may only name plants that passed the gate above.
+    if(community.rows.some(r=>!r||!community.allowedIds.includes(r.plantId)||!Number.isFinite(r.percentage)||r.percentage<0||r.percentage>100))throw fail(400,'A community recipe names a species outside its eligible set.');
   }
+  if(c.trees!==undefined&&(!Array.isArray(c.trees)||c.trees.length>500))throw fail(400,'Invalid placed plants.');
+  for(const tree of c.trees||[]){if(!placedResult(c,tree).placeable)throw fail(400,'A placed plant fails its project-demo check.');allowed.add(tree.plantId);}
+  // Other species must at least pass the candidate-stage palette screen in one of the supplied zones.
+  const inPalette=id=>{const plant=F.record(id);return !!plant&&c.zones.some(z=>z&&checked(()=>F.evaluate(plant,z,c.project,{},'candidate')).placeable);};
+  if(c.species.some(p=>!p||typeof p.id!=='string'||!(allowed.has(p.id)||inPalette(p.id))))throw fail(400,'Species must be eligible plants for this project and site.');
   return c;
 }
-function communityResult(context,community,id){
-  const plant=catalogue.get(id),zone=context.zones.find(z=>String(z.id)===String(community.zoneId));
-  if(!plant||!zone)throw fail(400,'Unknown operational plant or zone.');
-  const beds=[...context.geometry.filter(g=>g.type==='planting'),...context.geometry.filter(g=>g.type==='water')],bed=beds[community.bedIndex];
-  if(!bed||String(bed.zoneId)!==String(community.zoneId)||!Array.isArray(bed.points)||bed.points.length<3)throw fail(400,'Community has no matching mapped bed.');
+function bedGeometry(bed){
+  if(!Array.isArray(bed.points)||bed.points.length<3||!bed.points.every(p=>Array.isArray(p)&&Number.isFinite(p[0])&&Number.isFinite(p[1])))throw fail(400,'Invalid mapped bed.');
   const xs=bed.points.map(p=>p[0]),ys=bed.points.map(p=>p[1]);
-  if([...xs,...ys].some(v=>!Number.isFinite(v)))throw fail(400,'Invalid mapped bed.');
-  const polygonArea=Math.abs(bed.points.reduce((sum,p,i)=>{const q=bed.points[(i+1)%bed.points.length];return sum+p[0]*q[1]-q[0]*p[1];},0))/2;
-  if(community.area>polygonArea*1.01)throw fail(400,'Community area exceeds mapped bed.');
-  const geometry={available_width_m:Math.max(...xs)-Math.min(...xs),available_length_m:Math.max(...ys)-Math.min(...ys),plantable_area_m2:polygonArea};
-  const fit=F.communityFit(plant,zone,context.project,geometry,{band:community.band,shade:!!community.shade,bedType:bed.type,waterPresent:context.geometry.some(g=>g.type==='water')},E.config);
+  return {available_width_m:Math.max(...xs)-Math.min(...xs),available_length_m:Math.max(...ys)-Math.min(...ys),plantable_area_m2:E.area(bed.points)};
+}
+/* Crafted zone or project values must be a client error, not a server failure. */
+function checked(evaluation){try{return evaluation();}catch(e){throw e.status?e:fail(400,'Invalid project or zone conditions.');}}
+function communityResult(context,community,id){
+  const plant=catalogue.get(id),zone=context.zones.find(z=>String(z?.id)===String(community.zoneId));
+  if(!plant||!zone)throw fail(400,'Unknown operational plant or zone.');
+  const beds=[...context.geometry.filter(g=>g?.type==='planting'),...context.geometry.filter(g=>g?.type==='water')],bed=beds[community.bedIndex];
+  if(!bed||String(bed.zoneId)!==String(community.zoneId))throw fail(400,'Community has no matching mapped bed.');
+  const geometry=bedGeometry(bed);
+  if(community.area>geometry.plantable_area_m2*1.01)throw fail(400,'Community area exceeds mapped bed.');
+  const fit=checked(()=>F.communityFit(plant,zone,context.project,geometry,{band:community.band,shade:!!community.shade,bedType:bed.type,waterPresent:context.geometry.some(g=>g?.type==='water')},E.config));
   return fit.fit?fit.result:{...fit.result,eligible_for_demo_ranking:false};
+}
+/* Trees and designer-added plants: placement-stage result in the mapped bed that contains them (water first, last drawn wins, as in the engines). */
+function placedResult(context,tree){
+  if(!tree||typeof tree.plantId!=='string'||!Array.isArray(tree.xy)||tree.xy.length!==2||!tree.xy.every(Number.isFinite))throw fail(400,'Invalid placed plants.');
+  const plant=F.record(tree.plantId),beds=[...context.geometry.filter(g=>g?.type==='water').reverse(),...context.geometry.filter(g=>g?.type==='planting').reverse()];
+  const bed=beds.find(b=>bedGeometry(b)&&E.inside(tree.xy,b.points)),zone=bed&&context.zones.find(z=>String(z?.id)===String(bed.zoneId));
+  if(!plant||!zone)throw fail(400,'A placed plant is unknown or outside the mapped beds.');
+  return checked(()=>F.evaluate(plant,zone,context.project,bedGeometry(bed),'placement'));
 }
 export function validateProposal(proposal,context){
   validateContext(context);
@@ -115,7 +135,7 @@ async function illustration(body){
   await mkdir(LOCAL,{recursive:true});await writeFile(path.join(LOCAL,'image-'+key+'.png'),Buffer.from(data,'base64'));
   const value={url:'/api/assets/'+key+'.png',key,season:body.season,model:imageModel,refinementApplied:refinement,usage:result.usage||{},label:'AI illustration · demonstration planting · not production eligible'};await saveJSON(file,value);return value;
 }
-async function readBody(req){let size=0,chunks=[];for await(const chunk of req){size+=chunk.length;if(size>2500000)throw fail(413,'Request too large.');chunks.push(chunk);}try{return JSON.parse(Buffer.concat(chunks));}catch{throw fail(400,'Invalid JSON.');}}
+async function readBody(req){let size=0,chunks=[];for await(const chunk of req){size+=chunk.length;if(size>2500000)throw fail(413,'Request too large.');chunks.push(chunk);}let body;try{body=JSON.parse(Buffer.concat(chunks));}catch{throw fail(400,'Invalid JSON.');}if(!body||typeof body!=='object'||Array.isArray(body))throw fail(400,'The request body must be a JSON object.');return body;}
 export function createServer(){return http.createServer(async(req,res)=>{
   const json=(code,value)=>{res.writeHead(code,{'Content-Type':'application/json','Cache-Control':'no-store','X-Content-Type-Options':'nosniff'});res.end(JSON.stringify(value));};
   try{
@@ -131,12 +151,12 @@ export function createServer(){return http.createServer(async(req,res)=>{
     if(req.method!=='GET'&&req.method!=='HEAD')throw fail(405,'Method not allowed.');
     if(/^\/api\/assets\/[a-f0-9]{64}\.png$/.test(url.pathname)){const data=await readFile(path.join(LOCAL,'image-'+path.basename(url.pathname)));res.writeHead(200,{'Content-Type':'image/png','X-Content-Type-Options':'nosniff','Cache-Control':'private, max-age=31536000, immutable'});return res.end(req.method==='HEAD'?undefined:data);}
     if(url.pathname.startsWith('/api/'))throw fail(404,'Unknown API route.');
-    const requested=decodeURIComponent(url.pathname==='/'?'/website/index.html':url.pathname);
+    let requested;try{requested=decodeURIComponent(url.pathname==='/'?'/website/index.html':url.pathname);}catch{throw fail(400,'Invalid path.');}
     if(!/^\/(website|dataset)\//.test(requested))throw fail(404,'Not found.');
     const candidate=await realpath(path.resolve(ROOT,'.'+requested));const allowed=await realpath(path.join(ROOT,requested.startsWith('/website/')?'website':'dataset'));
     if(!candidate.startsWith(allowed+path.sep))throw fail(403,'Not found.');
     const data=await readFile(candidate),type={'.html':'text/html','.js':'text/javascript','.json':'application/json','.css':'text/css','.svg':'image/svg+xml','.png':'image/png','.csv':'text/csv','.md':'text/plain'}[path.extname(candidate)]||'application/octet-stream';
     res.writeHead(200,{'Content-Type':type+'; charset=utf-8','Cache-Control':'no-cache','X-Content-Type-Options':'nosniff','Referrer-Policy':'no-referrer'});res.end(req.method==='HEAD'?undefined:data);
-  }catch(e){json(e.status||(e.code==='ENOENT'?404:500),{error:e.status?e.message:'The local request failed. Check the server or try again.'});}
+  }catch(e){json(e.status||(['ENOENT','EISDIR'].includes(e.code)?404:500),{error:e.status?e.message:'The local request failed. Check the server or try again.'});}
 });}
 if(process.argv[1]&&path.resolve(process.argv[1])===fileURLToPath(import.meta.url)){const port=Number(process.env.PORT||4182);createServer().listen(port,'127.0.0.1',()=>console.log('Plantscapes: http://127.0.0.1:'+port+'/website/index.html · AI '+(enabled?'enabled':'off')+' · local allowance $'+LIMIT));}

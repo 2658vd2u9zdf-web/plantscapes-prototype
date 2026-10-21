@@ -16,6 +16,13 @@ HERE=DATA/'research/demo-v0_3'
 def check(condition,message):
     if not condition:raise AssertionError(message)
 
+def unchanged(path,digest):
+    """Same content as the recorded hash. Hashes were captured on checkouts with different line endings
+    (Git core.autocrlf), so LF and CRLF forms of the same bytes both count as unchanged."""
+    if not path.is_file():return False
+    data=path.read_bytes();lf=data.replace(b'\r\n',b'\n')
+    return digest in {hashlib.sha256(x).hexdigest() for x in (data,lf,lf.replace(b'\n',b'\r\n'))}
+
 def schema_check(value,schema,path='$'):
     """Validate every keyword used in the published profile schema (no dependencies)."""
     if 'const' in schema:check(value==schema['const'],path+' const')
@@ -191,11 +198,11 @@ def main():
     check(output==results,'Saved example outputs are stale')
     sensitivity=tests(plants,examples)
     baseline=read_json(HERE/'protected-inputs.json');checked=0
-    for path,digest in baseline['files'].items():
-        check((ROOT/path).is_file() and hashlib.sha256((ROOT/path).read_bytes()).hexdigest()==digest,'Protected file changed: '+path);checked+=1
+    changed=[path for path in baseline['files'] if not unchanged(ROOT/path,baseline['files'][path])];checked=len(baseline['files'])
+    check(not changed,'Protected files changed ('+str(len(changed))+'): '+', '.join(changed))
     national=DATA/'derived/plantscapes_nl_vascular_plant_decision_traits_v0_2.csv'
     check(len(list(csv.DictReader(national.open(encoding='utf-8-sig'))))==2443,'National identity backbone count')
-    check(hashlib.sha256(national.read_bytes()).hexdigest()=='167256ade50af4cf4ce5af9a186ac1867212e237f26311631f7eaaf17e5de739','National baseline hash')
+    check(unchanged(national,'167256ade50af4cf4ce5af9a186ac1867212e237f26311631f7eaaf17e5de739'),'National baseline hash')
     noncounts=Counter(p['field_origins_json'][f] for p in plants for f in NONSAFETY)
     safety_unknown=sum(p[f] in UNKNOWN for p in plants for f in POLICY)
     confidence=[r['evidence_confidence_score'] for r in results]

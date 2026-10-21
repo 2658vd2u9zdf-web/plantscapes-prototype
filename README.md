@@ -45,12 +45,14 @@ node tests/runtime-integration-v0.3.mjs
 node tests/smoke.mjs
 node tests/communities.mjs
 node tests/ai-server.mjs
+node tests/server-validation.mjs
 node tests/workflow-clean.mjs
 node tests/browser-walkthrough.mjs
 node tests/ai-browser.mjs
 node tests/v03-browser.mjs
+node tests/audit-browser.mjs
 ```
 
-`tests/suitability-v0.3.mjs` compares every field of all 180 JavaScript results with the saved Python outputs. `tests/runtime-integration-v0.3.mjs` checks candidate ranking, uncertainty, synthetic source handling, and server-side AI revalidation without a provider call. `tests/ai-server.mjs` uses a mocked provider and a temporary localhost server; it makes no paid requests. Run the four browser tests with the local server running, Edge installed, and `NODE_PATH` pointing to a Node installation with Playwright. The browser AI test builds context and imports a local image without contacting a paid endpoint. See the baseline and final test record in [implementation notes](project-information/V03-RUNTIME-IMPLEMENTATION.md).
+`tests/suitability-v0.3.mjs` compares every field of all 180 JavaScript results with the saved Python outputs. `tests/runtime-integration-v0.3.mjs` checks candidate ranking, uncertainty, synthetic source handling, and server-side AI revalidation without a provider call. `tests/ai-server.mjs` uses a mocked provider and a temporary localhost server; it makes no paid requests. `tests/server-validation.mjs` sends crafted AI contexts and malformed requests to a local server with AI off. Run the five browser tests with the local server running, Edge installed, and `NODE_PATH` pointing to a Node installation with Playwright. The browser AI test builds context and imports a local image without contacting a paid endpoint. See the baseline and final test record in [implementation notes](project-information/V03-RUNTIME-IMPLEMENTATION.md).
 
-Location validation currently reports three authoritative dependency-hash errors; the v0.3 matching validator also reports an existing protected v0.2 file hash mismatch. These are separate baseline validation issues and are not silently rebuilt here.
+Location validation passes. The v0.3 matching validator treats LF and CRLF checkouts of a protected file as the same content, and lists six protected files (`dataset/README.md` and five website files) whose content intentionally changed after its hash baseline was recorded. That baseline is not silently rebuilt; see the [bug and performance audit](project-information/BUG-PERFORMANCE-AUDIT.md).

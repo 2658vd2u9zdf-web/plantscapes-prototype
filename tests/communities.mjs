@@ -24,4 +24,10 @@ assert.ok(exact.communities.every(c=>Math.abs(c.rows.find(r=>r.plantId===ids[0])
 const excluded=E.generate({...input,exclusions:[[[0,0],[50,0],[50,100],[0,100]]]});assert.ok(excluded.totalQuantity<result.totalQuantity*.8);assert.ok(excluded.placements.every(p=>p.xy[0]>=50));
 const overlapping=E.generate({...input,beds:[...input.beds,...input.beds]});assert.equal(overlapping.totalQuantity,result.totalQuantity,'overlapping beds must not double count');
 assert.equal(JSON.stringify(E.generate(input).placements),JSON.stringify(result.placements),'same plan must retain its sample');
-console.log(JSON.stringify({status:'passed',estimatedPlants:result.totalQuantity,preview:result.placements.length,area:result.plantableArea,checks:['v0.3 operational input','large-site full extent','count percentages','rounding','overlap and exclusions','determinism']}));
+// A bed left over from an earlier plot ~190 km away must not stretch the sampling grid of the current plot.
+const stale={polygon:[[190000,0],[190020,0],[190020,20],[190000,20]],zoneId:1},summary=r=>JSON.stringify({total:r.totalQuantity,area:r.plantableArea,communities:r.communities.map(c=>[c.id,c.total]),placements:r.placements.map(p=>p.xy)});
+assert.equal(summary(E.generate({...input,beds:[...input.beds,stale]})),summary(result),'a far-away stale bed changed the community plan');
+const plot=[[0,0],[30,0],[30,20],[0,20]],small={...input,boundary:plot,beds:[{polygon:plot,zoneId:1}],paths:[],mode:'repeated_drifts'},individual=E.generateIndividuals(small);
+assert.ok(individual.placements.length>0);
+assert.equal(JSON.stringify(E.generateIndividuals({...small,beds:[...small.beds,stale]}).placements),JSON.stringify(individual.placements),'a far-away stale bed changed the individual plan');
+console.log(JSON.stringify({status:'passed',estimatedPlants:result.totalQuantity,preview:result.placements.length,area:result.plantableArea,checks:['v0.3 operational input','large-site full extent','count percentages','rounding','overlap and exclusions','determinism','stale far-away beds']}));

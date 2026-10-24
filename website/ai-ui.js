@@ -25,7 +25,7 @@
     field('aiConnection').textContent=connection?.authState==='rejected'?'Key rejected · restart the launcher with an active key':connection?.ready?(connection.authState==='verified'?'API authenticated':'Key configured · not yet verified')+' · $'+connection.remaining.toFixed(2)+' local allowance available (not your API balance)':'AI off · local API setup required';
     field('viewDirection').closest('label').hidden=field('viewAngle').value==='path';
     field('importIllustration').disabled=!ready;field('exportAIReference').disabled=!ready;
-    field('undoRecipe').disabled=!recipeUndo.length;
+    field('undoRecipe').disabled=!recipeUndo.length;field('undoRecipe').hidden=!recipeUndo.length;
     if(!ready){proposal=null;field('aiProposal').hidden=true;field('communityControls').hidden=true;}
     renderImage();
   }

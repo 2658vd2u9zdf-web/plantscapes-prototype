@@ -4,8 +4,8 @@
   const search=field('location'),row=search.closest('.field-row');row.classList.add('location-picker');
   const button=document.createElement('button');button.id='locationSearch';button.type='button';button.className='button button-secondary';button.textContent='Search';
   const results=document.createElement('div');results.id='locationResults';results.className='search-results';results.hidden=true;
-  const status=document.createElement('small');status.id='locationStatus';status.setAttribute('role','status');status.textContent='Type a place or address, then choose a result. The city selector also moves the map.';
-  row.insertBefore(button,field('mapPreset').closest('label'));row.insertBefore(results,field('mapPreset').closest('label'));row.insertBefore(status,field('mapPreset').closest('label'));
+  const status=document.createElement('small');status.id='locationStatus';status.setAttribute('role','status');status.textContent='Type a place or address, then choose a result to move the map.';
+  row.append(button,results,status);
   async function findLocation(){
     clearTimeout(searchTimer);const query=search.value.trim(),serial=++version;searchController?.abort();results.hidden=true;results.replaceChildren();
     if(query.length<2){status.textContent='Type at least two characters to search.';return;}

@@ -7,6 +7,8 @@ const runtime = window.PlantscapesRuntimeV03;
 const recommender = window.PlantscapesRecommender;
 const candidateCards = window.PlantscapesCandidateCard;
 const PATH_WIDTH = 1.5;
+const PLOT_CLOSE_RADIUS_PX = 18;
+const MAP_ZOOM_GESTURE = Object.freeze({pixelsPerZoomLevel:150,minimumDelta:.001,maximumDelta:.45,velocityReference:.35,maximumAcceleration:3.25,accelerationCurve:.65});
 const demo = window.PLANTSCAPES_DEMO || {places:{}};
 const oudolfPrecedents = window.PLANTSCAPES_OUDOLF_PRECEDENTS || [];
 const $ = selector => document.querySelector(selector);
@@ -19,8 +21,8 @@ const state = {
   designRules:null, compositionMode:'auto', planAudit:null, planDirty:false, planUndo:[],
   siteMap:null, siteMapReady:false, selectedLocation:null, plotMode:'pan', plotDraft:[], plotBoundary:[], plotDraftLayer:null, plotPreviewLayer:null, plotLayer:null,
   map: null, mapReady: false, tool: 'pan', draft: [], draftLayer: null,
-  sketches: [], planOverlay: null, planObjectUrl: null, siteBoundaryLayer:null,
-  placements:[], planMasses:[], massGrid:null, placementLayers:[], coverageLayers:[], selectedPlacement:null, generated:false, planRevision:0
+  sketches: [], planOverlay: null, planObjectUrl: null, siteBoundaryLayer:null, movePreviewLayer:null,
+  placements:[], planMasses:[], massGrid:null, placementLayers:[], coverageLayers:[], selectedPlacement:null, draggingPlacement:null, generated:false, planRevision:0
 };
 const groupOrder = ['Trees','Shrubs','Flowers & herbs','Grasses, sedges & rushes','Bulbs / geophytes','Climbers','Aquatic & marginal plants','Needs classification'];
 const starter = [
@@ -66,12 +68,13 @@ const site = () => {
 
 function stageFromUrl(){
   const match = location.hash.match(/^#stage-(\d)$/);
-  const proposed = match ? Number(match[1]) : 0;
+  const proposed = match ? (Number(match[1])===8?7:Number(match[1])) : 0;
   return proposed <= state.unlocked ? proposed : 0;
 }
 function showStage(number, updateHistory=true){
   if(number===5)number=6;
-  if(number > state.unlocked || number < 0 || number > 8) return;
+  if(number===8)number=7;
+  if(number > state.unlocked || number < 0 || number > 7) return;
   state.stage = number;
   field('home').classList.toggle('hidden', number !== 0);
   field('workflow').classList.toggle('hidden', number === 0);
@@ -82,8 +85,7 @@ function showStage(number, updateHistory=true){
     button.classList.toggle('active',n===number);
     if(n===number) button.setAttribute('aria-current','step'); else button.removeAttribute('aria-current');
   });
-  field('stageCount').textContent = ([1,2,3,4,6,7,8].indexOf(number)+1)+' of 7';
-  if(number===8)renderVisualization();
+  field('stageCount').textContent = ([1,2,3,4,7].indexOf(number)+1)+' of 5';
   if(number===2){renderZoneList();setTimeout(initSiteMap,40);}
   if(number===3) renderConditionZones();
   if(number===4) renderPalette();
@@ -142,13 +144,14 @@ const options = {
 const labels = {soil:'Soil',moisture:'Moisture',hydrology:'Wetness regime',light:'Light',canopy:'Canopy',disturbance:'Disturbance',hardscape:'Hardscape',waterEdge:'Water edge',path_edge:'Path edge',source:'Basis for confirmation'};
 function selectHtml(z,key){
   const values=options[key]; const current=z.conditions[key];
-  return '<label class="field"><span>'+labels[key]+'</span><select data-zone-condition="'+z.id+'" data-condition-key="'+key+'">'+values.map(pair=>'<option value="'+pair[0]+'"'+(pair[0]===current?' selected':'')+'>'+pair[1]+'</option>').join('')+'</select>'+(key==='disturbance'?'<small>A nearby mapped road does not prove high site stress. Choose a level only from site evidence.</small>':'')+'</label>';
+  const guidance=key==='disturbance'?'<span class="info-icon" tabindex="0" role="img" aria-label="More information about disturbance">i<span class="info-tooltip" role="tooltip">A nearby mapped road does not prove high site stress. Choose a level only from site evidence.</span></span>':'';
+  return '<label class="field"><span>'+labels[key]+guidance+'</span><select data-zone-condition="'+z.id+'" data-condition-key="'+key+'">'+values.map(pair=>'<option value="'+pair[0]+'"'+(pair[0]===current?' selected':'')+'>'+pair[1]+'</option>').join('')+'</select></label>';
 }
 function renderConditionZones(){
   const place=nearestDemoPlace();
   field('conditionBasis').textContent='Approximate profile around '+(place?place.label:'the chosen area')+'; inferred from your boundary and feature checkboxes. It is invented for workflow testing, not derived from a soil map or survey.';
   state.zones.forEach(z=>{if(!z.conditions)z.conditions=defaultConditions();});
-  field('conditionZones').innerHTML=state.zones.map((z,i)=>'<article class="condition-card"><div class="condition-card-head"><h3>'+(i+1)+'. '+esc(z.name||'Unnamed zone')+'</h3><span>City defaults: synthetic fallback until each field is checked</span></div><div class="condition-grid">'+['soil','moisture','hydrology','light','canopy','disturbance','hardscape','waterEdge','path_edge'].map(key=>selectHtml(z,key)).join('')+'</div><div class="condition-grid">'+[['available_width_m','Clear width (m)'],['available_length_m','Clear length (m)'],['plantable_area_m2','Clear zone area (m²)'],['max_plant_height_m','Visibility limit (m)'],['support_length_m','Mapped support length (m)']].map(([key,label])=>'<label class="field"><span>'+label+' · blank means unknown</span><input type="number" min="0" step="any" data-zone-number="'+z.id+'" data-number-key="'+key+'" value="'+(z.conditions[key]==='unknown'?'':esc(z.conditions[key]))+'"></label>').join('')+'</div><div class="condition-card-foot">'+selectHtml(z,'source')+'<label class="field"><span>Evidence note <em>optional</em></span><input data-zone-note="'+z.id+'" value="'+esc(z.conditions.note)+'" placeholder="e.g. surveyed in June"></label></div></article>').join('');
+  field('conditionZones').innerHTML=state.zones.map(z=>{const advancedKeys=['available_width_m','available_length_m','plantable_area_m2','max_plant_height_m','support_length_m'];const hasAdvancedValue=z.conditions.path_edge!=='unknown'||advancedKeys.some(key=>z.conditions[key]&&z.conditions[key]!=='unknown')||z.conditions.source!=='demo'||z.conditions.note;return '<article class="condition-card"><div class="condition-card-head"><h3>'+esc(z.name||'Unnamed zone')+'</h3></div><p class="condition-estimate-note">Initial estimate — review values you can verify.</p><div class="condition-grid">'+['soil','moisture','hydrology','light','canopy','disturbance','hardscape','waterEdge'].map(key=>selectHtml(z,key)).join('')+'</div><details class="advanced-site-details"'+(hasAdvancedValue?' open':'')+'><summary>Advanced site details <span>Optional placement, space and evidence settings</span></summary><div class="advanced-site-details-body">'+selectHtml(z,'path_edge')+'<p class="measurement-guidance">Leave a measurement empty if it is not known.</p><div class="condition-grid">'+[['available_width_m','Clear width (m)'],['available_length_m','Clear length (m)'],['plantable_area_m2','Clear zone area (m²)'],['max_plant_height_m','Visibility limit (m)'],['support_length_m','Mapped support length (m)']].map(([key,label])=>'<label class="field"><span>'+label+'</span><input type="number" min="0" step="any" placeholder="Not measured" data-zone-number="'+z.id+'" data-number-key="'+key+'" value="'+(z.conditions[key]==='unknown'?'':esc(z.conditions[key]))+'"></label>').join('')+'</div><div class="condition-card-foot">'+selectHtml(z,'source')+'<label class="field"><span>Evidence note <em>optional</em></span><input data-zone-note="'+z.id+'" value="'+esc(z.conditions.note)+'" placeholder="e.g. surveyed in June"></label></div></div></details></article>'}).join('');
   $$('[data-zone-condition]').forEach(input=>input.addEventListener('change',()=>{
     const z=state.zones.find(item=>item.id===Number(input.dataset.zoneCondition));
     z.conditions[input.dataset.conditionKey]=input.value;if(input.dataset.conditionKey!=='source')z.conditions.field_origins[input.dataset.conditionKey]='user_selected'; invalidateFrom(3);
@@ -281,7 +284,7 @@ function overrideItem(id){
 }
 function buildDemoPalette(){
   const kept=project().overrideIds;
-  state.selected=demoCandidates();state.removed=[];state.log=['Built '+state.selected.length+' candidates for this site.'];state.paletteBuilt=true;state.approved=false;
+  state.selected=demoCandidates();state.removed=[];state.log=[];state.paletteBuilt=true;state.approved=false;
   // Overrides are the designer's decision, so they survive a rebuild while only information is still missing.
   for(const id of kept){
     const item=overrideItem(id);
@@ -334,7 +337,7 @@ function renderPalette(){
     state.selected.push(item);state.log.push('Added '+item.name+' anyway (information missing)');invalidateFrom(4);renderPalette();
     document.querySelector('.example-group [data-candidate="'+id+'"] [data-expand]')?.focus();
   }));
-  field('paletteChangeLog').innerHTML=state.log.length?esc(state.log.slice(-3).join(' · '))+(state.removed.length?' <button type="button" id="undoPlant">Undo removal</button>':''):'No palette edits yet.';
+  field('paletteChangeLog').innerHTML=state.log.length?esc(state.log.slice(-3).join(' · '))+(state.removed.length?' <button type="button" id="undoPlant">Undo removal</button>':''):'';
   if(field('undoPlant'))field('undoPlant').addEventListener('click',()=>{
     const p=state.removed.pop();if(!p)return;state.selected.push(p);state.log.push('Restored '+p.name);invalidateFrom(4);renderPalette();
     document.querySelector('#paletteGroups [data-candidate="'+p.id+'"] [data-expand]')?.focus();
@@ -399,6 +402,18 @@ function pointInPolygon(point,polygon){
   }
   return inside;
 }
+function constrainPlanPoint(point){
+  const boundary=state.plotBoundary;
+  if(boundary.length<3||pointInPolygon(point,boundary))return point;
+  let nearest=boundary[0],shortest=Infinity;
+  boundary.forEach((a,index)=>{
+    const b=boundary[(index+1)%boundary.length],dx=b[0]-a[0],dy=b[1]-a[1],length=dx*dx+dy*dy;
+    const t=Math.max(0,Math.min(1,((point[0]-a[0])*dx+(point[1]-a[1])*dy)/(length||1)));
+    const candidate=[a[0]+t*dx,a[1]+t*dy],distance=(point[0]-candidate[0])**2+(point[1]-candidate[1])**2;
+    if(distance<shortest){nearest=candidate;shortest=distance;}
+  });
+  return nearest;
+}
 function planBounds(){
   const points=state.plotBoundary;
   return {minA:Math.min(...points.map(p=>p[0])),maxA:Math.max(...points.map(p=>p[0])),minB:Math.min(...points.map(p=>p[1])),maxB:Math.max(...points.map(p=>p[1]))};
@@ -462,10 +477,12 @@ function generatePlan(){
   state.placements=result.placements.map((p,i)=>({...makePlacement(i,state.selected.find(q=>q.id===p.plantId),p.xy,origin,result.bounds,selectedCompositionMode(),p.tree),...p}));
   state.selectedPlacement=null;state.generated=true;state.planDirty=false;state.planRevision++;state.planUndo=[];
   state.planAudit={...result,origin};
+  field('stage7').classList.remove('plan-area-editing');
   setTool('pan');
   buildPlantingMasses(origin,result.bounds,result.valid);
   field('generatePlan').textContent='Regenerate concept';
   field('downloadPlanSvg').disabled=false;field('downloadViewSvg').disabled=false;
+  clearPlanPlacementIssue();
   const count=state.placements.length,used=new Set(Object.entries(result.quantities||{}).filter(([,quantity])=>quantity>0).map(([id])=>id));
   field('generationStatus').textContent=Number(result.totalQuantity||count).toLocaleString()+' estimated plants · '+used.size+' species';
   renderPlantingCoverage();renderPlacements();renderSymbolEditor();renderVisualization();renderPlanRules();window.PlantscapesAI?.onPlan();
@@ -575,15 +592,39 @@ function applyMassHatch(layer,colour,index){
 function renderPlacements(){
   if(state.map){state.placementLayers.forEach(layer=>state.map.removeLayer(layer));state.placementLayers=[];
     const key=new Map(planPlantKey().map(entry=>[entry.plant.id,entry]));
-    state.planMasses.forEach(mass=>{const p=state.selected.find(plant=>plant.id===mass.plantId);if(!p)return;const entry=key.get(p.id),colour=entry?.colour||'#536d59';const layer=L.polygon(mass.polygon,{color:colour,weight:.6,fillColor:colour,fillOpacity:.18,interactive:true}).addTo(state.map).bindTooltip(String(entry?.index||0).padStart(2,'0')+' · '+p.name+' · '+mass.count+' preview samples in this hatch');layer.on('click',event=>{L.DomEvent.stopPropagation(event);selectPlacement(mass.first.id);});applyMassHatch(layer,colour,entry?.index||0);state.placementLayers.push(layer);});
+    state.planMasses.forEach(mass=>{const p=state.selected.find(plant=>plant.id===mass.plantId);if(!p)return;const entry=key.get(p.id),colour=entry?.colour||'#536d59';const layer=L.polygon(mass.polygon,{color:colour,weight:.6,fillColor:colour,fillOpacity:.18,interactive:true}).addTo(state.map).bindTooltip(String(entry?.index||0).padStart(2,'0')+' · '+p.name+' · '+mass.count+' preview samples in this hatch');layer.on('click',event=>{L.DomEvent.stopPropagation(event);if(state.tool==='selectPlant')selectPlacement(mass.first.id);});applyMassHatch(layer,colour,entry?.index||0);state.placementLayers.push(layer);});
     state.placements.filter(item=>item.tree||item.accent).forEach(item=>{const p=plantForPlacement(item);if(!p)return;
-      const entry=key.get(p.id),selected=item.id===state.selectedPlacement,colour=entry?.colour||'#536d59';
-      const marker=L.circleMarker(item.point,{radius:item.tree?6.2:selected?4.8:p.group==='Shrubs'?3.8:2.8,color:item.tree||p.group==='Shrubs'?'#263b2d':'#fff',weight:item.tree?1.8:1,fillColor:colour,fillOpacity:.92}).addTo(state.map).bindTooltip(String(entry?.index||0).padStart(2,'0')+' · '+p.name+(item.tree?' · illustrative tree':' · illustrative planting position'));
-      marker.on('click',event=>{L.DomEvent.stopPropagation(event);selectPlacement(item.id);});state.placementLayers.push(marker);
+      const entry=key.get(p.id),selected=item.id===state.selectedPlacement,dragging=item.id===state.draggingPlacement,colour=entry?.colour||'#536d59';
+      const marker=L.circleMarker(item.point,{radius:item.tree?6.2:selected?4.8:p.group==='Shrubs'?3.8:2.8,color:item.tree||p.group==='Shrubs'?'#263b2d':'#fff',weight:item.tree?1.8:1,opacity:dragging?0:1,fillColor:colour,fillOpacity:dragging?0:.92}).addTo(state.map).bindTooltip(String(entry?.index||0).padStart(2,'0')+' · '+p.name+(item.tree?' · illustrative tree':' · illustrative planting position'));
+      marker.on('click',event=>{L.DomEvent.stopPropagation(event);if(state.tool==='selectPlant')selectPlacement(item.id);});
+      marker.on('mousedown',event=>{
+        if(state.tool!=='selectPlant')return;
+        L.DomEvent.stopPropagation(event);
+        state.selectedPlacement=item.id;state.draggingPlacement=item.id;
+        state.map.dragging.disable();renderPlacements();renderSymbolEditor();updateMovePreview(item.point);
+        const dragPoint=mouseEvent=>{
+          if(!state.draggingPlacement)return;
+          const point=state.map.mouseEventToLatLng(mouseEvent);
+          updateMovePreview(constrainPlanPoint([point.lat,point.lng]));
+        };
+        const dropPlant=mouseEvent=>{
+          document.removeEventListener('mousemove',dragPoint);
+          document.removeEventListener('mouseup',dropPlant);
+          if(!state.draggingPlacement)return;
+          const point=state.map.mouseEventToLatLng(mouseEvent);
+          state.draggingPlacement=null;
+          moveSelectedSymbol(constrainPlanPoint([point.lat,point.lng]),true);
+        };
+        document.addEventListener('mousemove',dragPoint);
+        document.addEventListener('mouseup',dropPlant);
+      });
+      state.placementLayers.push(marker);
       if(item.tree){const radius=item.spread/2;if(radius>0){const buffer=L.circle(item.point,{radius,color:'#765c3a',weight:1,dashArray:'3 4',fillColor:'#d5b58b',fillOpacity:.13,interactive:false}).addTo(state.map);state.placementLayers.push(buffer);}}
     });
     const largest=new Map();state.planMasses.forEach(m=>{if(!largest.has(m.plantId)||largest.get(m.plantId).count<m.count)largest.set(m.plantId,m);});
     largest.forEach(m=>{const centre=m.polygon.reduce((p,q)=>[p[0]+q[0]/4,p[1]+q[1]/4],[0,0]);const label=L.tooltip({permanent:true,direction:'center',className:'taxon-code'}).setLatLng(centre).setContent(String(key.get(m.plantId)?.index||'')).addTo(state.map);state.placementLayers.push(label);});
+    const selected=state.placements.find(item=>item.id===state.selectedPlacement);
+    if(selected?.point&&!state.draggingPlacement){state.placementLayers.push(L.circleMarker(selected.point,{radius:selected.tree?13:10,color:'#c8e85a',weight:3,fill:false,interactive:false}).addTo(state.map));}
     (state.planAudit?.visibility||[]).forEach(prompt=>{const marker=L.circleMarker(metricToLatLng(prompt.xy,state.planAudit.origin),{radius:7,color:'#a45d20',weight:2,dashArray:'3 3',fillColor:'#fff0c8',fillOpacity:.6}).addTo(state.map).bindTooltip(prompt.reason+' Review marker; not a calculated safe sightline.');state.placementLayers.push(marker);});
   }else renderFallbackSketch();
   renderPlacementList();
@@ -620,6 +661,14 @@ function checkPlanEdit(plant,point,ignoreId){
   if(state.placements.some(q=>!q.preview&&q.id!==ignoreId&&Math.hypot(q.xy[0]-xy[0],q.xy[1]-xy[1])<(q.tree?Math.max(.75,q.spread*.12):(q.spacing+plant.spacing)/2)))return 'This position is too close to another structural plant for the draft spacing. Choose a different position or smaller plant.';
   return '';
 }
+function reportPlanPlacementIssue(error,heading='Plant not added'){
+  const detail=error==='This path edge requires lower planting and resolved thorn evidence.'?'This point is too close to a path for the chosen plant. Choose a lower, non-thorny species or place it farther from the path.':error.startsWith('Keep the plant')?'Choose a point inside a planting or water area and outside paths and open ground.':error.startsWith('This position is too close')?'Choose a position farther from the nearby structural plant, or select a smaller plant.':error;
+  field('generationStatus').textContent=detail;
+  const notice=field('planActionAlert');if(!notice)return;
+  notice.innerHTML='<strong>'+esc(heading)+'</strong><span>'+esc(detail)+'</span>';
+  notice.hidden=false;notice.focus({preventScroll:true});
+}
+function clearPlanPlacementIssue(){const notice=field('planActionAlert');if(notice)notice.hidden=true;}
 function savePlanUndo(){state.planUndo.push(state.placements.map(p=>({...p,point:p.point.slice(),xy:p.xy.slice()})));if(state.planUndo.length>20)state.planUndo.shift();}
 function refreshAfterPlanEdit(message){
   if(state.planAudit)buildPlantingMasses(state.planAudit.origin,state.planAudit.bounds,state.planAudit.valid);
@@ -632,39 +681,54 @@ function undoPlanEdit(){
 }
 function renderSymbolEditor(){
   const box=field('selectedSymbol'),item=state.placements.find(x=>x.id===state.selectedPlacement);
-  if(!item){box.hidden=true;box.innerHTML='';return;}
+  const addField=field('symbolSpecies').closest('label'),help=field('symbolHelp'),mode=field('plantToolMode'),actions=field('plantToolActions'),undo=field('undoPlanEdit'),bar=field('mapSelectionBar'),count=field('selectedPlantCount');
+  addField.hidden=false;help.hidden=!!item;mode.textContent=item?'Edit selected plant':'Add plant';undo.hidden=!state.planUndo.length;actions.replaceChildren();
+  if(!item){box.hidden=true;box.innerHTML='';if(bar)bar.hidden=true;return;}
   box.hidden=false;
+  if(bar)bar.hidden=state.tool!=='selectPlant';if(count)count.textContent='1 plant selected';
   if(item.preview){
     const community=state.planAudit.communities.find(c=>c.id===item.communityId);
-    box.innerHTML='<strong>'+esc(plantForPlacement(item)?.name)+'</strong><label class="field"><span>Replace species in this mix</span><select id="replaceMixSpecies">'+(community?.eligible||[]).map(p=>'<option value="'+esc(p.id)+'"'+(p.id===item.plantId?' selected':'')+'>'+esc(p.name)+'</option>').join('')+'</select></label><button id="removeMixSpecies" type="button" class="button button-secondary">Remove species from mix</button>';
+    box.innerHTML='<strong>Selected mix: '+esc(plantForPlacement(item)?.name||'Plant')+'</strong>';
+    actions.innerHTML='<label class="toolbar-species"><span>plant type:</span><select id="replaceMixSpecies">'+(community?.eligible||[]).map(p=>'<option value="'+esc(p.id)+'"'+(p.id===item.plantId?' selected':'')+'>'+esc(p.name)+'</option>').join('')+'</select></label><button id="closePlantSelection" type="button" class="map-selection-remove" aria-label="Close plant editing" title="Return to Add plants">×</button>';
     field('replaceMixSpecies').onchange=e=>PlantscapesAI.changeCommunity(item.communityId,item.plantId,e.target.value);
-    field('removeMixSpecies').onclick=()=>PlantscapesAI.changeCommunity(item.communityId,item.plantId,null);return;
+    field('closePlantSelection').onclick=()=>{state.selectedPlacement=null;clearMovePreview();setTool('symbol');};return;
   }
   const plant=plantForPlacement(item),options=state.selected.filter(p=>p.id===item.plantId||!checkPlanEdit(engine.enrich(p),item.point,item.id)).map(p=>'<option value="'+esc(p.id)+'"'+(p.id===item.plantId?' selected':'')+'>'+esc(p.name)+'</option>').join('');
-  box.innerHTML='<strong>'+esc(plant?.name||'Plant')+'</strong><p>'+esc(item.reason||'Individual designer edit; checks applied before placement.')+'</p><small>Rules: '+esc((item.ruleTrace||[]).join(', '))+' · '+esc(item.evidenceStatus||'synthetic_demo')+'</small><label class="field"><span>Change species</span><select id="editSymbolSpecies">'+options+'</select></label><div class="symbol-actions"><button id="moveSymbol" type="button" class="button button-secondary">Move on map</button><button id="removeSymbol" type="button" class="button button-secondary">Remove</button></div>';
+  box.innerHTML='<strong>Selected plant: '+esc(plant?.name||'Plant')+'</strong>';
+  actions.innerHTML='<label class="toolbar-species"><span>plant type:</span><select id="editSymbolSpecies">'+options+'</select></label><button id="closePlantSelection" type="button" class="map-selection-remove" aria-label="Close plant editing" title="Return to Add plants">×</button>';
   field('editSymbolSpecies').addEventListener('change',event=>{
     const next=engine.enrich(state.selected.find(p=>p.id===event.target.value)),error=checkPlanEdit(next,item.point,item.id);
     if(error){renderSymbolEditor();const feedback=document.createElement('p');feedback.className='edit-error';feedback.setAttribute('role','alert');feedback.textContent=error;box.append(feedback);return;}
     savePlanUndo();Object.assign(item,{plantId:next.id,spread:next.spread,spacing:next.spacing,height:next.height,tree:next.group==='Trees',reason:'Species changed by designer; zone, path edge and spacing rechecked.',ruleTrace:['G04','G05','S01','S02','D01','D03']});refreshAfterPlanEdit('Species changed; placement checks passed.');
   });
-  field('moveSymbol').addEventListener('click',()=>setTool('moveSymbol'));
-  field('removeSymbol').addEventListener('click',()=>{savePlanUndo();state.placements=state.placements.filter(x=>x.id!==item.id);state.selectedPlacement=null;refreshAfterPlanEdit('Plant removed. Undo is available.');});
+  field('closePlantSelection').addEventListener('click',()=>{state.selectedPlacement=null;clearMovePreview();setTool('symbol');});
 }
-function moveSelectedSymbol(point){
+function moveSelectedSymbol(point,keepEditing=false){
   const item=state.placements.find(x=>x.id===state.selectedPlacement);if(!item)return;
-  const error=checkPlanEdit(engine.enrich(plantForPlacement(item)),point,item.id);if(error){field('generationStatus').textContent=error;return;}
-  savePlanUndo();const b=planBounds();item.point=point;item.nx=(point[1]-b.minB)/Math.max(.000001,b.maxB-b.minB);item.ny=(point[0]-b.minA)/Math.max(.000001,b.maxA-b.minA);item.xy=latLngToMetric(point,state.planAudit.origin);item.reason='Moved by designer; zone, path edge and spacing rechecked.';refreshAfterPlanEdit('Plant moved. View updated and undo is available.');setTool('pan');
+  const error=checkPlanEdit(engine.enrich(plantForPlacement(item)),point,item.id);if(error){reportPlanPlacementIssue(error,'Plant not moved');return;}
+  savePlanUndo();const b=planBounds();item.point=point;item.nx=(point[1]-b.minB)/Math.max(.000001,b.maxB-b.minB);item.ny=(point[0]-b.minA)/Math.max(.000001,b.maxA-b.minA);item.xy=latLngToMetric(point,state.planAudit.origin);item.reason='Moved by designer; zone, path edge and spacing rechecked.';refreshAfterPlanEdit('Plant moved. View updated and undo is available.');setTool(keepEditing?'selectPlant':'pan');
+}
+function clearMovePreview(){
+  if(state.movePreviewLayer&&state.map)state.map.removeLayer(state.movePreviewLayer);
+  state.movePreviewLayer=null;
+}
+function updateMovePreview(point){
+  if(!state.map||(state.tool!=='moveSymbol'&&!state.draggingPlacement)){clearMovePreview();return;}
+  const item=state.placements.find(entry=>entry.id===state.selectedPlacement),plant=item&&plantForPlacement(item);
+  if(!item||!plant){clearMovePreview();return;}
+  const entry=planPlantKey().find(key=>key.plant.id===plant.id),colour=entry?.colour||'#536d59',style={radius:item.tree?14:12,color:'#c8e85a',weight:3,dashArray:'3 2',fillColor:colour,fillOpacity:1,interactive:false};
+  if(state.movePreviewLayer)state.movePreviewLayer.setLatLng(point);else state.movePreviewLayer=L.circleMarker(point,style).addTo(state.map);
 }
 function addPlantSymbol(point){
-  if(!state.generated){field('generationStatus').textContent='Generate a concept before adding an individual plant.';return;}
+  if(!state.generated){reportPlanPlacementIssue('Generate a concept before adding an individual plant.');return;}
   const plant=engine.enrich(state.selected.find(p=>p.id===field('symbolSpecies').value));if(!plant)return;
-  const error=checkPlanEdit(plant,point);if(error){field('generationStatus').textContent=error;return;}
+  const error=checkPlanEdit(plant,point);if(error){reportPlanPlacementIssue(error);return;}
   savePlanUndo();const xy=latLngToMetric(point,state.planAudit.origin),item=makePlacement(Date.now(),plant,xy,state.planAudit.origin,state.planAudit.bounds,selectedCompositionMode(),plant.group==='Trees');
   Object.assign(item,{manual:true,xy,spacing:plant.spacing,spread:plant.spread,height:plant.height,accent:true,reason:'Added by designer; eligibility, zone, path edge and spacing checked.',ruleTrace:['G04','G05','S01','S02','D01','D03'],evidenceStatus:plant.demo?'synthetic_demo':'reviewed'});
-  state.placements.push(item);state.selectedPlacement=item.id;refreshAfterPlanEdit('Plant added. View updated and undo is available.');
+  state.placements.push(item);state.selectedPlacement=item.id;clearPlanPlacementIssue();refreshAfterPlanEdit('Plant added. View updated and undo is available.');
 }
 function renderVisualization(){
-  field('stage7').classList.toggle('plan-generated',state.generated&&!state.planDirty);
+  updatePlanRefinementControls();
   const canvas=field('visualCanvas');
   if(!state.generated||state.planDirty){window.PlantscapesAI?.refresh();canvas.innerHTML='<div class="visual-empty">'+(state.planDirty?'Regenerate the concept after changing the spaces.':'Draw your paths and planting zones, then generate a concept to see the view.')+'</div>';return;}
   const season=field('viewSeason').value,age=Number(field('viewAge').value),direction=field('viewDirection').value,origin=state.planAudit.origin;
@@ -680,6 +744,32 @@ function renderVisualization(){
   window.PlantscapesAI?.refresh();
   canvas.setAttribute('aria-label',field('viewAngle').value==='path'?'Eye-level perspective from the selected path position towards the selected highlight.':'Mock view showing actual paths, open ground, water and relative planting heights.');
   field('visualCaption').textContent='Woody plants and '+result.sample+' symbols from '+state.placements.length+' positions. Grass tufts, flowering and seedheads use group-level seasonal fixtures, not botanical predictions.';
+}
+function updatePlanRefinementControls(){
+  const ready=state.generated&&!state.planDirty,stage=field('stage7');
+  stage.classList.toggle('plan-generated',ready);
+  const tools=stage.querySelector('.plant-tools'),addPlant=stage.querySelector('[data-tool="symbol"]'),selectPlant=stage.querySelector('[data-tool="selectPlant"]');
+  tools.hidden=!ready;addPlant.hidden=!ready;if(selectPlant)selectPlant.hidden=!ready;
+  const editAreas=field('editPlanAreas');
+  if(editAreas){editAreas.hidden=!ready;if(!ready){stage.classList.remove('plan-area-editing');editAreas.textContent='Edit areas';}else editAreas.textContent=stage.classList.contains('plan-area-editing')?'View concept':'Edit areas';}
+  const mappingAreas=!ready||stage.classList.contains('plan-area-editing'),phase=field('planPhaseIndicator'),speciesField=field('mapSpeciesField'),generate=field('generatePlan');
+  if(phase)phase.textContent=mappingAreas?'1 · Map areas':'2 · Refine planting';
+  if(speciesField)speciesField.hidden=mappingAreas;
+  if(generate){generate.hidden=!mappingAreas;generate.textContent=state.generated?'Regenerate concept':'Generate concept';}
+  const mapStepOne=field('mapStepOne'),mapStepTwo=field('mapStepTwo'),mapAction=field('mapPhaseAction'),download=field('downloadPlanSvg');
+  if(mapStepOne){mapStepOne.classList.toggle('active',mappingAreas);mapStepOne.disabled=!state.generated&&!mappingAreas;}
+  if(mapStepTwo){mapStepTwo.classList.toggle('active',!mappingAreas);mapStepTwo.disabled=!ready;}
+  if(mapAction){mapAction.classList.toggle('is-refine',!mappingAreas);mapAction.hidden=false;}
+  if(download)download.hidden=mappingAreas;
+  const viewRender=field('viewRenderSection'),viewRenderJump=field('viewRenderJump'),viewNotice=field('viewRenderNotice'),visual=field('visualPanel'),illustration=field('illustrationPanel');
+  if(viewRender)viewRender.hidden=false;if(viewRenderJump)viewRenderJump.hidden=!ready;if(viewNotice)viewNotice.hidden=ready;if(visual)visual.hidden=!ready;if(illustration)illustration.hidden=!ready;
+  if(!ready&&['symbol','moveSymbol'].includes(state.tool))setTool('pan');
+  if(ready){
+    tools.querySelector('h3').textContent='Plant tools';
+    field('symbolHelp').textContent='Select a species, choose Add plant above the map, then click inside a planting area. This adds one individual plant.';
+    const notes=tools.querySelectorAll('.side-note');
+    if(notes[1])notes[1].textContent='Select a plant symbol or a species-key entry to inspect, move, replace or remove it.';
+  }
 }
 function downloadSvg(markup,name){
   const url=URL.createObjectURL(new Blob([markup],{type:'image/svg+xml;charset=utf-8'}));
@@ -726,22 +816,37 @@ function initSiteMap(){
   if(!window.L){field('siteMap').classList.add('hidden');field('siteBoard').classList.remove('hidden');return;}
   const place=demo.places[field('mapPreset').value]||demo.places.pijnacker;
   const netherlandsBounds=L.latLngBounds([[50.75,3.2],[53.65,7.3]]);
-  state.siteMap=L.map('siteMap',{doubleClickZoom:false,scrollWheelZoom:false,touchZoom:true,zoomControl:true,zoomAnimation:false,fadeAnimation:false,maxBounds:netherlandsBounds,maxBoundsViscosity:1}).setView(place.center,15);
+  state.siteMap=L.map('siteMap',{doubleClickZoom:false,scrollWheelZoom:false,touchZoom:true,zoomControl:true,zoomSnap:.25,zoomDelta:.25,zoomAnimation:true,fadeAnimation:true,maxBounds:netherlandsBounds,maxBoundsViscosity:1}).setView(place.center,15);
   state.siteMap.setMinZoom(state.siteMap.getBoundsZoom(netherlandsBounds,false));
   demoBasemap(state.siteMap);
   L.control.scale({position:'bottomright',metric:true,imperial:false,maxWidth:120}).addTo(state.siteMap);
   state.siteMap.dragging[state.plotMode==='draw'?'disable':'enable']();
   field('siteMap').classList.toggle('draw-mode',state.plotMode==='draw');
   field('plotPan').classList.toggle('active',state.plotMode==='pan');field('plotDraw').classList.toggle('active',state.plotMode==='draw');
-  state.siteMap.on('click',event=>{if(state.plotMode!=='draw')return;state.plotDraft.push([event.latlng.lat,event.latlng.lng]);drawPlot();});
+  state.siteMap.on('click',event=>{if(state.plotMode!=='draw')return;if(shouldClosePlot(event.latlng)){finishPlot();return;}state.plotDraft.push([event.latlng.lat,event.latlng.lng]);drawPlot();});
   state.siteMap.on('mousemove',event=>updatePlotPreview(event.latlng));
   state.siteMap.on('mouseout',clearPlotPreview);
+  let queuedZoom=0,zoomFrame=0,lastGestureAt=0,gesturePoint=null;
+  const applyGestureZoom=()=>{
+    zoomFrame=0;
+    if(Math.abs(queuedZoom)<MAP_ZOOM_GESTURE.minimumDelta)return;
+    const delta=Math.max(-MAP_ZOOM_GESTURE.maximumDelta,Math.min(MAP_ZOOM_GESTURE.maximumDelta,queuedZoom));
+    queuedZoom-=delta;
+    const next=Math.max(state.siteMap.getMinZoom(),Math.min(state.siteMap.getMaxZoom(),state.siteMap.getZoom()+delta));
+    state.siteMap.setZoomAround(gesturePoint,next,{animate:false});
+    if(Math.abs(queuedZoom)>=MAP_ZOOM_GESTURE.minimumDelta)zoomFrame=requestAnimationFrame(applyGestureZoom);
+  };
   state.siteMap.getContainer().addEventListener('wheel',event=>{
     if(!event.ctrlKey)return;
     event.preventDefault();
-    const direction=event.deltaY<0?1:-1;
-    const next=Math.max(state.siteMap.getMinZoom(),Math.min(state.siteMap.getMaxZoom(),state.siteMap.getZoom()+direction));
-    state.siteMap.setZoomAround(state.siteMap.mouseEventToContainerPoint(event),next,{animate:false});
+    const unit=event.deltaMode===1?16:event.deltaMode===2?state.siteMap.getSize().y:1,pixels=event.deltaY*unit,now=performance.now();
+    const elapsed=lastGestureAt?Math.max(8,Math.min(120,now-lastGestureAt)):16;
+    lastGestureAt=now;
+    const velocity=Math.abs(pixels)/elapsed;
+    const acceleration=Math.min(MAP_ZOOM_GESTURE.maximumAcceleration,1+(MAP_ZOOM_GESTURE.maximumAcceleration-1)*Math.pow(velocity/MAP_ZOOM_GESTURE.velocityReference,MAP_ZOOM_GESTURE.accelerationCurve));
+    queuedZoom-=pixels/MAP_ZOOM_GESTURE.pixelsPerZoomLevel*acceleration;
+    gesturePoint=state.siteMap.mouseEventToContainerPoint(event);
+    if(!zoomFrame)zoomFrame=requestAnimationFrame(applyGestureZoom);
   },{passive:false});
   if(state.plotBoundary.length)drawPlot();
   setTimeout(()=>state.siteMap.invalidateSize(),100);
@@ -749,6 +854,14 @@ function initSiteMap(){
 function clearPlotPreview(){
   if(state.plotPreviewLayer&&state.siteMap)state.siteMap.removeLayer(state.plotPreviewLayer);
   state.plotPreviewLayer=null;
+}
+function shouldClosePlot(point){
+  if(!state.siteMap||state.plotDraft.length<3)return false;
+  return state.siteMap.latLngToContainerPoint(point).distanceTo(state.siteMap.latLngToContainerPoint(state.plotDraft[0]))<=PLOT_CLOSE_RADIUS_PX;
+}
+function shouldCloseSketch(point){
+  if(!state.map||state.draft.length<3)return false;
+  return state.map.latLngToContainerPoint(point).distanceTo(state.map.latLngToContainerPoint(state.draft[0]))<=PLOT_CLOSE_RADIUS_PX;
 }
 function updatePlotPreview(point){
   if(!state.siteMap||state.plotMode!=='draw'||!state.plotDraft.length){clearPlotPreview();return;}
@@ -773,7 +886,7 @@ function drawPlot(){
     if(points.length){const shape=document.createElementNS('http://www.w3.org/2000/svg',state.plotDraft.length?'polyline':'polygon');shape.setAttribute('points',points.map(p=>p.join(',')).join(' '));shape.setAttribute('stroke','#26443a');shape.setAttribute('stroke-width','5');shape.setAttribute('fill',state.plotDraft.length?'none':'#b8d79f');shape.setAttribute('fill-opacity','.5');svg.append(shape);points.forEach(p=>{const dot=document.createElementNS('http://www.w3.org/2000/svg','circle');dot.setAttribute('cx',p[0]);dot.setAttribute('cy',p[1]);dot.setAttribute('r','10');dot.setAttribute('fill','#d87543');svg.append(dot);});}board.append(svg);
   }
   const count=state.plotDraft.length;
-  field('plotStatus').textContent=state.plotMode==='draw'?(count?count+' corner'+(count===1?'':'s')+' placed · '+(count>=3?'finish the boundary':'add '+(3-count)+' more'):'Draw mode: click at least three corners; map panning is paused.'):state.plotBoundary.length?'Move mode: drag to navigate · use + or − to zoom · boundary saved with '+state.plotBoundary.length+' corners':'Move mode: drag to navigate · use + or − to zoom · choose Draw boundary when ready.';
+  field('plotStatus').textContent=state.plotMode==='draw'?(count?count+' corner'+(count===1?'':'s')+' placed · '+(count>=3?'click the first corner again or finish the boundary':'add '+(3-count)+' more')+' · Backspace or Delete undoes the last point':'Draw mode: click at least three corners; map panning is paused.'):state.plotBoundary.length?'Move mode: drag to navigate · use + or − to zoom · boundary saved with '+state.plotBoundary.length+' corners':'Move mode: drag to navigate · use + or − to zoom · choose Draw boundary when ready.';
   const area=metricPolygonArea(count>=3?state.plotDraft:state.plotBoundary);
   field('plotAreaReadout').textContent=Math.round(area||0).toLocaleString()+' m²';
   field('plotFinish').disabled=count<3;field('plotUndo').disabled=!count;field('plotClear').disabled=!count&&!state.plotBoundary.length;
@@ -810,7 +923,7 @@ const sketchStyles={
   planting:{color:'#3b8155',fillColor:'#70ae74',fillOpacity:.45,weight:2},
   water:{color:'#4e929f',fillColor:'#83bdc6',fillOpacity:.55,weight:2}
 };
-const toolLabels={boundary:'Boundary',path:'Path',open:'Open ground',planting:'Planting zone',water:'Water',symbol:'Plant symbol',moveSymbol:'Move symbol',camera:'Camera view'};
+const toolLabels={boundary:'Boundary',path:'Path',open:'Open ground',planting:'Planting zone',water:'Water',symbol:'Plant symbol',selectPlant:'Select plant',moveSymbol:'Move symbol',camera:'Camera view'};
 function initMap(){
   if(state.mapReady){if(state.map){state.map.invalidateSize();if(state.siteBoundaryLayer)state.map.removeLayer(state.siteBoundaryLayer);if(state.plotBoundary.length){state.siteBoundaryLayer=L.polygon(state.plotBoundary,{color:'#203e35',weight:3,dashArray:'6 4',fillColor:'#c9dda8',fillOpacity:.1}).addTo(state.map);state.map.fitBounds(state.plotBoundary,{padding:[50,50],animate:false});}}else renderFallbackSketch();return;}
   state.mapReady=true;
@@ -819,22 +932,49 @@ function initMap(){
     field('mapFallback').classList.remove('hidden');field('sketchBoard').classList.remove('hidden');setTool(state.tool);renderFallbackSketch();return;
   }
   const place=nearestDemoPlace()||demo.places.pijnacker;
-  state.map=L.map('map',{doubleClickZoom:false,zoomAnimation:false,fadeAnimation:false,scrollWheelZoom:false}).setView(place.center,15);demoBasemap(state.map);
+  state.map=L.map('map',{doubleClickZoom:false,scrollWheelZoom:false,touchZoom:true,zoomControl:true,zoomSnap:.25,zoomDelta:.25,zoomAnimation:true,fadeAnimation:true}).setView(place.center,15);demoBasemap(state.map);
   L.control.scale({position:'bottomright',metric:true,imperial:false,maxWidth:120}).addTo(state.map);
+  let queuedZoom=0,zoomFrame=0,lastGestureAt=0,gesturePoint=null;
+  const applyGestureZoom=()=>{zoomFrame=0;if(Math.abs(queuedZoom)<MAP_ZOOM_GESTURE.minimumDelta)return;const delta=Math.max(-MAP_ZOOM_GESTURE.maximumDelta,Math.min(MAP_ZOOM_GESTURE.maximumDelta,queuedZoom));queuedZoom-=delta;const next=Math.max(state.map.getMinZoom(),Math.min(state.map.getMaxZoom(),state.map.getZoom()+delta));state.map.setZoomAround(gesturePoint,next,{animate:false});if(Math.abs(queuedZoom)>=MAP_ZOOM_GESTURE.minimumDelta)zoomFrame=requestAnimationFrame(applyGestureZoom);};
+  state.map.getContainer().addEventListener('wheel',event=>{if(!event.ctrlKey)return;event.preventDefault();const unit=event.deltaMode===1?16:event.deltaMode===2?state.map.getSize().y:1,pixels=event.deltaY*unit,now=performance.now(),elapsed=lastGestureAt?Math.max(8,Math.min(120,now-lastGestureAt)):16;lastGestureAt=now;const velocity=Math.abs(pixels)/elapsed,acceleration=Math.min(MAP_ZOOM_GESTURE.maximumAcceleration,1+(MAP_ZOOM_GESTURE.maximumAcceleration-1)*Math.pow(velocity/MAP_ZOOM_GESTURE.velocityReference,MAP_ZOOM_GESTURE.accelerationCurve));queuedZoom-=pixels/MAP_ZOOM_GESTURE.pixelsPerZoomLevel*acceleration;gesturePoint=state.map.mouseEventToContainerPoint(event);if(!zoomFrame)zoomFrame=requestAnimationFrame(applyGestureZoom);},{passive:false});
   if(state.plotBoundary.length){state.siteBoundaryLayer=L.polygon(state.plotBoundary,{color:'#203e35',weight:3,dashArray:'6 4',fillColor:'#c9dda8',fillOpacity:.1}).addTo(state.map);state.map.fitBounds(state.plotBoundary,{padding:[50,50],animate:false});}
-  state.map.on('click',event=>{if(state.tool==='pan')return;if(state.tool==='camera'){addCamera([event.latlng.lat,event.latlng.lng]);return;}if(state.tool==='symbol'){addPlantSymbol([event.latlng.lat,event.latlng.lng]);return;}if(state.tool==='moveSymbol'){moveSelectedSymbol([event.latlng.lat,event.latlng.lng]);return;}state.draft.push([event.latlng.lat,event.latlng.lng]);drawDraft();});
+  state.map.on('click',event=>{if(state.tool==='pan'||state.tool==='selectPlant')return;const point=constrainPlanPoint([event.latlng.lat,event.latlng.lng]);if(state.tool==='camera'){addCamera(point);return;}if(state.tool==='symbol'){addPlantSymbol(point);return;}if(state.tool==='moveSymbol'){moveSelectedSymbol(point);return;}if(state.tool!=='path'&&shouldCloseSketch(point)){finishShape();return;}state.draft.push(point);drawDraft();});
+  state.map.on('mousemove',event=>{const point=constrainPlanPoint([event.latlng.lat,event.latlng.lng]);updateSketchPreview(point);updateMovePreview(point);});
+  state.map.on('mouseup',event=>{
+    if(!state.draggingPlacement)return;
+    state.draggingPlacement=null;
+    moveSelectedSymbol(constrainPlanPoint([event.latlng.lat,event.latlng.lng]),true);
+  });
+  state.map.on('mouseout',()=>{clearSketchPreview();if(!state.draggingPlacement)clearMovePreview();});
   setTool('pan');if(state.generated)renderPlantingCoverage();setTimeout(()=>state.map.invalidateSize(),100);
 }
 function setTool(tool){
+  if(tool!=='selectPlant')state.draggingPlacement=null;
   state.tool=tool; $$('.tool').forEach(b=>b.classList.toggle('active',b.dataset.tool===tool));
-  const drawing=tool!=='pan';
-  if(state.map){drawing?state.map.dragging.disable():state.map.dragging.enable();field('map').classList.toggle('draw-mode',drawing);}
-  field('sketchBoard').classList.toggle('draw-mode',drawing);
+  const drawing=!['pan','selectPlant'].includes(tool);
+  const sketching=['planting','path','water','open'].includes(tool);
+  if(state.map){drawing?state.map.dragging.disable():state.map.dragging.enable();field('map').classList.toggle('draw-mode',drawing);field('map').classList.toggle('map-sketch-mode',sketching);field('map').classList.toggle('move-plant-mode',tool==='selectPlant'||tool==='moveSymbol');}
+  field('sketchBoard').classList.toggle('draw-mode',drawing);field('sketchBoard').classList.toggle('map-sketch-mode',sketching);
+  if(!sketching){state.sketchHover=null;clearSketchPreview();}
+  if(tool!=='moveSymbol'&&tool!=='selectPlant')clearMovePreview();
   if(tool!=='camera')state.cameraDraft=null;
-  field('mapInstruction').textContent=tool==='pan'?'Pan and zoom to your site. Switch tools to draw.':tool==='camera'?'First click near a path to place the viewpoint; then click the highlight to look towards.':tool==='symbol'?'Choose a plant in the sidebar, then click inside the plot to add its symbol.':tool==='moveSymbol'?'Click inside the plot to move the selected symbol.':'Click points for '+toolLabels[tool].toLowerCase()+', then choose Finish shape.';
+  field('stage7').classList.toggle('plan-selection-mode',tool==='selectPlant');
+  field('mapInstruction').textContent=tool==='pan'?'Pan and zoom to your site. Switch tools to draw.':tool==='selectPlant'?'Click a plant to edit it, then drag it to a new position.':tool==='camera'?'First click near a path to place the viewpoint; then click the highlight to look towards.':tool==='symbol'?'Choose a species in the map toolbar, then click inside the plot to add its symbol.':tool==='moveSymbol'?'Click inside the plot to move the selected symbol.':'Click points for '+toolLabels[tool].toLowerCase()+', then choose Finish shape.';
   updateSketchButtons();
+  if(field('mapSelectionBar'))renderSymbolEditor();
+}
+function clearSketchPreview(){
+  if(state.sketchPreviewLayer&&state.map)state.map.removeLayer(state.sketchPreviewLayer);
+  state.sketchPreviewLayer=null;
+}
+function updateSketchPreview(point){
+  if(!state.map||!['planting','path','water','open'].includes(state.tool)||!state.draft.length){clearSketchPreview();return;}
+  const segment=[state.draft[state.draft.length-1],point],style=sketchStyles[state.tool];
+  if(state.sketchPreviewLayer)state.sketchPreviewLayer.setLatLngs(segment);
+  else state.sketchPreviewLayer=L.polyline(segment,{color:style.color,weight:3,dashArray:'5 6',opacity:.7,interactive:false}).addTo(state.map);
 }
 function drawDraft(){
+  clearSketchPreview();
   if(state.map){
     if(state.draftLayer)state.map.removeLayer(state.draftLayer);
     if(state.draft.length)state.draftLayer=L.layerGroup([L.polyline(state.draft,{color:sketchStyles[state.tool].color,weight:3,dashArray:'4 4'}),...state.draft.map((p,i)=>L.circleMarker(p,{radius:7,color:'#fff',weight:2,fillColor:sketchStyles[state.tool].color,fillOpacity:1}).bindTooltip('Point '+(i+1)))]).addTo(state.map);
@@ -850,7 +990,7 @@ function finishShape(){
     item.layer=state.tool==='path'?L.polyline(item.points,sketchStyles[item.type]).addTo(state.map):L.polygon(item.points,sketchStyles[item.type]).addTo(state.map);
     if(state.draftLayer)state.map.removeLayer(state.draftLayer);state.draftLayer=null;
   }
-  state.sketches.push(item);state.draft=[];renderSketchList();renderFallbackSketch();updateSketchButtons();
+  state.sketches.push(item);state.draft=[];state.sketchHover=null;renderSketchList();renderFallbackSketch();updateSketchButtons();
   if(state.generated)renderPlantingCoverage();
   if(state.generated)field('generationStatus').textContent='Sketch changed. Regenerate the demo plan to account for the new space.';
   markPlanDirty();renderPlanRules();
@@ -913,7 +1053,7 @@ function clearSketch(){
   if(!state.sketches.length&&!state.draft.length)return;
   if(!confirm('Clear all sketch layers? This cannot be undone.'))return;
   if(state.map){state.sketches.forEach(item=>item.layer&&state.map.removeLayer(item.layer));if(state.draftLayer)state.map.removeLayer(state.draftLayer);}
-  state.sketches=[];state.draft=[];state.draftLayer=null;renderSketchList();renderFallbackSketch();updateSketchButtons();if(state.generated)renderPlantingCoverage();
+  state.sketches=[];state.draft=[];state.sketchHover=null;state.draftLayer=null;clearSketchPreview();renderSketchList();renderFallbackSketch();updateSketchButtons();if(state.generated)renderPlantingCoverage();
   if(state.generated)field('generationStatus').textContent='Sketch cleared. Regenerate the demo plan to reflect it.';
   markPlanDirty();renderPlanRules();
 }
@@ -921,7 +1061,7 @@ function updateSketchButtons(){
   field('finishShape').disabled=state.draft.length<(state.tool==='path'?2:3);
   field('undoSketch').disabled=!state.draft.length&&!state.sketches.length;
   field('clearSketch').disabled=!state.draft.length&&!state.sketches.length;
-  if(state.stage===7&&state.tool!=='pan'&&state.tool!=='camera'&&state.tool!=='symbol'&&state.tool!=='moveSymbol')field('mapInstruction').textContent=state.draft.length?state.draft.length+' point'+(state.draft.length===1?'':'s')+' placed · '+(field('finishShape').disabled?'add more points':'Finish shape to save '+toolLabels[state.tool].toLowerCase()):'Click points for '+toolLabels[state.tool].toLowerCase()+'; each corner appears immediately.';
+  if(state.stage===7&&state.tool!=='pan'&&state.tool!=='selectPlant'&&state.tool!=='camera'&&state.tool!=='symbol'&&state.tool!=='moveSymbol')field('mapInstruction').textContent=state.draft.length?state.draft.length+' point'+(state.draft.length===1?'':'s')+' placed · '+(field('finishShape').disabled?'add more points':'Finish shape to save '+toolLabels[state.tool].toLowerCase()):'Click points for '+toolLabels[state.tool].toLowerCase()+'; each corner appears immediately.';
 }
 function renderSketchList(){
   field('sketchList').innerHTML=state.sketches.length?state.sketches.map((item,i)=>'<div><span>'+esc(toolLabels[item.type])+(item.zoneId?' · '+esc(state.zones.find(z=>z.id===item.zoneId)?.name||'Unlinked conditions'):'')+'</span><span>#'+(i+1)+'</span></div>').join(''):'No layers drawn yet.';
@@ -944,7 +1084,7 @@ function renderFallbackSketch(){
   if(state.generated&&state.planMasses.length){const bounds=planBounds(),key=new Map(planPlantKey().map(entry=>[entry.plant.id,entry]));key.forEach(entry=>{const pattern=document.createElementNS('http://www.w3.org/2000/svg','pattern');pattern.setAttribute('id','fallback-mass-'+entry.index);pattern.setAttribute('width','8');pattern.setAttribute('height','8');pattern.setAttribute('patternUnits','userSpaceOnUse');pattern.innerHTML='<rect width="8" height="8" fill="'+entry.colour+'" fill-opacity=".16"/><path d="M-2 8L8-2M2 10L10 2" stroke="'+entry.colour+'" stroke-width="1.4"/>';defs.append(pattern);});state.planMasses.forEach(mass=>{const entry=key.get(mass.plantId);if(!entry)return;const area=document.createElementNS('http://www.w3.org/2000/svg','polygon'),coords=mass.polygon.map(point=>[((point[1]-bounds.minB)/Math.max(.000001,bounds.maxB-bounds.minB)*1000).toFixed(1)+','+((1-(point[0]-bounds.minA)/Math.max(.000001,bounds.maxA-bounds.minA))*1000).toFixed(1)].join(' ')).join(' ');area.setAttribute('points',coords);area.setAttribute('fill','url(#fallback-mass-'+entry.index+')');area.setAttribute('stroke',entry.colour);area.setAttribute('stroke-width','.6');svg.append(area);});}
   if(state.plotBoundary.length)draw({type:'boundary',points:state.plotBoundary});
   state.sketches.forEach(item=>draw(item));
-  if(state.draft.length)draw({type:state.tool,points:state.draft},true);
+  if(state.draft.length)draw({type:state.tool,points:state.sketchHover?[...state.draft,state.sketchHover]:state.draft},true);
   board.append(svg);
   state.placements.filter(item=>item.tree||item.accent).forEach(item=>{const p=plantForPlacement(item);if(!p)return;const marker=document.createElement('button');marker.type='button';marker.className='fallback-plant-symbol '+(pinClass[p.group]||'unknown');marker.style.left=(item.point[0]/10)+'%';marker.style.top=(item.point[1]/10)+'%';marker.setAttribute('aria-label','Select individual plant, '+p.name);marker.textContent=plantKeyNumber(p.id);marker.addEventListener('click',event=>{event.stopPropagation();selectPlacement(item.id);});board.append(marker);});
 }
@@ -977,20 +1117,31 @@ function setup(){
   field('plotPan').addEventListener('click',()=>{clearPlotPreview();state.plotMode='pan';field('plotPan').classList.add('active');field('plotDraw').classList.remove('active');if(state.siteMap)state.siteMap.dragging.enable();field('siteMap').classList.remove('draw-mode');drawPlot();});
   field('plotDraw').addEventListener('click',()=>{state.plotMode='draw';field('plotDraw').classList.add('active');field('plotPan').classList.remove('active');if(state.siteMap)state.siteMap.dragging.disable();field('siteMap').classList.add('draw-mode');drawPlot();});
   field('plotExample').addEventListener('click',examplePlot);
+  document.addEventListener('keydown',event=>{
+    if(event.defaultPrevented||!['Backspace','Delete'].includes(event.key))return;
+    if(event.target instanceof HTMLElement&&event.target.matches('input,textarea,select,[contenteditable="true"]'))return;
+    if(state.stage===2&&state.plotMode==='draw'&&state.plotDraft.length){event.preventDefault();state.plotDraft.pop();drawPlot();}
+    if(state.stage===7&&state.tool!=='pan'&&state.tool!=='camera'&&state.tool!=='symbol'&&state.tool!=='moveSymbol'&&state.draft.length){event.preventDefault();state.draft.pop();drawDraft();}
+  });
   field('plotUndo').addEventListener('click',()=>{state.plotDraft.pop();drawPlot();});
   field('plotFinish').addEventListener('click',finishPlot);
   field('plotClear').addEventListener('click',()=>{clearPlotPreview();state.plotDraft=[];state.plotBoundary=[];state.zones.forEach(z=>z.conditions=null);invalidateFrom(2);drawPlot();});
-  field('siteBoard').addEventListener('click',event=>{if(state.siteMap||state.plotMode!=='draw')return;const rect=field('siteBoard').getBoundingClientRect();state.plotDraft.push([Math.round((event.clientX-rect.left)/rect.width*1000),Math.round((event.clientY-rect.top)/rect.height*1000)]);drawPlot();});
+  field('siteBoard').addEventListener('click',event=>{if(state.siteMap||state.plotMode!=='draw')return;const rect=field('siteBoard').getBoundingClientRect(),x=Math.round((event.clientX-rect.left)/rect.width*1000),y=Math.round((event.clientY-rect.top)/rect.height*1000),first=state.plotDraft[0];if(first&&state.plotDraft.length>=3&&Math.hypot(x-first[0],y-first[1])<=PLOT_CLOSE_RADIUS_PX/rect.width*1000){finishPlot();return;}state.plotDraft.push([x,y]);drawPlot();});
   field('addZone').addEventListener('click',()=>{state.zones.push({id:state.nextZoneId++,name:'New zone',conditions:null});invalidateFrom(2);renderZoneList();});
+  const updatePriorityLimit=()=>{
+    const inputs=$$('#priorityOptions input'),chosen=inputs.filter(input=>input.checked),limitReached=chosen.length>=3;
+    inputs.forEach(input=>{input.disabled=limitReached&&!input.checked;input.closest('label').classList.toggle('priority-unavailable',input.disabled);});
+    field('priorityCount').textContent=limitReached?'Maximum reached — deselect one to change':'Choose up to 3 — '+chosen.length+' selected';
+  };
   $$('#priorityOptions input').forEach(input=>input.addEventListener('change',()=>{
     const chosen=$$('#priorityOptions input:checked');if(chosen.length>3)input.checked=false;
-    field('priorityCount').textContent=$$('#priorityOptions input:checked').length+' of 3 chosen';
+    updatePriorityLimit();
     invalidateFrom(1);
   }));
   $$('#stage1 input, #stage1 select').forEach(input=>{if(!input.closest('#priorityOptions'))input.addEventListener('change',()=>invalidateFrom(1));});
   $$('#stage2 input:not([type=file]), #stage2 textarea').forEach(input=>input.addEventListener('change',()=>invalidateFrom(2)));
   $$('[id^="feature"]').forEach(input=>input.addEventListener('change',()=>{state.zones.forEach(z=>z.conditions=null);invalidateFrom(2);}));
-  field('priorityCount').textContent='3 of 3 chosen';
+  updatePriorityLimit();
   field('inventoryFile').addEventListener('change',async event=>{
     const file=event.target.files[0];if(!file)return;
     field('inventoryFileName').textContent=file.name;
@@ -1015,17 +1166,20 @@ function setup(){
   field('downloadPlanSvg').addEventListener('click',downloadPlanSvg);
   field('downloadViewSvg').addEventListener('click',downloadViewSvg);
   ['viewDirection','viewAngle','viewSeason','viewAge'].forEach(id=>field(id).addEventListener('change',renderVisualization));
-  $$('.toolrow .tool').forEach(button=>button.addEventListener('click',()=>{state.draft=[];drawDraft();setTool(button.dataset.tool);}));
+  $$('.toolrow .tool[data-tool]').forEach(button=>button.addEventListener('click',()=>{if(button.dataset.tool==='symbol'&&state.selectedPlacement){state.selectedPlacement=null;renderSymbolEditor();}state.draft=[];state.sketchHover=null;drawDraft();setTool(button.dataset.tool);}));
   field('finishShape').addEventListener('click',finishShape);
   field('undoSketch').addEventListener('click',undoSketch);
   field('clearSketch').addEventListener('click',clearSketch);
   field('planImage').addEventListener('change',event=>uploadPlan(event.target.files[0]));
   field('sketchBoard').addEventListener('click',event=>{
-    if(state.map||state.tool==='pan')return;
+    if(state.map||state.tool==='pan'||state.tool==='selectPlant')return;
     const rect=field('sketchBoard').getBoundingClientRect();
-    const point=[Math.round((event.clientX-rect.left)/rect.width*1000),Math.round((event.clientY-rect.top)/rect.height*1000)];
-    if(state.tool==='camera')addCamera(point);else if(state.tool==='symbol')addPlantSymbol(point);else if(state.tool==='moveSymbol')moveSelectedSymbol(point);else{state.draft.push(point);drawDraft();}
+    const point=constrainPlanPoint([Math.round((event.clientX-rect.left)/rect.width*1000),Math.round((event.clientY-rect.top)/rect.height*1000)]);
+    const first=state.draft[0];
+    if(state.tool==='camera')addCamera(point);else if(state.tool==='symbol')addPlantSymbol(point);else if(state.tool==='moveSymbol')moveSelectedSymbol(point);else if(state.tool!=='path'&&first&&state.draft.length>=3&&Math.hypot(point[0]-first[0],point[1]-first[1])<=PLOT_CLOSE_RADIUS_PX/rect.width*1000)finishShape();else{state.draft.push(point);state.sketchHover=null;drawDraft();}
   });
+  field('sketchBoard').addEventListener('mousemove',event=>{if(state.map||!['planting','path','water','open'].includes(state.tool)||!state.draft.length)return;const rect=field('sketchBoard').getBoundingClientRect();state.sketchHover=constrainPlanPoint([Math.round((event.clientX-rect.left)/rect.width*1000),Math.round((event.clientY-rect.top)/rect.height*1000)]);renderFallbackSketch();});
+  field('sketchBoard').addEventListener('mouseleave',()=>{if(state.sketchHover){state.sketchHover=null;renderFallbackSketch();}});
   window.addEventListener('popstate',()=>showStage(stageFromUrl(),false));
   window.addEventListener('hashchange',()=>showStage(stageFromUrl(),false));
   loadCatalogue();loadDesignRules();renderZoneList();showStage(stageFromUrl(),false);

@@ -13,17 +13,21 @@ const zone={id:1,conditions:{...source.zones[0],field_origins:{soil:'synthetic_f
 const id=A.candidates([zone],source.project).find(p=>!['Trees','Climbers','Aquatic & marginal plants'].includes(p.group)).id;
 const context={version:'test/v0.3',project:JSON.parse(JSON.stringify(A.project(source.project,'placement'))),species:[{id}],geometry:[{type:'boundary',points:[[0,0],[20,0],[20,15],[0,15]]},{type:'planting',zoneId:1,points:[[0,0],[20,0],[20,15],[0,15]]}],zones:[zone],communities:[{id:'test-bed',zoneId:1,bedIndex:0,zone:'Test',band:'interior',shade:false,area:300,allowedIds:[id],rows:[{plantId:id,percentage:100}]}]};
 const proposal={summary:'Test response, not live AI.',changes:[{communityId:'test-bed',shares:[{plantId:id,percentage:100}]}],warnings:['Synthetic test.']};
-assert.throws(()=>validateProposal({...proposal,changes:[{communityId:'test-bed',shares:[{plantId:'invented',percentage:100}]}]},context));
-assert.throws(()=>validateProposal({...proposal,changes:[{communityId:'test-bed',shares:[{plantId:id,percentage:40}]}]},context));
+assert.equal(validateProposal({...proposal,warnings:[],changes:[{communityId:'test-bed',shares:[{plantId:'invented',percentage:100}]}]},context).changes.length,0);
+assert.equal(validateProposal({...proposal,warnings:[],changes:[{communityId:'test-bed',shares:[{plantId:id,percentage:40}]}]},context).changes.length,0,'No-op mix is not presented as a change');
+assert.throws(()=>validateProposal({...proposal,treeAdditions:['invented-slot']},context));
+const partial=structuredClone(context);partial.communities[0].rows[0].percentage=50;
+const repaired=validateProposal({summary:'Partial test',changes:[{communityId:'test-bed',shares:[{plantId:id,percentage:30},{plantId:id,percentage:30},{plantId:'unknown',percentage:40}]}],warnings:[]},partial);
+assert.equal(repaired.changes[0].shares.length,1);assert.equal(repaired.changes[0].shares[0].percentage,100);assert.ok(repaired.warnings.some(w=>w.includes('Skipped')));
 const nativeFetch=globalThis.fetch;let providerCalls=0,rejectAuthentication=false;
 const PIXEL='iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+/l1sAAAAASUVORK5CYII=';
-globalThis.fetch=async(url,options)=>{if(String(url).startsWith('https://api.openai.com')){providerCalls++;assert.equal(options.headers.Authorization,'Bearer TEST-ONLY-NOT-A-REAL-KEY');if(rejectAuthentication)return Response.json({error:{message:'TEST secret must not be echoed'}},{status:401});const body=JSON.parse(options.body);if(body.prompt?.includes('Ground-level'))assert.match(body.prompt,/eye height 1.6/);return Response.json(String(url).endsWith('images/edits')?{data:[{b64_json:PIXEL}]}:{output:[{content:[{type:'output_text',text:JSON.stringify(proposal)}]}]});}return nativeFetch(url,options);};
+globalThis.fetch=async(url,options)=>{if(String(url).startsWith('https://api.openai.com')){providerCalls++;assert.equal(options.headers.Authorization,'Bearer TEST-ONLY-NOT-A-REAL-KEY');if(rejectAuthentication)return Response.json({error:{message:'TEST secret must not be echoed'}},{status:401});const body=JSON.parse(options.body);if(body.prompt?.includes('EDIT IMAGE 1')){assert.equal(body.images.length,2);assert.match(body.prompt,/Preserve all unmentioned/);}if(body.prompt?.includes('Ground-level'))assert.match(body.prompt,/eye height 1.6/);return Response.json(String(url).endsWith('images/edits')?{data:[{b64_json:PIXEL}]}:{output:[{content:[{type:'output_text',text:JSON.stringify(proposal)}]}]});}return nativeFetch(url,options);};
 const server=createServer();await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));const base='http://127.0.0.1:'+server.address().port;
 try{
   const status=await(await fetch(base+'/api/status')).json();assert.equal(status.limit,3);assert.ok(!JSON.stringify(status).includes(process.env.OPENAI_API_KEY));
   const headers={'Content-Type':'application/json',Origin:base,'X-Plantscapes-Token':status.nonce};
   let response=await fetch(base+'/api/feedback',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({context,request:'More spring flowers'})});assert.equal(response.status,403);
-  response=await fetch(base+'/api/feedback',{method:'POST',headers,body:JSON.stringify({context,request:'More spring flowers'})});assert.equal(response.status,200);const reply=(await response.json()).proposal;assert.deepEqual(reply.changes,proposal.changes);assert.ok(reply.warnings.some(w=>w.includes('not production eligible')));
+  response=await fetch(base+'/api/feedback',{method:'POST',headers,body:JSON.stringify({context,request:'More spring flowers'})});assert.equal(response.status,200);const reply=(await response.json()).proposal;assert.deepEqual(reply.changes,[]);assert.ok(reply.warnings.some(w=>w.includes('not production eligible')));
   response=await fetch(base+'/api/feedback',{method:'POST',headers,body:JSON.stringify({context,request:'More spring flowers'})});assert.equal((await response.json()).cached,true);assert.equal(providerCalls,1,'cached requests must not incur another charge');
   assert.equal((await fetch(base+'/.env')).status,404);assert.equal((await fetch(base+'/.plantscapes-local/allowance.json')).status,404);
   const invalid=structuredClone(context);invalid.communities[0].allowedIds=['demo-999'];response=await fetch(base+'/api/feedback',{method:'POST',headers,body:JSON.stringify({context:invalid,request:'Change it'})});assert.equal(response.status,400);assert.equal(providerCalls,1);
@@ -36,10 +40,15 @@ try{
   response=await fetch(base+'/api/illustration',{method:'POST',headers,body:JSON.stringify({...perspective,refinement:'x'.repeat(1601)})});assert.equal(response.status,400);assert.equal(providerCalls,2);
   response=await fetch(base+'/api/illustration',{method:'POST',headers,body:JSON.stringify({...perspective,camera:null})});assert.equal(response.status,400);
   response=await fetch(base+'/api/illustration',{method:'POST',headers,body:JSON.stringify(perspective)});assert.equal(response.status,200);assert.equal(providerCalls,3);
+  const baseRender=await response.json();
+  const editedRequest={...perspective,previousKey:baseRender.key,refinement:'Change only the foreground foliage'};
+  response=await fetch(base+'/api/illustration',{method:'POST',headers,body:JSON.stringify(editedRequest)});assert.equal(response.status,200);const edited=await response.json();assert.equal(edited.parentKey,baseRender.key);
+  response=await fetch(base+'/api/illustration',{method:'POST',headers,body:JSON.stringify({...editedRequest,season:'winter'})});assert.equal(response.status,400);
   const beforeRejection=(await(await fetch(base+'/api/status')).json()).reserved;
+  assert.equal(beforeRejection,.40,'One image reserves twenty cents, not its actual provider price');
   rejectAuthentication=true;
   response=await fetch(base+'/api/feedback',{method:'POST',headers,body:JSON.stringify({context,request:'Authentication rejection test'})});assert.equal(response.status,401);const failure=await response.json();assert.match(failure.error,/reservation was released/);assert.ok(!failure.error.includes('TEST secret'));
   const afterRejection=await(await fetch(base+'/api/status')).json();assert.equal(afterRejection.ready,false);assert.equal(afterRejection.authState,'rejected');assert.equal(afterRejection.reserved,beforeRejection);
-  response=await fetch(base+'/api/illustration',{method:'POST',headers,body:JSON.stringify({...perspective,season:'winter'})});assert.equal(response.status,401);assert.equal(providerCalls,4,'auth rejection must block both endpoints without retry or spending');
+  response=await fetch(base+'/api/illustration',{method:'POST',headers,body:JSON.stringify({...perspective,season:'winter'})});assert.equal(response.status,401);assert.equal(providerCalls,5,'auth rejection must block both endpoints without retry or spending');
   console.log('Passed: mocked provider contract, reviewed proposal, no unknown species, no key leakage, CSRF guard, caching and private-file protection. No paid API calls.');
 }finally{globalThis.fetch=nativeFetch;server.closeAllConnections();await new Promise(resolve=>server.close(resolve));}

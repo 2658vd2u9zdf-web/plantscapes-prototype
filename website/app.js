@@ -167,12 +167,13 @@ function validateConditions(){
   field('conditionError').classList.add('hidden');return true;
 }
 function parseCsv(text){
+  const delimiter=(text.split(/\r?\n/,1)[0].match(/;/g)||[]).length>(text.split(/\r?\n/,1)[0].match(/,/g)||[]).length?';':',';
   const rows=[];let row=[],cell='',quoted=false;
   for(let i=0;i<text.length;i++){
     const c=text[i];
     if(c==='"' && quoted && text[i+1]==='"'){cell+='"';i++;}
     else if(c==='"')quoted=!quoted;
-    else if(c===','&&!quoted){row.push(cell);cell='';}
+    else if(c===delimiter&&!quoted){row.push(cell);cell='';}
     else if((c==='\n'||c==='\r')&&!quoted){if(c==='\r'&&text[i+1]==='\n')i++;row.push(cell);if(row.some(x=>x.trim()))rows.push(row);row=[];cell='';}
     else cell+=c;
   }
@@ -267,7 +268,26 @@ function compositionNarrative(){
   const roleText=Object.entries(roles).filter(([key])=>key!=='unassessed').map(([key,count])=>count+' '+compositionRoleLabel(key).toLowerCase()).join(' · ');
   return {mode,roleText};
 }
-function inventoryNamesFromRows(rows){return rows.map(row=>String(row[0]||'').trim()).filter(name=>name&&!/^(species|scientific.?name|plant.?name|naam)$/i.test(name)).slice(0,2000);}
+function inventoryNamesFromRows(rows){
+  const headers=(rows[0]||[]).map(x=>String(x).replace(/^\uFEFF/,'').trim().toLowerCase());
+  let column=headers.findIndex(x=>/^(scientific[ _-]?name|latin[ _-]?name|botanical[ _-]?name|wetenschappelijke naam|latijnse naam)$/.test(x));
+  if(column<0)column=headers.findIndex(x=>/^(species|plant[ _-]?name|name|naam|soort|plant|nederlandse naam)$/.test(x));
+  const data=column<0?rows:rows.slice(1);if(column<0)column=0;
+  const seen=new Set();return data.map(row=>String(row[column]||'').trim()).filter(name=>{const key=name.toLocaleLowerCase('nl-NL');if(!key||seen.has(key))return false;seen.add(key);return true;}).slice(0,2000);
+}
+function inventoryPaletteHtml(screened){
+  if(!state.inventory.length)return '';
+  const normal=name=>String(name||'').trim().replace(/\s+/g,' ').toLocaleLowerCase('nl-NL');
+  const records=[...screened.candidates,...screened.hidden];
+  return '<section class="palette-group inventory-group"><h3>Existing plants<span>'+state.inventory.length+'</span></h3><p>Uploaded inventory · verify on site. These records are not new planting recommendations.</p>'+state.inventory.map((name,i)=>{
+    const matches=records.filter(p=>[p.name,p.latin].some(n=>normal(n)===normal(name)));
+    const match=matches.length===1?matches[0]:null,id='inventory-'+i;
+    if(match?.recommendation&&screened.candidates.includes(match))return candidateCards.cardHtml({...match,id},{removable:false});
+    const label=match?.label||'Information missing';
+    const reason=match?.reason||'No unambiguous operational record with enough information to assess this plant.';
+    return '<article class="plant-row candidate-card" data-inventory="'+id+'"><div class="candidate-row"><div class="candidate-name"><h4>'+esc(name)+'</h4><p class="candidate-role">Existing plant · '+esc(label)+'</p></div><div class="candidate-actions">'+candidateCards.toggleButton(id,name)+'</div></div><div class="plant-detail" id="candidate-detail-'+id+'" hidden><p>'+esc(reason)+'</p><p>Verify identity, condition and site suitability. Missing size, ecological and safety information stays unknown. This record is not automatically placed and does not imply removal of the existing plant.</p></div></article>';
+  }).join('')+'</section>';
+}
 function renderInventory(){
   const box=field('inventoryPreview');box.classList.toggle('hidden',!state.inventory.length);
   if(state.inventory.length)box.innerHTML='<strong>'+state.inventory.length+' inventory name'+(state.inventory.length===1?'':'s')+' loaded · verify on site</strong><p>'+esc(state.inventory.slice(0,12).join(' · '))+(state.inventory.length>12?' …':'')+'</p>';
@@ -316,7 +336,7 @@ function renderPalette(){
   const zones=screeningZones(),screened=recommender.screen(zones,p),rules=recommender.activePolicies(p);
   field('paletteGate').innerHTML='<strong>'+esc(rules.length?'Project rules: '+rules.join(' · '):'Native plants first')+'</strong><span>Approved design rules guide the concept. Name-only records can be shortlisted but cannot be automatically placed.</span>';
   field('paletteSummary').innerHTML='<strong>'+manual+' candidates for this site</strong><br>Project: '+esc(p.type)+' · '+esc(typeof p.area==='number'?Math.round(p.area).toLocaleString('en-GB'):p.area)+' m² · '+esc(state.zones.length)+' profile zone'+(state.zones.length===1?'':'s')+'. Project rules: '+esc(['Native plants first',...rules].join(' · '))+'. Mode: '+esc(composition.mode.label)+'. Palette role counts: '+esc(composition.roleText||'not yet assigned')+'. Counts describe plants, not planting area or quantities.';
-  field('paletteGroups').innerHTML=groupOrder.map(group=>{
+  field('paletteGroups').innerHTML=inventoryPaletteHtml(screened)+groupOrder.map(group=>{
     const items=state.selected.filter(x=>x.group===group);
     const emptyReason=group==='Trees'&&state.zones.every(z=>z.conditions?.disturbance==='high')?'All eight operational trees list low disturbance tolerance, while these zones are marked high. Recheck disturbance only if site evidence supports a different level.':'No eligible selection for this layer. Change the conditions or add a plant for review.';
     return '<section class="palette-group"><h3>'+esc(group)+'<span>'+items.length+'</span></h3>'+(items.length?items.map(cardHtml).join(''):'<p class="empty-group">'+esc(emptyReason)+'</p>')+'</section>';
@@ -453,14 +473,14 @@ function generationBlocked(message,tool){
   alert(message);
   field('mapInstruction').scrollIntoView({block:'center',behavior:'instant'});
 }
-function generatePlan(){
+function generatePlan(options={}){
   if(state.draft.length){generationBlocked('Your current '+(toolLabels[state.tool]||'shape').toLowerCase()+' is not saved yet. Choose Finish shape below the map before generating. Your points have been kept.');return;}
   if(state.plotBoundary.length<3){field('generationStatus').textContent='Draw and save the plot boundary in step 2 first.';return;}
   if(state.plotBoundary.some(p=>Math.abs(p[0])>90||Math.abs(p[1])>180)){field('generationStatus').textContent='Use the geographic map for a scaled planting plan. The fallback board has no metre scale.';return;}
   const beds=state.sketches.filter(s=>s.type==='planting'&&s.points.length>=3);
   const paths=state.sketches.filter(s=>s.type==='path'&&s.points.length>=2);
   if(!beds.length){generationBlocked('No saved planting area yet. Planting area is now selected: click at least three corners on the map, then choose Finish shape. After that, click Generate concept again.','planting');return;}
-  if(state.generated&&!confirm('Regenerate the concept? Current individual plant edits will be replaced.'))return;
+  if(state.generated&&!options.skipConfirmation&&!confirm('Regenerate the concept? Current individual plant edits will be replaced.'))return;
   const origin=[state.plotBoundary.reduce((s,p)=>s+p[0],0)/state.plotBoundary.length,state.plotBoundary.reduce((s,p)=>s+p[1],0)/state.plotBoundary.length];
   const result=engine.generate({
     boundary:localMetricPolygon(state.plotBoundary,origin),
@@ -658,7 +678,7 @@ function checkPlanEdit(plant,point,ignoreId){
     const r=plant.spread/2;
     if(!Array.from({length:12},(_,n)=>[xy[0]+r*Math.cos(n*Math.PI/6),xy[1]+r*Math.sin(n*Math.PI/6)]).every(q=>state.planAudit.valid(q)&&!state.planAudit.waterFor(q)))return 'The mature tree crown does not fit the available planting space.';
   }
-  if(state.placements.some(q=>!q.preview&&q.id!==ignoreId&&Math.hypot(q.xy[0]-xy[0],q.xy[1]-xy[1])<(q.tree?Math.max(.75,q.spread*.12):(q.spacing+plant.spacing)/2)))return 'This position is too close to another structural plant for the draft spacing. Choose a different position or smaller plant.';
+  if(state.placements.some(q=>(plant.group!=='Trees'||q.tree)&&!q.preview&&q.id!==ignoreId&&Math.hypot(q.xy[0]-xy[0],q.xy[1]-xy[1])<(q.tree?Math.max(.75,q.spread*.12):(q.spacing+plant.spacing)/2)))return 'This position is too close to another structural plant for the draft spacing. Choose a different position or smaller plant.';
   return '';
 }
 function reportPlanPlacementIssue(error,heading='Plant not added'){
@@ -1149,7 +1169,7 @@ function setup(){
       if(/\.csv$/i.test(file.name))state.inventory=inventoryNamesFromRows(parseCsv(await file.text()));
       else if(window.XLSX){const workbook=XLSX.read(await file.arrayBuffer(),{type:'array'});state.inventory=inventoryNamesFromRows(XLSX.utils.sheet_to_json(workbook.Sheets[workbook.SheetNames[0]],{header:1}));}
       else throw new Error('Spreadsheet reader unavailable. Save the file as CSV.');
-      renderInventory();
+      renderInventory();if(state.paletteBuilt)renderPalette();
     }catch(error){state.inventory=[];field('inventoryFileName').textContent=error.message||'Could not read file';renderInventory();}
   });
   field('plantSearch').addEventListener('input',renderSearch);

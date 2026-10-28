@@ -17,7 +17,7 @@ $previousPort = $env:PORT
 $previousBudget = $env:PLANTSCAPES_AI_BUDGET_USD
 try {
     $env:PORT = [string]$Port
-    $env:PLANTSCAPES_AI_BUDGET_USD = '3'
+    $env:PLANTSCAPES_AI_BUDGET_USD = '8.85'
     $env:PLANTSCAPES_AI_ENABLED = '0'
     if ($EnableAI) {
         if (-not $env:OPENAI_API_KEY) {
@@ -32,7 +32,7 @@ try {
             throw 'Paste only the secret API key starting with sk-, without quotes, spaces or the words Bearer/API key. Nothing was sent to OpenAI.'
         }
         $env:PLANTSCAPES_AI_ENABLED = '1'
-        Write-Host 'AI uses separately billed API access. Local request allowance: $3. No automatic generation.'
+        Write-Host 'AI uses separately billed API access. Local request allowance: $8.85 total; previous reservations retained. No automatic generation.'
     }
     Push-Location -LiteralPath $PSScriptRoot
     try {

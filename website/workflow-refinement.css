@@ -49,14 +49,14 @@
 
 /* Planting-plan map workflow */
 #stage7 .plan-layout{grid-template-columns:minmax(0,1fr) 230px;gap:24px}
-#stage7 .plan-main{position:relative}
+#stage7 .plan-main{position:relative;min-width:0}
 #stage7 .plan-sidebar{display:flex;flex-direction:column;align-self:stretch;max-width:none;padding:0;background:transparent;border:0;border-radius:0}
 #mapWorkflowTabs{display:grid;grid-template-columns:1fr 1fr;gap:0;height:62px;margin:0 -1px -1px}
 .map-workflow-step{min-height:0;height:62px;padding:12px 20px;color:#a4aea6;background:#f2f6ef;border:1px solid #b9ceba;border-radius:18px 18px 0 0;font-size:.9rem;font-weight:800;text-align:center}.map-workflow-step+ .map-workflow-step{margin-left:-1px}.map-workflow-step.active{position:relative;z-index:1;color:var(--forest);background:#f5f8f2;border-bottom-color:transparent}.map-workflow-step:disabled{opacity:1;cursor:default}.map-workflow-step:not(:disabled):hover{background:#e9f1e5}
-#stage7 .plan-map-toolbar{align-items:flex-end;flex-wrap:nowrap;margin:0;padding:13px 28px;min-height:76px;border-top:0;border-radius:0}
+#stage7 .plan-map-toolbar{align-items:flex-end;flex-wrap:wrap;margin:0;padding:13px 20px;min-height:76px;border-top:0;border-radius:0}
 #stage7 .plan-map-toolbar .tool{min-height:48px;padding:9px 13px;flex:0 0 auto;font-size:.78rem;white-space:nowrap}
 #stage7 .plan-map-toolbar .icon-tool{min-width:50px}
-#stage7 .plan-map-toolbar .map-species-field{width:330px;max-width:330px;flex:0 0 330px;min-width:0;font-size:.76rem}
+#stage7 .plan-map-toolbar .map-species-field{width:100%;max-width:330px;flex:1 1 220px;min-width:0;font-size:.76rem}
 #stage7 .plan-map-toolbar .map-species-field select{min-height:48px;font-size:.78rem}
 #stage7 .workspace-details .file-button{min-height:40px;padding:8px 12px;color:var(--forest);background:#eef0ee;border-color:#d4d9d4;border-radius:9px;font-size:.74rem;font-weight:720;white-space:nowrap}#stage7 .workspace-details .file-button::before{content:none}#stage7 .workspace-details .file-button:hover{background:#e4e8e4;border-color:#c5cec5}
 #stage7 .plan-map-toolbar .edit-areas-tool{display:none}

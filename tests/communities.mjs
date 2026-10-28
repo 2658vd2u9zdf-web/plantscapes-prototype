@@ -31,3 +31,15 @@ const plot=[[0,0],[30,0],[30,20],[0,20]],small={...input,boundary:plot,beds:[{po
 assert.ok(individual.placements.length>0);
 assert.equal(JSON.stringify(E.generateIndividuals({...small,beds:[...small.beds,stale]}).placements),JSON.stringify(individual.placements),'a far-away stale bed changed the individual plan');
 console.log(JSON.stringify({status:'passed',estimatedPlants:result.totalQuantity,preview:result.placements.length,area:result.plantableArea,checks:['v0.3 operational input','large-site full extent','count percentages','rounding','overlap and exclusions','determinism','stale far-away beds']}));
+
+// Palette additions must retain the same spatial recipe identity and update samples.
+const beforeAddition=E.generate({...small,plants:plants.slice(0,2)});
+const replacement=Object.fromEntries(beforeAddition.communities.map(c=>[c.id,{[plants[2].id]:100}]));
+const afterAddition=E.generate({...small,plants,recipes:replacement});
+assert.equal(JSON.stringify(afterAddition.communities.map(c=>c.id)),JSON.stringify(beforeAddition.communities.map(c=>c.id)));
+assert.ok(afterAddition.communities.every(c=>c.rows.length===1&&c.rows[0].plantId===plants[2].id&&c.rows[0].percentage===100));
+assert.ok(afterAddition.placements.every(p=>p.plantId===plants[2].id),'drawn samples must use the proposed species');
+assert.equal(afterAddition.quantities[plants[2].id],afterAddition.totalQuantity);
+const afterPruning=E.generate({...small,plants:[plants[2]],recipes:replacement});
+assert.equal(JSON.stringify(afterPruning.quantities),JSON.stringify(afterAddition.quantities),'palette pruning must not reset recipes');
+console.log('Passed: palette additions and removals preserve recipe IDs, actual quantities and drawn species.');

@@ -39,8 +39,10 @@
       let community=communities.get(id);
       if(!community){community={id,bedIndex:record.index,zoneId:bed.zoneId,zone:zoneMap.get(String(bed.zoneId))?.name||'Site',band,shade,area:0,eligible,rows:[],cells:[]};communities.set(id,community);}
       // Further hydrological subzones may have a narrower eligible set; keep their recipes separate.
-      const signature=eligible.map(p=>p.id).sort().join('|'),fullId=id+'-'+signature;
-      let exact=communities.get(fullId);if(!exact){let code=2166136261;for(const letter of signature)code=Math.imul(code^letter.charCodeAt(0),16777619);exact={...community,id:id+'-'+(code>>>0).toString(36),area:0,rows:[],cells:[],eligible};communities.set(fullId,exact);}
+      // Recipe identity describes space, never the current palette. Otherwise adding
+      // or removing a species changes the ID and silently discards its requested mix.
+      const habitat=waterFor(xy)?'water':shoreDistance(xy)<=1.2?'shore':'land',fullId=id+'-'+habitat;
+      let exact=communities.get(fullId);if(!exact){exact={...community,id:fullId,area:0,rows:[],cells:[],eligible};communities.set(fullId,exact);}
       exact.area+=width*height;const cell={xy,area:width*height,polygon:[[x,y],[x+width,y],[x+width,y+height],[x,y+height]],community:exact};exact.cells.push(cell);cells.push(cell);
     }
     const active=[...communities.values()].filter(c=>c.area>0);
